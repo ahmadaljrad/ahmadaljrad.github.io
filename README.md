@@ -34,7 +34,7 @@
 
 ---
 
-## 3. Linking a Custom Domain `aljrad.com`
+## 3. Linking a Custom Domain `ex.com`
 
 ### 3.1 DNS Records (IPv4 only)
 
@@ -63,7 +63,7 @@
 ---
 
 ## 4. Enabling SSL via Cloudflare
-1. Create an account on [Cloudflare](https://www.cloudflare.com/) and add `aljrad.com`.
+1. Create an account on [Cloudflare](https://www.cloudflare.com/) and add `ex.com`.
 2. Cloudflare imports your DNS records automatically.
 3. Update **Nameservers** at your domain registrar to Cloudflare's Nameservers.
 4. Enable SSL:
