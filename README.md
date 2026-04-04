@@ -16,7 +16,7 @@
 ---
 
 ## 2. Uploading to GitHub
-1. Create a repository named: ahmadaljarad.github.io
+1. Create a repository named: your_username.github.io
    
 2. Upload files via CLI:
    ```bash
@@ -29,7 +29,7 @@
    - Folder: `/` (root)
 4. Temporary URL:
    ```
-   https://ahmadaljarad.github.io
+   https://your_username.github.io
    ```
 
 ---
@@ -49,7 +49,7 @@
 #### CNAME Record
 | Type  | Name/Host | Value |
 |-------|-----------|-------|
-| CNAME | www       | ahmadaljarad.github.io |
+| CNAME | www       | your_username.github.io |
 
 > Wait 1–few hours for DNS propagation.
 
@@ -71,8 +71,8 @@
    - Cloudflare issues the SSL certificate automatically.
 5. Access site securely:
    ```
-   https://aljrad.com
-   https://www.aljrad.com
+   https://ex.com
+   https://www.ex.com
    ```
 
 ---
@@ -90,7 +90,7 @@
 ```text
 +--------------------+       +------------------+       +----------------+
 | Local Files        |  git  | GitHub Repository |  Git   | GitHub Pages   |
-| index.html, ...    | ----> | ahmadaljarad     | ----> | Hosted URL     |
+| index.html, ...    | ----> | your_username     | ----> | Hosted URL     |
 | app.js w/ EmailJS  |       |                  |       |                |
 +--------------------+       +------------------+       +----------------+
                                       |
@@ -108,4 +108,4 @@
                                +----------------+
                                       |
                                       v
-                               https://aljrad.com
+                               https://ex.com
