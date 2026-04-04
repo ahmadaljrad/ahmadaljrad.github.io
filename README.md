@@ -1,9 +1,4 @@
-# ahmadaljrad.github.io
 
-from weasyprint import HTML
-
-# Updated Markdown content including EmailJS note
-markdown_content_updated = """
 # Complete Guide to Hosting a Resume Website on GitHub Pages with Custom Domain and SSL
 
 ## 1. Website Design
@@ -117,11 +112,3 @@ ahmadaljarad.github.io
                                       v
                                https://aljrad.com
 """
-
-# Convert Markdown to HTML
-html_content_updated = HTML(string=markdown_content_updated)
-
-# Output PDF path
-pdf_path_updated = "/mnt/data/GitHub_Pages_Resume_Full_Guide.pdf"
-html_content_updated.write_pdf(pdf_path_updated)
-pdf_path_updated
