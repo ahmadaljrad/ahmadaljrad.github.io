@@ -16,10 +16,8 @@
 ---
 
 ## 2. Uploading to GitHub
-1. Create a repository named:
-   ```
-ahmadaljarad.github.io
-   ```
+1. Create a repository named: ahmadaljarad.github.io
+   
 2. Upload files via CLI:
    ```bash
    git add .
@@ -111,4 +109,3 @@ ahmadaljarad.github.io
                                       |
                                       v
                                https://aljrad.com
-"""
