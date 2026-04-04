@@ -56,8 +56,8 @@
 ### 3.2 Verification
 - Access your site via:
   ```
-  http://aljrad.com
-  http://www.aljrad.com
+  http://ex.com
+  http://www.ex.com
   ```
 
 ---
