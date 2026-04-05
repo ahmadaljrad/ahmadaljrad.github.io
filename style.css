@@ -1,11 +1,40 @@
-/* ─── ULTRA PREMIUM DESIGN SYSTEM ───────────────────────── */
+/* ─── THEME SYSTEM (LIGHT + DARK) ───────────────────────── */
 
 :root {
+    --bg: #F8FAFC;
+    --bg2: #F1F5F9;
+    --bg3: #E2E8F0;
+
+    --surface: rgba(255,255,255,0.7);
+    --glass: rgba(255,255,255,0.6);
+
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.12);
+
+    --text: #020617;
+    --text2: #475569;
+    --text3: #94A3B8;
+
+    --primary: #7C3AED;
+    --secondary: #06B6D4;
+    --accent: #EC4899;
+
+    --grad: linear-gradient(135deg, #7C3AED, #06B6D4, #EC4899);
+
+    --shadow-sm: 0 8px 25px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+
+    --nav-h: 70px;
+}
+
+/* ─── DARK MODE ───────────────────────── */
+
+[data-theme="dark"] {
     --bg: #020617;
     --bg2: #020617;
     --bg3: #0B1220;
 
-    --surface: rgba(255, 255, 255, 0.04);
+    --surface: rgba(255,255,255,0.04);
     --glass: rgba(255,255,255,0.06);
 
     --border: rgba(255,255,255,0.08);
@@ -21,18 +50,17 @@
 
     --grad: linear-gradient(135deg, #7C3AED, #22D3EE, #F472B6);
 
-    --glow: 0 0 40px rgba(124,58,237,0.35);
-
     --shadow-sm: 0 10px 30px rgba(0,0,0,0.4);
     --shadow-lg: 0 25px 80px rgba(0,0,0,0.7);
 }
 
-/* ─── FONTS ───────────────────────────────────────── */
+/* ─── BASE ───────────────────────── */
 
 body {
     font-family: 'Cairo', 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
+    transition: background .4s, color .4s;
 }
 
 .hero-h1,
@@ -40,7 +68,7 @@ body {
     font-family: 'Clash Display', 'Cairo', sans-serif;
 }
 
-/* ─── BACKGROUND MAGIC ───────────────────────── */
+/* ─── BACKGROUND GLOW ───────────────────────── */
 
 body::before {
     content: '';
@@ -49,50 +77,46 @@ body::before {
     z-index: -1;
 
     background:
-        radial-gradient(circle at 20% 30%, rgba(124,58,237,0.25), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(34,211,238,0.2), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(244,114,182,0.15), transparent 60%);
+        radial-gradient(circle at 20% 30%, rgba(124,58,237,0.2), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(34,211,238,0.15), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(236,72,153,0.1), transparent 60%);
 }
 
-/* ─── NAVBAR (APPLE LEVEL) ───────────────────── */
+/* ─── NAVBAR ───────────────────────── */
 
 .navbar {
-    background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(25px);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
 }
 
-/* ─── HERO (WOW EFFECT) ─────────────────────── */
+/* ─── HERO ───────────────────────── */
 
 .hero-h1 {
-    font-size: clamp(4.5rem, 8vw, 7.5rem);
-    line-height: 0.95;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 1;
 
     background: var(--grad);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
-    text-shadow: 0 0 30px rgba(124,58,237,0.4);
 }
 
 .hero-bio {
-    font-size: 1.1rem;
     color: var(--text2);
-    max-width: 600px;
+    font-size: 1.05rem;
 }
 
-/* ─── BUTTONS (PREMIUM GLOW) ─────────────────── */
+/* ─── BUTTONS ───────────────────────── */
 
 .btn {
     border-radius: 14px;
-    position: relative;
-    overflow: hidden;
+    transition: all .3s;
 }
 
 .btn-primary {
     background: var(--grad);
-    box-shadow: var(--glow);
+    box-shadow: 0 0 40px rgba(124,58,237,0.3);
 }
 
 .btn-primary:hover {
@@ -100,34 +124,23 @@ body::before {
     box-shadow: 0 0 60px rgba(124,58,237,0.6);
 }
 
-/* Glow animation */
-.btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--grad);
-    opacity: 0;
-    transition: .4s;
+.btn-ghost {
+    border: 1px solid var(--border2);
 }
 
-.btn-primary:hover::after {
-    opacity: 0.2;
-}
-
-/* ─── GLASS CARDS ───────────────────────────── */
+/* ─── CARDS ───────────────────────── */
 
 .hero-avatar,
 .skill-cell,
 .lang-cell,
 .contact-form-wrap {
     background: var(--glass);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-radius: 18px;
-    box-shadow: var(--shadow-sm);
 }
 
-/* ─── HOVER LIFT EFFECT ───────────────────── */
+/* ─── HOVER EFFECTS ───────────────────────── */
 
 .skill-cell,
 .lang-cell {
@@ -136,11 +149,11 @@ body::before {
 
 .skill-cell:hover,
 .lang-cell:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
 }
 
-/* ─── ICON GLOW ───────────────────────────── */
+/* ─── ICONS ───────────────────────── */
 
 .social-icon {
     border-radius: 12px;
@@ -151,23 +164,23 @@ body::before {
     background: var(--grad);
     color: #fff;
     transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 0 30px rgba(34,211,238,0.6);
 }
 
-/* ─── INPUT FIELDS ───────────────────────── */
+/* ─── FORM ───────────────────────── */
 
 .form-control {
-    background: rgba(255,255,255,0.03);
-    border-radius: 12px;
+    background: transparent;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
 }
 
 .form-control:focus {
     border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(34,211,238,0.25);
+    box-shadow: 0 0 0 3px rgba(34,211,238,0.2);
 }
 
-/* ─── SCROLLBAR PREMIUM ───────────────────── */
+/* ─── SCROLLBAR ───────────────────────── */
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -175,15 +188,15 @@ body::before {
 
 ::-webkit-scrollbar-thumb {
     background: var(--grad);
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
-/* ─── MICRO ANIMATIONS ───────────────────── */
+/* ─── ANIMATIONS ───────────────────────── */
 
 .hero,
 .skill-cell,
 .lang-cell {
-    animation: fadeUp 0.8s ease forwards;
+    animation: fadeUp .8s ease forwards;
 }
 
 @keyframes fadeUp {
@@ -197,7 +210,7 @@ body::before {
     }
 }
 
-/* ─── FLOATING EFFECT (EXTRA LUXURY) ─────── */
+/* ─── FLOAT EFFECT ───────────────────────── */
 
 .hero-avatar {
     animation: float 6s ease-in-out infinite;
@@ -205,5 +218,5 @@ body::before {
 
 @keyframes float {
     0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-10px); }
 }
