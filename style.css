@@ -1,36 +1,33 @@
-/* ─── MODERN THEME UPGRADE ─────────────────────────────── */
+/* ─── ULTRA PREMIUM DESIGN SYSTEM ───────────────────────── */
 
 :root {
-    --bg: #0F172A;
-    --bg2: #111827;
-    --bg3: #1F2937;
+    --bg: #020617;
+    --bg2: #020617;
+    --bg3: #0B1220;
 
-    --surface: rgba(255, 255, 255, 0.05);
+    --surface: rgba(255, 255, 255, 0.04);
+    --glass: rgba(255,255,255,0.06);
 
     --border: rgba(255,255,255,0.08);
-    --border2: rgba(255,255,255,0.12);
+    --border2: rgba(255,255,255,0.14);
 
-    --text: #F9FAFB;
-    --text2: #9CA3AF;
-    --text3: #6B7280;
+    --text: #F8FAFC;
+    --text2: #94A3B8;
+    --text3: #64748B;
 
-    --blue: #6366F1;
-    --blue2: #4F46E5;
-    --teal: #22D3EE;
-    --teal-lt: rgba(34,211,238,0.1);
+    --primary: #7C3AED;
+    --secondary: #22D3EE;
+    --accent: #F472B6;
 
-    --amber: #F59E0B;
-    --amber-lt: rgba(245,158,11,0.1);
+    --grad: linear-gradient(135deg, #7C3AED, #22D3EE, #F472B6);
 
-    --grad: linear-gradient(135deg, #6366F1, #22D3EE);
+    --glow: 0 0 40px rgba(124,58,237,0.35);
 
-    --shadow-sm: 0 4px 20px rgba(0,0,0,0.25);
-    --shadow-md: 0 15px 50px rgba(0,0,0,0.4);
-
-    --nav-h: 70px;
+    --shadow-sm: 0 10px 30px rgba(0,0,0,0.4);
+    --shadow-lg: 0 25px 80px rgba(0,0,0,0.7);
 }
 
-/* ─── FONTS ───────────────────────────────────────────── */
+/* ─── FONTS ───────────────────────────────────────── */
 
 body {
     font-family: 'Cairo', 'Inter', sans-serif;
@@ -38,119 +35,12 @@ body {
     color: var(--text);
 }
 
-body[dir="rtl"] {
-    font-family: 'Cairo', sans-serif;
-}
-
 .hero-h1,
 .sec-h2 {
     font-family: 'Clash Display', 'Cairo', sans-serif;
 }
 
-/* ─── GLASS NAVBAR ───────────────────────────────────── */
-
-.navbar {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-}
-
-/* ─── HERO IMPROVEMENT ───────────────────────────────── */
-
-.hero-h1 {
-    font-size: clamp(4rem, 7vw, 7rem);
-    line-height: 1;
-    letter-spacing: -2px;
-
-    background: var(--grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-bio {
-    color: var(--text2);
-    font-size: 1.05rem;
-}
-
-/* ─── BUTTONS UPGRADE ───────────────────────────────── */
-
-.btn {
-    border-radius: 12px;
-}
-
-.btn-primary {
-    background: var(--grad);
-    box-shadow: 0 10px 30px rgba(99,102,241,0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px) scale(1.02);
-}
-
-.btn-ghost {
-    border-radius: 12px;
-}
-
-/* ─── CARDS / SURFACES ─────────────────────────────── */
-
-.hero-avatar,
-.skill-cell,
-.lang-cell,
-.contact-form-wrap {
-    background: var(--surface);
-    backdrop-filter: blur(14px);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-}
-
-/* ─── HOVER EFFECTS ───────────────────────────────── */
-
-.skill-cell:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: var(--shadow-md);
-}
-
-.lang-cell:hover {
-    transform: translateY(-4px);
-}
-
-/* ─── SOCIAL ICONS ───────────────────────────────── */
-
-.social-icon {
-    border-radius: 10px;
-}
-
-.social-icon:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(99,102,241,0.5);
-}
-
-/* ─── INPUT FIELDS ───────────────────────────────── */
-
-.form-control {
-    border-radius: 10px;
-    background: rgba(255,255,255,0.04);
-}
-
-.form-control:focus {
-    border-color: var(--teal);
-    box-shadow: 0 0 0 3px rgba(34,211,238,0.2);
-}
-
-/* ─── SCROLLBAR ─────────────────────────────────── */
-
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--grad);
-    border-radius: 10px;
-}
-
-/* ─── SOFT BACKGROUND GLOW ───────────────────────── */
+/* ─── BACKGROUND MAGIC ───────────────────────── */
 
 body::before {
     content: '';
@@ -159,6 +49,161 @@ body::before {
     z-index: -1;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(34,211,238,0.15), transparent 40%);
+        radial-gradient(circle at 20% 30%, rgba(124,58,237,0.25), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(34,211,238,0.2), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(244,114,182,0.15), transparent 60%);
+}
+
+/* ─── NAVBAR (APPLE LEVEL) ───────────────────── */
+
+.navbar {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(25px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ─── HERO (WOW EFFECT) ─────────────────────── */
+
+.hero-h1 {
+    font-size: clamp(4.5rem, 8vw, 7.5rem);
+    line-height: 0.95;
+
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: 0 0 30px rgba(124,58,237,0.4);
+}
+
+.hero-bio {
+    font-size: 1.1rem;
+    color: var(--text2);
+    max-width: 600px;
+}
+
+/* ─── BUTTONS (PREMIUM GLOW) ─────────────────── */
+
+.btn {
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--grad);
+    box-shadow: var(--glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 60px rgba(124,58,237,0.6);
+}
+
+/* Glow animation */
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad);
+    opacity: 0;
+    transition: .4s;
+}
+
+.btn-primary:hover::after {
+    opacity: 0.2;
+}
+
+/* ─── GLASS CARDS ───────────────────────────── */
+
+.hero-avatar,
+.skill-cell,
+.lang-cell,
+.contact-form-wrap {
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ─── HOVER LIFT EFFECT ───────────────────── */
+
+.skill-cell,
+.lang-cell {
+    transition: all .35s cubic-bezier(.16,1,.3,1);
+}
+
+.skill-cell:hover,
+.lang-cell:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ─── ICON GLOW ───────────────────────────── */
+
+.social-icon {
+    border-radius: 12px;
+    background: var(--glass);
+}
+
+.social-icon:hover {
+    background: var(--grad);
+    color: #fff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 30px rgba(34,211,238,0.6);
+}
+
+/* ─── INPUT FIELDS ───────────────────────── */
+
+.form-control {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.form-control:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(34,211,238,0.25);
+}
+
+/* ─── SCROLLBAR PREMIUM ───────────────────── */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--grad);
+    border-radius: 20px;
+}
+
+/* ─── MICRO ANIMATIONS ───────────────────── */
+
+.hero,
+.skill-cell,
+.lang-cell {
+    animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── FLOATING EFFECT (EXTRA LUXURY) ─────── */
+
+.hero-avatar {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
 }
