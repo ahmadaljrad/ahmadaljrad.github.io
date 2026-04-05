@@ -158,12 +158,36 @@
           "desc":  { "en": "Business & logistics, practical internships, driving licence Class B.", "de": "Wirtschaft & Logistik, Praktika, Führerschein Klasse B.", "ar": "اقتصاد ولوجستيك، تدريب عملي، رخصة قيادة B." },
           "badge": { "en": "🏅 IHK Certificate", "de": "🏅 IHK-Zertifikat", "ar": "🏅 شهادة IHK" }
         },
-        {
-          "date":  { "en": "Jun – Jul 2025", "de": "Jun–Jul 2025", "ar": "يونيو–يوليو 2025" },
-          "role":  { "en": "Microsoft Windows Server 2022", "de": "Microsoft Windows Server 2022", "ar": "Microsoft Windows Server 2022" },
-          "org":   { "en": "GNF GmbH · Heidelberg / Kaiserslautern", "de": "GNF GmbH · Heidelberg / Kaiserslautern", "ar": "GNF GmbH · هايدلبرغ" },
-          "desc":  { "en": "PowerShell fundamentals, server installation, network configuration, and identity management.", "de": "PowerShell, Server-Installation, Netzwerkkonfiguration, Identitätsverwaltung.", "ar": "PowerShell، تثبيت الخوادم، إعداد الشبكات، إدارة الهويات." }
-        },
+  {
+    "date": { "en": "Aug – Oct 2025", "de": "Aug–Okt 2025", "ar": "أغسطس–أكتوبر 2025" },
+    "role": { "en": "Cloud Expert: Microsoft Azure Administration", "de": "Cloud Experte: Microsoft Azure Administration", "ar": "خبير سحابة: إدارة Microsoft Azure" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "Managing Azure identities and governance; implementing and managing storage; deploying and managing compute resources; configuring virtual networks; monitoring and securing Azure resources.",
+      "de": "Verwalten von Azure-Identitäten und -Governance; Implementierung und Verwaltung von Speicher; Bereitstellung und Verwaltung von Rechenressourcen; Konfiguration virtueller Netzwerke; Überwachung und Sicherung von Azure-Ressourcen.",
+      "ar": "إدارة هويات Azure والحوكمة؛ تنفيذ وإدارة التخزين؛ نشر وإدارة موارد الحوسبة؛ إعداد الشبكات الافتراضية؛ مراقبة وتأمين موارد Azure."
+    }
+  },
+  {
+    "date": { "en": "Jul – Aug 2025", "de": "Jul–Aug 2025", "ar": "يوليو–أغسطس 2025" },
+    "role": { "en": "Microsoft Cloud: Microsoft 365 & Azure", "de": "Microsoft Cloud: Microsoft 365 & Azure", "ar": "Microsoft Cloud: ‏Microsoft 365 و Azure" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "Microsoft 365 services and concepts; security, compliance, licensing and support; Azure concepts, architecture, services, governance; cloud concepts, pricing models, and lifecycle agreements.",
+      "de": "Microsoft 365 Dienste und Konzepte; Sicherheit, Compliance, Lizenzierung und Support; Azure-Konzepte, Architektur und Services sowie Governance; Cloud-Konzepte, Preismodelle und Lebenszyklen.",
+      "ar": "خدمات ومفاهيم Microsoft 365؛ الأمان والامتثال والترخيص والدعم؛ مفاهيم Azure والهندسة والخدمات والحوكمة؛ مفاهيم السحابة والتسعير ودورات الحياة."
+    }
+  },
+  {
+    "date": { "en": "Jun – Jul 2025", "de": "Jun–Jul 2025", "ar": "يونيو–يوليو 2025" },
+    "role": { "en": "Microsoft Windows Server 2022", "de": "Microsoft Windows Server 2022", "ar": "Microsoft Windows Server 2022" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "PowerShell automation and scripting; Windows Server installation and configuration; network management (DNS, DHCP); Active Directory and identity management; virtualization and infrastructure management.",
+      "de": "PowerShell Automatisierung und Skripting; Installation und Konfiguration von Windows Server; Netzwerkmanagement (DNS, DHCP); Active Directory und Identitätsmanagement; Virtualisierung und Infrastrukturverwaltung.",
+      "ar": "أتمتة PowerShell والبرمجة النصية؛ تثبيت وإعداد Windows Server؛ إدارة الشبكات (DNS، DHCP)؛ Active Directory وإدارة الهويات؛ الافتراضية وإدارة البنية التحتية."
+    }
+  },
         {
           "date":  { "en": "Mar – Apr 2025", "de": "Mär–Apr 2025", "ar": "مارس–أبريل 2025" },
           "role":  { "en": "Competence Assessment for Engineers", "de": "Kompetenzfeststellung für Ingenieure", "ar": "تقييم كفاءات المهندسين" },
