@@ -36,4 +36,45 @@
 <script>
 async function loadTasks() {
   try {
-    const response = await
+    const response = await fetch('tasks.txt'); // إذا الملف في مجلد فرعي، ضع path صحيح
+    const data = await response.text();
+    const container = document.getElementById('tasks-container');
+
+    data.split('\n').forEach(line => {
+      if (!line.trim()) return;
+
+      const firstDot = line.indexOf('.');
+      if (firstDot === -1) return;
+
+      const num = line.substring(0, firstDot).trim();
+      const rest = line.substring(firstDot + 1).trim();
+
+      // تقسيم rest عند أول نقطة لتحديد العنوان والوصف
+      const secondDot = rest.indexOf('.');
+      let title, desc;
+      if (secondDot === -1) {
+        title = rest;
+        desc = '';
+      } else {
+        title = rest.substring(0, secondDot).trim();
+        desc = rest.substring(secondDot + 1).trim();
+      }
+
+      const div = document.createElement('div');
+      div.className = 'task';
+      div.innerHTML = `
+        <h2>${num}. ${title}</h2>
+        <textarea readonly>${desc}</textarea>
+      `;
+      div.addEventListener('click', () => div.classList.toggle('active'));
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error('خطأ في تحميل المهام:', err);
+  }
+}
+
+loadTasks();
+</script>
+</body>
+</html>
