@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Lara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background: #f9f3f0;
+            color: #000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        header img.logo {
+            height: 40px;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 15px;
+        }
+
+        .language-switcher button {
+            background: none;
+            border: 1px solid #333;
+            padding: 8px 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .language-switcher button:hover {
+            background-color: #ef4b69;
+            color: #fff;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 100px 20px;
+            background-image: url('https://images.unsplash.com/photo-1555554783-a60a42596552'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+
+        h1.name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3em;
+        }
+
+        .tagline {
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .cta-button {
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: #ef4b69;
+            color: white;
+            border: none;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #c7354d;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .product-card {
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .product-card p {
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.2);
+            color: #000;
+            font-size: 0.9em;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        footer .footer-logo {
+            height: 25px;
+            margin-bottom: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #ef4b69;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .socials a {
+            margin: 0 10px;
+            font-size: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px;
+            }
+            .cta-button {
+                padding: 10px 20px;
+            }
+            .hero {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img class="logo" src="https://i.postimg.cc/j6VY8yXj.png" alt="Boutique Lara Logo">
+    <div class="language-switcher">
+        <button onclick="switchLanguage('de')">DE</button>
+        <button onclick="switchLanguage('ru')">РУ</button>
+    </div>
+</header>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1 class="name">Boutique Lara</h1>
+        <p class="tagline">"Eleganz & Stil für moderne Frauen"</p>
+        <button class="cta-button" onclick="document.location='products.html'">Kollektion entdecken</button>
+    </div>
+</div>
+
+<section class="products-grid">
+    <div class="product-card">
+        <img src="https://i.postimg.cc/QC4y77q2.png" alt="Red Dress">
+        <p>Красный Силуэт (Red Dress) <br><strong>$299</strong></p>
+    </div>
+    <div class="product-card">
+        <img src="https://i.postimg.cc/tj4Dp9Yj.png" alt="Leather Bag">
+        <p>Черная Кожаная Сумка (Leather Bag) <br><strong>$199</strong></p>
+    </div>
+    <div class="product-card">
+        <img src="https://i.postimg.cc/Qf0yY00q.png" alt="Gold Earrings">
+        <p>Золотые Сережки (Gold Earrings) <br><strong>$79</strong></p>
+    </div>
+</section>
+
+<section class="about" id="about">
+    <div class="about-text" style="max-width: 600px; margin: auto; padding: 40px 20px;">
+        <h2 style="font-family: 'Great Vibes', cursive;">"Boutique Lara"</h2>
+        <p>Boutique Lara kombiniert die Welt der hohen Mode mit individuellem Stil. Jedes Kleidungsstück wird sorgfältig von internationalen Designer Labels ausgewählt, um moderne Frauen mit zeitlosen Looks zu begeistern.</p>
+        <img src="https://i.postimg.cc/pj4q8V2W.png" alt="Boutique Team" style="margin-top: 20px;">
+    </div>
+</section>
+
+<section class="contact" id="contact">
+    <div class="contact-form">
+        <h2 style="font-family: 'Great Vibes', cursive; margin-bottom: 20px;">Kontakt</h2>
+        <form action="mailto:boutique@lara.com" method="POST" style="max-width: 500px; margin: auto;">
+            <input type="text" name="name" placeholder="Name (Имя)" required>
+            <input type="email" name="email" placeholder="Email (Эл. адрес)" required>
+            <textarea name="message" placeholder="Nachricht... (Сообщение...)" rows="5" required></textarea>
+            <button type="submit">Senden (Отправить)</button>
+        </form>
+    </div>
+</section>
+
+<section class="map-container">
+    <iframe src="https://www.google.com/maps/embed/v1/place?q=Brandenburg+Gate,Berlin&key=YOUR_GOOGLE_MAPS_API_KEY"
+        width="100%" height="450" style="border:0; border-radius: 10px; filter: grayscale(0.2); box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    </iframe>
+</section>
+
+<footer>
+    <img class="footer-logo" src="https://i.postimg.cc/j6VY8yXj.png" alt="Boutique Lara Logo Mini">
+    <p style="text-align:center; margin: 15px 0;">© 2025 Boutique Lara | <a href="#about">Über uns</a> | <a href="#contact">Kontakt</a></p>
+    <div class="socials">
+        <a href="https://instagram.com/boutique.lara" target="_blank">📷 Instagram</a>
+        <a href="https://facebook.com/boutique.lara" target="_blank">🇫 Facebook</a>
+        <a href="whatsapp://send?text=Здравствуйте! Я заинтересован в вашем ассортименте.&phone=4917612345678" target="_blank">📱 WhatsApp</a>
+    </div>
+</footer>
+
+<script>
+    // Language switching logic
+    document.querySelectorAll('.language-switcher button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.textContent;
+            document.querySelectorAll('h1.name').forEach(el => el.textContent = lang === 'DE' ? 'Boutique Lara' : 'Бутик Лара');
+            document.querySelectorAll('.tagline').forEach(el => {
+                el.textContent = lang === 'DE' ? "Eleganz & Stil für moderne Frauen" : "Элегантность и стиль для современных женщин";
+            });
+            document.querySelectorAll('.cta-button').forEach(el => {
+                el.textContent = lang === 'DE' ? "Kollektion entdecken" : "Открыть коллекцию";
+            });
+            document.querySelectorAll('.contact-form input, .contact-form textarea, .contact-form button').forEach(input => {
+                input.placeholder = input.placeholder.replaceAll("Name (", "").replaceAll(")", "") + (lang === 'DE' ? ") : (Имя)");
+                input.value = "";
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
