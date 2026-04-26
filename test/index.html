@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ALJRAD Digital Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#2563eb; --blue-l:#3b82f6; --blue-d:#1d4ed8;
+  --blue-bg:#eff6ff; --gray:#6b7280; --dark:#111827; --white:#fff;
+  --radius:12px;
+  --shadow:0 4px 24px rgba(37,99,235,.10);
+  --shadow-lg:0 8px 40px rgba(37,99,235,.18);
+  --green:#25D366;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;color:var(--dark);background:var(--white);direction:rtl;overflow-x:hidden;}
+body.ltr{font-family:'Poppins',sans-serif;direction:ltr;}
+
+/* ══ LANGUAGE BAR ══ */
+.lang-bar{
+  background:#0f172a;
+  display:flex;justify-content:center;align-items:center;
+  gap:8px;padding:9px 16px;flex-wrap:wrap;
+}
+.lang-btn{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.07);
+  border:1.5px solid rgba(255,255,255,.14);
+  color:#94a3b8;padding:7px 16px 7px 12px;
+  border-radius:30px;cursor:pointer;
+  font-size:13px;font-weight:600;font-family:inherit;
+  transition:all .22s;white-space:nowrap;
+}
+.lang-btn .flag{font-size:21px;line-height:1;}
+.lang-btn:hover{background:rgba(37,99,235,.25);border-color:var(--blue-l);color:#fff;}
+.lang-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 2px 14px rgba(37,99,235,.45);}
+
+/* ══ NAVBAR ══ */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 48px;background:#fff;
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.logo-icon{width:40px;height:40px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-icon svg{width:24px;height:24px;}
+.logo-text .brand{font-size:18px;font-weight:900;color:var(--dark);letter-spacing:.8px;}
+.logo-text .sub{font-size:8.5px;font-weight:500;color:var(--gray);letter-spacing:2px;text-transform:uppercase;}
+
+.nav-links{display:flex;gap:26px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--dark);font-weight:600;font-size:14px;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--blue);}
+
+.nav-cta{
+  background:var(--blue);color:#fff;padding:9px 20px;border-radius:8px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--blue-d);transform:translateY(-1px);}
+
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:42px;height:42px;
+  background:none;border:1.5px solid #e5e7eb;cursor:pointer;
+  border-radius:9px;transition:all .2s;
+}
+.hamburger:hover{background:var(--blue-bg);border-color:var(--blue-l);}
+.hamburger span{display:block;width:22px;height:2px;background:var(--dark);border-radius:3px;transition:all .3s ease;transform-origin:center;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:190;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.mobile-overlay.open{opacity:1;pointer-events:all;}
+
+.mobile-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:76%;max-width:300px;
+  background:#fff;z-index:195;
+  transform:translateX(105%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  box-shadow:-6px 0 32px rgba(0,0,0,.18);
+  padding-top:70px;
+}
+body.ltr .mobile-drawer{right:auto;left:0;transform:translateX(-105%);}
+.mobile-drawer.open{transform:translateX(0);}
+body.ltr .mobile-drawer.open{transform:translateX(0);}
+
+.drawer-header{
+  padding:0 24px 20px;
+  border-bottom:1px solid #f0f0f0;
+  margin-bottom:8px;
+}
+.drawer-header .brand-sm{font-size:16px;font-weight:900;color:var(--blue);}
+.drawer-header .sub-sm{font-size:10px;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;}
+
+.drawer-links{list-style:none;flex:1;overflow-y:auto;}
+.drawer-links li a{
+  display:flex;align-items:center;gap:10px;
+  padding:15px 24px;font-size:15px;font-weight:600;
+  color:var(--dark);text-decoration:none;
+  border-bottom:1px solid #f3f4f6;transition:all .2s;
+}
+.drawer-links li a:hover{color:var(--blue);background:#f8faff;padding-right:30px;}
+body.ltr .drawer-links li a:hover{padding-right:24px;padding-left:30px;}
+.drawer-links li a.active{color:var(--blue);}
+.drawer-links li a .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+.drawer-cta{padding:20px 24px 30px;}
+.drawer-cta a{
+  background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px;border-radius:10px;font-weight:700;font-size:15px;
+  text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,.35);
+  transition:all .2s;
+}
+.drawer-cta a:hover{background:var(--blue-d);}
+
+/* ══ HERO ══ */
+.hero{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:64px 48px 60px;
+  background:linear-gradient(135deg,#f8faff 0%,#eff6ff 100%);
+  position:relative;overflow:hidden;min-height:520px;
+}
+.hero::before{
+  content:'';position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 70%);
+  top:-100px;left:-100px;pointer-events:none;
+}
+.hero-content{max-width:450px;position:relative;z-index:2;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid #dbeafe;color:var(--blue);
+  padding:6px 15px;border-radius:20px;font-size:13.5px;font-weight:600;margin-bottom:20px;
+}
+.hero-badge::before{content:'›';font-size:18px;}
+.hero h1{font-size:48px;font-weight:900;line-height:1.2;margin-bottom:16px;color:var(--dark);}
+.hero h1 .blue{color:var(--blue);}
+.hero p{color:var(--gray);font-size:16px;line-height:1.7;margin-bottom:28px;font-weight:500;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+.btn-primary{
+  background:var(--blue);color:#fff;padding:12px 26px;border-radius:8px;
+  font-weight:700;font-size:15px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .2s;box-shadow:0 4px 16px rgba(37,99,235,.32);
+}
+.btn-primary:hover{background:var(--blue-d);transform:translateY(-2px);}
+.btn-secondary{
+  background:#fff;color:var(--dark);padding:12px 26px;border-radius:8px;
+  font-weight:700;font-size:15px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  border:2px solid #e5e7eb;transition:all .2s;
+}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+
+.hero-visual{position:relative;flex-shrink:0;width:450px;height:360px;}
+.mockup-laptop{
+  position:absolute;left:0;bottom:0;width:390px;
+  background:#1e293b;border-radius:13px 13px 0 0;padding:9px 9px 0;
+  box-shadow:var(--shadow-lg);
+}
+.mlscreen{background:#fff;border-radius:7px 7px 0 0;height:220px;overflow:hidden;padding:10px;}
+.sbar{background:var(--blue);height:21px;border-radius:4px;margin-bottom:8px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;gap:4px;}
+.sbar span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.55);}
+.scontent{display:flex;gap:10px;padding:4px;}
+.sl{flex:1.3;}
+.sl .st{font-size:9px;font-weight:800;color:var(--dark);margin-bottom:4px;line-height:1.35;}
+.sl .sd{font-size:6px;color:var(--gray);line-height:1.45;margin-bottom:5px;}
+.sl .sb{background:var(--blue);color:#fff;font-size:6px;font-weight:700;padding:3px 7px;border-radius:3px;display:inline-block;}
+.sr{flex:1;display:flex;flex-direction:column;gap:5px;}
+.schart{background:var(--blue-bg);border-radius:5px;height:52px;display:flex;align-items:flex-end;padding:5px;gap:2.5px;}
+.schart .b{background:var(--blue);border-radius:2px 2px 0 0;flex:1;}
+.sblock{background:var(--blue-bg);border-radius:5px;height:42px;padding:7px;display:flex;flex-direction:column;gap:4px;justify-content:center;}
+.sblock .ln{background:#dbeafe;border-radius:3px;height:5px;}
+.sblock .ln.s{width:55%;}
+.sblock .ln.bb{background:var(--blue);height:13px;width:36%;border-radius:3px;margin-top:2px;}
+
+.mockup-phone{
+  position:absolute;right:0;top:0;width:126px;
+  background:#1e293b;border-radius:18px;padding:7px;
+  box-shadow:var(--shadow-lg);
+}
+.mpscreen{background:#fff;border-radius:13px;height:185px;overflow:hidden;padding:7px;}
+.pbar{background:var(--blue);height:15px;border-radius:3px;margin-bottom:5px;}
+.plines{display:flex;flex-direction:column;gap:3px;padding:2px;}
+.plines .pl{background:#e0e7ff;border-radius:2px;height:4px;}
+.plines .pl.s{width:60%;}
+.ptit{padding:3px 3px;font-size:6px;font-weight:800;color:var(--dark);line-height:1.3;}
+.pdsc{padding:0 3px;font-size:5px;color:var(--gray);line-height:1.4;margin-bottom:3px;}
+.pbtn{background:var(--blue);border-radius:3px;height:11px;width:48%;margin:3px;}
+.pchart{margin:3px;background:var(--blue-bg);border-radius:4px;height:44px;display:flex;align-items:flex-end;padding:4px;gap:2px;}
+.pchart .cb{background:var(--blue);border-radius:1px;flex:1;}
+
+.dots-deco{position:absolute;bottom:8px;right:6px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;opacity:.18;}
+.dots-deco span{width:4px;height:4px;border-radius:50%;background:var(--blue);display:block;}
+
+/* ══ STATS BAR ══ */
+.stats-bar{
+  display:flex;justify-content:space-around;align-items:center;
+  background:#fff;box-shadow:var(--shadow);border-radius:16px;
+  margin:-26px 48px 0;padding:26px 32px;position:relative;z-index:10;
+  gap:14px;flex-wrap:wrap;
+}
+.stat-item{display:flex;align-items:center;gap:13px;}
+.stat-icon{width:48px;height:48px;background:var(--blue-bg);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.stat-icon svg{width:22px;height:22px;}
+.stat-num{font-size:20px;font-weight:800;color:var(--dark);}
+.stat-lbl{font-size:12px;font-weight:600;color:var(--gray);}
+.sdiv{width:1px;height:50px;background:#e5e7eb;}
+
+/* ══ SECTIONS ══ */
+section{padding:70px 48px;}
+.sec-label{color:var(--blue);font-size:12.5px;font-weight:700;text-align:center;margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;}
+.sec-title{font-size:32px;font-weight:800;text-align:center;margin-bottom:12px;color:var(--dark);}
+.sec-desc{text-align:center;color:var(--gray);font-size:15px;line-height:1.7;max-width:490px;margin:0 auto 48px;}
+
+/* ══ SERVICES ══ */
+.services{background:#f8faff;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto;}
+.svc-card{
+  background:#fff;border-radius:var(--radius);padding:28px 22px 22px;text-align:center;
+  box-shadow:0 2px 14px rgba(0,0,0,.06);transition:all .3s;border:1.5px solid transparent;
+}
+.svc-card:hover{border-color:var(--blue-l);box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.svc-icon{width:62px;height:62px;background:var(--blue-bg);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.svc-icon svg{width:28px;height:28px;}
+.svc-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+.svc-card > p{font-size:13px;color:var(--gray);line-height:1.65;margin-bottom:12px;}
+
+/* Service details */
+.svc-detail{
+  text-align:right;background:#f8faff;border-radius:8px;padding:12px 14px;margin-bottom:10px;
+}
+body.ltr .svc-detail{text-align:left;}
+.svc-detail-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px;}
+.svc-detail p{font-size:11.5px;color:var(--gray);line-height:1.6;margin:0;}
+.svc-example{
+  background:#fff3cd;border-radius:7px;padding:8px 12px;
+  font-size:11px;color:#7d5a00;font-weight:600;text-align:right;
+  border-right:3px solid #ffc107;
+}
+body.ltr .svc-example{text-align:left;border-right:none;border-left:3px solid #ffc107;}
+.svc-example::before{content:"💡 ";font-size:13px;}
+
+/* ══ PRICING ══ */
+.pricing{background:#fff;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto 50px;}
+.price-card{
+  border-radius:16px;padding:32px 24px;border:2px solid #e5e7eb;
+  transition:all .3s;position:relative;background:#fff;
+}
+.price-card:hover{border-color:var(--blue-l);box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.price-card.popular{border-color:var(--blue);background:linear-gradient(160deg,#eff6ff 0%,#fff 100%);}
+.popular-badge{
+  position:absolute;top:-14px;right:50%;transform:translateX(50%);
+  background:var(--blue);color:#fff;
+  font-size:11.5px;font-weight:700;padding:4px 16px;border-radius:20px;
+  white-space:nowrap;
+}
+.price-card-icon{width:52px;height:52px;background:var(--blue-bg);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.price-card-icon svg{width:26px;height:26px;}
+.price-card h3{font-size:18px;font-weight:800;margin-bottom:6px;}
+.price-amount{font-size:30px;font-weight:900;color:var(--blue);margin-bottom:4px;}
+.price-amount span{font-size:14px;font-weight:600;color:var(--gray);}
+.price-note{font-size:11.5px;color:var(--gray);margin-bottom:18px;}
+.price-features{list-style:none;margin-bottom:22px;}
+.price-features li{font-size:13px;color:var(--dark);padding:6px 0;border-bottom:1px solid #f3f4f6;
+  display:flex;align-items:center;gap:8px;font-weight:500;}
+.price-features li::before{content:"✓";color:var(--blue);font-weight:800;font-size:13px;flex-shrink:0;}
+.price-btn{
+  background:var(--blue);color:#fff;width:100%;padding:11px;border-radius:9px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;border:none;cursor:pointer;font-family:inherit;
+}
+.price-btn:hover{background:var(--blue-d);}
+.price-card:not(.popular) .price-btn{background:#fff;color:var(--blue);border:2px solid var(--blue);}
+.price-card:not(.popular) .price-btn:hover{background:var(--blue);color:#fff;}
+
+/* ══ CALCULATOR ══ */
+.calculator{
+  background:linear-gradient(135deg,#f8faff,#eff6ff);
+  border-radius:20px;max-width:820px;margin:0 auto;
+  padding:36px 40px;border:1.5px solid #dbeafe;
+}
+.calc-title{font-size:22px;font-weight:800;margin-bottom:6px;color:var(--dark);}
+.calc-desc{font-size:13.5px;color:var(--gray);margin-bottom:28px;}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.calc-item{background:#fff;border-radius:10px;padding:14px 16px;border:1.5px solid #e5e7eb;cursor:pointer;transition:all .2s;}
+.calc-item:hover{border-color:var(--blue-l);}
+.calc-item.selected{border-color:var(--blue);background:#eff6ff;}
+.calc-item label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13.5px;font-weight:600;}
+.calc-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);cursor:pointer;flex-shrink:0;}
+.calc-item-price{font-size:12px;color:var(--blue);font-weight:700;margin-top:3px;margin-right:26px;}
+body.ltr .calc-item-price{margin-right:0;margin-left:26px;}
+.calc-result{
+  background:#fff;border-radius:12px;padding:20px 24px;
+  border:2px solid var(--blue);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.calc-result-label{font-size:15px;font-weight:700;color:var(--dark);}
+.calc-result-amount{font-size:28px;font-weight:900;color:var(--blue);}
+.calc-result-note{font-size:11.5px;color:var(--gray);margin-top:2px;}
+.calc-contact-btn{
+  background:var(--blue);color:#fff;padding:11px 24px;border-radius:9px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;transition:all .2s;border:none;cursor:pointer;font-family:inherit;
+  white-space:nowrap;
+}
+.calc-contact-btn:hover{background:var(--blue-d);}
+
+/* ══ CTA BANNER ══ */
+.cta-banner{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-d) 100%);
+  border-radius:20px;margin:0 48px;padding:46px 52px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:26px;position:relative;overflow:hidden;
+}
+.cta-banner::before{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.06);top:-90px;left:-60px;}
+.cta-banner::after{content:'';position:absolute;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.04);bottom:-55px;right:170px;}
+.cta-text h2{font-size:25px;font-weight:800;color:#fff;margin-bottom:6px;}
+.cta-text p{color:rgba(255,255,255,.84);font-size:14.5px;}
+.cta-actions{display:flex;align-items:center;gap:12px;flex-shrink:0;flex-wrap:wrap;}
+.cta-phone{display:flex;align-items:center;gap:9px;color:#fff;font-weight:700;font-size:15px;direction:ltr;text-decoration:none;}
+.cta-phone:hover{opacity:.88;}
+.cta-phone-ic{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cta-phone-ic.phone-ic{background:rgba(255,255,255,.15);}
+.cta-phone-ic.wa-ic{background:#25D366;}
+.cta-phone-ic.mail-ic{background:rgba(255,255,255,.15);}
+.btn-white{
+  background:#fff;color:var(--blue);padding:10px 20px;border-radius:8px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:7px;
+  box-shadow:0 4px 14px rgba(0,0,0,.1);transition:all .2s;white-space:nowrap;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.15);}
+
+.contact-links-row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+
+/* ══ FOOTER FEATURES ══ */
+.footer-features{padding:42px 48px;background:#fff;border-top:1px solid #f0f0f0;}
+.ff-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.ff-item{display:flex;align-items:center;gap:12px;}
+.ff-icon{width:44px;height:44px;background:var(--blue-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ff-icon svg{width:20px;height:20px;}
+.ff-text h4{font-size:13.5px;font-weight:700;margin-bottom:2px;}
+.ff-text p{font-size:12px;color:var(--gray);}
+
+/* ══ FOOTER ══ */
+footer{
+  background:#0f172a;padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;
+}
+.footer-brand{display:flex;align-items:center;gap:10px;}
+.footer-brand .brand{font-size:16px;font-weight:900;color:#fff;}
+.footer-brand .sub{font-size:10px;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;}
+.footer-contact{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.footer-link{
+  display:flex;align-items:center;gap:7px;color:#94a3b8;text-decoration:none;
+  font-size:13px;font-weight:600;transition:color .2s;
+}
+.footer-link:hover{color:#fff;}
+.footer-link svg{flex-shrink:0;}
+.footer-copy{color:#475569;font-size:12px;}
+
+/* ══ FLOATING WHATSAPP ══ */
+.wa-float{
+  position:fixed;bottom:24px;left:24px;z-index:999;
+  width:54px;height:54px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.45);
+  text-decoration:none;transition:all .2s;
+}
+body.ltr .wa-float{left:auto;right:24px;}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.55);}
+
+/* ══ ANIMATIONS ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.hero-content{animation:fadeUp .65s ease both;}
+.hero-visual{animation:fadeUp .65s .14s ease both;}
+
+/* ══ TABLET ≤ 900px ══ */
+@media(max-width:900px){
+  nav{padding:12px 18px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+
+  .hero{flex-direction:column;padding:32px 20px 40px;text-align:center;min-height:auto;}
+  .hero-content{max-width:100%;}
+  .hero-btns{justify-content:center;}
+  .hero h1{font-size:32px;}
+  .hero-visual{width:100%;height:280px;margin-top:24px;position:relative;}
+  .mockup-laptop{width:280px;left:50%;transform:translateX(-55%);bottom:0;}
+  .mockup-phone{width:100px;right:10%;top:0;}
+  .mpscreen{height:150px;}
+  .mlscreen{height:200px;}
+
+  .stats-bar{margin:16px 16px 0;padding:20px 16px;}
+  .sdiv{display:none;}
+  .stat-item{flex-direction:column;align-items:center;text-align:center;gap:6px;}
+  .stat-icon{width:40px;height:40px;}
+  .stat-icon svg{width:18px;height:18px;}
+
+  section{padding:46px 20px;}
+  .sec-title{font-size:25px;}
+  .svc-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr 1fr;}
+
+  .cta-banner{margin:0 18px;flex-direction:column;text-align:center;padding:30px 24px;}
+  .cta-actions{justify-content:center;}
+  .contact-links-row{justify-content:center;}
+
+  .footer-features{padding:30px 18px;}
+  .ff-grid{grid-template-columns:1fr 1fr;}
+
+  footer{padding:24px 18px;flex-direction:column;text-align:center;}
+  .footer-contact{justify-content:center;}
+
+  .calculator{padding:24px 20px;}
+  .calc-grid{grid-template-columns:1fr;}
+}
+
+/* ══ MOBILE ≤ 520px ══ */
+@media(max-width:520px){
+  .lang-btn .lang-lbl{display:none;}
+  .lang-btn{padding:7px 11px;}
+
+  .hero{padding:24px 16px 32px;}
+  .hero h1{font-size:26px;line-height:1.3;}
+  .hero p{font-size:14px;margin-bottom:20px;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .hero-btns .btn-primary,.hero-btns .btn-secondary{width:100%;justify-content:center;}
+  
+  .hero-visual{height:auto;min-height:240px;margin-top:20px;width:100%;}
+  .mockup-laptop{width:240px;left:50%;transform:translateX(-58%);bottom:10px;}
+  .mockup-phone{width:90px;right:8%;top:10px;}
+  .mpscreen{height:130px;}
+  .mlscreen{height:180px;}
+
+  .svc-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .sec-title{font-size:20px;}
+
+  .ff-grid{grid-template-columns:1fr;}
+
+  .stats-bar{flex-direction:column;align-items:center;gap:16px;padding:20px 16px;text-align:center;}
+  .stat-item{flex-direction:column;align-items:center;gap:8px;}
+  .stat-num{font-size:18px;}
+  .stat-lbl{font-size:11px;}
+
+  .cta-banner{margin:0 12px;padding:28px 20px;}
+  .cta-text h2{font-size:20px;}
+  .cta-text p{font-size:13px;}
+  .cta-actions{flex-direction:column;width:100%;}
+  .contact-links-row{justify-content:center;width:100%;}
+  .cta-phone{font-size:13px;}
+  .btn-white{width:100%;justify-content:center;}
+
+  .calc-result{flex-direction:column;align-items:center;gap:16px;text-align:center;}
+  .calc-result-amount{font-size:26px;}
+  .calc-contact-btn{width:100%;justify-content:center;}
+
+  .popular-badge{font-size:10px;padding:3px 12px;}
+  
+  .price-card{padding:24px 18px;}
+  .price-amount{font-size:26px;}
+  
+  .calculator{padding:20px 16px;}
+  .calc-grid{gap:10px;}
+  .calc-item{padding:12px;}
+  
+  .drawer-links li a{padding:14px 20px;font-size:14px;}
+  .drawer-cta{padding:16px 20px 24px;}
+  
+  .footer-features{padding:24px 16px;}
+  .ff-item{flex-direction:column;text-align:center;gap:8px;}
+  
+  footer{padding:20px 16px;gap:16px;}
+  .footer-contact{flex-direction:column;gap:10px;}
+  
+  .svc-card{padding:22px 16px 18px;}
+  .svc-detail{padding:10px 12px;}
+  .svc-example{padding:8px 10px;font-size:10.5px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LANGUAGE BAR ══ -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ar')">
+    <span class="flag">🇸🇦</span>
+    <span class="lang-lbl">العربية</span>
+  </button>
+  <button class="lang-btn" onclick="setLang('en')">
+    <span class="flag">🇬🇧</span>
+    <span class="lang-lbl">English</span>
+  </button>
+  <button class="lang-btn" onclick="setLang('de')">
+    <span class="flag">🇩🇪</span>
+    <span class="lang-lbl">Deutsch</span>
+  </button>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-icon">
+      <svg viewBox="0 0 26 26" fill="none">
+        <path d="M3 20L13 4L23 20" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 14H19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <div class="brand">ALJRAD</div>
+      <div class="sub">Digital Solutions</div>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active" data-ar="الرئيسية" data-en="Home" data-de="Startseite">الرئيسية</a></li>
+    <li><a href="#services" data-ar="الخدمات" data-en="Services" data-de="Leistungen">الخدمات</a></li>
+    <li><a href="#pricing" data-ar="الأسعار" data-en="Pricing" data-de="Preise">الأسعار</a></li>
+    <li><a href="#contact" data-ar="اتصل بنا" data-en="Contact" data-de="Kontakt">اتصل بنا</a></li>
+  </ul>
+
+  <a class="nav-cta" href="#contact">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <span data-ar="تواصل معنا" data-en="Contact Us" data-de="Kontakt">تواصل معنا</span>
+  </a>
+
+  <button class="hamburger" id="hbg" aria-label="Toggle menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ MOBILE OVERLAY ══ -->
+<div class="mobile-overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="mobile-drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="brand-sm">ALJRAD</div>
+    <div class="sub-sm">Digital Solutions</div>
+  </div>
+  <ul class="drawer-links">
+    <li><a href="#" class="active" onclick="closeMenu()" data-ar="الرئيسية" data-en="Home" data-de="Startseite"><span class="dot"></span>الرئيسية</a></li>
+    <li><a href="#services" onclick="closeMenu()" data-ar="الخدمات" data-en="Services" data-de="Leistungen"><span class="dot"></span>الخدمات</a></li>
+    <li><a href="#pricing" onclick="closeMenu()" data-ar="الأسعار" data-en="Pricing" data-de="Preise"><span class="dot"></span>الأسعار</a></li>
+    <li><a href="#contact" onclick="closeMenu()" data-ar="اتصل بنا" data-en="Contact" data-de="Kontakt"><span class="dot"></span>اتصل بنا</a></li>
+  </ul>
+  <div class="drawer-cta">
+    <a href="#contact" onclick="closeMenu()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span data-ar="تواصل معنا" data-en="Contact Us" data-de="Kontakt">تواصل معنا</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge" data-ar="حلول رقمية متكاملة" data-en="Integrated Digital Solutions" data-de="Integrierte digitale Lösungen">حلول رقمية متكاملة</div>
+    <h1>
+      <span data-ar="نحو نجاح" data-en="Towards the Success of" data-de="Zum Erfolg Ihres">نحو نجاح</span><br>
+      <span class="blue" data-ar="مشروعك الرقمي" data-en="Your Digital Business" data-de="digitalen Projekts">مشروعك الرقمي</span>
+    </h1>
+    <p data-ar="نقدم لك كل ما تحتاجه لبدء وتطوير عملك عبر الإنترنت بأحدث التقنيات وبأسعار مناسبة."
+       data-en="We provide everything you need to start and grow your business online with the latest technologies and affordable prices."
+       data-de="Wir bieten alles, was Sie brauchen, um Ihr Online-Geschäft mit modernsten Technologien und fairen Preisen zu starten.">نقدم لك كل ما تحتاجه لبدء وتطوير عملك عبر الإنترنت بأحدث التقنيات وبأسعار مناسبة.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#pricing">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span data-ar="ابدأ الآن" data-en="Start Now" data-de="Jetzt starten">ابدأ الآن</span>
+      </a>
+      <a class="btn-secondary" href="#services">
+        <span data-ar="عرض الخدمات" data-en="View Services" data-de="Leistungen ansehen">عرض الخدمات</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="mockup-laptop">
+      <div class="mlscreen">
+        <div class="sbar"><span></span><span></span><span></span></div>
+        <div style="display:flex;gap:5px;padding:0 5px 5px;margin-bottom:3px;">
+          <div style="flex:1;height:6px;background:#e0e7ff;border-radius:3px;"></div>
+          <div style="flex:1;height:6px;background:#e0e7ff;border-radius:3px;"></div>
+          <div style="flex:1;height:6px;background:#e0e7ff;border-radius:3px;"></div>
+          <div style="width:32px;height:6px;background:var(--blue);border-radius:3px;"></div>
+        </div>
+        <div class="scontent">
+          <div class="sl">
+            <div class="st" data-ar="نصمم مستقبل أعمالك الرقمية" data-en="We Design Your Digital Future" data-de="Wir gestalten Ihre Zukunft">نصمم مستقبل أعمالك الرقمية</div>
+            <div class="sd" data-ar="تصميم مواقع احترافية وحلول رقمية متكاملة" data-en="Professional web design & digital solutions" data-de="Professionelles Webdesign & digitale Lösungen">تصميم مواقع احترافية وحلول رقمية متكاملة</div>
+            <div class="sb" data-ar="ابدأ مشروعك الآن" data-en="Start Your Project" data-de="Projekt starten">ابدأ مشروعك الآن</div>
+          </div>
+          <div class="sr">
+            <div class="schart">
+              <div class="b" style="height:28%;"></div><div class="b" style="height:58%;"></div>
+              <div class="b" style="height:44%;"></div><div class="b" style="height:80%;"></div>
+              <div class="b" style="height:64%;"></div><div class="b" style="height:92%;"></div>
+            </div>
+            <div class="sblock">
+              <div class="ln"></div><div class="ln s"></div><div class="ln bb"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#1e293b;height:7px;border-radius:0 0 4px 4px;width:76%;margin:0 auto;"></div>
+    </div>
+
+    <div class="mockup-phone">
+      <div class="mpscreen">
+        <div class="pbar"></div>
+        <div class="plines"><div class="pl"></div><div class="pl s"></div></div>
+        <div class="ptit" data-ar="نصمم مستقبل أعمالك" data-en="Design Your Future" data-de="Gestalten Sie Zukunft">نصمم مستقبل أعمالك</div>
+        <div class="pdsc" data-ar="تصميم مواقع احترافية" data-en="Professional web design" data-de="Professionelles Design">تصميم مواقع احترافية</div>
+        <div class="pbtn"></div>
+        <div class="pchart">
+          <div class="cb" style="height:24%;"></div><div class="cb" style="height:54%;"></div>
+          <div class="cb" style="height:38%;"></div><div class="cb" style="height:70%;"></div>
+          <div class="cb" style="height:58%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots-deco">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <div>
+      <div class="stat-num" data-ar="أداء عالي" data-en="High Performance" data-de="Hohe Leistung">أداء عالي</div>
+      <div class="stat-lbl" data-ar="سرعة واستقرار لموقعك" data-en="Speed and stability" data-de="Geschwindigkeit & Stabilität">سرعة واستقرار لموقعك</div>
+    </div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div>
+      <div class="stat-num">24/7</div>
+      <div class="stat-lbl" data-ar="دعم فني دائم" data-en="Always-on support" data-de="Dauerhafter Support">دعم فني دائم</div>
+    </div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl" data-ar="أمان وضمان كامل" data-en="Full security guarantee" data-de="Volle Sicherheitsgarantie">أمان وضمان كامل</div>
+    </div>
+  </div>
+  <div class="sdiv"></div>
+  <div class="stat-item">
+    <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div>
+      <div class="stat-num">+200</div>
+      <div class="stat-lbl" data-ar="عميل سعيد" data-en="Happy Clients" data-de="Zufriedene Kunden">عميل سعيد</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<section class="services" id="services">
+  <div class="sec-label" data-ar="خدماتنا" data-en="OUR SERVICES" data-de="UNSERE LEISTUNGEN">خدماتنا</div>
+  <h2 class="sec-title" data-ar="كل ما تحتاجه في مكان واحد" data-en="Everything You Need in One Place" data-de="Alles an einem Ort">كل ما تحتاجه في مكان واحد</h2>
+  <p class="sec-desc" data-ar="نقدم حلول رقمية متكاملة تساعدك على بناء وإدارة وتطوير عملك باحترافية." data-en="Integrated digital solutions to build, manage, and grow your business professionally." data-de="Integrierte digitale Lösungen zum Aufbauen und Entwickeln Ihres Unternehmens.">نقدم حلول رقمية متكاملة تساعدك على بناء وإدارة وتطوير عملك باحترافية.</p>
+  <div class="svc-grid">
+
+    <!-- 1. Web Design -->
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3 data-ar="تصميم مواقع احترافية" data-en="Professional Web Design" data-de="Professionelles Webdesign">تصميم مواقع احترافية</h3>
+      <p data-ar="تصميم مواقع عصرية متجاوبة مع جميع الأجهزة." data-en="Modern responsive websites for all devices." data-de="Moderne responsive Websites für alle Geräte.">تصميم مواقع عصرية متجاوبة مع جميع الأجهزة.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نصمم لك موقعاً إلكترونياً يعمل بشكل مثالي على الجوال والكمبيوتر، بتصميم جذاب يعكس هوية علامتك التجارية ويسهل على زوارك التنقل فيه." data-en="We design a website that works perfectly on mobile and desktop, with an attractive design reflecting your brand identity and easy navigation for your visitors." data-de="Wir gestalten eine Website, die auf Mobilgeräten und Desktop perfekt funktioniert.">نصمم لك موقعاً إلكترونياً يعمل بشكل مثالي على الجوال والكمبيوتر، بتصميم جذاب يعكس هوية علامتك التجارية ويسهل على زوارك التنقل فيه.</p>
+      </div>
+      <div class="svc-example" data-ar="مثال: موقع مطعم يعرض القائمة، الحجز، والموقع الجغرافي بشكل أنيق." data-en="Example: A restaurant website with menu, booking, and location beautifully displayed." data-de="Beispiel: Restaurant-Website mit Menü, Buchung und Standort.">مثال: موقع مطعم يعرض القائمة، الحجز، والموقع الجغرافي بشكل أنيق.</div>
+    </div>
+
+    <!-- 2. Hosting -->
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 15a4 4 0 0 0 4 4h9a5 5 0 0 0 1.8-9.7A7 7 0 1 0 5.7 10.7 4 4 0 0 0 3 15z"/></svg></div>
+      <h3 data-ar="استضافة مواقع سريعة" data-en="Fast Web Hosting" data-de="Schnelles Web-Hosting">استضافة مواقع سريعة</h3>
+      <p data-ar="استضافة عالية الأداء مع سرعة وأمان مضمون." data-en="High-performance hosting with guaranteed speed and security." data-de="Hochleistungs-Hosting mit garantierter Geschwindigkeit.">استضافة عالية الأداء مع سرعة وأمان مضمون.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نوفر لك خوادم سريعة وآمنة تضمن أن موقعك يعمل 24/7 دون انقطاع، مع نسخ احتياطي يومي وحماية من الاختراق." data-en="We provide fast, secure servers that keep your website running 24/7 without downtime, with daily backups and hacking protection." data-de="Schnelle, sichere Server die Ihre Website rund um die Uhr betreiben.">نوفر لك خوادم سريعة وآمنة تضمن أن موقعك يعمل 24/7 دون انقطاع، مع نسخ احتياطي يومي وحماية من الاختراق.</p>
+      </div>
+      <div class="svc-example" data-ar="مثال: متجرك الإلكتروني يعمل دون تعطل حتى في أوقات الذروة والعروض." data-en="Example: Your online store runs without interruption even during peak sale events." data-de="Beispiel: Ihr Online-Shop läuft ohne Unterbrechungen auch in Stoßzeiten.">مثال: متجرك الإلكتروني يعمل دون تعطل حتى في أوقات الذروة والعروض.</div>
+    </div>
+
+    <!-- 3. Website Management -->
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
+      <h3 data-ar="إدارة المواقع" data-en="Website Management" data-de="Website-Verwaltung">إدارة المواقع</h3>
+      <p data-ar="إدارة وتحديث وصيانة موقعك بشكل احترافي." data-en="Professional management, updates, and maintenance." data-de="Professionelle Verwaltung, Updates und Wartung.">إدارة وتحديث وصيانة موقعك بشكل احترافي.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نتولى إدارة موقعك بالكامل: تحديث المحتوى، إضافة صور ومنتجات، متابعة الأداء، وإصلاح أي مشكلة تقنية فور ظهورها." data-en="We fully manage your website: updating content, adding images and products, monitoring performance, and fixing technical issues as they arise." data-de="Vollständige Website-Verwaltung: Inhaltsaktualisierungen, Bilder, Leistungsüberwachung.">نتولى إدارة موقعك بالكامل: تحديث المحتوى، إضافة صور ومنتجات، متابعة الأداء، وإصلاح أي مشكلة تقنية فور ظهورها.</p>
+      </div>
+      <div class="svc-example" data-ar="مثال: صاحب صالون يرسل لنا الصور الجديدة ونضيفها للموقع خلال 24 ساعة." data-en="Example: A salon owner sends us new photos and we add them to the site within 24 hours." data-de="Beispiel: Ein Salonbesitzer schickt Fotos und wir aktualisieren die Website innerhalb von 24 Stunden.">مثال: صاحب صالون يرسل لنا الصور الجديدة ونضيفها للموقع خلال 24 ساعة.</div>
+    </div>
+
+    <!-- 4. Professional Email -->
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <h3 data-ar="بريد إلكتروني احترافي" data-en="Professional Email" data-de="Professionelle E-Mail">بريد إلكتروني احترافي</h3>
+      <p data-ar="بريد باسم شركتك لتعزيز مصداقيتك." data-en="Company email to boost your credibility." data-de="Firmen-E-Mail für mehr Glaubwürdigkeit.">بريد باسم شركتك لتعزيز مصداقيتك.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نوفر لك بريداً إلكترونياً باسم نطاقك الخاص، مما يمنح عملك مظهراً احترافياً ويزيد الثقة لدى عملائك. يمكنك إنشاء عدة عناوين بريد لفريقك." data-en="We provide email with your own domain name, giving your business a professional look and building customer trust. Create multiple addresses for your team." data-de="E-Mail mit Ihrem eigenen Domainnamen für ein professionelles Erscheinungsbild.">نوفر لك بريداً إلكترونياً باسم نطاقك الخاص، مما يمنح عملك مظهراً احترافياً ويزيد الثقة لدى عملائك. يمكنك إنشاء عدة عناوين بريد لفريقك.</p>
+      </div>
+      <div class="svc-example" data-ar="مثال: بدلاً من gmail.com تتواصل عبر info@شركتك.com — فرق كبير في الاحترافية!" data-en="Example: Instead of gmail.com, you communicate via info@yourcompany.com — a huge difference in professionalism!" data-de="Beispiel: Statt gmail.com kommunizieren Sie über info@ihrefirma.com.">مثال: بدلاً من gmail.com تتواصل عبر info@شركتك.com — فرق كبير في الاحترافية!</div>
+    </div>
+
+    <!-- 5. Google Maps -->
+    <div class="svc-card">
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24" fill="none" width="30" height="30">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+          <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+        </svg>
+      </div>
+      <h3 data-ar="إضافة موقعك على خرائط Google" data-en="Add Your Business to Google Maps" data-de="Google Maps Eintrag">إضافة موقعك على خرائط Google</h3>
+      <p data-ar="نساعدك على الظهور في خرائط Google وزيادة عملائك المحليين." data-en="We help you appear on Google Maps and attract local customers." data-de="Auf Google Maps erscheinen und lokale Kunden gewinnen.">نساعدك على الظهور في خرائط Google وزيادة عملائك المحليين.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نضيف نشاطك التجاري على خرائط Google Maps مع جميع التفاصيل (العنوان، أوقات العمل، الصور، الهاتف)، ليجدك العملاء بسهولة عند البحث في منطقتهم." data-en="We add your business to Google Maps with all details (address, working hours, photos, phone), so customers can easily find you when searching in their area." data-de="Wir tragen Ihr Unternehmen in Google Maps mit allen Details ein.">نضيف نشاطك التجاري على خرائط Google Maps مع جميع التفاصيل (العنوان، أوقات العمل، الصور، الهاتف)، ليجدك العملاء بسهولة عند البحث في منطقتهم.</p>
+      </div>
+      <div class="svc-example" data-ar='مثال: عميل يبحث عن "حلاق قريب مني" — يظهر صالونك في أول النتائج مع التقييمات والاتجاهات.' data-en='Example: A customer searches "barber near me" — your salon appears first with ratings and directions.' data-de='Beispiel: Ein Kunde sucht "Friseur in meiner Nähe" — Ihr Salon erscheint ganz oben.'>مثال: عميل يبحث عن "حلاق قريب مني" — يظهر صالونك في أول النتائج مع التقييمات والاتجاهات.</div>
+    </div>
+
+    <!-- 6. AI Chatbot -->
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="2" width="9" height="9" rx="2"/><rect x="13" y="2" width="9" height="9" rx="2"/><rect x="2" y="13" width="9" height="9" rx="2"/><circle cx="17" cy="17" r="3"/></svg></div>
+      <h3 data-ar="بوت ذكي لخدمة العملاء" data-en="AI Customer Service Bot" data-de="KI-Kundenservice-Bot">بوت ذكي لخدمة العملاء</h3>
+      <p data-ar="بوت ذكي يجيب على أسئلة عملائك على مدار الساعة." data-en="An AI bot answering your customers' questions 24/7." data-de="KI-Bot beantwortet Kundenfragen rund um die Uhr.">بوت ذكي يجيب على أسئلة عملائك على مدار الساعة.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title" data-ar="ماذا نقدم؟" data-en="What do we offer?" data-de="Was bieten wir?">ماذا نقدم؟</div>
+        <p data-ar="نبني لك مساعداً ذكياً يرد على استفسارات عملائك فوراً، يأخذ الحجوزات، ويرشدهم للمنتجات المناسبة — حتى وأنت نائم!" data-en="We build an AI assistant that instantly responds to customer inquiries, takes bookings, and guides them to the right products — even while you're asleep!" data-de="Wir bauen einen KI-Assistenten der sofort auf Kundenanfragen antwortet.">نبني لك مساعداً ذكياً يرد على استفسارات عملائك فوراً، يأخذ الحجوزات، ويرشدهم للمنتجات المناسبة — حتى وأنت نائم!</p>
+      </div>
+      <div class="svc-example" data-ar='مثال: عميل يسأل ساعة 2 صباحاً "هل يتوفر المنتج X؟" — البوت يجيبه فوراً ويكمل الطلب.' data-en='Example: Customer asks at 2am "Is product X available?" — the bot answers instantly and completes the order.' data-de='Beispiel: Kunde fragt um 2 Uhr morgens nach Produkt X — der Bot antwortet sofort.'>مثال: عميل يسأل ساعة 2 صباحاً "هل يتوفر المنتج X؟" — البوت يجيبه فوراً ويكمل الطلب.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="pricing" id="pricing">
+  <div class="sec-label" data-ar="الأسعار" data-en="PRICING" data-de="PREISE">الأسعار</div>
+  <h2 class="sec-title" data-ar="أسعار شفافة تناسب الجميع" data-en="Transparent Prices for Everyone" data-de="Transparente Preise für jeden">أسعار شفافة تناسب الجميع</h2>
+  <p class="sec-desc" data-ar="اختر الباقة المناسبة لاحتياجاتك، أو استخدم الحاسبة أدناه لحساب تكلفة خدماتك بدقة." data-en="Choose the package that fits your needs, or use the calculator below to estimate your costs accurately." data-de="Wählen Sie das passende Paket oder nutzen Sie den Kalkulator.">اختر الباقة المناسبة لاحتياجاتك، أو استخدم الحاسبة أدناه لحساب تكلفة خدماتك بدقة.</p>
+
+  <div class="pricing-grid">
+    <!-- Starter -->
+    <div class="price-card">
+      <div class="price-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3 data-ar="باقة البداية" data-en="Starter Package" data-de="Starter-Paket">باقة البداية</h3>
+      <div class="price-amount">149 <span data-ar="€ / مرة واحدة" data-en="€ / one-time" data-de="€ / einmalig">€ / مرة واحدة</span></div>
+      <div class="price-note" data-ar="+ 15€ شهرياً للاستضافة" data-en="+ 15€/month for hosting" data-de="+ 15€/Monat für Hosting">+ 15€ شهرياً للاستضافة</div>
+      <ul class="price-features">
+        <li data-ar="موقع 1-3 صفحات" data-en="1–3 page website" data-de="1–3 Seiten Website">موقع 1-3 صفحات</li>
+        <li data-ar="تصميم متجاوب للجوال" data-en="Mobile-responsive design" data-de="Mobilfreundliches Design">تصميم متجاوب للجوال</li>
+        <li data-ar="نطاق مجاني (Domain)" data-en="Free domain" data-de="Kostenlose Domain">نطاق مجاني (Domain)</li>
+        <li data-ar="بريد إلكتروني واحد" data-en="1 professional email" data-de="1 professionelle E-Mail">بريد إلكتروني واحد</li>
+        <li data-ar="إضافة على خرائط Google" data-en="Google Maps listing" data-de="Google Maps Eintrag">إضافة على خرائط Google</li>
+      </ul>
+      <a href="#contact" class="price-btn" data-ar="اطلب الآن" data-en="Order Now" data-de="Jetzt bestellen">اطلب الآن</a>
+    </div>
+
+    <!-- Professional (Popular) -->
+    <div class="price-card popular">
+      <div class="popular-badge" data-ar="⭐ الأكثر طلباً" data-en="⭐ Most Popular" data-de="⭐ Am beliebtesten">⭐ الأكثر طلباً</div>
+      <div class="price-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3 data-ar="باقة الاحترافي" data-en="Professional Package" data-de="Professionelles Paket">باقة الاحترافي</h3>
+      <div class="price-amount">349 <span data-ar="€ / مرة واحدة" data-en="€ / one-time" data-de="€ / einmalig">€ / مرة واحدة</span></div>
+      <div class="price-note" data-ar="+ 25€ شهرياً للاستضافة والإدارة" data-en="+ 25€/month for hosting & management" data-de="+ 25€/Monat für Hosting & Verwaltung">+ 25€ شهرياً للاستضافة والإدارة</div>
+      <ul class="price-features">
+        <li data-ar="موقع 5-8 صفحات" data-en="5–8 page website" data-de="5–8 Seiten Website">موقع 5-8 صفحات</li>
+        <li data-ar="تصميم احترافي مخصص" data-en="Custom professional design" data-de="Professionelles Design">تصميم احترافي مخصص</li>
+        <li data-ar="3 عناوين بريد إلكتروني" data-en="3 professional emails" data-de="3 professionelle E-Mails">3 عناوين بريد إلكتروني</li>
+        <li data-ar="إدارة شهرية للموقع" data-en="Monthly website management" data-de="Monatliche Website-Verwaltung">إدارة شهرية للموقع</li>
+        <li data-ar="إضافة على خرائط Google" data-en="Google Maps listing" data-de="Google Maps Eintrag">إضافة على خرائط Google</li>
+        <li data-ar="دعم فني 24/7" data-en="24/7 technical support" data-de="24/7 technischer Support">دعم فني 24/7</li>
+      </ul>
+      <a href="#contact" class="price-btn" data-ar="اطلب الآن" data-en="Order Now" data-de="Jetzt bestellen">اطلب الآن</a>
+    </div>
+
+    <!-- Business -->
+    <div class="price-card">
+      <div class="price-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <h3 data-ar="باقة الأعمال" data-en="Business Package" data-de="Business-Paket">باقة الأعمال</h3>
+      <div class="price-amount">699 <span data-ar="€ / مرة واحدة" data-en="€ / one-time" data-de="€ / einmalig">€ / مرة واحدة</span></div>
+      <div class="price-note" data-ar="+ 45€ شهرياً للاستضافة والإدارة الكاملة" data-en="+ 45€/month for full hosting & management" data-de="+ 45€/Monat für vollständige Verwaltung">+ 45€ شهرياً للاستضافة والإدارة الكاملة</div>
+      <ul class="price-features">
+        <li data-ar="موقع متكامل غير محدود الصفحات" data-en="Full unlimited-page website" data-de="Vollständige Website unbegrenzte Seiten">موقع متكامل غير محدود الصفحات</li>
+        <li data-ar="متجر إلكتروني (اختياري)" data-en="Online store (optional)" data-de="Online-Shop (optional)">متجر إلكتروني (اختياري)</li>
+        <li data-ar="بريد احترافي غير محدود" data-en="Unlimited professional emails" data-de="Unbegrenzte E-Mails">بريد احترافي غير محدود</li>
+        <li data-ar="بوت ذكي لخدمة العملاء" data-en="AI customer service bot" data-de="KI-Kundenservice-Bot">بوت ذكي لخدمة العملاء</li>
+        <li data-ar="إدارة كاملة وتحديثات فورية" data-en="Full management & instant updates" data-de="Vollständige Verwaltung & sofortige Updates">إدارة كاملة وتحديثات فورية</li>
+        <li data-ar="تقرير شهري للأداء" data-en="Monthly performance report" data-de="Monatlicher Leistungsbericht">تقرير شهري للأداء</li>
+      </ul>
+      <a href="#contact" class="price-btn" data-ar="اطلب الآن" data-en="Order Now" data-de="Jetzt bestellen">اطلب الآن</a>
+    </div>
+  </div>
+
+  <!-- ══ CALCULATOR ══ -->
+  <div class="calculator">
+    <div class="calc-title" data-ar="🧮 احسب تكلفتك" data-en="🧮 Calculate Your Cost" data-de="🧮 Kosten berechnen">🧮 احسب تكلفتك</div>
+    <div class="calc-desc" data-ar="اختر الخدمات التي تحتاجها وسنحسب لك التكلفة التقريبية فوراً." data-en="Select the services you need and we'll instantly calculate your estimated cost." data-de="Wählen Sie die benötigten Dienste und wir berechnen sofort die geschätzten Kosten.">اختر الخدمات التي تحتاجها وسنحسب لك التكلفة التقريبية فوراً.</div>
+
+    <div class="calc-grid" id="calcGrid">
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="149" onchange="updateCalc()"> <span data-ar="تصميم موقع (أساسي)" data-en="Website Design (Basic)" data-de="Website-Design (Basic)">تصميم موقع (أساسي)</span></label>
+        <div class="calc-item-price" data-ar="يبدأ من 149€" data-en="From 149€" data-de="Ab 149€">يبدأ من 149€</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="200" onchange="updateCalc()"> <span data-ar="تصميم موقع (احترافي)" data-en="Website Design (Pro)" data-de="Website-Design (Pro)">تصميم موقع (احترافي)</span></label>
+        <div class="calc-item-price" data-ar="يبدأ من 200€" data-en="From 200€" data-de="Ab 200€">يبدأ من 200€</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="15" onchange="updateCalc()"> <span data-ar="استضافة شهرية" data-en="Monthly Hosting" data-de="Monatliches Hosting">استضافة شهرية</span></label>
+        <div class="calc-item-price" data-ar="15€ / شهر" data-en="15€ / month" data-de="15€ / Monat">15€ / شهر</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="25" onchange="updateCalc()"> <span data-ar="إدارة الموقع" data-en="Website Management" data-de="Website-Verwaltung">إدارة الموقع</span></label>
+        <div class="calc-item-price" data-ar="25€ / شهر" data-en="25€ / month" data-de="25€ / Monat">25€ / شهر</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="10" onchange="updateCalc()"> <span data-ar="بريد إلكتروني احترافي" data-en="Professional Email" data-de="Professionelle E-Mail">بريد إلكتروني احترافي</span></label>
+        <div class="calc-item-price" data-ar="10€ / شهر" data-en="10€ / month" data-de="10€ / Monat">10€ / شهر</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="49" onchange="updateCalc()"> <span data-ar="إضافة على خرائط Google" data-en="Google Maps Listing" data-de="Google Maps Eintrag">إضافة على خرائط Google</span></label>
+        <div class="calc-item-price" data-ar="49€ مرة واحدة" data-en="49€ one-time" data-de="49€ einmalig">49€ مرة واحدة</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="89" onchange="updateCalc()"> <span data-ar="بوت ذكي لخدمة العملاء" data-en="AI Customer Bot" data-de="KI-Kundenbot">بوت ذكي لخدمة العملاء</span></label>
+        <div class="calc-item-price" data-ar="يبدأ من 89€" data-en="From 89€" data-de="Ab 89€">يبدأ من 89€</div>
+      </div>
+      <div class="calc-item" onclick="toggleCalc(this)">
+        <label><input type="checkbox" value="12" onchange="updateCalc()"> <span data-ar="نطاق (Domain) سنوي" data-en="Annual Domain" data-de="Jährliche Domain">نطاق (Domain) سنوي</span></label>
+        <div class="calc-item-price" data-ar="12€ / سنة" data-en="12€ / year" data-de="12€ / Jahr">12€ / سنة</div>
+      </div>
+    </div>
+
+    <div class="calc-result">
+      <div>
+        <div class="calc-result-label" data-ar="التكلفة التقريبية:" data-en="Estimated Cost:" data-de="Geschätzte Kosten:">التكلفة التقريبية:</div>
+        <div class="calc-result-amount" id="calcTotal">0 €</div>
+        <div class="calc-result-note" data-ar="* الأسعار تقريبية وقد تختلف حسب متطلبات مشروعك." data-en="* Prices are estimates and may vary by project requirements." data-de="* Preise sind Schätzungen und können je nach Projektanforderungen variieren.">* الأسعار تقريبية وقد تختلف حسب متطلبات مشروعك.</div>
+      </div>
+      <a href="#contact" class="calc-contact-btn" data-ar="احصل على عرض سعر" data-en="Get a Quote" data-de="Angebot anfordern">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        احصل على عرض سعر
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BANNER ══ -->
+<div class="cta-banner" id="contact">
+  <div class="cta-text">
+    <h2 data-ar="جاهز للانطلاق؟ تواصل معنا!" data-en="Ready to Launch? Contact Us!" data-de="Bereit zum Start? Kontaktieren Sie uns!">جاهز للانطلاق؟ تواصل معنا!</h2>
+    <p data-ar="نحن هنا لمساعدتك في تحويل فكرتك إلى واقع رقمي ناجح." data-en="We're here to help you turn your idea into a successful digital reality." data-de="Wir helfen Ihnen, Ihre Idee in eine erfolgreiche digitale Realität zu verwandeln.">نحن هنا لمساعدتك في تحويل فكرتك إلى واقع رقمي ناجح.</p>
+  </div>
+  <div class="cta-actions">
+    <div class="contact-links-row">
+      <!-- WhatsApp -->
+      <a class="cta-phone" href="https://wa.me/4915259859931" target="_blank">
+        <div class="cta-phone-ic wa-ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </div>
+        <span>015259859931</span>
+      </a>
+
+      <!-- Email -->
+      <a class="cta-phone" href="mailto:info@aljrad.com">
+        <div class="cta-phone-ic mail-ic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span>info@aljrad.com</span>
+      </a>
+    </div>
+
+    <a class="btn-white" href="https://wa.me/4915259859931" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span data-ar="راسلنا الآن" data-en="Message Us Now" data-de="Jetzt schreiben">راسلنا الآن</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══ FOOTER FEATURES ══ -->
+<div class="footer-features">
+  <div class="ff-grid">
+    <div class="ff-item">
+      <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="ff-text">
+        <h4 data-ar="أسعار مناسبة" data-en="Affordable Prices" data-de="Erschwingliche Preise">أسعار مناسبة</h4>
+        <p data-ar="خطط تناسب جميع الميزانيات" data-en="Plans for all budgets" data-de="Pläne für alle Budgets">خطط تناسب جميع الميزانيات</p>
+      </div>
+    </div>
+    <div class="ff-item">
+      <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="ff-text">
+        <h4 data-ar="جودة عالية" data-en="High Quality" data-de="Hohe Qualität">جودة عالية</h4>
+        <p data-ar="نستخدم أحدث التقنيات" data-en="Latest technologies" data-de="Neueste Technologien">نستخدم أحدث التقنيات</p>
+      </div>
+    </div>
+    <div class="ff-item">
+      <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="ff-text">
+        <h4 data-ar="تسليم سريع" data-en="Fast Delivery" data-de="Schnelle Lieferung">تسليم سريع</h4>
+        <p data-ar="نلتزم بالمواعيد المتفق عليها" data-en="We meet agreed deadlines" data-de="Wir halten Termine ein">نلتزم بالمواعيد المتفق عليها</p>
+      </div>
+    </div>
+    <div class="ff-item">
+      <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+      <div class="ff-text">
+        <h4 data-ar="دعم مستمر" data-en="Ongoing Support" data-de="Kontinuierlicher Support">دعم مستمر</h4>
+        <p data-ar="دعم فني مستمر بعد التسليم" data-en="Support after delivery" data-de="Support nach der Lieferung">دعم فني مستمر بعد التسليم</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo-icon" style="width:36px;height:36px;border-radius:8px;">
+      <svg viewBox="0 0 26 26" fill="none" style="width:20px;height:20px;">
+        <path d="M3 20L13 4L23 20" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 14H19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand" style="color:#fff;">ALJRAD</div>
+      <div class="sub" style="color:#64748b;font-size:9px;letter-spacing:1.5px;">DIGITAL SOLUTIONS</div>
+    </div>
+  </div>
+  <div class="footer-contact">
+    <a class="footer-link" href="https://wa.me/4915259859931" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      015259859931
+    </a>
+    <a class="footer-link" href="mailto:info@aljrad.com">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      info@aljrad.com
+    </a>
+  </div>
+  <div class="footer-copy" data-ar="© 2025 ALJRAD Digital Solutions — جميع الحقوق محفوظة" data-en="© 2025 ALJRAD Digital Solutions — All rights reserved" data-de="© 2025 ALJRAD Digital Solutions — Alle Rechte vorbehalten">© 2025 ALJRAD Digital Solutions — جميع الحقوق محفوظة</div>
+</footer>
+
+<!-- ══ FLOATING WHATSAPP ══ -->
+<a class="wa-float" href="https://wa.me/4915259859931" target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+/* ── Lang ── */
+function setLang(lang) {
+  const dirs = {ar:'rtl', en:'ltr', de:'ltr'};
+  const cls  = {ar:'',    en:'ltr', de:'ltr'};
+  document.body.dir = dirs[lang];
+  document.body.className = cls[lang];
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    const v = el.getAttribute('data-'+lang);
+    if(v !== null) el.textContent = v;
+  });
+
+  closeMenu();
+}
+
+/* ── Mobile menu ── */
+let open = false;
+function toggleMenu(){
+  open = !open;
+  document.getElementById('hbg').classList.toggle('open', open);
+  document.getElementById('overlay').classList.toggle('open', open);
+  document.getElementById('drawer').classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu(){
+  open = false;
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+
+/* ── Calculator ── */
+function toggleCalc(item) {
+  const cb = item.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
+  item.classList.toggle('selected', cb.checked);
+  updateCalc();
+}
+function updateCalc() {
+  let total = 0;
+  document.querySelectorAll('#calcGrid input[type=checkbox]:checked').forEach(cb => {
+    total += parseInt(cb.value);
+  });
+  document.getElementById('calcTotal').textContent = total + ' €';
+}
+
+/* ── Init ── */
+setLang('ar');
+</script>
+</body>
+</html>
