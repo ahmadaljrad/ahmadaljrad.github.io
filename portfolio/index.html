@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Creator Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --border: #2a2a3d;
+    --tt-red: #fe2c55;
+    --tt-cyan: #25f4ee;
+    --tt-pink: #ff4081;
+    --tt-purple: #7b2fff;
+    --text: #f0f0f5;
+    --text-muted: #7a7a9a;
+    --radius: 16px;
+    --radius-sm: 8px;
+    --glow-red: 0 0 30px rgba(254,44,85,0.3);
+    --glow-cyan: 0 0 30px rgba(37,244,238,0.3);
+    --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === ANIMATED BG === */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 10% 20%, rgba(254,44,85,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 400px at 90% 80%, rgba(37,244,238,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 300px at 50% 50%, rgba(123,47,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0%  { opacity: 0.6; }
+    100%{ opacity: 1; }
+  }
+
+  /* === HEADER === */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700; font-size: 1.2rem;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--tt-red), var(--tt-purple));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--glow-red);
+  }
+
+  .logo span { color: var(--tt-red); }
+
+  .header-badge {
+    background: linear-gradient(135deg, var(--tt-red), var(--tt-purple));
+    color: white; padding: 4px 12px;
+    border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.5px;
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%,100%{ box-shadow: 0 0 0 0 rgba(254,44,85,0.4); }
+    50%    { box-shadow: 0 0 0 8px rgba(254,44,85,0); }
+  }
+
+  /* === LAYOUT === */
+  .main-layout {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    align-items: start;
+  }
+
+  /* === STEPS NAV === */
+  .steps-nav {
+    display: flex; gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .step-btn {
+    flex: 1; padding: 14px 8px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.85rem; font-weight: 500;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    transition: var(--transition);
+    position: relative;
+    border-left: 1px solid var(--border);
+  }
+
+  .step-btn:last-child { border-left: none; }
+
+  .step-btn .step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    transition: var(--transition);
+  }
+
+  .step-btn.active {
+    color: var(--tt-red);
+    background: rgba(254,44,85,0.06);
+  }
+
+  .step-btn.active .step-num {
+    background: var(--tt-red);
+    color: white;
+    box-shadow: var(--glow-red);
+  }
+
+  .step-btn.done {
+    color: var(--tt-cyan);
+  }
+
+  .step-btn.done .step-num {
+    background: var(--tt-cyan);
+    color: var(--bg);
+  }
+
+  /* === PANELS === */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: none;
+  }
+
+  .panel.active { display: block; }
+
+  .panel-header {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface2);
+  }
+
+  .panel-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .panel-icon.red  { background: rgba(254,44,85,0.15); }
+  .panel-icon.cyan { background: rgba(37,244,238,0.12); }
+  .panel-icon.purple { background: rgba(123,47,255,0.15); }
+  .panel-icon.green { background: rgba(0,230,118,0.12); }
+
+  .panel-title { font-size: 1rem; font-weight: 700; }
+  .panel-subtitle { font-size: 0.78rem; color: var(--text-muted); }
+
+  .panel-body { padding: 1.5rem; }
+
+  /* === FORM ELEMENTS === */
+  label {
+    display: block;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  textarea, input[type="text"], select, input[type="number"] {
+    width: 100%; padding: 12px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    outline: none;
+    resize: none;
+  }
+
+  textarea:focus, input:focus, select:focus {
+    border-color: var(--tt-red);
+    box-shadow: 0 0 0 3px rgba(254,44,85,0.12);
+  }
+
+  textarea { min-height: 130px; line-height: 1.7; }
+
+  select option { background: var(--surface); }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  /* === CHAR COUNTER === */
+  .char-counter {
+    text-align: left; font-size: 0.75rem;
+    color: var(--text-muted); margin-top: 4px;
+  }
+
+  .char-counter.warn { color: var(--tt-red); }
+
+  /* === LANGUAGE SELECTOR === */
+  .lang-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+    margin-bottom: 1.2rem;
+  }
+
+  .lang-card {
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 8px;
+    text-align: center; cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .lang-card:hover { border-color: var(--tt-red); }
+
+  .lang-card.selected {
+    border-color: var(--tt-red);
+    background: rgba(254,44,85,0.1);
+    color: var(--tt-red);
+  }
+
+  .lang-card .lang-flag { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+  .lang-card .lang-name { font-size: 0.75rem; font-weight: 600; }
+
+  /* === VOICE CONTROLS === */
+  .voice-controls {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .slider-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .slider-row label { margin: 0; min-width: 60px; font-size: 0.78rem; }
+
+  input[type="range"] {
+    flex: 1; height: 4px;
+    background: var(--border);
+    border-radius: 2px; outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding: 0; border: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--tt-red);
+    cursor: pointer;
+    box-shadow: var(--glow-red);
+  }
+
+  .slider-val {
+    min-width: 32px; text-align: center;
+    font-size: 0.8rem; color: var(--tt-red);
+    font-weight: 700;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    padding: 12px 24px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    transition: var(--transition);
+    display: inline-flex; align-items: center; gap: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--tt-red), var(--tt-purple));
+    color: white;
+    box-shadow: 0 4px 15px rgba(254,44,85,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(254,44,85,0.5);
+  }
+
+  .btn-secondary {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover { border-color: var(--tt-cyan); color: var(--tt-cyan); }
+
+  .btn-cyan {
+    background: linear-gradient(135deg, var(--tt-cyan), #00b4d8);
+    color: var(--bg);
+    box-shadow: 0 4px 15px rgba(37,244,238,0.25);
+  }
+
+  .btn-cyan:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37,244,238,0.4);
+  }
+
+  .btn-full { width: 100%; justify-content: center; }
+
+  .btn:disabled {
+    opacity: 0.4; cursor: not-allowed;
+    transform: none !important; box-shadow: none !important;
+  }
+
+  /* === AUDIO PLAYER === */
+  .audio-player {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .audio-player.show { display: block; animation: fadeUp 0.4s ease; }
+
+  .audio-waveform {
+    display: flex; align-items: center; gap: 3px;
+    height: 40px; margin-bottom: 10px;
+    justify-content: center;
+  }
+
+  .wave-bar {
+    width: 4px; background: var(--tt-red);
+    border-radius: 2px;
+    animation: waveAnim 1.2s ease-in-out infinite;
+    opacity: 0.3;
+  }
+
+  .wave-bar.playing { opacity: 1; }
+
+  @keyframes waveAnim {
+    0%,100%{ height: 8px; }
+    50%    { height: 35px; }
+  }
+
+  .audio-controls {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .play-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--tt-red);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: white;
+    box-shadow: var(--glow-red);
+    transition: var(--transition);
+  }
+
+  .play-btn:hover { transform: scale(1.1); }
+
+  .audio-label { font-size: 0.82rem; color: var(--text-muted); flex: 1; }
+
+  /* === IMAGE SECTION === */
+  .image-tabs {
+    display: flex; gap: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+
+  .img-tab {
+    flex: 1; padding: 10px 6px;
+    background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.82rem; font-weight: 600;
+    transition: var(--transition);
+  }
+
+  .img-tab.active {
+    background: var(--tt-red);
+    color: white;
+  }
+
+  .img-panel { display: none; }
+  .img-panel.active { display: block; }
+
+  /* === IMAGE GRID === */
+  .image-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+    margin-top: 1rem; max-height: 300px; overflow-y: auto;
+  }
+
+  .img-thumb {
+    aspect-ratio: 1;
+    border-radius: 8px; overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer; transition: var(--transition);
+    position: relative;
+  }
+
+  .img-thumb:hover { border-color: var(--tt-cyan); transform: scale(1.03); }
+
+  .img-thumb.selected { border-color: var(--tt-red); }
+
+  .img-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .img-thumb .img-select-icon {
+    position: absolute; top: 4px; right: 4px;
+    width: 22px; height: 22px;
+    background: var(--tt-red); border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: white;
+  }
+
+  .img-thumb.selected .img-select-icon { display: flex; }
+
+  /* === UPLOAD ZONE === */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--surface2);
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--tt-cyan);
+    background: rgba(37,244,238,0.05);
+  }
+
+  .upload-zone .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+  .upload-zone p { font-size: 0.85rem; color: var(--text-muted); }
+  .upload-zone p strong { color: var(--tt-cyan); }
+
+  /* === SELECTED IMAGES STRIP === */
+  .selected-strip {
+    display: flex; gap: 8px;
+    padding: 1rem 0; overflow-x: auto;
+    min-height: 80px; align-items: center;
+  }
+
+  .selected-strip::-webkit-scrollbar { height: 4px; }
+  .selected-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .strip-item {
+    width: 60px; height: 60px; flex-shrink: 0;
+    border-radius: 8px; overflow: hidden;
+    border: 2px solid var(--tt-red);
+    position: relative;
+  }
+
+  .strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  .strip-item .remove-img {
+    position: absolute; top: -4px; right: -4px;
+    width: 18px; height: 18px;
+    background: var(--tt-red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.6rem; color: white;
+    font-weight: 700;
+  }
+
+  .strip-empty {
+    color: var(--text-muted); font-size: 0.82rem;
+    text-align: center; width: 100%;
+  }
+
+  /* === VIDEO SETTINGS (SIDEBAR) === */
+  .sidebar-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: sticky; top: 80px;
+  }
+
+  .settings-section {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .settings-section:last-child { border-bottom: none; }
+
+  .settings-title {
+    font-size: 0.78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-muted); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .settings-title::before {
+    content: '';
+    width: 3px; height: 14px;
+    background: var(--tt-red); border-radius: 2px;
+  }
+
+  /* === FORMAT BUTTONS === */
+  .format-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 6px;
+  }
+
+  .format-btn {
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 4px;
+    cursor: pointer; text-align: center; transition: var(--transition);
+    color: var(--text-muted);
+  }
+
+  .format-btn:hover { border-color: var(--tt-red); }
+
+  .format-btn.selected {
+    border-color: var(--tt-red);
+    background: rgba(254,44,85,0.1);
+    color: var(--tt-red);
+  }
+
+  .format-btn .fmt-ratio {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; font-weight: 700;
+    display: block; margin-bottom: 4px;
+  }
+
+  .format-btn .fmt-name { font-size: 0.72rem; }
+
+  /* === VIDEO PREVIEW === */
+  .video-preview {
+    width: 100%; aspect-ratio: 9/16;
+    background: #000;
+    border-radius: var(--radius-sm);
+    overflow: hidden; position: relative;
+    border: 1px solid var(--border);
+    max-height: 280px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .video-preview-placeholder {
+    text-align: center; color: var(--text-muted);
+  }
+
+  .video-preview-placeholder .ph-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .video-preview-placeholder p { font-size: 0.8rem; }
+
+  #videoPreviewEl {
+    width: 100%; height: 100%; object-fit: cover;
+    display: none;
+  }
+
+  /* === PROGRESS === */
+  .progress-wrap {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .progress-wrap.show { display: block; animation: fadeUp 0.3s ease; }
+
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; margin-bottom: 8px;
+    color: var(--text-muted);
+  }
+
+  .progress-bar {
+    height: 6px; background: var(--border);
+    border-radius: 3px; overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--tt-red), var(--tt-purple));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-step { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
+
+  /* === STATUS TAGS === */
+  .status-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 0.72rem; font-weight: 600;
+  }
+
+  .status-tag.ready { background: rgba(0,230,118,0.15); color: #00e676; }
+  .status-tag.pending { background: rgba(255,193,7,0.15); color: #ffc107; }
+  .status-tag.none { background: var(--surface2); color: var(--text-muted); }
+
+  /* === DOWNLOAD SECTION === */
+  .download-section {
+    background: linear-gradient(135deg, rgba(254,44,85,0.1), rgba(123,47,255,0.1));
+    border: 1px solid rgba(254,44,85,0.3);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    text-align: center;
+    display: none;
+    margin-top: 1rem;
+  }
+
+  .download-section.show { display: block; animation: fadeUp 0.5s ease; }
+
+  .download-section h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .download-section p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+  /* === TOAST === */
+  #toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 0.85rem; font-weight: 500;
+    z-index: 9999;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    max-width: 90vw;
+  }
+
+  #toast.show { opacity: 1; }
+  #toast.success { border-color: #00e676; }
+  #toast.error   { border-color: var(--tt-red); }
+  #toast.info    { border-color: var(--tt-cyan); }
+
+  /* === AI GENERATE === */
+  .ai-prompt-row {
+    display: flex; gap: 8px; align-items: flex-end;
+  }
+
+  .ai-prompt-row .form-group { flex: 1; margin-bottom: 0; }
+
+  /* === CANVAS (hidden) === */
+  #renderCanvas { display: none; }
+
+  /* === UTILS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spin { animation: spin 1s linear infinite; display: inline-block; }
+
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 1.2rem 0;
+  }
+
+  .text-muted { color: var(--text-muted); }
+  .text-small { font-size: 0.8rem; }
+  .mt-1 { margin-top: 0.5rem; }
+  .mt-2 { margin-top: 1rem; }
+  .flex-row { display: flex; gap: 8px; }
+  .flex-row .btn { flex: 1; }
+
+  /* === RESPONSIVE === */
+  @media(max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .sidebar-panel { position: static; }
+    .lang-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  @media(max-width: 500px) {
+    header { padding: 0 1rem; }
+    .main-layout { padding: 1rem; }
+    .lang-grid { grid-template-columns: repeat(3, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* Loading overlay */
+  #loadingOverlay {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(10,10,15,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
+  }
+
+  #loadingOverlay.show { display: flex; }
+
+  .loading-icon { font-size: 3rem; animation: spin 1.5s linear infinite; }
+  .loading-text { font-size: 1rem; color: var(--tt-cyan); font-weight: 600; }
+
+  /* Pollination image loading */
+  .img-loading {
+    aspect-ratio: 1; background: var(--surface2);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 1.5rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100%{ opacity: 0.5; }
+    50%    { opacity: 1; }
+  }
+
+  .tip-box {
+    background: rgba(37,244,238,0.07);
+    border: 1px solid rgba(37,244,238,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 0.8rem; color: var(--tt-cyan);
+    margin-top: 0.8rem;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay">
+  <div class="loading-icon">⚡</div>
+  <div class="loading-text" id="loadingText">جاري المعالجة...</div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- HIDDEN CANVAS -->
+<canvas id="renderCanvas"></canvas>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🎬</div>
+    TikTok<span>Studio</span>
+  </div>
+  <div class="header-badge">BETA v1.0</div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- LEFT: EDITOR AREA -->
+  <div>
+
+    <!-- STEPS NAV -->
+    <div class="steps-nav">
+      <button class="step-btn active" onclick="goStep(1)" id="stepBtn1">
+        <span class="step-num">1</span>
+        النص والصوت
+      </button>
+      <button class="step-btn" onclick="goStep(2)" id="stepBtn2">
+        <span class="step-num">2</span>
+        الصور
+      </button>
+      <button class="step-btn" onclick="goStep(3)" id="stepBtn3">
+        <span class="step-num">3</span>
+        الفيديو
+      </button>
+    </div>
+
+    <!-- ===== STEP 1: TEXT & AUDIO ===== -->
+    <div class="panel active" id="step1">
+      <div class="panel-header">
+        <div class="panel-icon red">🎤</div>
+        <div>
+          <div class="panel-title">النص والتعليق الصوتي</div>
+          <div class="panel-subtitle">اكتب نصك وحوّله إلى صوت بلغتك المفضلة</div>
+        </div>
+      </div>
+      <div class="panel-body">
+
+        <!-- LANGUAGE SELECT -->
+        <label>اختر اللغة</label>
+        <div class="lang-grid" id="langGrid">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- TEXT INPUT -->
+        <div class="form-group">
+          <label>نص المحتوى</label>
+          <textarea id="contentText" placeholder="اكتب هنا نص الفيديو الخاص بك... مثلاً: ✨ أهلاً بكم! اليوم سنتعرف على أجمل 5 أماكن سياحية في العالم العربي!" maxlength="500"></textarea>
+          <div class="char-counter" id="charCounter">0 / 500</div>
+        </div>
+
+        <!-- VOICE CONTROLS -->
+        <div class="voice-controls">
+          <div style="font-size:0.82rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px;">⚙️ ضبط الصوت</div>
+
+          <div class="slider-row">
+            <label>السرعة</label>
+            <input type="range" id="voiceRate" min="0.5" max="2" step="0.1" value="0.9"
+              oninput="document.getElementById('rateVal').textContent=this.value">
+            <span class="slider-val" id="rateVal">0.9</span>
+          </div>
+
+          <div class="slider-row">
+            <label>الطبقة</label>
+            <input type="range" id="voicePitch" min="0.5" max="2" step="0.1" value="1"
+              oninput="document.getElementById('pitchVal').textContent=this.value">
+            <span class="slider-val" id="pitchVal">1.0</span>
+          </div>
+
+          <div class="slider-row">
+            <label>الحجم</label>
+            <input type="range" id="voiceVolume" min="0" max="1" step="0.05" value="1"
+              oninput="document.getElementById('volVal').textContent=this.value">
+            <span class="slider-val" id="volVal">1.0</span>
+          </div>
+
+          <div class="form-group mt-1" style="margin-bottom:0">
+            <label>الصوت</label>
+            <select id="voiceSelect">
+              <option value="">⏳ جاري تحميل الأصوات...</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- AUDIO PLAYER -->
+        <div class="audio-player" id="audioPlayer">
+          <div class="audio-waveform" id="waveform">
+            <!-- bars generated by JS -->
+          </div>
+          <div class="audio-controls">
+            <button class="play-btn" id="playAudioBtn" onclick="toggleAudio()">▶</button>
+            <div class="audio-label" id="audioLabel">الصوت المُنشأ جاهز ✓</div>
+            <span class="status-tag ready">جاهز</span>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="flex-row mt-2">
+          <button class="btn btn-primary" onclick="generateAudio()">
+            🎙️ توليد الصوت
+          </button>
+          <button class="btn btn-secondary" onclick="goStep(2)" id="nextStep1Btn">
+            التالي: الصور ←
+          </button>
+        </div>
+
+        <div class="tip-box">
+          💡 <span>تأكد من اختيار اللغة المناسبة للحصول على أفضل جودة صوتية. العربية تعمل بشكل ممتاز مع المتصفحات الحديثة.</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: IMAGES ===== -->
+    <div class="panel" id="step2">
+      <div class="panel-header">
+        <div class="panel-icon cyan">🖼️</div>
+        <div>
+          <div class="panel-title">الصور</div>
+          <div class="panel-subtitle">ابحث، ولّد، أو ارفع صوراً لفيديوك</div>
+        </div>
+      </div>
+      <div class="panel-body">
+
+        <!-- TABS -->
+        <div class="image-tabs">
+          <button class="img-tab active" onclick="switchImgTab('search')">🔍 بحث Unsplash</button>
+          <button class="img-tab" onclick="switchImgTab('ai')">🤖 توليد AI</button>
+          <button class="img-tab" onclick="switchImgTab('upload')">📁 رفع صور</button>
+        </div>
+
+        <!-- SEARCH TAB -->
+        <div class="img-panel active" id="tabSearch">
+          <div class="flex-row">
+            <div class="form-group" style="flex:1; margin:0">
+              <input type="text" id="imgSearchInput" placeholder="ابحث عن صور... مثلاً: طبيعة، مدينة، غذاء" style="margin-bottom:0">
+            </div>
+            <button class="btn btn-secondary" onclick="searchImages()" style="margin-top:0; height:46px; margin-top:auto">بحث</button>
+          </div>
+          <div class="tip-box">
+            💡 <span>يستخدم Unsplash API لصور عالية الجودة مجانية. اكتب بالإنجليزية للحصول على نتائج أفضل.</span>
+          </div>
+          <div class="image-grid" id="searchGrid">
+            <div style="grid-column:1/-1; text-align:center; color:var(--text-muted); font-size:0.85rem; padding:2rem 0">
+              🔍 ابحث عن صور مناسبة لمحتواك
+            </div>
+          </div>
+        </div>
+
+        <!-- AI GENERATE TAB -->
+        <div class="img-panel" id="tabAi">
+          <div class="form-group">
+            <label>وصف الصورة (بالإنجليزية)</label>
+            <textarea id="aiPrompt" style="min-height:80px" placeholder="Describe what you want to generate... e.g: Beautiful arabic city skyline at sunset, cinematic lighting"></textarea>
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <div class="form-group" style="margin-bottom:0">
+              <label>الأسلوب</label>
+              <select id="aiStyle">
+                <option value="realistic">📷 واقعي</option>
+                <option value="cinematic">🎬 سينمائي</option>
+                <option value="illustration">🎨 رسم توضيحي</option>
+                <option value="anime">✏️ أنيمي</option>
+                <option value="minimalist">⬜ بسيط</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label>عدد الصور</label>
+              <select id="aiCount">
+                <option value="2">2 صور</option>
+                <option value="4" selected>4 صور</option>
+                <option value="6">6 صور</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-full mt-2" onclick="generateAIImages()">
+            🤖 توليد الصور
+          </button>
+          <div class="image-grid" id="aiGrid" style="margin-top:1rem">
+            <div style="grid-column:1/-1; text-align:center; color:var(--text-muted); font-size:0.85rem; padding:2rem 0">
+              🤖 الصور المُنشأة ستظهر هنا
+            </div>
+          </div>
+        </div>
+
+        <!-- UPLOAD TAB -->
+        <div class="img-panel" id="tabUpload">
+          <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">☁️</div>
+            <p><strong>اضغط لرفع صور</strong> أو اسحب وأفلت</p>
+            <p style="margin-top:4px; font-size:0.75rem">PNG, JPG, WEBP — حجم أقصى 10MB لكل صورة</p>
+          </div>
+          <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFileUpload(this)">
+          <div class="image-grid" id="uploadGrid" style="margin-top:1rem">
+            <div style="grid-column:1/-1; text-align:center; color:var(--text-muted); font-size:0.85rem; padding:1rem 0">
+              الصور المرفوعة ستظهر هنا
+            </div>
+          </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="divider"></div>
+
+        <!-- SELECTED IMAGES -->
+        <div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px">
+            <label style="margin:0">الصور المختارة للفيديو</label>
+            <span class="status-tag" id="imgCountTag" class="none">0 صورة</span>
+          </div>
+          <div class="selected-strip" id="selectedStrip">
+            <div class="strip-empty">لم تختر أي صور بعد — اختر من الأعلى</div>
+          </div>
+        </div>
+
+        <div class="flex-row mt-2">
+          <button class="btn btn-secondary" onclick="goStep(1)">← الصوت</button>
+          <button class="btn btn-primary" onclick="goStep(3)">التالي: الفيديو ←</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: VIDEO ===== -->
+    <div class="panel" id="step3">
+      <div class="panel-header">
+        <div class="panel-icon green">🎬</div>
+        <div>
+          <div class="panel-title">إنتاج الفيديو النهائي</div>
+          <div class="panel-subtitle">راجع إعداداتك ثم أنتج الفيديو</div>
+        </div>
+      </div>
+      <div class="panel-body">
+
+        <!-- SUMMARY -->
+        <div style="background:var(--surface2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:1rem; margin-bottom:1.2rem;">
+          <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:10px;">📋 ملخص المشروع</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="font-size:0.82rem;">
+              🎤 <span id="summaryAudio" style="color:var(--text-muted)">لم يُنشأ بعد</span>
+            </div>
+            <div style="font-size:0.82rem;">
+              🖼️ <span id="summaryImages" style="color:var(--text-muted)">0 صورة</span>
+            </div>
+            <div style="font-size:0.82rem;">
+              📐 <span id="summaryFormat" style="color:var(--text-muted)">9:16 TikTok</span>
+            </div>
+            <div style="font-size:0.82rem;">
+              ⏱️ <span id="summaryDuration" style="color:var(--text-muted)">تلقائي</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress-label">
+            <span>جاري الإنتاج...</span>
+            <span id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-step" id="progressStep">🔄 جاري التحضير...</div>
+        </div>
+
+        <!-- GENERATE BTN -->
+        <button class="btn btn-primary btn-full" id="generateVideoBtn" onclick="generateVideo()">
+          🎬 إنتاج الفيديو الآن
+        </button>
+
+        <!-- DOWNLOAD SECTION -->
+        <div class="download-section" id="downloadSection">
+          <div style="font-size:2.5rem; margin-bottom:8px">🎉</div>
+          <h3>فيديوك جاهز!</h3>
+          <p>تم إنتاج الفيديو بنجاح. يمكنك تحميله الآن.</p>
+          <div style="display:flex; gap:8px; justify-content:center">
+            <button class="btn btn-primary" onclick="downloadVideo()">
+              📥 تحميل الفيديو
+            </button>
+            <button class="btn btn-secondary" onclick="resetProject()">
+              🔄 مشروع جديد
+            </button>
+          </div>
+        </div>
+
+        <div class="tip-box mt-2">
+          💡 <span>الفيديو يُنتج بصيغة WebM عالية الجودة. لتحويله لـ MP4 استخدم HandBrake أو أي محوّل مجاني.</span>
+        </div>
+
+        <div class="flex-row mt-2">
+          <button class="btn btn-secondary" onclick="goStep(2)">← الصور</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- END LEFT -->
+
+  <!-- RIGHT: SETTINGS SIDEBAR -->
+  <div class="sidebar-panel">
+
+    <!-- VIDEO PREVIEW -->
+    <div class="settings-section">
+      <div class="settings-title">معاينة الفيديو</div>
+      <div class="video-preview" id="videoPreviewContainer">
+        <video id="videoPreviewEl" controls></video>
+        <div class="video-preview-placeholder" id="previewPlaceholder">
+          <div class="ph-icon">📱</div>
+          <p>معاينة الفيديو</p>
+          <p style="font-size:0.72rem">ستظهر هنا بعد الإنتاج</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO FORMAT -->
+    <div class="settings-section">
+      <div class="settings-title">تنسيق الفيديو</div>
+      <div class="format-grid">
+        <div class="format-btn selected" onclick="selectFormat(this,'9:16','1080','1920')" data-fmt="9:16">
+          <span class="fmt-ratio">9:16</span>
+          <span class="fmt-name">TikTok</span>
+        </div>
+        <div class="format-btn" onclick="selectFormat(this,'1:1','1080','1080')" data-fmt="1:1">
+          <span class="fmt-ratio">1:1</span>
+          <span class="fmt-name">Instagram</span>
+        </div>
+        <div class="format-btn" onclick="selectFormat(this,'16:9','1920','1080')" data-fmt="16:9">
+          <span class="fmt-ratio">16:9</span>
+          <span class="fmt-name">YouTube</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DURATION SETTINGS -->
+    <div class="settings-section">
+      <div class="settings-title">مدة ظهور الصورة</div>
+      <div class="form-group" style="margin-bottom:0.5rem">
+        <label>ثواني لكل صورة</label>
+        <div class="slider-row" style="margin:0">
+          <input type="range" id="imgDuration" min="1" max="10" step="0.5" value="3"
+            oninput="document.getElementById('imgDurVal').textContent=this.value+'s'">
+          <span class="slider-val" id="imgDurVal">3s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSITION SETTINGS -->
+    <div class="settings-section">
+      <div class="settings-title">تأثيرات الانتقال</div>
+      <select id="transitionType">
+        <option value="fade">🌫️ تلاشي (Fade)</option>
+        <option value="zoom">🔍 تكبير (Zoom)</option>
+        <option value="slide">➡️ انزلاق (Slide)</option>
+        <option value="none">⚡ بدون تأثير</option>
+      </select>
+    </div>
+
+    <!-- TEXT OVERLAY -->
+    <div class="settings-section">
+      <div class="settings-title">نص على الفيديو</div>
+      <div class="form-group" style="margin-bottom:0.5rem">
+        <input type="text" id="overlayText" placeholder="اكتب نصاً يظهر على الفيديو (اختياري)">
+      </div>
+      <div class="form-row" style="margin-bottom:0">
+        <div>
+          <label>موضع النص</label>
+          <select id="textPosition">
+            <option value="top">أعلى</option>
+            <option value="center">المنتصف</option>
+            <option value="bottom" selected>أسفل</option>
+          </select>
+        </div>
+        <div>
+          <label>حجم الخط</label>
+          <input type="number" id="textSize" value="42" min="20" max="80">
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKGROUND COLOR -->
+    <div class="settings-section">
+      <div class="settings-title">لون الخلفية</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <div onclick="selectBg(this,'#000000')" style="width:32px;height:32px;background:#000;border-radius:6px;cursor:pointer;border:2px solid var(--tt-red);" title="أسود"></div>
+        <div onclick="selectBg(this,'#ffffff')" style="width:32px;height:32px;background:#fff;border-radius:6px;cursor:pointer;border:2px solid transparent;" title="أبيض"></div>
+        <div onclick="selectBg(this,'#fe2c55')" style="width:32px;height:32px;background:#fe2c55;border-radius:6px;cursor:pointer;border:2px solid transparent;" title="أحمر TikTok"></div>
+        <div onclick="selectBg(this,'#25f4ee')" style="width:32px;height:32px;background:#25f4ee;border-radius:6px;cursor:pointer;border:2px solid transparent;" title="سماوي"></div>
+        <div onclick="selectBg(this,'#7b2fff')" style="width:32px;height:32px;background:#7b2fff;border-radius:6px;cursor:pointer;border:2px solid transparent;" title="بنفسجي"></div>
+        <input type="color" id="customBg" value="#000000" title="لون مخصص"
+          style="width:32px;height:32px;border:none;border-radius:6px;cursor:pointer;padding:2px;background:var(--surface2);"
+          onchange="selectBg(null,this.value)">
+      </div>
+    </div>
+
+    <!-- MUSIC SETTINGS -->
+    <div class="settings-section">
+      <div class="settings-title">موسيقى خلفية</div>
+      <select id="bgMusic">
+        <option value="none">🔇 بدون موسيقى</option>
+        <option value="upbeat">🎵 نشيطة (Upbeat)</option>
+        <option value="calm">🎶 هادئة (Calm)</option>
+        <option value="dramatic">🎸 درامية (Dramatic)</option>
+      </select>
+      <div class="slider-row mt-1">
+        <label>مستوى</label>
+        <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.3"
+          oninput="document.getElementById('musicVolVal').textContent=Math.round(this.value*100)+'%'">
+        <span class="slider-val" id="musicVolVal">30%</span>
+      </div>
+    </div>
+
+  </div><!-- END SIDEBAR -->
+
+</div><!-- END MAIN LAYOUT -->
+
+<script>
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+const state = {
+  selectedLang: { code: 'ar-SA', name: 'العربية', flag: '🇸🇦', tts: 'ar' },
+  audioGenerated: false,
+  audioBlob: null,
+  audioUrl: null,
+  selectedImages: [],     // { id, url, src (dataURL or URL) }
+  videoBlob: null,
+  videoUrl: null,
+  currentAudio: null,
+  isPlaying: false,
+  settings: {
+    format: '9:16',
+    canvasW: 1080, canvasH: 1920,
+    imgDuration: 3,
+    transition: 'fade',
+    bgColor: '#000000',
+    overlayText: '',
+    textPosition: 'bottom',
+    textSize: 42,
+    bgMusic: 'none',
+    musicVolume: 0.3
+  }
+};
+
+// ============================================================
+// LANGUAGES
+// ============================================================
+const LANGUAGES = [
+  { code:'ar-SA', name:'العربية',    flag:'🇸🇦', tts:'ar'    },
+  { code:'en-US', name:'English',    flag:'🇺🇸', tts:'en'    },
+  { code:'fr-FR', name:'Français',   flag:'🇫🇷', tts:'fr'    },
+  { code:'es-ES', name:'Español',    flag:'🇪🇸', tts:'es'    },
+  { code:'de-DE', name:'Deutsch',    flag:'🇩🇪', tts:'de'    },
+  { code:'tr-TR', name:'Türkçe',     flag:'🇹🇷', tts:'tr'    },
+  { code:'pt-BR', name:'Português',  flag:'🇧🇷', tts:'pt'    },
+  { code:'hi-IN', name:'हिन्दी',      flag:'🇮🇳', tts:'hi'    },
+  { code:'ja-JP', name:'日本語',      flag:'🇯🇵', tts:'ja'    },
+  { code:'ko-KR', name:'한국어',      flag:'🇰🇷', tts:'ko'    },
+  { code:'zh-CN', name:'中文',        flag:'🇨🇳', tts:'zh'    },
+  { code:'it-IT', name:'Italiano',   flag:'🇮🇹', tts:'it'    },
+];
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderLangGrid();
+  initVoices();
+  generateWaveBars();
+
+  // Char counter
+  document.getElementById('contentText').addEventListener('input', function() {
+    const c = document.getElementById('charCounter');
+    c.textContent = `${this.value.length} / 500`;
+    c.classList.toggle('warn', this.value.length > 400);
+  });
+
+  // Drag & Drop
+  const zone = document.getElementById('uploadZone');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag-over');
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    if (files.length) processUploadedFiles(files);
+  });
+
+  // Unsplash search on Enter
+  document.getElementById('imgSearchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchImages();
+  });
+});
+
+function renderLangGrid() {
+  const grid = document.getElementById('langGrid');
+  grid.innerHTML = LANGUAGES.map(l => `
+    <div class="lang-card ${l.code === state.selectedLang.code ? 'selected' : ''}"
+         onclick="selectLanguage('${l.code}')">
+      <span class="lang-flag">${l.flag}</span>
+      <span class="lang-name">${l.name}</span>
+    </div>
+  `).join('');
+}
+
+function selectLanguage(code) {
+  const lang = LANGUAGES.find(l => l.code === code);
+  if (!lang) return;
+  state.selectedLang = lang;
+  renderLangGrid();
+  initVoices();
+  showToast(`تم اختيار: ${lang.flag} ${lang.name}`, 'info');
+}
+
+function generateWaveBars() {
+  const wf = document.getElementById('waveform');
+  wf.innerHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    bar.style.animationDelay = `${(i * 40) % 1200}ms`;
+    bar.style.animationDuration = `${0.8 + Math.random() * 0.8}s`;
+    wf.appendChild(bar);
+  }
+}
+
+// ============================================================
+// TTS VOICES
+// ============================================================
+function initVoices() {
+  const load = () => {
+    const voices = speechSynthesis.getVoices();
+    const sel = document.getElementById('voiceSelect');
+    const filtered = voices.filter(v =>
+      v.lang.startsWith(state.selectedLang.tts) ||
+      v.lang.startsWith(state.selectedLang.code.split('-')[0])
+    );
+    sel.innerHTML = filtered.length
+      ? filtered.map((v,i) => `<option value="${v.name}">${v.name} (${v.lang})</option>`).join('')
+      : `<option value="">🔊 صوت النظام الافتراضي (${state.selectedLang.name})</option>`;
+  };
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = load;
+  }
+  load();
+}
+
+// ============================================================
+// AUDIO GENERATION (Web Speech API → Record via AudioContext)
+// ============================================================
+async function generateAudio() {
+  const text = document.getElementById('contentText').value.trim();
+  if (!text) { showToast('⚠️ الرجاء كتابة النص أولاً', 'error'); return; }
+
+  const btn = document.querySelector('[onclick="generateAudio()"]');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⚡</span> جاري التوليد...';
+
+  showLoading('🎙️ جاري توليد الصوت...');
+
+  try {
+    // Use MediaRecorder to capture TTS audio
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const dest = audioCtx.createMediaStreamDestination();
+    const mediaRecorder = new MediaRecorder(dest.stream);
+    const chunks = [];
+
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = state.selectedLang.code;
+    utterance.rate = parseFloat(document.getElementById('voiceRate').value);
+    utterance.pitch = parseFloat(document.getElementById('voicePitch').value);
+    utterance.volume = parseFloat(document.getElementById('voiceVolume').value);
+
+    const selVoice = document.getElementById('voiceSelect').value;
+    if (selVoice) {
+      const voices = speechSynthesis.getVoices();
+      const v = voices.find(v => v.name === selVoice);
+      if (v) utterance.voice = v;
+    }
+
+    mediaRecorder.start();
+
+    utterance.onend = () => {
+      setTimeout(() => {
+        mediaRecorder.stop();
+        mediaRecorder.onstop = () => {
+          if (chunks.length > 0 && chunks.reduce((a,c)=>a+c.size,0) > 0) {
+            state.audioBlob = new Blob(chunks, { type: 'audio/webm' });
+            state.audioUrl = URL.createObjectURL(state.audioBlob);
+          }
+          finishAudioSetup();
+          audioCtx.close();
+        };
+      }, 300);
+    };
+
+    utterance.onerror = () => {
+      mediaRecorder.stop();
+      finishAudioSetup(); // Still show player using Web Speech
+      audioCtx.close();
+    };
+
+    // Play through system speakers too (for actual audible playback)
+    state.currentUtterance = utterance;
+    speechSynthesis.speak(utterance);
+
+  } catch (err) {
+    console.warn('AudioContext capture not supported, using direct TTS:', err);
+    // Fallback: direct TTS without recording
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = state.selectedLang.code;
+    utterance.rate = parseFloat(document.getElementById('voiceRate').value);
+    utterance.pitch = parseFloat(document.getElementById('voicePitch').value);
+    utterance.volume = parseFloat(document.getElementById('voiceVolume').value);
+    const selVoice = document.getElementById('voiceSelect').value;
+    if (selVoice) {
+      const voices = speechSynthesis.getVoices();
+      const v = voices.find(v => v.name === selVoice);
+      if (v) utterance.voice = v;
+    }
+    state.currentUtterance = utterance;
+    speechSynthesis.speak(utterance);
+    finishAudioSetup();
+  }
+}
+
+function finishAudioSetup() {
+  hideLoading();
+  state.audioGenerated = true;
+
+  const player = document.getElementById('audioPlayer');
+  player.classList.add('show');
+
+  // Animate wave bars
+  document.querySelectorAll('.wave-bar').forEach(b => b.classList.add('playing'));
+
+  updateSummary();
+  showToast('✅ تم توليد الصوت بنجاح!', 'success');
+
+  const btn = document.querySelector('[onclick="generateAudio()"]');
+  btn.disabled = false;
+  btn.innerHTML = '🔄 إعادة توليد';
+}
+
+function toggleAudio() {
+  const btn = document.getElementById('playAudioBtn');
+  if (state.isPlaying) {
+    speechSynthesis.cancel();
+    state.isPlaying = false;
+    btn.textContent = '▶';
+    document.querySelectorAll('.wave-bar').forEach(b => b.style.animationPlayState = 'paused');
+  } else {
+    // Replay using TTS
+    const text = document.getElementById('contentText').value.trim();
+    if (!text) return;
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = state.selectedLang.code;
+    utt.rate = parseFloat(document.getElementById('voiceRate').value);
+    utt.pitch = parseFloat(document.getElementById('voicePitch').value);
+    utt.volume = parseFloat(document.getElementById('voiceVolume').value);
+    const selVoice = document.getElementById('voiceSelect').value;
+    if (selVoice) {
+      const voices = speechSynthesis.getVoices();
+      const v = voices.find(v => v.name === selVoice);
+      if (v) utt.voice = v;
+    }
+    utt.onend = () => {
+      state.isPlaying = false;
+      btn.textContent = '▶';
+      document.querySelectorAll('.wave-bar').forEach(b => b.style.animationPlayState = 'paused');
+    };
+    speechSynthesis.speak(utt);
+    state.isPlaying = true;
+    btn.textContent = '⏸';
+    document.querySelectorAll('.wave-bar').forEach(b => b.style.animationPlayState = 'running');
+  }
+}
+
+// ============================================================
+// IMAGE SEARCH (Unsplash API - free, no key needed via source.unsplash.com)
+// ============================================================
+async function searchImages() {
+  const query = document.getElementById('imgSearchInput').value.trim();
+  if (!query) { showToast('⚠️ اكتب كلمة بحث', 'error'); return; }
+
+  const grid = document.getElementById('searchGrid');
+  grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:2rem"><span class="spin" style="font-size:1.5rem">⚡</span></div>';
+
+  try {
+    // Using Unsplash Source (no API key required)
+    const images = [];
+    const seeds = [1,2,3,4,5,6];
+    for (let i = 0; i < 6; i++) {
+      images.push({
+        id: `unsplash_${query}_${i}`,
+        url: `https://source.unsplash.com/400x400/?${encodeURIComponent(query)}&sig=${Date.now()+i}`,
+        src: `https://source.unsplash.com/400x400/?${encodeURIComponent(query)}&sig=${Date.now()+i}`
+      });
+    }
+    renderImageGrid(grid, images, 'search');
+  } catch(e) {
+    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--tt-red)">⚠️ حدث خطأ في البحث. حاول مرة أخرى.</div>';
+  }
+}
+
+// ============================================================
+// AI IMAGE GENERATION (Pollinations.ai - free, no key needed)
+// ============================================================
+async function generateAIImages() {
+  const prompt = document.getElementById('aiPrompt').value.trim();
+  if (!prompt) { showToast('⚠️ اكتب وصف الصورة بالإنجليزية', 'error'); return; }
+
+  const style = document.getElementById('aiStyle').value;
+  const count = parseInt(document.getElementById('aiCount').value);
+  const grid = document.getElementById('aiGrid');
+
+  const styleMap = {
+    realistic: 'photorealistic, high quality, 8k',
+    cinematic: 'cinematic, dramatic lighting, film grain, anamorphic lens',
+    illustration: 'digital illustration, vibrant colors, detailed artwork',
+    anime: 'anime style, manga, detailed, studio ghibli',
+    minimalist: 'minimalist, clean, simple, white background'
+  };
+
+  const fullPrompt = `${prompt}, ${styleMap[style]}`;
+
+  // Show loading placeholders
+  grid.innerHTML = Array(count).fill(0).map((_,i) => `
+    <div class="img-loading" id="aiLoad${i}">⚡</div>
+  `).join('');
+
+  showToast('🤖 جاري توليد الصور...', 'info');
+
+  const images = [];
+  for (let i = 0; i < count; i++) {
+    const seed = Math.floor(Math.random() * 999999);
+    const w = 512, h = 512;
+    const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(fullPrompt)}?width=${w}&height=${h}&seed=${seed}&nologo=true`;
+    images.push({ id: `ai_${seed}`, url, src: url });
+
+    // Update placeholder to image
+    const placeholder = document.getElementById(`aiLoad${i}`);
+    if (placeholder) {
+      const img = document.createElement('div');
+      img.className = 'img-thumb';
+      img.dataset.id = images[i].id;
+      img.dataset.src = url;
+      img.innerHTML = `
+        <img src="${url}" alt="AI generated" loading="lazy"
+          onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--surface2);color:var(--text-muted);font-size:0.7rem\'>خطأ في التوليد</div>'"
+          onload="this.parentElement.classList.remove(\'loading\')">
+        <div class="img-select-icon">✓</div>
+      `;
+      img.onclick = () => toggleImageSelect(img, images[i]);
+      placeholder.replaceWith(img);
+    }
+  }
+
+  showToast(`✅ تم توليد ${count} صور!`, 'success');
+}
+
+function renderImageGrid(container, images, source) {
+  if (!images.length) {
+    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:2rem">لا توجد نتائج</div>';
+    return;
+  }
+  container.innerHTML = images.map(img => `
+    <div class="img-thumb" data-id="${img.id}" data-src="${img.src}" onclick="toggleImageSelectById('${img.id}', '${img.src}', this)">
+      <img src="${img.src}" alt="" loading="lazy"
+        onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect width=%22100%22 height=%22100%22 fill=%22%23222%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23666%22>⚠️</text></svg>'">
+      <div class="img-select-icon">✓</div>
+    </div>
+  `).join('');
+}
+
+function toggleImageSelectById(id, src, el) {
+  const existing = state.selectedImages.findIndex(i => i.id === id);
+  if (existing > -1) {
+    state.selectedImages.splice(existing, 1);
+    el.classList.remove('selected');
+  } else {
+    if (state.selectedImages.length >= 20) {
+      showToast('⚠️ الحد الأقصى 20 صورة', 'error'); return;
+    }
+    state.selectedImages.push({ id, src });
+    el.classList.add('selected');
+  }
+  updateSelectedStrip();
+}
+
+function toggleImageSelect(el, imgObj) {
+  const existing = state.selectedImages.findIndex(i => i.id === imgObj.id);
+  if (existing > -1) {
+    state.selectedImages.splice(existing, 1);
+    el.classList.remove('selected');
+  } else {
+    if (state.selectedImages.length >= 20) {
+      showToast('⚠️ الحد الأقصى 20 صورة', 'error'); return;
+    }
+    state.selectedImages.push(imgObj);
+    el.classList.add('selected');
+  }
+  updateSelectedStrip();
+}
+
+function updateSelectedStrip() {
+  const strip = document.getElementById('selectedStrip');
+  const tag = document.getElementById('imgCountTag');
+
+  tag.textContent = `${state.selectedImages.length} صورة`;
+  tag.className = `status-tag ${state.selectedImages.length > 0 ? 'ready' : 'none'}`;
+
+  if (!state.selectedImages.length) {
+    strip.innerHTML = '<div class="strip-empty">لم تختر أي صور بعد — اختر من الأعلى</div>';
+  } else {
+    strip.innerHTML = state.selectedImages.map((img, i) => `
+      <div class="strip-item">
+        <img src="${img.src}" alt="">
+        <div class="remove-img" onclick="removeSelectedImg(${i})">×</div>
+      </div>
+    `).join('');
+  }
+  updateSummary();
+}
+
+function removeSelectedImg(index) {
+  state.selectedImages.splice(index, 1);
+  updateSelectedStrip();
+}
+
+// ============================================================
+// FILE UPLOAD
+// ============================================================
+function handleFileUpload(input) {
+  const files = Array.from(input.files);
+  processUploadedFiles(files);
+}
+
+function processUploadedFiles(files) {
+  const grid = document.getElementById('uploadGrid');
+  let existing = grid.querySelectorAll('.img-thumb').length;
+
+  files.slice(0, 20 - existing).forEach((file, i) => {
+    if (!file.type.startsWith('image/')) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      const id = `upload_${Date.now()}_${i}`;
+      const src = e.target.result;
+
+      // Remove empty placeholder
+      const empty = grid.querySelector('div:not(.img-thumb)');
+      if (empty && grid.children.length === 1) grid.innerHTML = '';
+
+      const div = document.createElement('div');
+      div.className = 'img-thumb';
+      div.dataset.id = id;
+      div.innerHTML = `
+        <img src="${src}" alt="${file.name}">
+        <div class="img-select-icon">✓</div>
+      `;
+      div.onclick = () => toggleImageSelectById(id, src, div);
+      grid.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  showToast(`✅ تم رفع ${files.length} صورة`, 'success');
+}
+
+// ============================================================
+// IMAGE TABS
+// ============================================================
+function switchImgTab(tab) {
+  document.querySelectorAll('.img-tab').forEach((t,i) => t.classList.toggle('active', ['search','ai','upload'][i] === tab));
+  document.querySelectorAll('.img-panel').forEach((p,i) => p.classList.toggle('active', ['tabSearch','tabAi','tabUpload'][i] === `tab${tab.charAt(0).toUpperCase()+tab.slice(1)}`));
+}
+
+// ============================================================
+// VIDEO SETTINGS
+// ============================================================
+function selectFormat(el, fmt, w, h) {
+  document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  state.settings.format = fmt;
+  state.settings.canvasW = parseInt(w);
+  state.settings.canvasH = parseInt(h);
+  document.getElementById('summaryFormat').textContent = `${fmt} (${w}×${h})`;
+}
+
+function selectBg(el, color) {
+  state.settings.bgColor = color;
+  document.querySelectorAll('[onclick^="selectBg"]').forEach(e => e.style.border = '2px solid transparent');
+  if (el) el.style.border = '2px solid var(--tt-red)';
+}
+
+// ============================================================
+// VIDEO GENERATION (Canvas API + MediaRecorder)
+// ============================================================
+async function generateVideo() {
+  if (!state.audioGenerated) {
+    showToast('⚠️ يجب توليد الصوت أولاً في الخطوة 1', 'error');
+    return;
+  }
+  if (!state.selectedImages.length) {
+    showToast('⚠️ يجب اختيار صورة واحدة على الأقل في الخطوة 2', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('generateVideoBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⚡</span> جاري الإنتاج...';
+
+  const progress = document.getElementById('progressWrap');
+  progress.classList.add('show');
+
+  try {
+    await produceVideo();
+  } catch (err) {
+    console.error('Video generation error:', err);
+    showToast('⚠️ حدث خطأ. حاول مرة أخرى.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '🎬 إنتاج الفيديو الآن';
+    hideLoading();
+  }
+}
+
+async function produceVideo() {
+  const { canvasW, canvasH, bgColor, imgDuration } = state.settings;
+
+  // Scaled down for browser performance
+  const scale = Math.min(1, 720 / Math.max(canvasW, canvasH));
+  const W = Math.round(canvasW * scale);
+  const H = Math.round(canvasH * scale);
+
+  const canvas = document.getElementById('renderCanvas');
+  canvas.width  = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  setProgress(10, '🖼️ جاري تحميل الصور...');
+
+  // Load all images
+  const loadedImages = await Promise.all(
+    state.selectedImages.map(img => loadImage(img.src))
+  );
+
+  setProgress(30, '🎬 جاري تجميع الإطارات...');
+
+  // Setup MediaRecorder
+  const stream = canvas.captureStream(24);
+  let mediaRecorder;
+  try {
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9', videoBitsPerSecond: 2500000 });
+  } catch {
+    try {
+      mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+    } catch {
+      mediaRecorder = new MediaRecorder(stream);
+    }
+  }
+
+  const chunks = [];
+  mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+  const FPS = 24;
+  const imgDur = parseFloat(document.getElementById('imgDuration').value);
+  const totalDur = state.selectedImages.length * imgDur;
+  const totalFrames = Math.round(totalDur * FPS);
+  const framesPerImg = Math.round(imgDur * FPS);
+  const transitionFrames = Math.round(0.4 * FPS);
+  const transition = document.getElementById('transitionType').value;
+  const overlayText = document.getElementById('overlayText').value.trim();
+  const textPos = document.getElementById('textPosition').value;
+  const textSize = parseInt(document.getElementById('textSize').value);
+  const textDirection = state.selectedLang.code.startsWith('ar') || state.selectedLang.code.startsWith('he') ? 'rtl' : 'ltr';
+
+  mediaRecorder.start(100);
+
+  // Render frames
+  for (let frame = 0; frame < totalFrames; frame++) {
+    const imgIdx = Math.min(Math.floor(frame / framesPerImg), loadedImages.length - 1);
+    const frameInImg = frame % framesPerImg;
+    const progress = frameInImg / framesPerImg;
+
+    // Clear
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, W, H);
+
+    // Transition logic
+    let alpha = 1;
+    if (transition === 'fade') {
+      if (frameInImg < transitionFrames && imgIdx > 0) {
+        alpha = frameInImg / transitionFrames;
+      } else if (frameInImg > framesPerImg - transitionFrames && imgIdx < loadedImages.length - 1) {
+        alpha = 1 - (frameInImg - (framesPerImg - transitionFrames)) / transitionFrames;
+      }
+    }
+
+    const img = loadedImages[imgIdx];
+
+    if (img) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      if (transition === 'zoom') {
+        const zoomFactor = 1 + progress * 0.06;
+        const x = (W - W * zoomFactor) / 2;
+        const y = (H - H * zoomFactor) / 2;
+        ctx.translate(W/2, H/2);
+        ctx.scale(zoomFactor, zoomFactor);
+        ctx.translate(-W/2, -H/2);
+      }
+
+      if (transition === 'slide' && imgIdx > 0) {
+        const prevImg = loadedImages[imgIdx - 1];
+        if (prevImg && frameInImg < transitionFrames) {
+          const t = frameInImg / transitionFrames;
+          drawImageCover(ctx, prevImg, -W * t, 0, W, H);
+          drawImageCover(ctx, img, W * (1 - t), 0, W, H);
+          ctx.restore(); ctx.save(); ctx.globalAlpha = 1;
+        } else {
+          drawImageCover(ctx, img, 0, 0, W, H);
+        }
+      } else {
+        drawImageCover(ctx, img, 0, 0, W, H);
+      }
+
+      ctx.restore();
+    }
+
+    // Overlay text
+    if (overlayText) {
+      const fontSize = Math.round(textSize * scale);
+      ctx.save();
+      ctx.font = `bold ${fontSize}px Tajawal, Arial`;
+      ctx.textAlign = 'center';
+      ctx.direction = textDirection;
+
+      const maxW = W * 0.85;
+      const lines = wrapText(ctx, overlayText, maxW);
+      const lineH = fontSize * 1.3;
+      const totalTextH = lines.length * lineH;
+
+      let textY;
+      if (textPos === 'top')    textY = fontSize + 20;
+      else if (textPos === 'center') textY = (H - totalTextH) / 2 + fontSize;
+      else textY = H - totalTextH - 30;
+
+      // Background pill
+      ctx.fillStyle = 'rgba(0,0,0,0.55)';
+      const pad = 12 * scale;
+      ctx.beginPath();
+      ctx.roundRect(-maxW/2 + W/2 - pad, textY - fontSize - pad/2, maxW + pad*2, totalTextH + pad, 10);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+      ctx.lineWidth = 2;
+      lines.forEach((line, i) => {
+        ctx.strokeText(line, W/2, textY + i * lineH);
+        ctx.fillText(line, W/2, textY + i * lineH);
+      });
+      ctx.restore();
+    }
+
+    // Yield to browser
+    if (frame % 8 === 0) {
+      const pct = 30 + Math.round((frame / totalFrames) * 55);
+      setProgress(pct, `🎬 إطار ${frame + 1} / ${totalFrames}`);
+      await sleep(0);
+    }
+  }
+
+  setProgress(85, '🔧 جاري تجميع الملف...');
+
+  // Stop recording
+  await new Promise(resolve => {
+    mediaRecorder.onstop = resolve;
+    mediaRecorder.stop();
+  });
+
+  setProgress(95, '✅ اللمسات الأخيرة...');
+  await sleep(200);
+
+  const blob = new Blob(chunks, { type: 'video/webm' });
+  state.videoBlob = blob;
+  state.videoUrl = URL.createObjectURL(blob);
+
+  // Show in preview
+  const videoEl = document.getElementById('videoPreviewEl');
+  const placeholder = document.getElementById('previewPlaceholder');
+  videoEl.src = state.videoUrl;
+  videoEl.style.display = 'block';
+  placeholder.style.display = 'none';
+
+  setProgress(100, '✅ اكتمل!');
+
+  const btn = document.getElementById('generateVideoBtn');
+  btn.disabled = false;
+  btn.innerHTML = '🔄 إعادة الإنتاج';
+
+  document.getElementById('downloadSection').classList.add('show');
+  showToast('🎉 تم إنتاج الفيديو بنجاح!', 'success');
+}
+
+function drawImageCover(ctx, img, x, y, w, h) {
+  const imgAspect = img.width / img.height;
+  const canvasAspect = w / h;
+
+  let sx, sy, sw, sh;
+  if (imgAspect > canvasAspect) {
+    sh = img.height; sw = img.height * canvasAspect;
+    sx = (img.width - sw) / 2; sy = 0;
+  } else {
+    sw = img.width; sh = img.width / canvasAspect;
+    sx = 0; sy = (img.height - sh) / 2;
+  }
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  for (const word of words) {
+    const test = current ? `${current} ${word}` : word;
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = test;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+async function loadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    // Add cache-busting for external images
+    img.src = src.includes('unsplash.com') ? `${src}&_t=${Date.now()}` : src;
+    setTimeout(() => resolve(null), 10000); // 10s timeout
+  });
+}
+
+function downloadVideo() {
+  if (!state.videoBlob) { showToast('⚠️ لا يوجد فيديو للتحميل', 'error'); return; }
+  const a = document.createElement('a');
+  a.href = state.videoUrl;
+  a.download = `tiktok_video_${Date.now()}.webm`;
+  a.click();
+  showToast('📥 جاري التحميل...', 'info');
+}
+
+function resetProject() {
+  if (!confirm('هل تريد البدء من جديد؟ سيتم حذف كل شيء.')) return;
+  location.reload();
+}
+
+// ============================================================
+// STEPS NAVIGATION
+// ============================================================
+function goStep(num) {
+  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i+1 === num));
+  document.querySelectorAll('.step-btn').forEach((b,i) => {
+    b.classList.remove('active','done');
+    if (i+1 === num) b.classList.add('active');
+    else if (i+1 < num) b.classList.add('done');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateSummary() {
+  document.getElementById('summaryAudio').textContent = state.audioGenerated ? '✅ جاهز' : '❌ لم يُنشأ بعد';
+  document.getElementById('summaryImages').textContent = `${state.selectedImages.length} صورة`;
+  const imgDur = parseFloat(document.getElementById('imgDuration').value);
+  const total = (state.selectedImages.length * imgDur).toFixed(1);
+  document.getElementById('summaryDuration').textContent = `~${total} ثانية`;
+}
+
+// ============================================================
+// PROGRESS
+// ============================================================
+function setProgress(pct, step) {
+  document.getElementById('progressFill').style.width = `${pct}%`;
+  document.getElementById('progressPct').textContent = `${pct}%`;
+  document.getElementById('progressStep').textContent = step;
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function showLoading(text = 'جاري المعالجة...') {
+  document.getElementById('loadingText').textContent = text;
+  document.getElementById('loadingOverlay').classList.add('show');
+}
+
+function hideLoading() {
+  document.getElementById('loadingOverlay').classList.remove('show');
+}
+
+let toastTimer;
+function showToast(msg, type = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+// Polyfill roundRect for older browsers
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+    this.moveTo(x+r, y);
+    this.lineTo(x+w-r, y); this.quadraticCurveTo(x+w, y, x+w, y+r);
+    this.lineTo(x+w, y+h-r); this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+    this.lineTo(x+r, y+h); this.quadraticCurveTo(x, y+h, x, y+h-r);
+    this.lineTo(x, y+r); this.quadraticCurveTo(x, y, x+r, y);
+    this.closePath();
+  };
+}
+</script>
+</body>
+</html>
