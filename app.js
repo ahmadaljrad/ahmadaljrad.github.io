@@ -1,14 +1,225 @@
 /* ══════════════════════════════════════════
    ALJRAD Digital Solutions — app.js
-   Handles: language switching, mobile drawer,
-            cost calculator, data.json rendering
    ══════════════════════════════════════════ */
 
 let currentLang = 'de';
 let drawerOpen  = false;
 let siteData    = null;
 
-/* ── Fetch data.json and boot ── */
+/* ── DOM Ready ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollProgress();
+  initParticles();
+  initRevealObserver();
+  initCounterAnimation();
+  initSmoothScroll();
+  initActiveNavLink();
+  initNavbarScroll();
+});
+
+/* ══ SCROLL PROGRESS ══ */
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = scrolled + '%';
+  });
+}
+
+/* ══ PARTICLES CANVAS ══ */
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = Math.random() * 0.5 - 0.25;
+      this.speedY = Math.random() * 0.5 - 0.25;
+      this.opacity = Math.random() * 0.5 + 0.1;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
+    }
+    draw() {
+      ctx.fillStyle = 'rgba(37, 99, 235, ' + this.opacity + ')';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    particles = [];
+    const count = Math.min(Math.floor(window.innerWidth / 10), 100);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+  init();
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.strokeStyle = 'rgba(37, 99, 235, ' + (0.1 * (1 - dist / 100)) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+/* ══ REVEAL ON SCROLL ══ */
+function initRevealObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        const counters = entry.target.querySelectorAll('.stat-num[data-target]');
+        counters.forEach(num => {
+          if (!num.classList.contains('counted')) {
+            num.classList.add('counted');
+            animateCounter(num);
+          }
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+/* ══ COUNTER ANIMATION ══ */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  if (isNaN(target)) return;
+  const duration = 2000;
+  const step = target / (duration / 16);
+  let current = 0;
+  const original = el.textContent;
+  const hasPlus = original.includes('+');
+  const hasPercent = original.includes('%');
+
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      let final = target.toString();
+      if (hasPlus) final = '+' + final;
+      if (hasPercent) final = final + '%';
+      el.textContent = final;
+      clearInterval(timer);
+    } else {
+      let val = Math.floor(current).toString();
+      if (hasPlus) val = '+' + val;
+      if (hasPercent) val = val + '%';
+      el.textContent = val;
+    }
+  }, 16);
+}
+
+/* ══ SMOOTH SCROLL + ACTIVE LINK ON CLICK ══ */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      e.preventDefault();
+      
+      /* Set active immediately */
+      setActiveLink(href);
+      
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+}
+
+/* ══ SET ACTIVE LINK ══ */
+function setActiveLink(href) {
+if (!href || href === '#') {
+  href = '#home';
+}
+
+  document.querySelectorAll('.nav-links a, .drawer-nav-link').forEach(link => {
+    link.classList.remove('active');
+  });
+
+  document.querySelectorAll('.nav-links a[href="' + href + '"]').forEach(link => {
+    link.classList.add('active');
+  });
+  document.querySelectorAll('.drawer-nav-link[href="' + href + '"]').forEach(link => {
+    link.classList.add('active');
+  });
+}
+
+/* ══ ACTIVE NAV LINK ON SCROLL ══ */
+function initActiveNavLink() {
+  const sections = document.querySelectorAll('section[id], div[id]');
+
+  function updateActive() {
+    let current = 'home';
+    const scrollY = window.scrollY + 150;
+
+    sections.forEach(section => {
+      if (scrollY >= section.offsetTop) {
+        current = section.id;
+      }
+    });
+
+    syncActiveLink('#' + current);
+  }
+
+  window.addEventListener('scroll', updateActive);
+  updateActive();
+}
+
+/* ══ NAVBAR SCROLL EFFECT ══ */
+function initNavbarScroll() {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+}
+
+/* ── Fetch data.json ── */
 fetch('data.json')
   .then(r => r.json())
   .then(data => {
@@ -17,12 +228,10 @@ fetch('data.json')
     setLang(currentLang);
   })
   .catch(() => {
-    /* Fallback: page already has inline content, just set language */
     setLang(currentLang);
   });
 
 /* ══ RENDER FUNCTIONS ══ */
-
 function renderAll(data) {
   renderNav(data);
   renderHero(data);
@@ -42,29 +251,27 @@ function t(obj, lang) {
 
 function renderNav(data) {
   const nav = data.nav;
+  const activeHref = document.querySelector('.nav-links a.active')?.getAttribute('href') || '#';
 
-  /* Update navbar links */
-  const links = document.querySelectorAll('.nav-links a[data-key]');
-  links.forEach(a => {
+  document.querySelectorAll('.nav-links a[data-key]').forEach(a => {
     const key = a.dataset.key;
     if (nav[key]) a.textContent = t(nav[key], currentLang);
   });
 
-  /* Update drawer nav links */
-  const drawerLinks = document.querySelectorAll('.drawer-nav-link [data-key]');
-  drawerLinks.forEach(el => {
+  document.querySelectorAll('.drawer-nav-link [data-key]').forEach(el => {
     const key = el.dataset.key;
     if (nav[key]) el.textContent = t(nav[key], currentLang);
   });
 
-  /* Update drawer lang label */
   const langLabel = document.querySelector('.drawer-lang-label[data-key="language"]');
   if (langLabel && nav.language) langLabel.textContent = t(nav.language, currentLang);
 
-  /* Update all nav CTAs */
   document.querySelectorAll('[data-key="cta"]').forEach(el => {
     if (nav.cta) el.textContent = t(nav.cta, currentLang);
   });
+
+  /* Restore active after text change */
+  syncActiveLink(activeHref);
 }
 
 function renderHero(data) {
@@ -176,14 +383,11 @@ function renderFooter(data) {
   setText('.footer-copy', t(data.footer.copy, currentLang));
 }
 
-/* ── Helper: set text in scope ── */
 function setText(scopeOrSelector, selectorOrText, text) {
   if (text === undefined) {
-    /* called as setText(selector, text) */
     const els = document.querySelectorAll(scopeOrSelector);
     els.forEach(el => { if (el) el.textContent = selectorOrText; });
   } else {
-    /* called as setText(scope, childSelector, text) */
     const scope = typeof scopeOrSelector === 'string'
       ? document.querySelector(scopeOrSelector)
       : scopeOrSelector;
@@ -193,73 +397,73 @@ function setText(scopeOrSelector, selectorOrText, text) {
   }
 }
 
-/* ══ LANGUAGE SWITCHING ══ */
+/* ══ SYNC ACTIVE LINK ══ */
+function syncActiveLink(href) {
+if (!href || href === '#') href = '#home';
+  document.querySelectorAll('.nav-links a, .drawer-nav-link').forEach(link => {
+    link.classList.remove('active');
+  });
+  document.querySelectorAll('.nav-links a[href="' + href + '"]').forEach(link => {
+    link.classList.add('active');
+  });
+  document.querySelectorAll('.drawer-nav-link[href="' + href + '"]').forEach(link => {
+    link.classList.add('active');
+  });
+}
 
+/* ══ LANGUAGE SWITCHING ══ */
 function setLang(lang) {
   currentLang = lang;
   const isRtl = lang === 'ar';
 
-  /* Direction & font */
   document.documentElement.lang = lang;
   document.documentElement.dir  = isRtl ? 'rtl' : 'ltr';
   document.body.classList.toggle('ltr', !isRtl);
 
-  /* Drawer direction class */
   const drawer = document.getElementById('drawer');
   if (drawer) {
     drawer.classList.toggle('drawer-rtl', isRtl);
     drawer.classList.toggle('drawer-ltr', !isRtl);
   }
 
-  /* Re-render dynamic content if data loaded */
+  const activeHref = document.querySelector('.nav-links a.active')?.getAttribute('href') || 
+                     document.querySelector('.drawer-nav-link.active')?.getAttribute('href') || '#';
+
   if (siteData) renderAll(siteData);
 
-  /* Mark active language in navbar lang-menu */
+  syncActiveLink(activeHref);
+
   document.querySelectorAll('.lang-menu li').forEach(li => {
     li.classList.toggle('active', li.dataset.lang === lang);
   });
 
-  /* Mark active language in drawer pills */
   document.querySelectorAll('.drawer-lang-pill').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
-  /* Close all lang menus */
   document.querySelectorAll('.lang-menu').forEach(m => m.style.display = 'none');
 }
 
 /* ══ LANG MENU TOGGLE ══ */
-
 function toggleLangMenu(event) {
   event.stopPropagation();
-
-  /* Find the closest .lang-dropdown OR the drawer lang item */
-  const dropdown = event.currentTarget.closest('.lang-dropdown') ||
-                   event.currentTarget.closest('.drawer-lang-item');
+  const dropdown = event.currentTarget.closest('.lang-dropdown');
   if (!dropdown) return;
-
   const menu = dropdown.querySelector('.lang-menu');
   if (!menu) return;
-
   const isOpen = menu.style.display === 'block';
-
-  /* Close every other open menu first */
   document.querySelectorAll('.lang-menu').forEach(m => m.style.display = 'none');
-
   menu.style.display = isOpen ? 'none' : 'block';
 }
 
-/* Close lang menus on outside click */
 document.addEventListener('click', e => {
-  const insideDropdown = e.target.closest('.lang-dropdown') ||
-                         e.target.closest('.drawer-lang-item');
+  const insideDropdown = e.target.closest('.lang-dropdown');
   if (!insideDropdown) {
     document.querySelectorAll('.lang-menu').forEach(m => m.style.display = 'none');
   }
 });
 
 /* ══ MOBILE DRAWER ══ */
-
 function toggleMenu() {
   drawerOpen = !drawerOpen;
   document.getElementById('hbg').classList.toggle('open', drawerOpen);
@@ -276,10 +480,14 @@ function closeMenu() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeMenu();
+    document.querySelectorAll('.lang-menu').forEach(m => m.style.display = 'none');
+  }
+});
 
 /* ══ CALCULATOR ══ */
-
 function toggleCalc(item) {
   const cb = item.querySelector('input[type=checkbox]');
   cb.checked = !cb.checked;
