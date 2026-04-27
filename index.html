@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ALJRAD Digital Solutions</title>
-<link rel="icon" href="favicon.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,9 +12,13 @@
 </head>
 <body>
 
+<!-- Scroll Progress & Particles -->
+<div class="scroll-progress" id="scrollProgress"></div>
+<canvas id="particles-canvas"></canvas>
+
 <!-- ══ NAVBAR ══ -->
-<nav>
-  <a class="logo" href="#">
+<nav id="navbar">
+  <a class="logo" href="#home">
     <img src="logo.png" alt="ALJRAD Digital Solutions">
     <div class="logo-text">
       <div class="brand">ALJRAD</div>
@@ -23,7 +27,7 @@
   </a>
 
   <ul class="nav-links">
-    <li><a href="#"        class="active" data-key="home">Startseite</a></li>
+    <li><a href="#home"        class="active" data-key="home">Startseite</a></li>
     <li><a href="#services"              data-key="services">Leistungen</a></li>
     <li><a href="#pricing"               data-key="pricing">Preise</a></li>
     <li><a href="#contact"               data-key="contact">Kontakt</a></li>
@@ -70,7 +74,7 @@
   </div>
 
   <nav class="drawer-nav">
-    <a href="#" class="drawer-nav-link active" onclick="closeMenu()" data-drawer-key="home">
+    <a href="#home" class="drawer-nav-link active" onclick="closeMenu()" data-drawer-key="home">
       <span class="drawer-nav-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </span>
@@ -124,7 +128,7 @@
 </div>
 
 <!-- ══ HERO ══ -->
-<section class="hero">
+<section class="hero" id="home">
   <div class="hero-content">
     <div class="hero-badge" data-hero="badge">Integrierte digitale Lösungen</div>
     <h1>
@@ -200,37 +204,37 @@
 </section>
 
 <!-- ══ STATS BAR ══ -->
-<div class="stats-bar">
-  <div class="stat-item">
+<div class="stats-bar reveal">
+  <div class="stat-item reveal delay-1">
     <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
     <div><div class="stat-num">Hohe Leistung</div><div class="stat-lbl">Geschwindigkeit & Stabilität</div></div>
   </div>
   <div class="sdiv"></div>
-  <div class="stat-item">
+  <div class="stat-item reveal delay-2">
     <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
     <div><div class="stat-num">24/7</div><div class="stat-lbl">Dauerhafter Support</div></div>
   </div>
   <div class="sdiv"></div>
-  <div class="stat-item">
+  <div class="stat-item reveal delay-3">
     <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div><div class="stat-num">100%</div><div class="stat-lbl">Volle Sicherheitsgarantie</div></div>
+    <div><div class="stat-num" data-target="100">100%</div><div class="stat-lbl">Volle Sicherheitsgarantie</div></div>
   </div>
   <div class="sdiv"></div>
-  <div class="stat-item">
+  <div class="stat-item reveal delay-4">
     <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-    <div><div class="stat-num">+200</div><div class="stat-lbl">Zufriedene Kunden</div></div>
+    <div><div class="stat-num" data-target="200">+200</div><div class="stat-lbl">Zufriedene Kunden</div></div>
   </div>
 </div>
 
 <!-- ══ SERVICES ══ -->
-<section class="services" id="services">
-  <div class="sec-label">UNSERE LEISTUNGEN</div>
-  <h2 class="sec-title">Alles an einem Ort</h2>
-  <p class="sec-desc">Integrierte digitale Lösungen zum Aufbauen und Entwickeln Ihres Unternehmens.</p>
+<section class="services reveal" id="services">
+  <div class="sec-label reveal">UNSERE LEISTUNGEN</div>
+  <h2 class="sec-title reveal delay-1">Alles an einem Ort</h2>
+  <p class="sec-desc reveal delay-2">Integrierte digitale Lösungen zum Aufbauen und Entwickeln Ihres Unternehmens.</p>
 
   <div class="svc-grid">
     <!-- 1. Web Design -->
-    <div class="svc-card" data-svc="webdesign">
+    <div class="svc-card reveal delay-1" data-svc="webdesign">
       <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <h3 class="svc-card-title">Professionelles Webdesign</h3>
       <p class="svc-card-short">Moderne responsive Websites für alle Geräte.</p>
@@ -242,7 +246,7 @@
     </div>
 
     <!-- 2. Hosting -->
-    <div class="svc-card" data-svc="hosting">
+    <div class="svc-card reveal delay-2" data-svc="hosting">
       <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 15a4 4 0 0 0 4 4h9a5 5 0 0 0 1.8-9.7A7 7 0 1 0 5.7 10.7 4 4 0 0 0 3 15z"/></svg></div>
       <h3 class="svc-card-title">Schnelles Web-Hosting</h3>
       <p class="svc-card-short">Hochleistungs-Hosting mit garantierter Geschwindigkeit.</p>
@@ -254,7 +258,7 @@
     </div>
 
     <!-- 3. Management -->
-    <div class="svc-card" data-svc="management">
+    <div class="svc-card reveal delay-3" data-svc="management">
       <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
       <h3 class="svc-card-title">Website-Verwaltung</h3>
       <p class="svc-card-short">Professionelle Verwaltung, Updates und Wartung.</p>
@@ -266,7 +270,7 @@
     </div>
 
     <!-- 4. Email -->
-    <div class="svc-card" data-svc="email">
+    <div class="svc-card reveal delay-1" data-svc="email">
       <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
       <h3 class="svc-card-title">Professionelle E-Mail</h3>
       <p class="svc-card-short">Firmen-E-Mail für mehr Glaubwürdigkeit.</p>
@@ -278,7 +282,7 @@
     </div>
 
     <!-- 5. Google Maps -->
-    <div class="svc-card" data-svc="maps">
+    <div class="svc-card reveal delay-2" data-svc="maps">
       <div class="svc-icon">
         <svg viewBox="0 0 24 24" fill="none" width="30" height="30">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
@@ -295,7 +299,7 @@
     </div>
 
     <!-- 6. AI Chatbot -->
-    <div class="svc-card" data-svc="chatbot">
+    <div class="svc-card reveal delay-3" data-svc="chatbot">
       <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="2" width="9" height="9" rx="2"/><rect x="13" y="2" width="9" height="9" rx="2"/><rect x="2" y="13" width="9" height="9" rx="2"/><circle cx="17" cy="17" r="3"/></svg></div>
       <h3 class="svc-card-title">KI-Kundenservice-Bot</h3>
       <p class="svc-card-short">KI-Bot beantwortet Kundenfragen rund um die Uhr.</p>
@@ -309,14 +313,14 @@
 </section>
 
 <!-- ══ PRICING ══ -->
-<section class="pricing" id="pricing">
-  <div class="sec-label">PREISE</div>
-  <h2 class="sec-title">Transparente Preise für jeden</h2>
-  <p class="sec-desc">Wählen Sie das passende Paket oder nutzen Sie den Kalkulator.</p>
+<section class="pricing reveal" id="pricing">
+  <div class="sec-label reveal">PREISE</div>
+  <h2 class="sec-title reveal delay-1">Transparente Preise für jeden</h2>
+  <p class="sec-desc reveal delay-2">Wählen Sie das passende Paket oder nutzen Sie den Kalkulator.</p>
 
   <div class="pricing-grid">
     <!-- Starter -->
-    <div class="price-card" data-pkg="starter">
+    <div class="price-card reveal delay-1" data-pkg="starter">
       <div class="price-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <h3>Starter-Paket</h3>
       <div class="price-amount">149 <span>€ / einmalig</span></div>
@@ -332,7 +336,7 @@
     </div>
 
     <!-- Professional (popular) -->
-    <div class="price-card popular" data-pkg="pro">
+    <div class="price-card popular reveal delay-2" data-pkg="pro">
       <div class="popular-badge">⭐ Am beliebtesten</div>
       <div class="price-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <h3>Professionelles Paket</h3>
@@ -350,7 +354,7 @@
     </div>
 
     <!-- Business -->
-    <div class="price-card" data-pkg="business">
+    <div class="price-card reveal delay-3" data-pkg="business">
       <div class="price-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
       <h3>Business-Paket</h3>
       <div class="price-amount">699 <span>€ / einmalig</span></div>
@@ -368,7 +372,7 @@
   </div>
 
   <!-- ══ CALCULATOR ══ -->
-  <div class="calculator">
+  <div class="calculator reveal delay-3">
     <div class="calc-title">🧮 Kosten berechnen</div>
     <div class="calc-desc">Wählen Sie die benötigten Dienste und wir berechnen sofort die geschätzten Kosten.</div>
 
@@ -398,7 +402,7 @@
 </section>
 
 <!-- ══ CTA BANNER ══ -->
-<div class="cta-banner" id="contact">
+<div class="cta-banner reveal" id="contact">
   <div class="cta-text">
     <h2>Bereit zum Start? Kontaktieren Sie uns!</h2>
     <p>Wir helfen Ihnen, Ihre Idee in eine erfolgreiche digitale Realität zu verwandeln.</p>
@@ -426,21 +430,21 @@
 </div>
 
 <!-- ══ FOOTER FEATURES ══ -->
-<div class="footer-features">
+<div class="footer-features reveal">
   <div class="ff-grid">
-    <div class="ff-item" data-ff-idx="0">
+    <div class="ff-item reveal delay-1" data-ff-idx="0">
       <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       <div class="ff-text"><h4>Erschwingliche Preise</h4><p>Pläne für alle Budgets</p></div>
     </div>
-    <div class="ff-item" data-ff-idx="1">
+    <div class="ff-item reveal delay-2" data-ff-idx="1">
       <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <div class="ff-text"><h4>Hohe Qualität</h4><p>Neueste Technologien</p></div>
     </div>
-    <div class="ff-item" data-ff-idx="2">
+    <div class="ff-item reveal delay-3" data-ff-idx="2">
       <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <div class="ff-text"><h4>Schnelle Lieferung</h4><p>Wir halten Termine ein</p></div>
     </div>
-    <div class="ff-item" data-ff-idx="3">
+    <div class="ff-item reveal delay-4" data-ff-idx="3">
       <div class="ff-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
       <div class="ff-text"><h4>Kontinuierlicher Support</h4><p>Support nach der Lieferung</p></div>
     </div>
