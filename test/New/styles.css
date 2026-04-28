@@ -187,6 +187,9 @@ nav.scrolled {
   object-fit: contain;
   transition: var(--trans);
 }
+[data-theme="dark"] .logo img {
+  filter: brightness(0) invert(1);
+}
 .logo:hover img { transform: scale(1.05) rotate(-3deg); }
 .logo-text { display:flex; flex-direction:column; line-height:1.15; text-align:start; }
 .brand {
