@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ALJRAD Digital Solutions – Professionelles Webdesign, Hosting und digitale Lösungen für Ihr Unternehmen." />
+  <title>ALJRAD Digital Solutions</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="Scroll progress"></div>
+
+<!-- Particles Canvas -->
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <a class="logo" href="#home" aria-label="ALJRAD Digital Solutions – Home">
+    <img src="logo.png" alt="ALJRAD Digital Solutions Logo">
+    <div class="logo-text">
+      <div class="brand">ALJRAD</div>
+      <div class="sub">Digital Solutions</div>
+    </div>
+  </a>
+
+  <ul class="nav-links" role="menubar">
+    <li role="none"><a href="#home"     class="active" data-key="home"     role="menuitem">Startseite</a></li>
+    <li role="none"><a href="#services"             data-key="services"   role="menuitem">Leistungen</a></li>
+    <li role="none"><a href="#pricing"              data-key="pricing"    role="menuitem">Preise</a></li>
+    <li role="none"><a href="#contact"              data-key="contact"    role="menuitem">Kontakt</a></li>
+
+    <li class="lang-dropdown" role="none">
+      <button class="lang-toggle" onclick="toggleLangMenu(event)" aria-label="Sprache auswählen" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9h-3.17a15.7 15.7 0 00-1.34-5.02A8.01 8.01 0 0119.93 11zM12 4c.88 1.2 1.57 3.35 1.9 7H10.1C10.43 7.35 11.12 5.2 12 4zM4.07 13h3.17c.31 1.8.77 3.53 1.34 5.02A8.01 8.01 0 014.07 13zM7.24 11H4.07a8.01 8.01 0 015.34-5.02A15.7 15.7 0 007.24 11zM12 20c-.88-1.2-1.57-3.35-1.9-7h3.8c-.33 3.65-1.02 5.8-1.9 7zm2.66-1.98A15.7 15.7 0 0015.93 13h3.17a8.01 8.01 0 01-5.44 5.02z"/>
+        </svg>
+      </button>
+      <ul class="lang-menu" role="menu" aria-label="Language selection">
+        <li data-lang="ar" onclick="setLang('ar')" role="menuitem" tabindex="0"><img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia flag"><span>العربية</span></li>
+        <li data-lang="en" onclick="setLang('en')" role="menuitem" tabindex="0"><img src="https://flagcdn.com/w40/gb.png" alt="UK flag"><span>English</span></li>
+        <li data-lang="de" onclick="setLang('de')" class="active" role="menuitem" tabindex="0"><img src="https://flagcdn.com/w40/de.png" alt="Germany flag"><span>Deutsch</span></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="nav-controls">
+    <!-- Dark Mode Toggle -->
+    <button class="dark-toggle desktop-only" onclick="toggleTheme()" aria-label="Dark mode umschalten" title="Dark / Light Mode">
+      <!-- Moon icon (shown in light mode) -->
+      <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <!-- Sun icon (shown in dark mode) -->
+      <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+
+    <a class="nav-cta" href="#contact" aria-label="Kontakt aufnehmen">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span data-key="cta">Kontakt</span>
+    </a>
+
+    <button class="hamburger" id="hbg" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ MOBILE OVERLAY ══ -->
+<div class="mobile-overlay" id="overlay" onclick="closeMenu()" aria-hidden="true"></div>
+
+<!-- ══ MOBILE DRAWER — Enhanced ══ -->
+<div class="mobile-drawer drawer-rtl" id="drawer" role="dialog" aria-modal="true" aria-label="Navigation Menü">
+
+  <!-- Gradient Header -->
+  <div class="drawer-header">
+    <button class="drawer-close" onclick="closeMenu()" aria-label="Menü schließen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="drawer-brand">
+      <div class="name">ALJRAD</div>
+      <div class="tagline">DIGITAL SOLUTIONS</div>
+    </div>
+  </div>
+
+  <!-- Nav Links -->
+  <nav class="drawer-nav" aria-label="Mobile navigation">
+    <a href="#home" class="drawer-nav-link active" onclick="closeMenu()" data-drawer-key="home">
+      <span class="drawer-nav-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </span>
+      <span data-key="home">Startseite</span>
+    </a>
+    <a href="#services" class="drawer-nav-link" onclick="closeMenu()" data-drawer-key="services">
+      <span class="drawer-nav-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </span>
+      <span data-key="services">Leistungen</span>
+    </a>
+    <a href="#pricing" class="drawer-nav-link" onclick="closeMenu()" data-drawer-key="pricing">
+      <span class="drawer-nav-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </span>
+      <span data-key="pricing">Preise</span>
+    </a>
+    <a href="#contact" class="drawer-nav-link" onclick="closeMenu()" data-drawer-key="contact">
+      <span class="drawer-nav-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </span>
+      <span data-key="contact">Kontakt</span>
+    </a>
+  </nav>
+
+  <!-- Dark mode toggle in drawer -->
+  <div class="drawer-dark-row">
+    <div class="drawer-dark-label">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <span id="drawer-dark-label">Dark Mode</span>
+    </div>
+    <label class="toggle-switch" aria-label="Dark mode umschalten">
+      <input type="checkbox" id="drawerDarkToggle" onchange="toggleTheme()" aria-labelledby="drawer-dark-label">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <!-- Language section -->
+  <div class="drawer-lang-section">
+    <div class="drawer-lang-label" data-key="language">Sprache / Language</div>
+    <div class="drawer-lang-pills">
+      <button class="drawer-lang-pill" data-lang="ar" onclick="setLang('ar'); closeMenu();" aria-label="Arabic">
+        <img src="https://flagcdn.com/w40/sa.png" alt="">
+        <span>العربية</span>
+      </button>
+      <button class="drawer-lang-pill" data-lang="en" onclick="setLang('en'); closeMenu();" aria-label="English">
+        <img src="https://flagcdn.com/w40/gb.png" alt="">
+        <span>English</span>
+      </button>
+      <button class="drawer-lang-pill active" data-lang="de" onclick="setLang('de'); closeMenu();" aria-label="Deutsch">
+        <img src="https://flagcdn.com/w40/de.png" alt="">
+        <span>Deutsch</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="drawer-cta">
+    <a href="#contact" onclick="closeMenu()" aria-label="Jetzt Kontakt aufnehmen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span data-key="cta">Kontakt</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home" aria-label="Hero section">
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot" aria-hidden="true"></span>
+      <span data-hero="badge">Integrierte digitale Lösungen</span>
+    </div>
+    <h1>
+      <span data-hero="h1_1">Zum Erfolg Ihres</span><br>
+      <span class="blue" data-hero="h1_2">digitalen Projekts</span>
+    </h1>
+    <p data-hero="desc">Wir bieten alles, was Sie brauchen, um Ihr Online-Geschäft mit modernsten Technologien und fairen Preisen zu starten.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#pricing">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span data-hero="btn_primary">Jetzt starten</span>
+      </a>
+      <a class="btn-secondary" href="#services">
+        <span data-hero="btn_secondary">Leistungen ansehen</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <!-- Floating info badges -->
+    <div class="hero-badge-float badge-1">
+      <div class="badge-icon">⚡</div>
+      <div>
+        <div style="font-size:11px;color:var(--text-3);font-weight:500;">Performance</div>
+        <div>Blitzschnell</div>
+      </div>
+    </div>
+    <div class="hero-badge-float badge-2">
+      <div class="badge-icon">🛡️</div>
+      <div>
+        <div style="font-size:11px;color:var(--text-3);font-weight:500;">Sicherheit</div>
+        <div>100% Schutz</div>
+      </div>
+    </div>
+
+    <div class="mockup-laptop">
+      <div class="mlscreen">
+        <div class="sbar"><span></span><span></span><span></span></div>
+        <div style="display:flex;gap:5px;padding:0 5px 5px;margin-bottom:3px;">
+          <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
+          <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
+          <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
+          <div style="width:32px;height:6px;background:var(--blue);border-radius:3px;"></div>
+        </div>
+        <div class="scontent">
+          <div class="sl">
+            <div class="st">Wir gestalten Ihre Zukunft</div>
+            <div class="sd">Professionelles Webdesign & digitale Lösungen</div>
+            <div class="sb">Projekt starten</div>
+          </div>
+          <div class="sr">
+            <div class="schart">
+              <div class="b" style="height:28%"></div><div class="b" style="height:58%"></div>
+              <div class="b" style="height:44%"></div><div class="b" style="height:80%"></div>
+              <div class="b" style="height:64%"></div><div class="b" style="height:92%"></div>
+            </div>
+            <div class="sblock">
+              <div class="ln"></div><div class="ln s"></div><div class="ln bb"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#1e293b;height:7px;border-radius:0 0 4px 4px;width:76%;margin:0 auto;"></div>
+    </div>
+
+    <div class="mockup-phone">
+      <div class="mpscreen">
+        <div class="pbar"></div>
+        <div class="plines"><div class="pl"></div><div class="pl s"></div></div>
+        <div class="ptit">Gestalten Sie Zukunft</div>
+        <div class="pdsc">Professionelles Design</div>
+        <div class="pbtn"></div>
+        <div class="pchart">
+          <div class="cb" style="height:24%"></div><div class="cb" style="height:54%"></div>
+          <div class="cb" style="height:38%"></div><div class="cb" style="height:70%"></div>
+          <div class="cb" style="height:58%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots-deco" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar reveal" role="region" aria-label="Statistics">
+  <div class="stat-item reveal delay-1">
+    <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <div><div class="stat-num">Hohe Leistung</div><div class="stat-lbl">Geschwindigkeit & Stabilität</div></div>
+  </div>
+  <div class="sdiv" aria-hidden="true"></div>
+  <div class="stat-item reveal delay-2">
+    <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div><div class="stat-num">24/7</div><div class="stat-lbl">Dauerhafter Support</div></div>
+  </div>
+  <div class="sdiv" aria-hidden="true"></div>
+  <div class="stat-item reveal delay-3">
+    <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div><div class="stat-num" data-target="100">100%</div><div class="stat-lbl">Volle Sicherheitsgarantie</div></div>
+  </div>
+  <div class="sdiv" aria-hidden="true"></div>
+  <div class="stat-item reveal delay-4">
+    <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div><div class="stat-num" data-target="200">+200</div><div class="stat-lbl">Zufriedene Kunden</div></div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<section class="services reveal" id="services" aria-labelledby="services-title">
+  <div class="sec-label reveal">UNSERE LEISTUNGEN</div>
+  <h2 class="sec-title reveal delay-1" id="services-title">Alles an einem Ort</h2>
+  <p class="sec-desc reveal delay-2">Integrierte digitale Lösungen zum Aufbauen und Entwickeln Ihres Unternehmens.</p>
+
+  <div class="svc-grid">
+    <!-- 1. Web Design -->
+    <div class="svc-card reveal delay-1" data-svc="webdesign">
+      <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3 class="svc-card-title">Professionelles Webdesign</h3>
+      <p class="svc-card-short">Moderne responsive Websites für alle Geräte.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>Wir gestalten eine Website, die auf Mobilgeräten und Desktop perfekt funktioniert.</p>
+      </div>
+      <div class="svc-example">Beispiel: Restaurant-Website mit Menü, Buchung und Standort.</div>
+    </div>
+
+    <!-- 2. Hosting -->
+    <div class="svc-card reveal delay-2" data-svc="hosting">
+      <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 15a4 4 0 0 0 4 4h9a5 5 0 0 0 1.8-9.7A7 7 0 1 0 5.7 10.7 4 4 0 0 0 3 15z"/></svg></div>
+      <h3 class="svc-card-title">Schnelles Web-Hosting</h3>
+      <p class="svc-card-short">Hochleistungs-Hosting mit garantierter Geschwindigkeit.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>Schnelle, sichere Server die Ihre Website rund um die Uhr betreiben.</p>
+      </div>
+      <div class="svc-example">Beispiel: Ihr Online-Shop läuft ohne Unterbrechungen auch in Stoßzeiten.</div>
+    </div>
+
+    <!-- 3. Management -->
+    <div class="svc-card reveal delay-3" data-svc="management">
+      <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
+      <h3 class="svc-card-title">Website-Verwaltung</h3>
+      <p class="svc-card-short">Professionelle Verwaltung, Updates und Wartung.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>Vollständige Website-Verwaltung: Inhaltsaktualisierungen, Bilder, Leistungsüberwachung.</p>
+      </div>
+      <div class="svc-example">Beispiel: Ein Salonbesitzer schickt Fotos und wir aktualisieren die Website innerhalb von 24 Stunden.</div>
+    </div>
+
+    <!-- 4. Email -->
+    <div class="svc-card reveal delay-1" data-svc="email">
+      <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <h3 class="svc-card-title">Professionelle E-Mail</h3>
+      <p class="svc-card-short">Firmen-E-Mail für mehr Glaubwürdigkeit.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>E-Mail mit Ihrem eigenen Domainnamen für ein professionelles Erscheinungsbild.</p>
+      </div>
+      <div class="svc-example">Beispiel: Statt gmail.com kommunizieren Sie über info@ihrefirma.com.</div>
+    </div>
+
+    <!-- 5. Google Maps -->
+    <div class="svc-card reveal delay-2" data-svc="maps">
+      <div class="svc-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" width="30" height="30">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+          <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+        </svg>
+      </div>
+      <h3 class="svc-card-title">Google Maps Eintrag</h3>
+      <p class="svc-card-short">Auf Google Maps erscheinen und lokale Kunden gewinnen.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>Wir tragen Ihr Unternehmen in Google Maps mit allen Details ein.</p>
+      </div>
+      <div class="svc-example">Beispiel: Ein Kunde sucht "Friseur in meiner Nähe" — Ihr Salon erscheint ganz oben.</div>
+    </div>
+
+    <!-- 6. AI Chatbot -->
+    <div class="svc-card reveal delay-3" data-svc="chatbot">
+      <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="2" width="9" height="9" rx="2"/><rect x="13" y="2" width="9" height="9" rx="2"/><rect x="2" y="13" width="9" height="9" rx="2"/><circle cx="17" cy="17" r="3"/></svg></div>
+      <h3 class="svc-card-title">KI-Kundenservice-Bot</h3>
+      <p class="svc-card-short">KI-Bot beantwortet Kundenfragen rund um die Uhr.</p>
+      <div class="svc-detail">
+        <div class="svc-detail-title">Was bieten wir?</div>
+        <p>Wir bauen einen KI-Assistenten der sofort auf Kundenanfragen antwortet.</p>
+      </div>
+      <div class="svc-example">Beispiel: Kunde fragt um 2 Uhr morgens nach Produkt X — der Bot antwortet sofort.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="pricing reveal" id="pricing" aria-labelledby="pricing-title">
+  <div class="sec-label reveal">PREISE</div>
+  <h2 class="sec-title reveal delay-1" id="pricing-title">Transparente Preise für jeden</h2>
+  <p class="sec-desc reveal delay-2">Wählen Sie das passende Paket oder nutzen Sie den Kalkulator.</p>
+
+  <div class="pricing-grid">
+    <!-- Starter -->
+    <div class="price-card reveal delay-1" data-pkg="starter">
+      <div class="price-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3>Starter-Paket</h3>
+      <div class="price-amount">149 <span>€ / einmalig</span></div>
+      <div class="price-note">+ 15€/Monat für Hosting</div>
+      <ul class="price-features" aria-label="Starter Paket Leistungen">
+        <li>1–3 Seiten Website</li>
+        <li>Mobilfreundliches Design</li>
+        <li>Kostenlose Domain</li>
+        <li>1 professionelle E-Mail</li>
+        <li>Google Maps Eintrag</li>
+      </ul>
+      <a href="#contact" class="price-btn">Jetzt bestellen</a>
+    </div>
+
+    <!-- Professional (popular) -->
+    <div class="price-card popular reveal delay-2" data-pkg="pro">
+      <div class="popular-badge">⭐ Am beliebtesten</div>
+      <div class="price-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3>Professionelles Paket</h3>
+      <div class="price-amount">349 <span>€ / einmalig</span></div>
+      <div class="price-note">+ 25€/Monat für Hosting & Verwaltung</div>
+      <ul class="price-features" aria-label="Professionelles Paket Leistungen">
+        <li>5–8 Seiten Website</li>
+        <li>Professionelles Design</li>
+        <li>3 professionelle E-Mails</li>
+        <li>Monatliche Website-Verwaltung</li>
+        <li>Google Maps Eintrag</li>
+        <li>24/7 technischer Support</li>
+      </ul>
+      <a href="#contact" class="price-btn">Jetzt bestellen</a>
+    </div>
+
+    <!-- Business -->
+    <div class="price-card reveal delay-3" data-pkg="business">
+      <div class="price-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+      <h3>Business-Paket</h3>
+      <div class="price-amount">699 <span>€ / einmalig</span></div>
+      <div class="price-note">+ 45€/Monat für vollständige Verwaltung</div>
+      <ul class="price-features" aria-label="Business Paket Leistungen">
+        <li>Vollständige Website unbegrenzte Seiten</li>
+        <li>Online-Shop (optional)</li>
+        <li>Unbegrenzte E-Mails</li>
+        <li>KI-Kundenservice-Bot</li>
+        <li>Vollständige Verwaltung & sofortige Updates</li>
+        <li>Monatlicher Leistungsbericht</li>
+      </ul>
+      <a href="#contact" class="price-btn">Jetzt bestellen</a>
+    </div>
+  </div>
+
+  <!-- ══ CALCULATOR ══ -->
+  <div class="calculator reveal delay-3" aria-label="Kostenkalkulator">
+    <div class="calc-title">🧮 Kosten berechnen</div>
+    <div class="calc-desc">Wählen Sie die benötigten Dienste und wir berechnen sofort die geschätzten Kosten.</div>
+
+    <div class="calc-grid" id="calcGrid" role="group" aria-label="Dienste auswählen">
+      <div class="calc-item" data-calc-idx="0" onclick="toggleCalc(this)"><label><input type="checkbox" value="149" onchange="updateCalc()"> <span>Website-Design (Basic)</span></label><div class="calc-item-price">Ab 149€</div></div>
+      <div class="calc-item" data-calc-idx="1" onclick="toggleCalc(this)"><label><input type="checkbox" value="200" onchange="updateCalc()"> <span>Website-Design (Pro)</span></label><div class="calc-item-price">Ab 200€</div></div>
+      <div class="calc-item" data-calc-idx="2" onclick="toggleCalc(this)"><label><input type="checkbox" value="15"  onchange="updateCalc()"> <span>Monatliches Hosting</span></label><div class="calc-item-price">15€ / Monat</div></div>
+      <div class="calc-item" data-calc-idx="3" onclick="toggleCalc(this)"><label><input type="checkbox" value="25"  onchange="updateCalc()"> <span>Website-Verwaltung</span></label><div class="calc-item-price">25€ / Monat</div></div>
+      <div class="calc-item" data-calc-idx="4" onclick="toggleCalc(this)"><label><input type="checkbox" value="10"  onchange="updateCalc()"> <span>Professionelle E-Mail</span></label><div class="calc-item-price">10€ / Monat</div></div>
+      <div class="calc-item" data-calc-idx="5" onclick="toggleCalc(this)"><label><input type="checkbox" value="49"  onchange="updateCalc()"> <span>Google Maps Eintrag</span></label><div class="calc-item-price">49€ einmalig</div></div>
+      <div class="calc-item" data-calc-idx="6" onclick="toggleCalc(this)"><label><input type="checkbox" value="89"  onchange="updateCalc()"> <span>KI-Kundenbot</span></label><div class="calc-item-price">Ab 89€</div></div>
+      <div class="calc-item" data-calc-idx="7" onclick="toggleCalc(this)"><label><input type="checkbox" value="12"  onchange="updateCalc()"> <span>Jährliche Domain</span></label><div class="calc-item-price">12€ / Jahr</div></div>
+    </div>
+
+    <div class="calc-result" role="status" aria-live="polite" aria-label="Geschätzte Kosten">
+      <div>
+        <div class="calc-result-label">Geschätzte Kosten:</div>
+        <div class="calc-result-amount" id="calcTotal">0 €</div>
+        <div class="calc-result-note">* Preise sind Schätzungen und können je nach Projektanforderungen variieren.</div>
+      </div>
+      <a href="#contact" class="calc-contact-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>Angebot anfordern</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BANNER ══ -->
+<div class="cta-banner reveal" id="contact" role="region" aria-label="Kontakt">
+  <div class="cta-grid" aria-hidden="true"></div>
+  <div class="cta-text">
+    <h2>Bereit zum Start? Kontaktieren Sie uns!</h2>
+    <p>Wir helfen Ihnen, Ihre Idee in eine erfolgreiche digitale Realität zu verwandeln.</p>
+  </div>
+  <div class="cta-actions">
+    <div class="contact-links-row">
+      <a class="cta-phone" href="https://wa.me/4915259859931" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp: 015259859931">
+        <div class="cta-phone-ic wa-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </div>
+        <span>015259859931</span>
+      </a>
+      <a class="cta-phone" href="mailto:info@aljrad.com" aria-label="E-Mail: info@aljrad.com">
+        <div class="cta-phone-ic mail-ic" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <span>info@aljrad.com</span>
+      </a>
+    </div>
+    <a class="btn-white" href="https://wa.me/4915259859931" target="_blank" rel="noopener noreferrer" aria-label="Jetzt über WhatsApp schreiben">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span>Jetzt schreiben</span>
+    </a>
+  </div>
+</div>
+
+<!-- ══ FOOTER FEATURES ══ -->
+<div class="footer-features reveal" role="region" aria-label="Unsere Vorteile">
+  <div class="ff-grid">
+    <div class="ff-item reveal delay-1" data-ff-idx="0">
+      <div class="ff-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="ff-text"><h4>Erschwingliche Preise</h4><p>Pläne für alle Budgets</p></div>
+    </div>
+    <div class="ff-item reveal delay-2" data-ff-idx="1">
+      <div class="ff-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="ff-text"><h4>Hohe Qualität</h4><p>Neueste Technologien</p></div>
+    </div>
+    <div class="ff-item reveal delay-3" data-ff-idx="2">
+      <div class="ff-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="ff-text"><h4>Schnelle Lieferung</h4><p>Wir halten Termine ein</p></div>
+    </div>
+    <div class="ff-item reveal delay-4" data-ff-idx="3">
+      <div class="ff-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+      <div class="ff-text"><h4>Kontinuierlicher Support</h4><p>Support nach der Lieferung</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer role="contentinfo">
+  <div class="footer-brand">
+    <img src="logo.png" alt="ALJRAD Digital Solutions" style="height:48px;width:auto;object-fit:contain;filter:brightness(0) invert(1);">
+  </div>
+  <div class="footer-contact">
+    <a class="footer-link" href="https://wa.me/4915259859931" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp 015259859931">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      015259859931
+    </a>
+    <a class="footer-link" href="mailto:info@aljrad.com" aria-label="E-Mail info@aljrad.com">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      info@aljrad.com
+    </a>
+  </div>
+  <div class="footer-copy">© 2025 ALJRAD Digital Solutions — Alle Rechte vorbehalten</div>
+</footer>
+
+<!-- ══ FLOATING WHATSAPP ══ -->
+<a class="wa-float" href="https://wa.me/4915259859931" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp Kontakt">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script src="app.js"></script>
+</body>
+</html>
