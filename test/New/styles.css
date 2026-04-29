@@ -1261,7 +1261,23 @@ body.ltr .price-features li:hover { padding-right:0; padding-left:6px; }
   box-shadow: none;
 }
 .price-card:not(.popular) .price-btn:hover { background: var(--blue); color: #fff; box-shadow: 0 6px 18px rgba(37,99,235,.3); }
+.pricing {
+  position: relative;
+  z-index: 0;
+}
 
+.pricing .hero-grid {
+  z-index: 0;
+}
+
+.pricing .sec-label,
+.pricing .sec-title,
+.pricing .sec-desc,
+.pricing .pricing-grid,
+.pricing .calculator {
+  position: relative;
+  z-index: 1;
+}
 /* ══ CALCULATOR ══ */
 .calculator {
   background: var(--surface-2);
