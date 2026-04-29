@@ -1,257 +1,170 @@
 {
-  "meta": {
-    "en": { "title": "Ahmad Al Jarad — IT Professional", "lang": "en", "dir": "ltr" },
-    "de": { "title": "Ahmad Al Jarad — IT-Fachkraft",   "lang": "de", "dir": "ltr" },
-    "ar": { "title": "أحمد الجراد — متخصص تقنية المعلومات", "lang": "ar", "dir": "rtl" }
-  },
-
   "nav": {
-    "name": {
-      "en": "Ahmad Al Jarad",
-      "de": "Ahmad Al Jarad",
-      "ar": "أحمد الجراد"
-    },
-    "monogram": "AJ"
+    "home":    { "ar": "الرئيسية",  "en": "Home",     "de": "Startseite" },
+    "services":{ "ar": "الخدمات",   "en": "Services",  "de": "Leistungen" },
+    "pricing": { "ar": "الأسعار",   "en": "Pricing",   "de": "Preise"    },
+    "contact": { "ar": "اتصل بنا",  "en": "Contact",   "de": "Kontakt"   },
+    "cta":     { "ar": "تواصل معنا","en": "Contact Us","de": "Kontakt"   },
+    "language":{ "ar": "اللغة",     "en": "Language",  "de": "Sprache"   }
   },
-
   "hero": {
-    "kicker": {
-      "en": "IT Professional & Software Developer",
-      "de": "IT-Fachkraft & Softwareentwickler",
-      "ar": "متخصص تقنية المعلومات ومطوّر برمجيات"
+    "badge":   { "ar": "حلول رقمية متكاملة", "en": "Integrated Digital Solutions", "de": "Integrierte digitale Lösungen" },
+    "h1_1":    { "ar": "نحو نجاح",            "en": "Towards the Success of",        "de": "Zum Erfolg Ihres" },
+    "h1_2":    { "ar": "مشروعك الرقمي",       "en": "Your Digital Business",         "de": "digitalen Projekts" },
+    "desc":    { "ar": "نقدم لك كل ما تحتاجه لبدء وتطوير عملك عبر الإنترنت بأحدث التقنيات وبأسعار مناسبة.", "en": "We provide everything you need to start and grow your business online with the latest technologies and affordable prices.", "de": "Wir bieten alles, was Sie brauchen, um Ihr Online-Geschäft mit modernsten Technologien und fairen Preisen zu starten." },
+    "btn_primary":   { "ar": "ابدأ الآن",      "en": "Start Now",      "de": "Jetzt starten"     },
+    "btn_secondary": { "ar": "عرض الخدمات",    "en": "View Services",  "de": "Leistungen ansehen"}
+  },
+  "stats": [
+    { "num": { "ar": "أداء عالي", "en": "High Performance", "de": "Hohe Leistung" }, "lbl": { "ar": "سرعة واستقرار لموقعك", "en": "Speed and stability", "de": "Geschwindigkeit & Stabilität" } },
+    { "num": "24/7", "lbl": { "ar": "دعم فني دائم", "en": "Always-on support", "de": "Dauerhafter Support" } },
+    { "num": "100%", "lbl": { "ar": "أمان وضمان كامل", "en": "Full security guarantee", "de": "Volle Sicherheitsgarantie" } },
+    { "num": "+200", "lbl": { "ar": "عميل سعيد", "en": "Happy Clients", "de": "Zufriedene Kunden" } }
+  ],
+  "services_section": {
+    "label": { "ar": "خدماتنا",                  "en": "OUR SERVICES",              "de": "UNSERE LEISTUNGEN" },
+    "title": { "ar": "كل ما تحتاجه في مكان واحد","en": "Everything You Need in One Place","de": "Alles an einem Ort" },
+    "desc":  { "ar": "نقدم حلول رقمية متكاملة تساعدك على بناء وإدارة وتطوير عملك باحترافية.", "en": "Integrated digital solutions to build, manage, and grow your business professionally.", "de": "Integrierte digitale Lösungen zum Aufbauen und Entwickeln Ihres Unternehmens." },
+    "what":  { "ar": "ماذا نقدم؟", "en": "What do we offer?", "de": "Was bieten wir?" }
+  },
+  "services": [
+    {
+      "key": "webdesign",
+      "title":   { "ar": "تصميم مواقع احترافية",   "en": "Professional Web Design",   "de": "Professionelles Webdesign" },
+      "short":   { "ar": "تصميم مواقع عصرية متجاوبة مع جميع الأجهزة.", "en": "Modern responsive websites for all devices.", "de": "Moderne responsive Websites für alle Geräte." },
+      "detail":  { "ar": "نصمم لك موقعاً إلكترونياً يعمل بشكل مثالي على الجوال والكمبيوتر، بتصميم جذاب يعكس هوية علامتك التجارية ويسهل على زوارك التنقل فيه.", "en": "We design a website that works perfectly on mobile and desktop, with an attractive design reflecting your brand identity and easy navigation for your visitors.", "de": "Wir gestalten eine Website, die auf Mobilgeräten und Desktop perfekt funktioniert." },
+      "example": { "ar": "مثال: موقع مطعم يعرض القائمة، الحجز، والموقع الجغرافي بشكل أنيق.", "en": "Example: A restaurant website with menu, booking, and location beautifully displayed.", "de": "Beispiel: Restaurant-Website mit Menü, Buchung und Standort." }
     },
-    "firstName": {
-      "en": "Ahmad", "de": "Ahmad", "ar": "أحمد"
+    {
+      "key": "hosting",
+      "title":   { "ar": "استضافة مواقع سريعة",    "en": "Fast Web Hosting",          "de": "Schnelles Web-Hosting" },
+      "short":   { "ar": "استضافة عالية الأداء مع سرعة وأمان مضمون.", "en": "High-performance hosting with guaranteed speed and security.", "de": "Hochleistungs-Hosting mit garantierter Geschwindigkeit." },
+      "detail":  { "ar": "نوفر لك خوادم سريعة وآمنة تضمن أن موقعك يعمل 24/7 دون انقطاع، مع نسخ احتياطي يومي وحماية من الاختراق.", "en": "We provide fast, secure servers that keep your website running 24/7 without downtime, with daily backups and hacking protection.", "de": "Schnelle, sichere Server die Ihre Website rund um die Uhr betreiben." },
+      "example": { "ar": "مثال: متجرك الإلكتروني يعمل دون تعطل حتى في أوقات الذروة والعروض.", "en": "Example: Your online store runs without interruption even during peak sale events.", "de": "Beispiel: Ihr Online-Shop läuft ohne Unterbrechungen auch in Stoßzeiten." }
     },
-    "lastName": {
-      "en": "Al Jarad", "de": "Al Jarad", "ar": "الجراد"
+    {
+      "key": "management",
+      "title":   { "ar": "إدارة المواقع",           "en": "Website Management",        "de": "Website-Verwaltung" },
+      "short":   { "ar": "إدارة وتحديث وصيانة موقعك بشكل احترافي.", "en": "Professional management, updates, and maintenance.", "de": "Professionelle Verwaltung, Updates und Wartung." },
+      "detail":  { "ar": "نتولى إدارة موقعك بالكامل: تحديث المحتوى، إضافة صور ومنتجات، متابعة الأداء، وإصلاح أي مشكلة تقنية فور ظهورها.", "en": "We fully manage your website: updating content, adding images and products, monitoring performance, and fixing technical issues as they arise.", "de": "Vollständige Website-Verwaltung: Inhaltsaktualisierungen, Bilder, Leistungsüberwachung." },
+      "example": { "ar": "مثال: صاحب صالون يرسل لنا الصور الجديدة ونضيفها للموقع خلال 24 ساعة.", "en": "Example: A salon owner sends us new photos and we add them to the site within 24 hours.", "de": "Beispiel: Ein Salonbesitzer schickt Fotos und wir aktualisieren die Website innerhalb von 24 Stunden." }
     },
-    "subtitle": {
-      "en": "Computer Engineering · Cloud Infrastructure · DevOps",
-      "de": "Technische Informatik · Cloud-Infrastruktur · DevOps",
-      "ar": "هندسة الحاسوب · البنية التحتية السحابية · ديف أوبس"
+    {
+      "key": "email",
+      "title":   { "ar": "بريد إلكتروني احترافي",  "en": "Professional Email",        "de": "Professionelle E-Mail" },
+      "short":   { "ar": "بريد باسم شركتك لتعزيز مصداقيتك.", "en": "Company email to boost your credibility.", "de": "Firmen-E-Mail für mehr Glaubwürdigkeit." },
+      "detail":  { "ar": "نوفر لك بريداً إلكترونياً باسم نطاقك الخاص، مما يمنح عملك مظهراً احترافياً ويزيد الثقة لدى عملائك. يمكنك إنشاء عدة عناوين بريد لفريقك.", "en": "We provide email with your own domain name, giving your business a professional look and building customer trust. Create multiple addresses for your team.", "de": "E-Mail mit Ihrem eigenen Domainnamen für ein professionelles Erscheinungsbild." },
+      "example": { "ar": "مثال: بدلاً من gmail.com تتواصل عبر info@شركتك.com — فرق كبير في الاحترافية!", "en": "Example: Instead of gmail.com, you communicate via info@yourcompany.com — a huge difference in professionalism!", "de": "Beispiel: Statt gmail.com kommunizieren Sie über info@ihrefirma.com." }
     },
-    "bio": {
-      "en": "Bachelor's graduate in Computer Engineering & Automation from the University of Damascus. Based in Saarbrücken, Germany since 2023 — specialising in cloud infrastructure, Windows Server administration, Flutter development and network engineering.",
-      "de": "Bachelor-Absolvent der Technischen Informatik und Automatisierungstechnik an der Universität Damaskus. Seit 2023 in Saarbrücken — spezialisiert auf Cloud-Infrastruktur, Windows Server, Flutter-Entwicklung und Netzwerkverwaltung.",
-      "ar": "خريج بكالوريوس هندسة الحاسوب وتكنولوجيا الأتمتة من جامعة دمشق. مقيم في زاربروكن، ألمانيا منذ 2023 — متخصص في البنية التحتية السحابية وبيئات Windows Server وتطوير Flutter وإدارة الشبكات."
+    {
+      "key": "maps",
+      "title":   { "ar": "إضافة موقعك على خرائط Google", "en": "Add Your Business to Google Maps", "de": "Google Maps Eintrag" },
+      "short":   { "ar": "نساعدك على الظهور في خرائط Google وزيادة عملائك المحليين.", "en": "We help you appear on Google Maps and attract local customers.", "de": "Auf Google Maps erscheinen und lokale Kunden gewinnen." },
+      "detail":  { "ar": "نضيف نشاطك التجاري على خرائط Google Maps مع جميع التفاصيل (العنوان، أوقات العمل، الصور، الهاتف)، ليجدك العملاء بسهولة عند البحث في منطقتهم.", "en": "We add your business to Google Maps with all details (address, working hours, photos, phone), so customers can easily find you when searching in their area.", "de": "Wir tragen Ihr Unternehmen in Google Maps mit allen Details ein." },
+      "example": { "ar": "مثال: عميل يبحث عن \"حلاق قريب مني\" — يظهر صالونك في أول النتائج مع التقييمات والاتجاهات.", "en": "Example: A customer searches \"barber near me\" — your salon appears first with ratings and directions.", "de": "Beispiel: Ein Kunde sucht \"Friseur in meiner Nähe\" — Ihr Salon erscheint ganz oben." }
     },
-    "cta": {
-      "primary": { "en": "Contact Me",  "de": "Kontakt",   "ar": "تواصل معي" },
-      "secondary": { "en": "Experience ↓", "de": "Erfahrung ↓", "ar": "الخبرة ↓" }
+    {
+      "key": "chatbot",
+      "title":   { "ar": "بوت ذكي لخدمة العملاء", "en": "AI Customer Service Bot",   "de": "KI-Kundenservice-Bot" },
+      "short":   { "ar": "بوت ذكي يجيب على أسئلة عملائك على مدار الساعة.", "en": "An AI bot answering your customers' questions 24/7.", "de": "KI-Bot beantwortet Kundenfragen rund um die Uhr." },
+      "detail":  { "ar": "نبني لك مساعداً ذكياً يرد على استفسارات عملائك فوراً، يأخذ الحجوزات، ويرشدهم للمنتجات المناسبة — حتى وأنت نائم!", "en": "We build an AI assistant that instantly responds to customer inquiries, takes bookings, and guides them to the right products — even while you're asleep!", "de": "Wir bauen einen KI-Assistenten der sofort auf Kundenanfragen antwortet." },
+      "example": { "ar": "مثال: عميل يسأل ساعة 2 صباحاً \"هل يتوفر المنتج X؟\" — البوت يجيبه فوراً ويكمل الطلب.", "en": "Example: Customer asks at 2am \"Is product X available?\" — the bot answers instantly and completes the order.", "de": "Beispiel: Kunde fragt um 2 Uhr morgens nach Produkt X — der Bot antwortet sofort." }
+    }
+  ],
+  "pricing_section": {
+    "label": { "ar": "الأسعار",                     "en": "PRICING",                      "de": "PREISE" },
+    "title": { "ar": "أسعار شفافة تناسب الجميع",    "en": "Transparent Prices for Everyone","de": "Transparente Preise für jeden" },
+    "desc":  { "ar": "اختر الباقة المناسبة لاحتياجاتك، أو استخدم الحاسبة أدناه لحساب تكلفة خدماتك بدقة.", "en": "Choose the package that fits your needs, or use the calculator below to estimate your costs accurately.", "de": "Wählen Sie das passende Paket oder nutzen Sie den Kalkulator." },
+    "order": { "ar": "اطلب الآن", "en": "Order Now", "de": "Jetzt bestellen" }
+  },
+  "packages": [
+    {
+      "key": "starter",
+      "popular": false,
+      "title":    { "ar": "باقة البداية",    "en": "Starter Package",      "de": "Starter-Paket" },
+      "price":    149,
+      "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
+      "monthly":  { "ar": "+ 15€ شهرياً للاستضافة", "en": "+ 15€/month for hosting", "de": "+ 15€/Monat für Hosting" },
+      "features": [
+        { "ar": "موقع 1-3 صفحات",            "en": "1–3 page website",         "de": "1–3 Seiten Website" },
+        { "ar": "تصميم متجاوب للجوال",        "en": "Mobile-responsive design", "de": "Mobilfreundliches Design" },
+        { "ar": "نطاق مجاني (Domain)",         "en": "Free domain",              "de": "Kostenlose Domain" },
+        { "ar": "بريد إلكتروني واحد",          "en": "1 professional email",     "de": "1 professionelle E-Mail" },
+        { "ar": "إضافة على خرائط Google",      "en": "Google Maps listing",      "de": "Google Maps Eintrag" }
+      ]
     },
-    "stats": [
-      { "value": "5+",   "label": { "en": "Years Exp.",  "de": "Jahre Erf.",  "ar": "سنوات خبرة" } },
-      { "value": "B.Sc.","label": { "en": "Comp. Eng.",  "de": "Informatik",  "ar": "هندسة حاسوب" } },
-      { "value": "B2+",  "label": { "en": "German",      "de": "Deutsch",     "ar": "ألماني" } }
+    {
+      "key": "pro",
+      "popular": true,
+      "popularLabel": { "ar": "⭐ الأكثر طلباً", "en": "⭐ Most Popular", "de": "⭐ Am beliebtesten" },
+      "title":    { "ar": "باقة الاحترافي",  "en": "Professional Package", "de": "Professionelles Paket" },
+      "price":    349,
+      "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
+      "monthly":  { "ar": "+ 25€ شهرياً للاستضافة والإدارة", "en": "+ 25€/month for hosting & management", "de": "+ 25€/Monat für Hosting & Verwaltung" },
+      "features": [
+        { "ar": "موقع 5-8 صفحات",            "en": "5–8 page website",              "de": "5–8 Seiten Website" },
+        { "ar": "تصميم احترافي مخصص",         "en": "Custom professional design",    "de": "Professionelles Design" },
+        { "ar": "3 عناوين بريد إلكتروني",     "en": "3 professional emails",        "de": "3 professionelle E-Mails" },
+        { "ar": "إدارة شهرية للموقع",         "en": "Monthly website management",   "de": "Monatliche Website-Verwaltung" },
+        { "ar": "إضافة على خرائط Google",     "en": "Google Maps listing",          "de": "Google Maps Eintrag" },
+        { "ar": "دعم فني 24/7",               "en": "24/7 technical support",       "de": "24/7 technischer Support" }
+      ]
+    },
+    {
+      "key": "business",
+      "popular": false,
+      "title":    { "ar": "باقة الأعمال",    "en": "Business Package",     "de": "Business-Paket" },
+      "price":    699,
+      "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
+      "monthly":  { "ar": "+ 45€ شهرياً للاستضافة والإدارة الكاملة", "en": "+ 45€/month for full hosting & management", "de": "+ 45€/Monat für vollständige Verwaltung" },
+      "features": [
+        { "ar": "موقع متكامل غير محدود الصفحات", "en": "Full unlimited-page website", "de": "Vollständige Website unbegrenzte Seiten" },
+        { "ar": "متجر إلكتروني (اختياري)",         "en": "Online store (optional)",    "de": "Online-Shop (optional)" },
+        { "ar": "بريد احترافي غير محدود",          "en": "Unlimited professional emails","de": "Unbegrenzte E-Mails" },
+        { "ar": "بوت ذكي لخدمة العملاء",           "en": "AI customer service bot",    "de": "KI-Kundenservice-Bot" },
+        { "ar": "إدارة كاملة وتحديثات فورية",      "en": "Full management & instant updates","de": "Vollständige Verwaltung & sofortige Updates" },
+        { "ar": "تقرير شهري للأداء",               "en": "Monthly performance report", "de": "Monatlicher Leistungsbericht" }
+      ]
+    }
+  ],
+  "calculator": {
+    "title": { "ar": "🧮 احسب تكلفتك",   "en": "🧮 Calculate Your Cost", "de": "🧮 Kosten berechnen" },
+    "desc":  { "ar": "اختر الخدمات التي تحتاجها وسنحسب لك التكلفة التقريبية فوراً.", "en": "Select the services you need and we'll instantly calculate your estimated cost.", "de": "Wählen Sie die benötigten Dienste und wir berechnen sofort die geschätzten Kosten." },
+    "result_label": { "ar": "التكلفة التقريبية:", "en": "Estimated Cost:", "de": "Geschätzte Kosten:" },
+    "result_note":  { "ar": "* الأسعار تقريبية وقد تختلف حسب متطلبات مشروعك.", "en": "* Prices are estimates and may vary by project requirements.", "de": "* Preise sind Schätzungen und können je nach Projektanforderungen variieren." },
+    "cta": { "ar": "احصل على عرض سعر", "en": "Get a Quote", "de": "Angebot anfordern" },
+    "items": [
+      { "label": { "ar": "تصميم موقع (أساسي)",      "en": "Website Design (Basic)", "de": "Website-Design (Basic)" }, "price": 149, "priceLabel": { "ar": "يبدأ من 149€", "en": "From 149€", "de": "Ab 149€" } },
+      { "label": { "ar": "تصميم موقع (احترافي)",    "en": "Website Design (Pro)",   "de": "Website-Design (Pro)" },   "price": 200, "priceLabel": { "ar": "يبدأ من 200€", "en": "From 200€", "de": "Ab 200€" } },
+      { "label": { "ar": "استضافة شهرية",            "en": "Monthly Hosting",        "de": "Monatliches Hosting" },    "price": 15,  "priceLabel": { "ar": "15€ / شهر",     "en": "15€ / month", "de": "15€ / Monat" } },
+      { "label": { "ar": "إدارة الموقع",             "en": "Website Management",     "de": "Website-Verwaltung" },     "price": 25,  "priceLabel": { "ar": "25€ / شهر",     "en": "25€ / month", "de": "25€ / Monat" } },
+      { "label": { "ar": "بريد إلكتروني احترافي",   "en": "Professional Email",     "de": "Professionelle E-Mail" },  "price": 10,  "priceLabel": { "ar": "10€ / شهر",     "en": "10€ / month", "de": "10€ / Monat" } },
+      { "label": { "ar": "إضافة على خرائط Google",  "en": "Google Maps Listing",    "de": "Google Maps Eintrag" },    "price": 49,  "priceLabel": { "ar": "49€ مرة واحدة", "en": "49€ one-time","de": "49€ einmalig" } },
+      { "label": { "ar": "بوت ذكي لخدمة العملاء",  "en": "AI Customer Bot",        "de": "KI-Kundenbot" },           "price": 89,  "priceLabel": { "ar": "يبدأ من 89€",   "en": "From 89€",    "de": "Ab 89€" } },
+      { "label": { "ar": "نطاق (Domain) سنوي",      "en": "Annual Domain",          "de": "Jährliche Domain" },       "price": 12,  "priceLabel": { "ar": "12€ / سنة",     "en": "12€ / year",  "de": "12€ / Jahr" } }
     ]
   },
-
-  "contact": {
-    "email": "info@aljrad.com",
-    "location": {
-      "en": "Saarbrücken, Germany",
-      "de": "Saarbrücken, Deutschland",
-      "ar": "زاربروكن، ألمانيا"
-    },
-    "degree": {
-      "en": "B.Sc. Computer Engineering",
-      "de": "B.Sc. Technische Informatik",
-      "ar": "بكالوريوس هندسة الحاسوب"
-    },
-    "languages_line": {
-      "en": "Arabic · German B2+ · English B1",
-      "de": "Arabisch (Muttersp.) · Deutsch B2+ · Englisch B1",
-      "ar": "العربية (أم) · الألمانية B2+ · الإنجليزية B1"
-    }
+  "cta_banner": {
+    "title": { "ar": "جاهز للانطلاق؟ تواصل معنا!", "en": "Ready to Launch? Contact Us!", "de": "Bereit zum Start? Kontaktieren Sie uns!" },
+    "desc":  { "ar": "نحن هنا لمساعدتك في تحويل فكرتك إلى واقع رقمي ناجح.", "en": "We're here to help you turn your idea into a successful digital reality.", "de": "Wir helfen Ihnen, Ihre Idee in eine erfolgreiche digitale Realität zu verwandeln." },
+    "message_btn": { "ar": "راسلنا الآن", "en": "Message Us Now", "de": "Jetzt schreiben" }
   },
-
-  "socialLinks": [
-    { "id": "li",     "icon": "ico-li",     "label": "LinkedIn",  "url": "https://www.linkedin.com/in/ahmad-aljarad" },
-    { "id": "xing",   "icon": "ico-xing",   "label": "Xing",      "url": "https://www.xing.com/profile/Ahmad_Aljarad027325/web_profiles" },
-    { "id": "credly", "icon": "ico-credly", "label": "Credly",    "url": "https://www.credly.com/users/ahmad-aljarad" },
-    { "id": "gh",     "icon": "ico-gh",     "label": "GitHub",    "url": "https://github.com/ahmadaljrad" },
-    { "id": "web",    "icon": "ico-web",    "label": "Portfolio", "url": "https://aljrad.com" }
+  "footer_features": [
+    { "title": { "ar": "أسعار مناسبة",  "en": "Affordable Prices",  "de": "Erschwingliche Preise" }, "desc": { "ar": "خطط تناسب جميع الميزانيات", "en": "Plans for all budgets",    "de": "Pläne für alle Budgets" } },
+    { "title": { "ar": "جودة عالية",    "en": "High Quality",        "de": "Hohe Qualität" },         "desc": { "ar": "نستخدم أحدث التقنيات",      "en": "Latest technologies",     "de": "Neueste Technologien" } },
+    { "title": { "ar": "تسليم سريع",    "en": "Fast Delivery",       "de": "Schnelle Lieferung" },    "desc": { "ar": "نلتزم بالمواعيد المتفق عليها","en": "We meet agreed deadlines","de": "Wir halten Termine ein" } },
+    { "title": { "ar": "دعم مستمر",     "en": "Ongoing Support",     "de": "Kontinuierlicher Support"},"desc": { "ar": "دعم فني مستمر بعد التسليم",  "en": "Support after delivery", "de": "Support nach der Lieferung" } }
   ],
-
-  "sections": {
-    "skills": {
-      "tag":   { "en": "Expertise",     "de": "Fachkenntnisse", "ar": "الخبرات" },
-      "title": { "en": "Skills & <em>Technologies</em>", "de": "Kenntnisse & <em>Technologien</em>", "ar": "المهارات <em>والتقنيات</em>" },
-      "items": [
-        {
-          "icon": "☁️",
-          "title": { "en": "Cloud & Virtualisation",    "de": "Cloud & Virtualisierung",    "ar": "السحابة والمحاكاة الافتراضية" },
-          "tags":  ["Azure", "Hyper-V", "VMware", "MS-365"]
-        },
-        {
-          "icon": "🖥️",
-          "title": { "en": "System Administration",     "de": "Systemadministration",        "ar": "إدارة الأنظمة" },
-          "tags":  ["Windows Server 2022", "PowerShell", { "en": "Identity Mgmt", "de": "Identitätsverwaltung", "ar": "إدارة الهويات" }]
-        },
-        {
-          "icon": "📱",
-          "title": { "en": "Software Development",      "de": "Softwareentwicklung",         "ar": "تطوير البرمجيات" },
-          "tags":  ["Flutter", "GitHub", "DevOps"]
-        },
-        {
-          "icon": "🌐",
-          "title": { "en": "Networking",                "de": "Netzwerke",                   "ar": "الشبكات" },
-          "tags":  [{ "en": "CCNA Certified", "de": "CCNA-Zertifikat", "ar": "شهادة CCNA" }, "Cisco", "TCP/IP"]
-        },
-        {
-          "icon": "📦",
-          "title": { "en": "Logistics & Operations",    "de": "Logistik & Organisation",     "ar": "اللوجستيك" },
-          "tags":  [
-            { "en": "IHK Certificate",   "de": "IHK-Zertifikat",          "ar": "شهادة IHK" },
-            { "en": "Business Logistics","de": "Wirtschaft & Logistik",    "ar": "اقتصاد ولوجستيك" },
-            { "en": "Class B Licence",   "de": "Führerschein Kl.B",        "ar": "رخصة B" }
-          ]
-        },
-        {
-          "icon": "🛠️",
-          "title": { "en": "Tools & Office",            "de": "IT-Tools",                    "ar": "أدوات العمل" },
-          "tags":  ["MS Office", { "en": "First Aid", "de": "Erste Hilfe", "ar": "إسعافات أولية" }, { "en": "IT Support", "de": "IT-Support", "ar": "دعم تقني" }]
-        }
-      ]
-    },
-
-    "experience": {
-      "tag":   { "en": "Career",         "de": "Karriere",  "ar": "المسيرة" },
-      "title": { "en": "Work <em>Experience</em>", "de": "Berufliche <em>Erfahrung</em>", "ar": "الخبرة <em>العملية</em>" },
-      "items": [
-        {
-          "date":  { "en": "Feb 2022 – Oct 2022",  "de": "Feb 2022 – Okt 2022",   "ar": "فبراير–أكتوبر 2022" },
-          "role":  { "en": "Junior Software Engineer",   "de": "Junior Softwareingenieur", "ar": "مهندس برمجيات مبتدئ" },
-          "org":   { "en": "Souccar for Electronic Industries LLC · Damascus, Syria", "de": "Souccar for Electronic Industries LLC · Damaskus", "ar": "Souccar for Electronic Industries · دمشق" },
-          "desc":  { "en": "Development and enhancement of software systems for HR management, payroll processing, and workforce planning.", "de": "Weiterentwicklung von Softwaresystemen für Personalmanagement, Gehaltsabrechnung und Arbeitsplanung.", "ar": "تطوير أنظمة برمجية لإدارة الموارد البشرية وكشوف الرواتب وتخطيط القوى العاملة." }
-        },
-        {
-          "date":  { "en": "Oct 2021 – Sep 2022",  "de": "Okt 2021 – Sep 2022",   "ar": "أكتوبر 2021–سبتمبر 2022" },
-          "role":  { "en": "Junior Flutter Developer",   "de": "Junior Flutter-Entwickler",  "ar": "مطوّر Flutter مبتدئ" },
-          "org":   { "en": "B-Wire · Damascus, Syria",   "de": "B-Wire · Damaskus",           "ar": "B-Wire · دمشق" },
-          "desc":  { "en": "Built cross-platform mobile applications using the Flutter framework for Android and iOS.", "de": "Entwicklung plattformübergreifender Apps mit Flutter für Android und iOS.", "ar": "بناء تطبيقات موبايل متعددة المنصات باستخدام Flutter." }
-        },
-        {
-          "date":  { "en": "Jan 2019 – Feb 2022",  "de": "Jan 2019 – Feb 2022",   "ar": "يناير 2019–فبراير 2022" },
-          "role":  { "en": "Network Technician",         "de": "Netzwerktechniker",            "ar": "فني شبكات" },
-          "org":   { "en": "SCS-NET LLC · Damascus, Syria", "de": "SCS-NET LLC · Damaskus",   "ar": "SCS-NET LLC · دمشق" },
-          "desc":  { "en": "Customer support and technical troubleshooting of network connectivity issues for corporate and residential clients.", "de": "Kundenbetreuung und Behebung von Netzwerkproblemen für Firmen- und Privatkunden.", "ar": "خدمة العملاء وحل مشكلات الاتصال بالشبكة." }
-        }
-      ]
-    },
-
-    "education": {
-      "tag":   { "en": "Education & Training", "de": "Bildung & Weiterbildung", "ar": "التعليم" },
-      "title": { "en": "Academic & <em>Professional Development</em>", "de": "Akademischer & <em>beruflicher Werdegang</em>", "ar": "المسيرة الأكاديمية <em>والمهنية</em>" },
-      "items": [
-        {
-          "date":  { "en": "2014 – 2019", "de": "2014 – 2019", "ar": "2014–2019" },
-          "role":  { "en": "B.Sc. Computer Engineering & Automation", "de": "B.Sc. Technische Informatik & Automatisierungstechnik", "ar": "بكالوريوس هندسة الحاسوب والأتمتة" },
-          "org":   { "en": "University of Damascus · Syria", "de": "Universität Damaskus · Syrien", "ar": "جامعة دمشق · سوريا" },
-          "desc":  { "en": "Bachelor's degree recognised by the German KMK / Zentralstelle für ausländisches Bildungswesen, Bonn.", "de": "Anerkannt durch die KMK / Zentralstelle für ausländisches Bildungswesen, Bonn.", "ar": "معترف به من مؤتمر وزراء التعليم الألماني KMK / مكتب الاعتراف بالشهادات الأجنبية، بون." }
-        },
-        {
-          "date":  { "en": "Feb – Aug 2026", "de": "Feb–Aug 2026", "ar": "فبراير–أغسطس 2026" },
-          "role":  { "en": "Fundamentals of Logistics", "de": "Grundlagen Logistik", "ar": "أساسيات اللوجستيك" },
-          "org":   { "en": "DiS · Saarbrücken", "de": "DiS · Saarbrücken", "ar": "DiS · زاربروكن" },
-          "desc":  { "en": "Business & logistics, practical internships, driving licence Class B.", "de": "Wirtschaft & Logistik, Praktika, Führerschein Klasse B.", "ar": "اقتصاد ولوجستيك، تدريب عملي، رخصة قيادة B." },
-          "badge": { "en": "🏅 IHK Certificate", "de": "🏅 IHK-Zertifikat", "ar": "🏅 شهادة IHK" }
-        },
-  {
-    "date": { "en": "Aug – Oct 2025", "de": "Aug–Okt 2025", "ar": "أغسطس–أكتوبر 2025" },
-    "role": { "en": "Cloud Expert: Microsoft Azure Administration", "de": "Cloud Experte: Microsoft Azure Administration", "ar": "خبير سحابة: إدارة Microsoft Azure" },
-    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
-    "desc": {
-      "en": "Managing Azure identities and governance; implementing and managing storage; deploying and managing compute resources; configuring virtual networks; monitoring and securing Azure resources.",
-      "de": "Verwalten von Azure-Identitäten und -Governance; Implementierung und Verwaltung von Speicher; Bereitstellung und Verwaltung von Rechenressourcen; Konfiguration virtueller Netzwerke; Überwachung und Sicherung von Azure-Ressourcen.",
-      "ar": "إدارة هويات Azure والحوكمة؛ تنفيذ وإدارة التخزين؛ نشر وإدارة موارد الحوسبة؛ إعداد الشبكات الافتراضية؛ مراقبة وتأمين موارد Azure."
-    }
-  },
-  {
-    "date": { "en": "Jul – Aug 2025", "de": "Jul–Aug 2025", "ar": "يوليو–أغسطس 2025" },
-    "role": { "en": "Microsoft Cloud: Microsoft 365 & Azure", "de": "Microsoft Cloud: Microsoft 365 & Azure", "ar": "Microsoft Cloud: ‏Microsoft 365 و Azure" },
-    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
-    "desc": {
-      "en": "Microsoft 365 services and concepts; security, compliance, licensing and support; Azure concepts, architecture, services, governance; cloud concepts, pricing models, and lifecycle agreements.",
-      "de": "Microsoft 365 Dienste und Konzepte; Sicherheit, Compliance, Lizenzierung und Support; Azure-Konzepte, Architektur und Services sowie Governance; Cloud-Konzepte, Preismodelle und Lebenszyklen.",
-      "ar": "خدمات ومفاهيم Microsoft 365؛ الأمان والامتثال والترخيص والدعم؛ مفاهيم Azure والهندسة والخدمات والحوكمة؛ مفاهيم السحابة والتسعير ودورات الحياة."
-    }
-  },
-  {
-    "date": { "en": "Jun – Jul 2025", "de": "Jun–Jul 2025", "ar": "يونيو–يوليو 2025" },
-    "role": { "en": "Microsoft Windows Server 2022", "de": "Microsoft Windows Server 2022", "ar": "Microsoft Windows Server 2022" },
-    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
-    "desc": {
-      "en": "PowerShell automation and scripting; Windows Server installation and configuration; network management (DNS, DHCP); Active Directory and identity management; virtualization and infrastructure management.",
-      "de": "PowerShell Automatisierung und Skripting; Installation und Konfiguration von Windows Server; Netzwerkmanagement (DNS, DHCP); Active Directory und Identitätsmanagement; Virtualisierung und Infrastrukturverwaltung.",
-      "ar": "أتمتة PowerShell والبرمجة النصية؛ تثبيت وإعداد Windows Server؛ إدارة الشبكات (DNS، DHCP)؛ Active Directory وإدارة الهويات؛ الافتراضية وإدارة البنية التحتية."
-    }
-  },
-        {
-          "date":  { "en": "Mar – Apr 2025", "de": "Mär–Apr 2025", "ar": "مارس–أبريل 2025" },
-          "role":  { "en": "Competence Assessment for Engineers", "de": "Kompetenzfeststellung für Ingenieure", "ar": "تقييم كفاءات المهندسين" },
-          "org":   { "en": "FESTO Learning Centre Saar · St. Ingbert", "de": "FESTO Lernzentrum Saar · St. Ingbert", "ar": "FESTO · سانت إنغبرت" },
-          "desc":  { "en": "Industrial competence evaluation for engineers and technical specialists.", "de": "Kompetenzfeststellung für Ingenieure und Fachkräfte im industriellen Bereich.", "ar": "تقييم كفاءات المهندسين والمتخصصين الصناعيين." }
-        },
-        {
-          "date":  { "en": "Jul – Dec 2024", "de": "Jul–Dez 2024", "ar": "يوليو–ديسمبر 2024" },
-          "role":  { "en": "Professional German Language Course", "de": "Beruflicher Sprachkurs", "ar": "دورة لغة ألمانية مهنية" },
-          "org":   { "en": "LECTOR · Saarbrücken", "de": "LECTOR · Saarbrücken", "ar": "LECTOR · زاربروكن" },
-          "desc":  { "en": "Advanced workplace German for technical and professional contexts.", "de": "Berufsorientiertes Deutsch auf fortgeschrittenem Niveau.", "ar": "ألمانية متقدمة للبيئة المهنية." },
-          "badge": { "en": "🏅 telc B2", "de": "🏅 telc B2", "ar": "🏅 شهادة telc B2" }
-        },
-        {
-          "date":  { "en": "Jul 2023 – Mar 2024", "de": "Jul 2023–Mär 2024", "ar": "يوليو 2023–مارس 2024" },
-          "role":  { "en": "Integration Course", "de": "Integrationskurs", "ar": "دورة الاندماج" },
-          "org":   { "en": "FIS · Saarbrücken", "de": "FIS · Saarbrücken", "ar": "FIS · زاربروكن" },
-          "desc":  { "en": "German language and civic orientation programme.", "de": "Deutschkurs und Orientierungskurs „Leben in Deutschland\".", "ar": "دورة اللغة الألمانية والتوجيه المدني." },
-          "badge": { "en": "🏅 telc B1 & Leben in Deutschland", "de": "🏅 telc B1 & Leben in Deutschland", "ar": "🏅 telc B1 + Leben in Deutschland" }
-        },
-        {
-          "date":  { "en": "Oct 2017", "de": "Okt 2017", "ar": "أكتوبر 2017" },
-          "role":  { "en": "CCNA – Cisco Certified Network Associate", "de": "CCNA – Cisco Certified Network Associate", "ar": "CCNA – Cisco Certified Network Associate" },
-          "org":   { "en": "Executrain Institute · Syria", "de": "Executrain Institute · Syrien", "ar": "Executrain Institute · سوريا" },
-          "desc":  { "en": "Industry-standard networking certification by Cisco Systems.", "de": "Industriestandard-Zertifizierung für Netzwerktechnologie.", "ar": "شهادة احترافية في تقنيات الشبكات من Cisco." }
-        }
-      ]
-    },
-
-    "languages": {
-      "tag":   { "en": "Communication", "de": "Kommunikation", "ar": "التواصل" },
-      "title": { "en": "Language <em>Proficiency</em>", "de": "Sprach<em>kenntnisse</em>", "ar": "إتقان <em>اللغات</em>" },
-      "items": [
-        { "name": { "en": "Arabic",   "de": "Arabisch", "ar": "العربية" }, "level": { "en": "Native Language", "de": "Muttersprache", "ar": "اللغة الأم" }, "pct": 100 },
-        { "name": { "en": "German",   "de": "Deutsch",  "ar": "الألمانية" }, "level": { "en": "B2+ · Listening · Speaking · Writing", "de": "B2+ · Verstehen · Sprechen · Schreiben", "ar": "B2+ · استماع · تحدث · كتابة" }, "pct": 78 },
-        { "name": { "en": "English",  "de": "Englisch", "ar": "الإنجليزية" }, "level": { "en": "B1 · Listening · Speaking · Writing",  "de": "B1 · Verstehen · Sprechen · Schreiben",  "ar": "B1 · استماع · تحدث · كتابة" },  "pct": 55 }
-      ]
-    },
-
-    "contact": {
-      "tag":   { "en": "Get in Touch", "de": "Kontakt",  "ar": "تواصل" },
-      "title": { "en": "Let's <em>Connect</em>", "de": "Schreiben <em>Sie mir</em>", "ar": "لنتواصل <em>معاً</em>" },
-      "intro": { "en": "Whether you have a project in mind, a professional opportunity, or simply wish to get in touch — I am always open to meaningful conversations.", "de": "Ob Projekt, Jobangebot oder einfach eine Frage — ich bin stets offen für professionelle Gespräche und neue Herausforderungen.", "ar": "سواء كان لديك مشروع، فرصة عمل، أو مجرد سؤال — أنا دائماً منفتح على الحوارات المهنية والتحديات الجديدة." },
-      "form": {
-        "title":       { "en": "Send a Message",       "de": "Nachricht senden",   "ar": "إرسال رسالة" },
-        "nameLbl":     { "en": "Full Name",             "de": "Vollständiger Name", "ar": "الاسم الكامل" },
-        "namePh":      { "en": "Your name",             "de": "Ihr Name",           "ar": "اسمك" },
-        "emailLbl":    { "en": "Email Address",         "de": "E-Mail-Adresse",     "ar": "البريد الإلكتروني" },
-        "emailPh":     { "en": "your@email.com",        "de": "ihre@email.de",      "ar": "بريدك@example.com" },
-        "subjectLbl":  { "en": "Subject",               "de": "Betreff",            "ar": "الموضوع" },
-        "subjectPh":   { "en": "Message subject",       "de": "Betreff",            "ar": "موضوع الرسالة" },
-        "messageLbl":  { "en": "Message",               "de": "Nachricht",          "ar": "الرسالة" },
-        "messagePh":   { "en": "Write your message here…", "de": "Ihre Nachricht…", "ar": "اكتب رسالتك هنا…" },
-        "send":        { "en": "Send Message",          "de": "Nachricht senden",   "ar": "إرسال الرسالة" },
-        "sending":     { "en": "Sending…",              "de": "Sende…",             "ar": "جارٍ الإرسال…" },
-        "success":     { "en": "Message sent! I'll reply soon.", "de": "Nachricht gesendet! Ich melde mich bald.", "ar": "تم الإرسال! سأتواصل معك قريباً." },
-        "errEmpty":    { "en": "Please fill in all fields.",     "de": "Bitte alle Felder ausfüllen.",             "ar": "يرجى ملء جميع الحقول." },
-        "errEmail":    { "en": "Please enter a valid email.",    "de": "Bitte gültige E-Mail eingeben.",           "ar": "بريد إلكتروني غير صحيح." }
-      }
-    }
-  },
-
   "footer": {
-    "name": { "en": "Ahmad Al Jarad", "de": "Ahmad Al Jarad", "ar": "أحمد الجراد" },
-    "copy": { "en": "© 2025 · Saarbrücken, Germany", "de": "© 2025 · Saarbrücken, Deutschland", "ar": "© 2025 · زاربروكن، ألمانيا" }
-  }
+    "copy": { "ar": "© 2025 ALJRAD Digital Solutions — جميع الحقوق محفوظة", "en": "© 2025 ALJRAD Digital Solutions — All rights reserved", "de": "© 2025 ALJRAD Digital Solutions — Alle Rechte vorbehalten" }
+  },
+  "contact": {
+    "whatsapp": "4915259859931",
+    "email": "info@aljrad.com"
+  },
+  "languages": [
+    { "code": "ar", "label": "العربية", "flag": "https://flagcdn.com/w40/sa.png" },
+    { "code": "en", "label": "English", "flag": "https://flagcdn.com/w40/gb.png" },
+    { "code": "de", "label": "Deutsch", "flag": "https://flagcdn.com/w40/de.png" }
+  ]
 }
