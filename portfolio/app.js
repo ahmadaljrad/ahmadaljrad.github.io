@@ -63,6 +63,9 @@ const App = (() => {
         const isRtl = lang === 'ar';
 
         const sec = el('section', 'hero');
+        // Hero animated grid background
+        const gridBg = el('div', 'hero-grid-bg');
+        sec.append(gridBg);
         const con = el('div', 'container');
         const inner = el('div', 'hero-inner');
         if (isRtl) inner.style.direction = 'rtl';
@@ -106,7 +109,7 @@ const App = (() => {
         h.stats.forEach((s, i) => {
             if (i > 0) detail.append(el('div', 'hero-stat-sep'));
             const stat = el('div', 'hero-stat');
-            stat.innerHTML = `<div class="hero-stat-n">${s.value}</div><div class="hero-stat-l">${t(s.label)}</div>`;
+            stat.innerHTML = `<div class="hero-stat-n" data-target="${s.value}">${s.value}</div><div class="hero-stat-l">${t(s.label)}</div>`;
             detail.append(stat);
         });
 
@@ -342,7 +345,29 @@ const App = (() => {
             }, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
             document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => io.observe(el));
 
-            /* language bars */
+            /* counter animation */
+            const countIO = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        document.querySelectorAll('.hero-stat-n[data-target]').forEach(el => {
+                            const raw = el.dataset.target;
+                            const num = parseInt(raw);
+                            if (isNaN(num)) return;
+                            const suffix = raw.replace(num, '');
+                            let start = 0, duration = 1200, step = 16;
+                            const inc = num / (duration / step);
+                            const timer = setInterval(() => {
+                                start += inc;
+                                if (start >= num) { start = num; clearInterval(timer); }
+                                el.textContent = Math.floor(start) + suffix;
+                            }, step);
+                        });
+                        countIO.disconnect();
+                    }
+                });
+            }, { threshold: .5 });
+            document.querySelectorAll('.hero-card-detail').forEach(g => countIO.observe(g));
+
             const barIO = new IntersectionObserver(entries => {
                 entries.forEach(e => { if (e.isIntersecting) animateBars(); });
             }, { threshold: .3 });
