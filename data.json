@@ -4,7 +4,7 @@
     "services":{ "ar": "الخدمات",   "en": "Services",  "de": "Leistungen" },
     "pricing": { "ar": "الأسعار",   "en": "Pricing",   "de": "Preise"    },
     "contact": { "ar": "اتصل بنا",  "en": "Contact",   "de": "Kontakt"   },
-    "resume":    { "ar": "من نحن",  "en": "Resume",     "de": "Lebenslauf" },
+    "resume":    { "ar": "من نحن",  "en": "About",     "de": "Über uns" },
     "cta":     { "ar": "تواصل معنا","en": "Contact Us","de": "Kontakt"   },
     "language":{ "ar": "اللغة",     "en": "Language",  "de": "Sprache"   }
   },
