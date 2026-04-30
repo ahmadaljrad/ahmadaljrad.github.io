@@ -196,7 +196,7 @@ button { font-family:inherit; cursor:pointer; border:none; background:none; }
 }
 .logo img {
   height: 36px;
-  width: auto;
+  width: 45px;
   object-fit: contain;
   transition: var(--trans);
 }
