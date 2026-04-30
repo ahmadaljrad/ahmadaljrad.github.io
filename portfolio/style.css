@@ -278,7 +278,7 @@ button { font-family:inherit; cursor:pointer; border:none; background:none; }
     transform: rotate(-4deg) scale(1.08);
     box-shadow: 0 6px 20px var(--blue-glow);
 }
-#nav-mono img{
+.nav-monogram img{
   display:block;
   width:45px;
   height:36px;
