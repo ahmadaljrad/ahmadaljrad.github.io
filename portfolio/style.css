@@ -184,6 +184,43 @@ button { font-family:inherit; cursor:pointer; border:none; background:none; }
 .d5 { transition-delay:.30s; }
 .d6 { transition-delay:.36s; }
 
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  font-family: 'Poppins','Cairo',sans-serif;
+  direction: ltr;
+  flex-shrink: 0;
+}
+.logo img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  transition: var(--trans);
+}
+[data-theme="dark"] .logo img {
+  filter: brightness(0) invert(1);
+}
+.logo:hover img { transform: scale(1.05) rotate(-3deg); }
+.logo-text { display:flex; flex-direction:column; line-height:1.15; text-align:start; }
+.brand {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  background: linear-gradient(135deg, #0a1f44 0%, #1e5bff 60%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="dark"] .brand {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 60%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.sub { font-size:10.5px; letter-spacing:.28em; color: var(--blue); font-weight:600; }
 /* ─── NAVBAR ───────────────────────────────────────────── */
 .navbar {
     position: fixed;
