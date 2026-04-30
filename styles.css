@@ -1758,3 +1758,8 @@ button:focus-visible, a:focus-visible { outline: 2.5px solid var(--blue); }
 ::-webkit-scrollbar-track { background: var(--bg-3); }
 ::-webkit-scrollbar-thumb { background: var(--blue-l); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+@media (max-width: 768px) {
+  .logo-text {
+    display: none;
+  }
+}
