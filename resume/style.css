@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: #1a3c6e;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.form-panel {
+    width: 38%;
+    background: white;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.preview-panel {
+    flex: 1;
+    background: #f4f6f9;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container {
+    max-width: 100%;
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.form-section h2 {
+    color: #1a3c6e;
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1a3c6e;
+    box-shadow: 0 0 0 3px rgba(26, 60, 110, 0.1);
+}
+
+.add-btn {
+    background: #1a3c6e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.add-btn:hover {
+    background: #254a85;
+}
+
+.photo-upload {
+    margin-top: 1.5rem;
+}
+
+.photo-preview {
+    width: 160px;
+    height: 160px;
+    border: 3px solid #1a3c6e;
+    border-radius: 50%;
+    margin-top: 10px;
+    background: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.preview-header {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.download-btn {
+    background: #1a3c6e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(26, 60, 110, 0.2);
+}
+
+.download-btn:hover {
+    background: #254a85;
+}
+
+.cv-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.cv-preview {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    padding: 25mm 20mm;
+    position: relative;
+    overflow: hidden;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #222;
+}
+
+/* German CV Styling */
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #1a3c6e;
+    padding-bottom: 15px;
+}
+
+.cv-personal {
+    flex: 1;
+}
+
+.cv-name {
+    font-size: 28pt;
+    font-weight: 700;
+    color: #1a3c6e;
+    line-height: 1.1;
+}
+
+.cv-title {
+    font-size: 14pt;
+    color: #555;
+    margin-top: 4px;
+}
+
+.cv-contact {
+    margin-top: 12px;
+    font-size: 10.5pt;
+    color: #444;
+}
+
+.cv-photo {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: 4px solid #1a3c6e;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.cv-section {
+    margin-bottom: 22px;
+}
+
+.cv-section-title {
+    font-size: 13pt;
+    font-weight: 600;
+    color: #1a3c6e;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 4px;
+    margin-bottom: 12px;
+}
+
+.experience-item, .education-item, .cert-item {
+    display: grid;
+    grid-template-columns: 85px 1fr;
+    gap: 15px;
+    margin-bottom: 16px;
+}
+
+.date-column {
+    font-size: 10.5pt;
+    color: #555;
+    font-weight: 500;
+}
+
+.content-column h4 {
+    font-size: 11.5pt;
+    margin-bottom: 3px;
+    color: #1a3c6e;
+}
+
+.content-column p {
+    font-size: 10.8pt;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.skills-list, .languages-list {
+    column-count: 2;
+    column-gap: 40px;
+    font-size: 10.8pt;
+}
+
+.language-item {
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.branding {
+    position: absolute;
+    bottom: 15mm;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8pt;
+    color: #aaa;
+    text-align: center;
+}
+
+/* Dynamic Entry Styling */
+.entry {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.entry-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.entry-buttons button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+@media print {
+    .form-panel, .preview-header, .app-header {
+        display: none !important;
+    }
+    .cv-preview {
+        box-shadow: none;
+        width: 100%;
+        min-height: auto;
+        padding: 0;
+    }
+}
