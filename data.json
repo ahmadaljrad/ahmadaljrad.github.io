@@ -83,7 +83,7 @@
       "key": "starter",
       "popular": false,
       "title":    { "ar": "باقة البداية",    "en": "Starter Package",      "de": "Starter-Paket" },
-      "price":    149,
+      "price":    80,
       "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
       "monthly":  { "ar": "+ 15€ شهرياً للاستضافة", "en": "+ 15€/month for hosting", "de": "+ 15€/Monat für Hosting" },
       "features": [
@@ -99,7 +99,7 @@
       "popular": true,
       "popularLabel": { "ar": "⭐ الأكثر طلباً", "en": "⭐ Most Popular", "de": "⭐ Am beliebtesten" },
       "title":    { "ar": "باقة الاحترافي",  "en": "Professional Package", "de": "Professionelles Paket" },
-      "price":    349,
+      "price":    100,
       "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
       "monthly":  { "ar": "+ 25€ شهرياً للاستضافة والإدارة", "en": "+ 25€/month for hosting & management", "de": "+ 25€/Monat für Hosting & Verwaltung" },
       "features": [
@@ -115,7 +115,7 @@
       "key": "business",
       "popular": false,
       "title":    { "ar": "باقة الأعمال",    "en": "Business Package",     "de": "Business-Paket" },
-      "price":    699,
+      "price":    200,
       "priceNote":{ "ar": "€ / مرة واحدة",  "en": "€ / one-time",         "de": "€ / einmalig" },
       "monthly":  { "ar": "+ 45€ شهرياً للاستضافة والإدارة الكاملة", "en": "+ 45€/month for full hosting & management", "de": "+ 45€/Monat für vollständige Verwaltung" },
       "features": [
@@ -135,12 +135,12 @@
     "result_note":  { "ar": "* الأسعار تقريبية وقد تختلف حسب متطلبات مشروعك.", "en": "* Prices are estimates and may vary by project requirements.", "de": "* Preise sind Schätzungen und können je nach Projektanforderungen variieren." },
     "cta": { "ar": "احصل على عرض سعر", "en": "Get a Quote", "de": "Angebot anfordern" },
     "items": [
-      { "label": { "ar": "تصميم موقع (أساسي)",      "en": "Website Design (Basic)", "de": "Website-Design (Basic)" }, "price": 149, "priceLabel": { "ar": "يبدأ من 149€", "en": "From 149€", "de": "Ab 149€" } },
-      { "label": { "ar": "تصميم موقع (احترافي)",    "en": "Website Design (Pro)",   "de": "Website-Design (Pro)" },   "price": 200, "priceLabel": { "ar": "يبدأ من 200€", "en": "From 200€", "de": "Ab 200€" } },
+      { "label": { "ar": "تصميم موقع (أساسي)",      "en": "Website Design (Basic)", "de": "Website-Design (Basic)" }, "price": 80, "priceLabel": { "ar": "يبدأ من 80€", "en": "From 80€", "de": "Ab 80€" } },
+      { "label": { "ar": "تصميم موقع (احترافي)",    "en": "Website Design (Pro)",   "de": "Website-Design (Pro)" },   "price": 100, "priceLabel": { "ar": "يبدأ من 100€", "en": "From 100€", "de": "Ab 100€" } },
       { "label": { "ar": "استضافة شهرية",            "en": "Monthly Hosting",        "de": "Monatliches Hosting" },    "price": 15,  "priceLabel": { "ar": "15€ / شهر",     "en": "15€ / month", "de": "15€ / Monat" } },
       { "label": { "ar": "إدارة الموقع",             "en": "Website Management",     "de": "Website-Verwaltung" },     "price": 25,  "priceLabel": { "ar": "25€ / شهر",     "en": "25€ / month", "de": "25€ / Monat" } },
-      { "label": { "ar": "بريد إلكتروني احترافي",   "en": "Professional Email",     "de": "Professionelle E-Mail" },  "price": 10,  "priceLabel": { "ar": "10€ / شهر",     "en": "10€ / month", "de": "10€ / Monat" } },
-      { "label": { "ar": "إضافة على خرائط Google",  "en": "Google Maps Listing",    "de": "Google Maps Eintrag" },    "price": 49,  "priceLabel": { "ar": "49€ مرة واحدة", "en": "49€ one-time","de": "49€ einmalig" } },
+      { "label": { "ar": "بريد إلكتروني احترافي",   "en": "Professional Email",     "de": "Professionelle E-Mail" },  "price": 5,  "priceLabel": { "ar": "5€ / شهر",     "en": "5€ / month", "de": "5€ / Monat" } },
+      { "label": { "ar": "إضافة على خرائط Google",  "en": "Google Maps Listing",    "de": "Google Maps Eintrag" },    "price": 10,  "priceLabel": { "ar": "10€ مرة واحدة", "en": "10€ one-time","de": "10€ einmalig" } },
       { "label": { "ar": "بوت ذكي لخدمة العملاء",  "en": "AI Customer Bot",        "de": "KI-Kundenbot" },           "price": 89,  "priceLabel": { "ar": "يبدأ من 89€",   "en": "From 89€",    "de": "Ab 89€" } },
       { "label": { "ar": "نطاق (Domain) سنوي",      "en": "Annual Domain",          "de": "Jährliche Domain" },       "price": 12,  "priceLabel": { "ar": "12€ / سنة",     "en": "12€ / year",  "de": "12€ / Jahr" } }
     ]
