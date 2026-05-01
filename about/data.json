@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "en": { "title": "Ahmad Al Jarad — IT Ingenieur", "lang": "en", "dir": "ltr" },
+    "de": { "title": "Ahmad Al Jarad — IT Engineer",   "lang": "de", "dir": "ltr" },
+    "ar": { "title": "أحمد الجراد — مهندس تقنية المعلومات", "lang": "ar", "dir": "rtl" }
+  },
+
+  "nav": {
+    "name": {
+      "en": "Ahmad Al Jarad",
+      "de": "Ahmad Al Jarad",
+      "ar": "أحمد الجراد"
+    },
+    "monogram": "AJ"
+  },
+
+  "hero": {
+    "kicker": {
+      "en": "IT Professional & Software Developer",
+      "de": "IT Professional & Softwareentwickler",
+      "ar": "متخصص تقنية المعلومات ومهندس برمجيات"
+    },
+    "firstName": {
+      "en": "Ahmad", "de": "Ahmad", "ar": "أحمد"
+    },
+    "lastName": {
+      "en": "Al Jarad", "de": "Al Jarad", "ar": "الجراد"
+    },
+    "subtitle": {
+      "en": "Computer Engineering · Cloud Infrastructure · DevOps",
+      "de": "Technische Informatik · Cloud-Infrastruktur · DevOps",
+      "ar": "هندسة الحاسوب · البنية التحتية السحابية · ديف أوبس"
+    },
+    "bio": {
+      "en": "Bachelor's graduate in Computer Engineering & Automation from the University of Damascus. Based in Saarbrücken, Germany since 2023 — specialising in cloud infrastructure, Windows Server administration, Flutter development and network engineering.",
+      "de": "Bachelor-Absolvent der Technischen Informatik und Automatisierungstechnik an der Universität Damaskus. Seit 2023 in Saarbrücken — spezialisiert auf Cloud-Infrastruktur, Windows Server, Flutter-Entwicklung und Netzwerkverwaltung.",
+      "ar": "خريج بكالوريوس هندسة الحاسوب وتكنولوجيا الأتمتة من جامعة دمشق. مقيم في زاربروكن، ألمانيا منذ 2023 — متخصص في البنية التحتية السحابية وبيئات Windows Server وتطوير Flutter وإدارة الشبكات."
+    },
+    "cta": {
+      "primary": { "en": "Contact Me",  "de": "Kontakt",   "ar": "تواصل معي" },
+      "secondary": { "en": "Experience ↓", "de": "Erfahrung ↓", "ar": "الخبرة ↓" }
+    },
+    "stats": [
+      { "value": "5+",   "label": { "en": "Years Exp.",  "de": "Jahre Erf.",  "ar": "سنوات خبرة" } },
+      { "value": "B.Sc.","label": { "en": "Comp. Eng.",  "de": "Informatik",  "ar": "هندسة حاسوب" } },
+      { "value": "B2+",  "label": { "en": "German",      "de": "Deutsch",     "ar": "ألماني" } }
+    ]
+  },
+
+  "contact": {
+    "email": "info@aljrad.com",
+    "location": {
+      "en": "Saarbrücken, Germany",
+      "de": "Saarbrücken, Deutschland",
+      "ar": "زاربروكن، ألمانيا"
+    },
+    "degree": {
+      "en": "B.Sc. Computer Engineering",
+      "de": "B.Sc. Technische Informatik",
+      "ar": "بكالوريوس هندسة الحاسوب"
+    },
+    "languages_line": {
+      "en": "Arabic · German B2+ · English B1",
+      "de": "Arabisch (Muttersp.) · Deutsch B2+ · Englisch B1",
+      "ar": "العربية (أم) · الألمانية B2+ · الإنجليزية B1"
+    }
+  },
+
+  "socialLinks": [
+    { "id": "li",     "icon": "ico-li",     "label": "LinkedIn",  "url": "https://www.linkedin.com/in/ahmad-aljarad" },
+    { "id": "xing",   "icon": "ico-xing",   "label": "Xing",      "url": "https://www.xing.com/profile/Ahmad_Aljarad027325/web_profiles" },
+    { "id": "credly", "icon": "ico-credly", "label": "Credly",    "url": "https://www.credly.com/users/ahmad-aljarad" },
+    { "id": "gh",     "icon": "ico-gh",     "label": "GitHub",    "url": "https://github.com/ahmadaljrad" },
+    { "id": "web",    "icon": "ico-web",    "label": "My WebSite", "url": "https://aljrad.com" }
+  ],
+
+  "sections": {
+    "skills": {
+      "tag":   { "en": "Expertise",     "de": "Fachkenntnisse", "ar": "الخبرات" },
+      "title": { "en": "Skills & <em>Technologies</em>", "de": "Kenntnisse & <em>Technologien</em>", "ar": "المهارات <em>والتقنيات</em>" },
+      "items": [
+        {
+          "icon": "☁️",
+          "title": { "en": "Cloud & Virtualisation",    "de": "Cloud & Virtualisierung",    "ar": "السحابة والمحاكاة الافتراضية" },
+          "tags":  ["Azure", "Hyper-V", "VMware", "MS-365"]
+        },
+        {
+          "icon": "🖥️",
+          "title": { "en": "System Administration",     "de": "Systemadministration",        "ar": "إدارة الأنظمة" },
+          "tags":  ["Windows Server 2022", "PowerShell", { "en": "Identity Mgmt", "de": "Identitätsverwaltung", "ar": "إدارة الهويات" }]
+        },
+        {
+          "icon": "📱",
+          "title": { "en": "Software Development",      "de": "Softwareentwicklung",         "ar": "تطوير البرمجيات" },
+          "tags":  ["Flutter", "GitHub", "DevOps"]
+        },
+        {
+          "icon": "🌐",
+          "title": { "en": "Networking",                "de": "Netzwerke",                   "ar": "الشبكات" },
+          "tags":  [{ "en": "CCNA Certified", "de": "CCNA-Zertifikat", "ar": "شهادة CCNA" }, "Cisco", "TCP/IP"]
+        },
+        {
+          "icon": "📦",
+          "title": { "en": "Logistics & Operations",    "de": "Logistik & Organisation",     "ar": "اللوجستيك" },
+          "tags":  [
+            { "en": "IHK Certificate",   "de": "IHK-Zertifikat",          "ar": "شهادة IHK" },
+            { "en": "Business Logistics","de": "Wirtschaft & Logistik",    "ar": "اقتصاد ولوجستيك" },
+            { "en": "Class B Licence",   "de": "Führerschein Kl.B",        "ar": "رخصة B" }
+          ]
+        },
+        {
+          "icon": "🛠️",
+          "title": { "en": "Tools & Office",            "de": "IT-Tools",                    "ar": "أدوات العمل" },
+          "tags":  ["MS Office", { "en": "First Aid", "de": "Erste Hilfe", "ar": "إسعافات أولية" }, { "en": "IT Support", "de": "IT-Support", "ar": "دعم تقني" }]
+        }
+      ]
+    },
+
+    "experience": {
+      "tag":   { "en": "Career",         "de": "Karriere",  "ar": "المسيرة" },
+      "title": { "en": "Work <em>Experience</em>", "de": "Berufliche <em>Erfahrung</em>", "ar": "الخبرة <em>العملية</em>" },
+      "items": [
+        {
+          "date":  { "en": "Feb 2022 – Oct 2022",  "de": "Feb 2022 – Okt 2022",   "ar": "فبراير–أكتوبر 2022" },
+          "role":  { "en": "Software Engineer",   "de": "Softwareingenieur", "ar": "مهندس برمجيات" },
+          "org":   { "en": "Souccar for Electronic Industries LLC · Damascus, Syria", "de": "Souccar for Electronic Industries LLC · Damaskus", "ar": "Souccar for Electronic Industries · دمشق" },
+          "desc":  { "en": "Development and enhancement of software systems for HR management, payroll processing, and workforce planning.", "de": "Weiterentwicklung von Softwaresystemen für Personalmanagement, Gehaltsabrechnung und Arbeitsplanung.", "ar": "تطوير أنظمة برمجية لإدارة الموارد البشرية وكشوف الرواتب وتخطيط القوى العاملة." }
+        },
+        {
+          "date":  { "en": "Oct 2021 – Sep 2022",  "de": "Okt 2021 – Sep 2022",   "ar": "أكتوبر 2021–سبتمبر 2022" },
+          "role":  { "en": "Flutter Developer",   "de": "Flutter-Entwickler",  "ar": "مطوّر Flutter" },
+          "org":   { "en": "B-Wire · Damascus, Syria",   "de": "B-Wire · Damaskus",           "ar": "B-Wire · دمشق" },
+          "desc":  { "en": "Built cross-platform mobile applications using the Flutter framework for Android and iOS.", "de": "Entwicklung plattformübergreifender Apps mit Flutter für Android und iOS.", "ar": "بناء تطبيقات موبايل متعددة المنصات باستخدام Flutter." }
+        },
+        {
+          "date":  { "en": "Jan 2019 – Feb 2022",  "de": "Jan 2019 – Feb 2022",   "ar": "يناير 2019–فبراير 2022" },
+          "role":  { "en": "IT Support",         "de": "IT Support",            "ar": "مهندس دعم تكنولوجيا المعلومات" },
+          "org":   { "en": "SCS-NET LLC · Damascus, Syria", "de": "SCS-NET LLC · Damaskus",   "ar": "SCS-NET LLC · دمشق" },
+          "desc":  { "en": "Customer support and technical troubleshooting of network connectivity issues for corporate and residential clients.", "de": "Kundenbetreuung und Behebung von Netzwerkproblemen für Firmen- und Privatkunden.", "ar": "خدمة العملاء وحل مشكلات الاتصال بالشبكة." }
+        }
+      ]
+    },
+
+    "education": {
+      "tag":   { "en": "Education & Training", "de": "Bildung & Weiterbildung", "ar": "التعليم" },
+      "title": { "en": "Academic & <em>Professional Development</em>", "de": "Akademischer & <em>beruflicher Werdegang</em>", "ar": "المسيرة الأكاديمية <em>والمهنية</em>" },
+      "items": [
+        {
+          "date":  { "en": "2014 – 2019", "de": "2014 – 2019", "ar": "2014–2019" },
+          "role":  { "en": "B.Sc. Computer Engineering & Automation", "de": "B.Sc. Technische Informatik & Automatisierungstechnik", "ar": "بكالوريوس هندسة الحاسوب والأتمتة" },
+          "org":   { "en": "University of Damascus · Syria", "de": "Universität Damaskus · Syrien", "ar": "جامعة دمشق · سوريا" },
+          "desc":  { "en": "Bachelor's degree recognised by the German KMK / Zentralstelle für ausländisches Bildungswesen, Bonn.", "de": "Anerkannt durch die KMK / Zentralstelle für ausländisches Bildungswesen, Bonn.", "ar": "معترف به من مؤتمر وزراء التعليم الألماني KMK / مكتب الاعتراف بالشهادات الأجنبية، بون." }
+        },
+        {
+          "date":  { "en": "Feb – Aug 2026", "de": "Feb–Aug 2026", "ar": "فبراير–أغسطس 2026" },
+          "role":  { "en": "Fundamentals of Logistics", "de": "Grundlagen Logistik", "ar": "أساسيات اللوجستيك" },
+          "org":   { "en": "DiS · Saarbrücken", "de": "DiS · Saarbrücken", "ar": "DiS · زاربروكن" },
+          "desc":  { "en": "Business & logistics, practical internships, driving licence Class B.", "de": "Wirtschaft & Logistik, Praktika, Führerschein Klasse B.", "ar": "اقتصاد ولوجستيك، تدريب عملي، رخصة قيادة B." },
+          "badge": { "en": "🏅 IHK Certificate", "de": "🏅 IHK-Zertifikat", "ar": "🏅 شهادة IHK" }
+        },
+  {
+    "date": { "en": "Aug – Oct 2025", "de": "Aug–Okt 2025", "ar": "أغسطس–أكتوبر 2025" },
+    "role": { "en": "Cloud Expert: Microsoft Azure Administration", "de": "Cloud Experte: Microsoft Azure Administration", "ar": "خبير سحابة: إدارة Microsoft Azure" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "Managing Azure identities and governance; implementing and managing storage; deploying and managing compute resources; configuring virtual networks; monitoring and securing Azure resources.",
+      "de": "Verwalten von Azure-Identitäten und -Governance; Implementierung und Verwaltung von Speicher; Bereitstellung und Verwaltung von Rechenressourcen; Konfiguration virtueller Netzwerke; Überwachung und Sicherung von Azure-Ressourcen.",
+      "ar": "إدارة هويات Azure والحوكمة؛ تنفيذ وإدارة التخزين؛ نشر وإدارة موارد الحوسبة؛ إعداد الشبكات الافتراضية؛ مراقبة وتأمين موارد Azure."
+    }
+  },
+  {
+    "date": { "en": "Jul – Aug 2025", "de": "Jul–Aug 2025", "ar": "يوليو–أغسطس 2025" },
+    "role": { "en": "Microsoft Cloud: Microsoft 365 & Azure", "de": "Microsoft Cloud: Microsoft 365 & Azure", "ar": "Microsoft Cloud: ‏Microsoft 365 و Azure" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "Microsoft 365 services and concepts; security, compliance, licensing and support; Azure concepts, architecture, services, governance; cloud concepts, pricing models, and lifecycle agreements.",
+      "de": "Microsoft 365 Dienste und Konzepte; Sicherheit, Compliance, Lizenzierung und Support; Azure-Konzepte, Architektur und Services sowie Governance; Cloud-Konzepte, Preismodelle und Lebenszyklen.",
+      "ar": "خدمات ومفاهيم Microsoft 365؛ الأمان والامتثال والترخيص والدعم؛ مفاهيم Azure والهندسة والخدمات والحوكمة؛ مفاهيم السحابة والتسعير ودورات الحياة."
+    }
+  },
+  {
+    "date": { "en": "Jun – Jul 2025", "de": "Jun–Jul 2025", "ar": "يونيو–يوليو 2025" },
+    "role": { "en": "Microsoft Windows Server 2022", "de": "Microsoft Windows Server 2022", "ar": "Microsoft Windows Server 2022" },
+    "org":  { "en": "GFN GmbH · Heidelberg / Kaiserslautern", "de": "GFN GmbH · Heidelberg / Kaiserslautern", "ar": "GFN GmbH · هايدلبرغ / كايزرسلاوترن" },
+    "desc": {
+      "en": "PowerShell automation and scripting; Windows Server installation and configuration; network management (DNS, DHCP); Active Directory and identity management; virtualization and infrastructure management.",
+      "de": "PowerShell Automatisierung und Skripting; Installation und Konfiguration von Windows Server; Netzwerkmanagement (DNS, DHCP); Active Directory und Identitätsmanagement; Virtualisierung und Infrastrukturverwaltung.",
+      "ar": "أتمتة PowerShell والبرمجة النصية؛ تثبيت وإعداد Windows Server؛ إدارة الشبكات (DNS، DHCP)؛ Active Directory وإدارة الهويات؛ الافتراضية وإدارة البنية التحتية."
+    }
+  },
+        {
+          "date":  { "en": "Mar – Apr 2025", "de": "Mär–Apr 2025", "ar": "مارس–أبريل 2025" },
+          "role":  { "en": "Competence Assessment for Engineers", "de": "Kompetenzfeststellung für Ingenieure", "ar": "تقييم كفاءات المهندسين" },
+          "org":   { "en": "FESTO Learning Centre Saar · St. Ingbert", "de": "FESTO Lernzentrum Saar · St. Ingbert", "ar": "FESTO · سانت إنغبرت" },
+          "desc":  { "en": "Industrial competence evaluation for engineers and technical specialists.", "de": "Kompetenzfeststellung für Ingenieure und Fachkräfte im industriellen Bereich.", "ar": "تقييم كفاءات المهندسين والمتخصصين الصناعيين." }
+        },
+        {
+          "date":  { "en": "Jul – Dec 2024", "de": "Jul–Dez 2024", "ar": "يوليو–ديسمبر 2024" },
+          "role":  { "en": "Professional German Language Course", "de": "Beruflicher Sprachkurs", "ar": "دورة لغة ألمانية مهنية" },
+          "org":   { "en": "LECTOR · Saarbrücken", "de": "LECTOR · Saarbrücken", "ar": "LECTOR · زاربروكن" },
+          "desc":  { "en": "Advanced workplace German for technical and professional contexts.", "de": "Berufsorientiertes Deutsch auf fortgeschrittenem Niveau.", "ar": "ألمانية متقدمة للبيئة المهنية." },
+          "badge": { "en": "🏅 telc B2", "de": "🏅 telc B2", "ar": "🏅 شهادة telc B2" }
+        },
+        {
+          "date":  { "en": "Jul 2023 – Mar 2024", "de": "Jul 2023–Mär 2024", "ar": "يوليو 2023–مارس 2024" },
+          "role":  { "en": "Integration Course", "de": "Integrationskurs", "ar": "دورة الاندماج" },
+          "org":   { "en": "FIS · Saarbrücken", "de": "FIS · Saarbrücken", "ar": "FIS · زاربروكن" },
+          "desc":  { "en": "German language and civic orientation programme.", "de": "Deutschkurs und Orientierungskurs „Leben in Deutschland\".", "ar": "دورة اللغة الألمانية والتوجيه المدني." },
+          "badge": { "en": "🏅 telc B1 & Leben in Deutschland", "de": "🏅 telc B1 & Leben in Deutschland", "ar": "🏅 telc B1 + Leben in Deutschland" }
+        },
+        {
+          "date":  { "en": "Oct 2017", "de": "Okt 2017", "ar": "أكتوبر 2017" },
+          "role":  { "en": "CCNA – Cisco Certified Network Associate", "de": "CCNA – Cisco Certified Network Associate", "ar": "CCNA – Cisco Certified Network Associate" },
+          "org":   { "en": "Executrain Institute · Syria", "de": "Executrain Institute · Syrien", "ar": "Executrain Institute · سوريا" },
+          "desc":  { "en": "Industry-standard networking certification by Cisco Systems.", "de": "Industriestandard-Zertifizierung für Netzwerktechnologie.", "ar": "شهادة احترافية في تقنيات الشبكات من Cisco." }
+        }
+      ]
+    },
+
+    "languages": {
+      "tag":   { "en": "Communication", "de": "Kommunikation", "ar": "التواصل" },
+      "title": { "en": "Language <em>Proficiency</em>", "de": "Sprach<em>kenntnisse</em>", "ar": "إتقان <em>اللغات</em>" },
+      "items": [
+        { "name": { "en": "Arabic",   "de": "Arabisch", "ar": "العربية" }, "level": { "en": "Native Language", "de": "Muttersprache", "ar": "اللغة الأم" }, "pct": 100 },
+        { "name": { "en": "German",   "de": "Deutsch",  "ar": "الألمانية" }, "level": { "en": "B2+ · Listening · Speaking · Writing", "de": "B2+ · Verstehen · Sprechen · Schreiben", "ar": "B2+ · استماع · تحدث · كتابة" }, "pct": 78 },
+        { "name": { "en": "English",  "de": "Englisch", "ar": "الإنجليزية" }, "level": { "en": "B1 · Listening · Speaking · Writing",  "de": "B1 · Verstehen · Sprechen · Schreiben",  "ar": "B1 · استماع · تحدث · كتابة" },  "pct": 55 }
+      ]
+    },
+
+    "contact": {
+      "tag":   { "en": "Get in Touch", "de": "Kontakt",  "ar": "تواصل" },
+      "title": { "en": "Let's <em>Connect</em>", "de": "Schreiben <em>Sie mir</em>", "ar": "لنتواصل <em>معاً</em>" },
+      "intro": { "en": "Whether you have a project in mind, a professional opportunity, or simply wish to get in touch — I am always open to meaningful conversations.", "de": "Ob Projekt, Jobangebot oder einfach eine Frage — ich bin stets offen für professionelle Gespräche und neue Herausforderungen.", "ar": "سواء كان لديك مشروع، فرصة عمل، أو مجرد سؤال — أنا دائماً منفتح على الحوارات المهنية والتحديات الجديدة." },
+      "form": {
+        "title":       { "en": "Send a Message",       "de": "Nachricht senden",   "ar": "إرسال رسالة" },
+        "nameLbl":     { "en": "Full Name",             "de": "Vollständiger Name", "ar": "الاسم الكامل" },
+        "namePh":      { "en": "Your name",             "de": "Ihr Name",           "ar": "اسمك" },
+        "emailLbl":    { "en": "Email Address",         "de": "E-Mail-Adresse",     "ar": "البريد الإلكتروني" },
+        "emailPh":     { "en": "your@email.com",        "de": "ihre@email.de",      "ar": "بريدك@example.com" },
+        "subjectLbl":  { "en": "Subject",               "de": "Betreff",            "ar": "الموضوع" },
+        "subjectPh":   { "en": "Message subject",       "de": "Betreff",            "ar": "موضوع الرسالة" },
+        "messageLbl":  { "en": "Message",               "de": "Nachricht",          "ar": "الرسالة" },
+        "messagePh":   { "en": "Write your message here…", "de": "Ihre Nachricht…", "ar": "اكتب رسالتك هنا…" },
+        "send":        { "en": "Send Message",          "de": "Nachricht senden",   "ar": "إرسال الرسالة" },
+        "sending":     { "en": "Sending…",              "de": "Sende…",             "ar": "جارٍ الإرسال…" },
+        "success":     { "en": "Message sent! I'll reply soon.", "de": "Nachricht gesendet! Ich melde mich bald.", "ar": "تم الإرسال! سأتواصل معك قريباً." },
+        "errEmpty":    { "en": "Please fill in all fields.",     "de": "Bitte alle Felder ausfüllen.",             "ar": "يرجى ملء جميع الحقول." },
+        "errEmail":    { "en": "Please enter a valid email.",    "de": "Bitte gültige E-Mail eingeben.",           "ar": "بريد إلكتروني غير صحيح." }
+      }
+    }
+  },
+
+  "footer": {
+    "name": { "en": "Ahmad Al Jarad", "de": "Ahmad Al Jarad", "ar": "أحمد الجراد" },
+    "copy": { "en": "© 2025 · Saarbrücken, Germany", "de": "© 2025 · Saarbrücken, Deutschland", "ar": "© 2025 · زاربروكن، ألمانيا" }
+  }
+}
