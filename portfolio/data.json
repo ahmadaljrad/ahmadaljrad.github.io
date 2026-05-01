@@ -1,8 +1,8 @@
 {
   "meta": {
-    "en": { "title": "Ahmad Al Jarad — IT Professional", "lang": "en", "dir": "ltr" },
-    "de": { "title": "Ahmad Al Jarad — IT-Fachkraft",   "lang": "de", "dir": "ltr" },
-    "ar": { "title": "أحمد الجراد — متخصص تقنية المعلومات", "lang": "ar", "dir": "rtl" }
+    "en": { "title": "Ahmad Al Jarad — IT Ingenieur", "lang": "en", "dir": "ltr" },
+    "de": { "title": "Ahmad Al Jarad — IT Engineer",   "lang": "de", "dir": "ltr" },
+    "ar": { "title": "أحمد الجراد — مهندس تقنية المعلومات", "lang": "ar", "dir": "rtl" }
   },
 
   "nav": {
@@ -17,8 +17,8 @@
   "hero": {
     "kicker": {
       "en": "IT Professional & Software Developer",
-      "de": "IT-Fachkraft & Softwareentwickler",
-      "ar": "متخصص تقنية المعلومات ومطوّر برمجيات"
+      "de": "IT Professional & Softwareentwickler",
+      "ar": "متخصص تقنية المعلومات ومهندس برمجيات"
     },
     "firstName": {
       "en": "Ahmad", "de": "Ahmad", "ar": "أحمد"
@@ -71,7 +71,7 @@
     { "id": "xing",   "icon": "ico-xing",   "label": "Xing",      "url": "https://www.xing.com/profile/Ahmad_Aljarad027325/web_profiles" },
     { "id": "credly", "icon": "ico-credly", "label": "Credly",    "url": "https://www.credly.com/users/ahmad-aljarad" },
     { "id": "gh",     "icon": "ico-gh",     "label": "GitHub",    "url": "https://github.com/ahmadaljrad" },
-    { "id": "web",    "icon": "ico-web",    "label": "Portfolio", "url": "https://aljrad.com" }
+    { "id": "web",    "icon": "ico-web",    "label": "My WebSite", "url": "https://aljrad.com" }
   ],
 
   "sections": {
@@ -122,19 +122,19 @@
       "items": [
         {
           "date":  { "en": "Feb 2022 – Oct 2022",  "de": "Feb 2022 – Okt 2022",   "ar": "فبراير–أكتوبر 2022" },
-          "role":  { "en": "Junior Software Engineer",   "de": "Junior Softwareingenieur", "ar": "مهندس برمجيات مبتدئ" },
+          "role":  { "en": "Software Engineer",   "de": "Softwareingenieur", "ar": "مهندس برمجيات" },
           "org":   { "en": "Souccar for Electronic Industries LLC · Damascus, Syria", "de": "Souccar for Electronic Industries LLC · Damaskus", "ar": "Souccar for Electronic Industries · دمشق" },
           "desc":  { "en": "Development and enhancement of software systems for HR management, payroll processing, and workforce planning.", "de": "Weiterentwicklung von Softwaresystemen für Personalmanagement, Gehaltsabrechnung und Arbeitsplanung.", "ar": "تطوير أنظمة برمجية لإدارة الموارد البشرية وكشوف الرواتب وتخطيط القوى العاملة." }
         },
         {
           "date":  { "en": "Oct 2021 – Sep 2022",  "de": "Okt 2021 – Sep 2022",   "ar": "أكتوبر 2021–سبتمبر 2022" },
-          "role":  { "en": "Junior Flutter Developer",   "de": "Junior Flutter-Entwickler",  "ar": "مطوّر Flutter مبتدئ" },
+          "role":  { "en": "Flutter Developer",   "de": "Flutter-Entwickler",  "ar": "مطوّر Flutter" },
           "org":   { "en": "B-Wire · Damascus, Syria",   "de": "B-Wire · Damaskus",           "ar": "B-Wire · دمشق" },
           "desc":  { "en": "Built cross-platform mobile applications using the Flutter framework for Android and iOS.", "de": "Entwicklung plattformübergreifender Apps mit Flutter für Android und iOS.", "ar": "بناء تطبيقات موبايل متعددة المنصات باستخدام Flutter." }
         },
         {
           "date":  { "en": "Jan 2019 – Feb 2022",  "de": "Jan 2019 – Feb 2022",   "ar": "يناير 2019–فبراير 2022" },
-          "role":  { "en": "Network Technician",         "de": "Netzwerktechniker",            "ar": "فني شبكات" },
+          "role":  { "en": "IT Support",         "de": "IT Support",            "ar": "مهندس دعم تكنولوجيا المعلومات" },
           "org":   { "en": "SCS-NET LLC · Damascus, Syria", "de": "SCS-NET LLC · Damaskus",   "ar": "SCS-NET LLC · دمشق" },
           "desc":  { "en": "Customer support and technical troubleshooting of network connectivity issues for corporate and residential clients.", "de": "Kundenbetreuung und Behebung von Netzwerkproblemen für Firmen- und Privatkunden.", "ar": "خدمة العملاء وحل مشكلات الاتصال بالشبكة." }
         }
