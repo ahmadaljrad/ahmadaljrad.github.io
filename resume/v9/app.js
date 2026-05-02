@@ -310,17 +310,15 @@ const View = (() => {
       <!-- PAGE 1 -->
       <div class="cv-page page-1">
         ${pageHeaderHTML(d, true)}
+        <br>
         <div class="cv-page-body">${page1Body}</div>
-        <div class="cv-page-number">1 / 2</div>
-        <div class="cv-branding">Erstellt mit aljrad.com</div>
       </div>
 
       <!-- PAGE 2 -->
       <div class="cv-page page-2">
         ${pageHeaderHTML(d, false)}
+        <br>
         <div class="cv-page-body">${page2Body}</div>
-        <div class="cv-page-number">2 / 2</div>
-        <div class="cv-branding">Erstellt mit aljrad.com</div>
       </div>
     `;
 
