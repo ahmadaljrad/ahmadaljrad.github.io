@@ -13,10 +13,10 @@
   --accent:      #1A3A5C;
   --accent-lt:   #E2EAF4;
   --header-h:    54px;
-  --panel-w:     420px;   /* wider form panel on desktop */
-  --a4-w:        794px;   /* 210mm @ 96dpi */
-  --a4-h:        1123px;  /* 297mm @ 96dpi */
-  --cv-margin:   28px;    /* base CV horizontal margin — all templates align to this */
+  --panel-w:     420px;
+  --a4-w:        794px;
+  --a4-h:        1123px;
+  --cv-margin:   28px;   /* unified horizontal margin for all CV templates */
 }
 
 /* ── RESET ── */
@@ -184,7 +184,7 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 
 /* ── REPEATED PAGE HEADER ── */
 .cv-page-header {
-  padding: 22px var(--cv-margin) 12px;
+  padding: 22px 28px 12px;
   border-bottom: 1.5px solid #000;
 }
 
@@ -245,7 +245,7 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 
 /* ── CV BODY ── */
 .cv-page-body {
-  padding: 16px var(--cv-margin) 44px;
+  padding: 16px 28px 44px;
   overflow: visible;
 }
 
@@ -366,19 +366,24 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 
 /* ══════════════ PRINT ══════════════ */
 
+/*
+  @page margin = 0 → the colored header bleeds flush to the paper edge.
+  All whitespace is controlled by padding inside .cv-page-header and
+  .cv-page-body, giving us pixel-perfect alignment in every template.
+*/
 @page {
   size: A4 portrait;
-  margin: 12mm 13mm 12mm 13mm;
+  margin: 0;
 }
 
 @media print {
   /* Hide everything except the CV pages */
-  body {
-    overflow: visible;
-    height: auto;
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
     background: #fff !important;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .app-header,
@@ -389,12 +394,12 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
     display: none !important;
   }
 
-  .app-body    { padding-top: 0 !important; display: block !important; }
+  .app-body { padding-top: 0 !important; display: block !important; }
+
   .preview-panel {
-    /* Reset ALL mobile overrides that break multi-page print */
     display: block !important;
-    position: static !important;   /* undo position:fixed from mobile CSS */
-    inset: auto !important;        /* undo inset:0 */
+    position: static !important;
+    inset: auto !important;
     width: 100% !important;
     height: auto !important;
     overflow: visible !important;
@@ -403,22 +408,6 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
     z-index: auto !important;
     flex-direction: unset !important;
     align-items: unset !important;
-  }
-
-  /* Also reset body overflow that MobilePreview.show() may have set */
-  body {
-    overflow: visible !important;
-    height: auto !important;
-  }
-
-  /* Tighten inner CV padding in print — @page margin handles whitespace */
-  .cv-page-header {
-    padding: 10px 20px 8px !important;
-  }
-  .cv-page-body {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding-top: 10px !important;
   }
 
   /* Kill all screen scaling */
@@ -431,22 +420,24 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
     width: auto !important;
   }
 
-  /* Each .cv-page = one real A4 page */
+  /*
+    Each .cv-page fills the full A4 paper edge-to-edge.
+    Internal padding (inside header / body) provides the margins.
+  */
   .cv-page {
-    width: 100% !important;
+    width: 100vw !important;
+    max-width: 100% !important;
     height: auto !important;
     min-height: 0 !important;
-    max-height: none !important;
     overflow: visible !important;
     box-shadow: none !important;
-    /* No page-break-after here — would create blank page after last page */
     page-break-before: always;
     break-before: page;
-    position: static !important;   /* absolute children (branding/page-num) won't add height */
-    padding: 0;
+    position: static !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  /* Page 1: no break before, but force break AFTER so page 2 starts fresh */
   .cv-page.page-1 {
     page-break-before: avoid;
     break-before: avoid;
@@ -454,40 +445,39 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
     break-after: page;
   }
 
-  /* Page 2 (last page): no forced break after — prevents blank page 3 */
   .cv-page.page-2 {
     page-break-after: avoid;
     break-after: avoid;
   }
 
-  /* Never split a section heading from its first row */
-  .cv-section {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  .cv-row,
-  .cv-personal-row,
-  .cv-skill-row {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  /* Keep header + its separator together */
+  /*
+    Header: generous internal padding replaces the old @page margin.
+    ~13mm ≈ 49px at 96dpi; we use --cv-margin (28px) horizontally so
+    text aligns with the body below, and add top padding for breathing room.
+  */
   .cv-page-header {
+    padding: 18px var(--cv-margin) 14px !important;
     page-break-inside: avoid;
     break-inside: avoid;
   }
 
-  /* Remove fixed height on body – let content breathe */
+  /*
+    Body: same horizontal margin as header so columns align.
+    Bottom padding gives room before page break.
+  */
   .cv-page-body {
+    padding: 14px var(--cv-margin) 20px !important;
     height: auto !important;
     overflow: visible !important;
-    padding-bottom: 8px !important;  /* reduce screen padding that adds phantom space */
   }
 
-  /* Branding and page numbers: pull out of absolute flow in print
-     so they don't create extra height below last content block */
+  /* Keep sections together */
+  .cv-section { page-break-inside: avoid; break-inside: avoid; }
+  .cv-row,
+  .cv-personal-row,
+  .cv-skill-row { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Branding / page numbers: static so they don't add phantom height */
   .cv-page-number,
   .cv-branding {
     position: static !important;
@@ -497,6 +487,34 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
     transform: none !important;
   }
   .cv-branding { text-align: center; }
+
+  /* ── Template-specific print overrides (keep template padding in sync) ── */
+
+  /* modern: full-bleed blue header needs its own padding to match --t-margin */
+  #cv-root[data-template="modern"] .cv-page-header {
+    background: #1E4D8C !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    padding: 18px 28px 14px !important;
+  }
+  #cv-root[data-template="modern"] .cv-page-body   { padding: 14px 28px 20px !important; }
+  #cv-root[data-template="modern"] .cv-hdr-name    { color: #fff !important; }
+  #cv-root[data-template="modern"] .cv-hdr-contact { color: rgba(255,255,255,.85) !important; }
+  #cv-root[data-template="modern"] .cv-section-title {
+    color: #1E4D8C !important;
+    border-left-color: #1E4D8C !important;
+  }
+
+  /* compact */
+  #cv-root[data-template="compact"] .cv-page-header { padding: 12px 24px 7px !important; }
+  #cv-root[data-template="compact"] .cv-page-body   { padding: 8px  24px 16px !important; }
+
+  /* executive */
+  #cv-root[data-template="executive"] .cv-page-header { padding: 22px 36px 14px !important; }
+  #cv-root[data-template="executive"] .cv-page-body   { padding: 14px 36px 20px !important; }
+
+  /* classic */
+  #cv-root[data-template="classic"] .cv-page-header { padding: 18px var(--cv-margin) 10px !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -519,10 +537,11 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 
 #cv-root[data-template="classic"] .cv-page-header {
   text-align: center;
-  padding: 24px var(--cv-margin) 10px;
+  padding: 24px 36px 14px;
   border-bottom: none;
   border-top: 2.5px double #000;
   border-bottom: 2.5px double #000;
+  padding-bottom: 10px;
 }
 
 /* Photo floats right — doesn't disrupt center alignment */
@@ -575,28 +594,26 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 
 /* ─────────────────────────────────────────────────────────────────
    TEMPLATE: modern
-   Characteristics: full-bleed colored header banner, name in white,
-   section titles with a colored left bar, clean sans-serif.
-   Spacing system: --t-margin (28px) used consistently everywhere.
+   Characteristics: colored left sidebar stripe, name in a tinted
+   banner, section titles with a colored left bar, clean sans-serif.
    ATS-safe: color only decorative — all text stays black.
 ───────────────────────────────────────────────────────────────── */
 
-/* Unified spacing + accent tokens */
+/* Accent palette — can be overridden per user in future */
 #cv-root[data-template="modern"] {
-  --t-accent:    #1E4D8C;
-  --t-accent-lt: #EBF0F8;
-  --t-stripe:    4px;
-  --t-margin:    28px;   /* single source of truth for all horizontal margins */
+  --t-accent:   #1E4D8C;   /* deep blue */
+  --t-accent-lt:#EBF0F8;
+  --t-stripe:   4px;
 }
 
 #cv-root[data-template="modern"] .cv-page {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Full-bleed header: background edge-to-edge, content padded with --t-margin */
+/* Tinted header banner */
 #cv-root[data-template="modern"] .cv-page-header {
   background: var(--t-accent);
-  padding: 24px var(--t-margin) 20px;
+  padding: 22px 28px 16px;
   border-bottom: none;
 }
 
@@ -620,23 +637,17 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
   color: rgba(255,255,255,.4);
 }
 
-/* Body uses the exact same --t-margin so text aligns with header text */
-#cv-root[data-template="modern"] .cv-page-body {
-  padding: 20px var(--t-margin) 44px;
-}
-
-/* Section titles: left colored bar flush with body text flow */
+/* Section titles: left colored bar, no bottom border */
 #cv-root[data-template="modern"] .cv-section-title {
   border-bottom: none;
   border-left: var(--t-stripe) solid var(--t-accent);
-  padding-left: 8px;   /* 4px stripe + 4px gap = 8px optical indent */
-  margin-left: 0;
+  padding-left: 7px;
   color: var(--t-accent);
   font-size: 9pt;
   letter-spacing: .8px;
 }
 
-/* Date column: slightly muted, same size reference */
+/* Subtle tint on date column */
 #cv-root[data-template="modern"] .cv-date {
   color: #444;
   font-size: 8pt;
@@ -646,23 +657,20 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
   color: #000;
 }
 
+/* Body: slightly more breathing room */
+#cv-root[data-template="modern"] .cv-page-body {
+  padding: 18px 30px 44px;
+}
+
 @media print {
   #cv-root[data-template="modern"] .cv-page-header {
     background: var(--t-accent) !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    /* Keep the same margin in print */
-    padding: 24px var(--t-margin) 20px !important;
   }
-  #cv-root[data-template="modern"] .cv-page-body {
-    padding: 20px var(--t-margin) 44px !important;
-  }
-  #cv-root[data-template="modern"] .cv-hdr-name    { color: #fff !important; }
+  #cv-root[data-template="modern"] .cv-hdr-name  { color: #fff !important; }
   #cv-root[data-template="modern"] .cv-hdr-contact { color: rgba(255,255,255,.85) !important; }
-  #cv-root[data-template="modern"] .cv-section-title {
-    color: var(--t-accent) !important;
-    border-left-color: var(--t-accent) !important;
-  }
+  #cv-root[data-template="modern"] .cv-section-title { color: var(--t-accent) !important; border-left-color: var(--t-accent) !important; }
 }
 
 
@@ -673,17 +681,13 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
    Purely typographic — no color, 100% ATS safe.
 ───────────────────────────────────────────────────────────────── */
 
-#cv-root[data-template="compact"] {
-  --t-margin: 24px;
-}
-
 #cv-root[data-template="compact"] .cv-page {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 8.5pt;
 }
 
 #cv-root[data-template="compact"] .cv-page-header {
-  padding: 16px var(--t-margin) 9px;
+  padding: 16px 26px 9px;
   border-bottom: 1.5px solid #000;
 }
 
@@ -710,7 +714,7 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 }
 
 #cv-root[data-template="compact"] .cv-page-body {
-  padding: 10px var(--t-margin) 36px;
+  padding: 10px 26px 36px;
 }
 
 #cv-root[data-template="compact"] .cv-section {
@@ -767,20 +771,17 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
 /* ─────────────────────────────────────────────────────────────────
    TEMPLATE: executive
    Characteristics: wide left column (40%), name large and uppercase,
-   section titles right-aligned with a full-width rule above them.
-   Spacing system: --t-margin (36px) applied consistently.
+   section titles right-aligned with a full-width rule above them,
+   contact info single-line. Boardroom gravitas.
+   Monochrome — ATS safe.
 ───────────────────────────────────────────────────────────────── */
-
-#cv-root[data-template="executive"] {
-  --t-margin: 36px;
-}
 
 #cv-root[data-template="executive"] .cv-page {
   font-family: 'Gill Sans', Calibri, Arial, sans-serif;
 }
 
 #cv-root[data-template="executive"] .cv-page-header {
-  padding: 28px var(--t-margin) 16px;
+  padding: 28px 36px 16px;
   border-bottom: 3px solid #000;
 }
 
@@ -796,10 +797,13 @@ input:focus, textarea:focus { outline: none; border-color: var(--accent); box-sh
   font-size: 8pt;
   letter-spacing: .3px;
   margin-top: 4px;
+  /* All contact on one line with pipe separators — done in HTML via &nbsp;|&nbsp; */
 }
 
+/* Photo stays top-right — inherits base layout */
+
 #cv-root[data-template="executive"] .cv-page-body {
-  padding: 18px var(--t-margin) 44px;
+  padding: 18px 36px 44px;
 }
 
 /* Wide date column (40%) */
