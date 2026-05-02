@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lebenslauf Pro – Professioneller CV Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <!-- ════════ APP HEADER ════════ -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="app-logo">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span>Lebenslauf<span class="logo-pro">Pro</span></span>
+      </div>
+      <nav class="header-nav">
+        <button class="nav-btn active" data-section="personal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Person
+        </button>
+        <button class="nav-btn" data-section="experience">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Erfahrung
+        </button>
+        <button class="nav-btn" data-section="education">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Bildung
+        </button>
+        <button class="nav-btn" data-section="skills">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Kenntnisse
+        </button>
+        <button class="nav-btn" data-section="additional">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Sonstiges
+        </button>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="template-switcher">
+        <label>Vorlage</label>
+        <select id="template-select" class="template-select">
+          <option value="modern">Modern</option>
+          <option value="classic">Klassisch</option>
+          <option value="minimal">Minimal</option>
+          <option value="executive">Executive</option>
+          <option value="creative">Kreativ</option>
+        </select>
+      </div>
+      <button id="btn-download" class="btn-pdf">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF herunterladen
+      </button>
+    </div>
+  </header>
+
+  <!-- ════════ MAIN LAYOUT ════════ -->
+  <main class="app-body">
+
+    <!-- ════════ FORM PANEL ════════ -->
+    <aside class="form-panel" id="form-panel">
+      <div class="panel-scroll">
+
+        <!-- PERSONAL -->
+        <section class="form-section active" id="section-personal">
+          <div class="section-header">
+            <h2>Persönliche Daten</h2>
+            <p class="section-desc">Geben Sie Ihre persönlichen Informationen ein</p>
+          </div>
+
+          <div class="photo-area">
+            <div class="photo-box">
+              <img id="photo-preview" src="" alt="" class="hidden" />
+              <div class="photo-placeholder" id="photo-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <span>Foto hinzufügen</span>
+              </div>
+            </div>
+            <input type="file" id="photo-input" accept="image/*" hidden />
+            <div class="photo-btns">
+              <button class="fbtn primary" id="btn-upload-photo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Hochladen
+              </button>
+              <button class="fbtn ghost" id="btn-remove-photo">Entfernen</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="group-label">Name & Kontakt</label>
+            <div class="fgrid">
+              <div class="fg"><label>Vorname</label><input type="text" data-field="personalData.firstName" placeholder="z.B. Anna" /></div>
+              <div class="fg"><label>Nachname</label><input type="text" data-field="personalData.lastName" placeholder="z.B. Bergmann" /></div>
+              <div class="fg full"><label>Berufsbezeichnung</label><input type="text" data-field="personalData.jobTitle" placeholder="z.B. Kaufmännische Leiterin" /></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="group-label">Adresse</label>
+            <div class="fgrid">
+              <div class="fg full"><label>Straße & Hausnummer</label><input type="text" data-field="personalData.street" placeholder="z.B. Rosenthaler Straße 48" /></div>
+              <div class="fg"><label>PLZ</label><input type="text" data-field="personalData.zip" placeholder="z.B. 10119" /></div>
+              <div class="fg"><label>Stadt</label><input type="text" data-field="personalData.city" placeholder="z.B. Berlin" /></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="group-label">Kontakt</label>
+            <div class="fgrid">
+              <div class="fg"><label>Telefon</label><input type="text" data-field="personalData.phone" placeholder="+49 30 8876 5432" /></div>
+              <div class="fg"><label>E-Mail</label><input type="email" data-field="personalData.email" placeholder="anna.bergmann@beispiel.de" /></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="group-label">Persönliches</label>
+            <div class="fgrid">
+              <div class="fg"><label>Geburtsdatum</label><input type="text" data-field="personalData.birthDate" placeholder="12.07.1985" /></div>
+              <div class="fg"><label>Geburtsort</label><input type="text" data-field="personalData.birthPlace" placeholder="Hamburg" /></div>
+              <div class="fg"><label>Nationalität</label><input type="text" data-field="personalData.nationality" placeholder="Deutsch" /></div>
+              <div class="fg"><label>Familienstand</label><input type="text" data-field="personalData.maritalStatus" placeholder="verheiratet" /></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="form-section" id="section-experience">
+          <div class="section-header">
+            <h2>Berufliche Erfahrung</h2>
+            <p class="section-desc">Fügen Sie Ihre beruflichen Stationen hinzu</p>
+          </div>
+          <div id="experience-list" class="dyn-list"></div>
+          <button class="add-btn" id="btn-add-experience">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Berufserfahrung hinzufügen
+          </button>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="form-section" id="section-education">
+          <div class="section-header">
+            <h2>Ausbildung & Weiterbildung</h2>
+            <p class="section-desc">Studium, Schule und Zertifikate</p>
+          </div>
+
+          <div class="edu-tabs">
+            <button class="edu-tab active" data-edu="studium">Studium</button>
+            <button class="edu-tab" data-edu="schule">Schule</button>
+            <button class="edu-tab" data-edu="weiterbildung">Weiterbildung</button>
+          </div>
+
+          <div class="edu-content active" data-edu-content="studium">
+            <div id="studium-list" class="dyn-list"></div>
+            <button class="add-btn" id="btn-add-studium">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Studium hinzufügen
+            </button>
+          </div>
+
+          <div class="edu-content" data-edu-content="schule">
+            <div id="schule-list" class="dyn-list"></div>
+            <button class="add-btn" id="btn-add-schule">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Schule hinzufügen
+            </button>
+          </div>
+
+          <div class="edu-content" data-edu-content="weiterbildung">
+            <div id="weiterbildung-list" class="dyn-list"></div>
+            <button class="add-btn" id="btn-add-weiterbildung">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Zertifikat hinzufügen
+            </button>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="form-section" id="section-skills">
+          <div class="section-header">
+            <h2>Kenntnisse & Sprachen</h2>
+            <p class="section-desc">Sprachen, Fähigkeiten und Kompetenzen</p>
+          </div>
+
+          <div class="skill-tabs">
+            <button class="skill-tab active" data-skill="skills">Fähigkeiten</button>
+            <button class="skill-tab" data-skill="languages">Sprachen</button>
+          </div>
+
+          <div class="skill-content active" data-skill-content="skills">
+            <div id="skills-list" class="dyn-list"></div>
+            <button class="add-btn" id="btn-add-skill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Fähigkeitengruppe hinzufügen
+            </button>
+          </div>
+
+          <div class="skill-content" data-skill-content="languages">
+            <div id="languages-list" class="dyn-list"></div>
+            <button class="add-btn" id="btn-add-language">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Sprache hinzufügen
+            </button>
+          </div>
+        </section>
+
+        <!-- ADDITIONAL -->
+        <section class="form-section" id="section-additional">
+          <div class="section-header">
+            <h2>Sonstiges</h2>
+            <p class="section-desc">Zusätzliche Informationen für Ihren Lebenslauf</p>
+          </div>
+          <div class="fgrid">
+            <div class="fg full"><label>Führerschein</label><input type="text" data-field="additionalInfo.drivingLicense" placeholder="z.B. Klasse B" /></div>
+            <div class="fg full"><label>Hobbys & Interessen</label><textarea rows="2" data-field="additionalInfo.hobbies" placeholder="z.B. Bergwandern, klassische Musik, Fotografie"></textarea></div>
+            <div class="fg full"><label>Ehrenamt</label><textarea rows="2" data-field="additionalInfo.volunteering" placeholder="z.B. Vorstandsmitglied im Kulturverein"></textarea></div>
+            <div class="fg full"><label>Weitere Angaben</label><textarea rows="2" data-field="additionalInfo.other" placeholder="z.B. Bereitschaft zu Dienstreisen"></textarea></div>
+          </div>
+        </section>
+
+      </div>
+    </aside>
+
+    <!-- ════════ PREVIEW PANEL ════════ -->
+    <div class="preview-panel" id="preview-panel">
+      <div class="preview-toolbar">
+        <span class="preview-label">Live-Vorschau</span>
+        <div class="zoom-controls">
+          <button id="zoom-out" class="zoom-btn">−</button>
+          <span id="zoom-level">100%</span>
+          <button id="zoom-in" class="zoom-btn">+</button>
+        </div>
+      </div>
+      <div class="preview-scale-wrap" id="preview-scale-wrap">
+        <div id="cv-root"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mobile Preview FAB -->
+  <button class="btn-preview-fab" id="btn-preview-fab" aria-label="Vorschau anzeigen">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    Vorschau
+  </button>
+
+  <!-- Mobile Preview Overlay -->
+  <div class="mobile-preview-overlay" id="mobile-preview-overlay">
+    <div class="mobile-preview-bar">
+      <button class="btn-back" id="btn-preview-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Zurück
+      </button>
+      <span class="mobile-bar-title">Vorschau</span>
+      <button class="btn-print-mobile" id="btn-print-mobile">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF
+      </button>
+    </div>
+    <div class="mobile-preview-content" id="mobile-preview-content">
+      <div id="cv-root-mobile"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
