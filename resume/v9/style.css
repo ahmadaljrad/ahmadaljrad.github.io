@@ -1,0 +1,1124 @@
+/* ═══════════════════════════════════════════════
+   LEBENSLAUF BUILDER – style.css
+   App UI + ATS-friendly CV layout (Arial/Calibri)
+   ═══════════════════════════════════════════════ */
+
+/* ── TOKENS ── */
+:root {
+  --app-bg:      #EDECEA;
+  --panel-bg:    #F7F6F4;
+  --border:      #D4D0C8;
+  --text:        #111;
+  --muted:       #666;
+  --accent:      #1A3A5C;
+  --accent-lt:   #E2EAF4;
+  --header-h:    54px;
+  --panel-w:     420px;   /* wider form panel on desktop */
+  --a4-w:        794px;   /* 210mm @ 96dpi */
+  --a4-h:        1123px;  /* 297mm @ 96dpi */
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Calibri, sans-serif; background: var(--app-bg); color: var(--text); overflow: hidden; height: 100vh; font-size: 14px; }
+
+/* ══════════════ APP HEADER ══════════════ */
+.app-header {
+  position: fixed; inset: 0 0 auto 0;
+  height: var(--header-h);
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.app-logo { color: #fff; font-size: 15px; font-weight: bold; letter-spacing: .3px; }
+
+.btn-pdf {
+  background: #fff;
+  color: var(--accent);
+  border: none;
+  padding: 7px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-pdf:hover { background: #e8f0f8; }
+.btn-pdf:disabled { opacity: .6; cursor: default; }
+
+/* ══════════════ LAYOUT ══════════════ */
+.app-body { display: flex; height: 100vh; padding-top: var(--header-h); }
+
+/* ─── FORM PANEL ─── */
+.form-panel {
+  width: var(--panel-w);
+  min-width: 320px;
+  max-width: 520px;
+  flex-shrink: 0;
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.panel-scroll { flex: 1; overflow-y: auto; }
+.panel-scroll::-webkit-scrollbar { width: 4px; }
+.panel-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* ─── PREVIEW PANEL ─── */
+.preview-panel {
+  flex: 1;
+  min-width: 0;          /* prevent flex overflow */
+  overflow-y: auto;
+  background: #CFCDC8;
+  display: flex;
+  justify-content: center;
+  padding: 28px 20px 60px;
+}
+.preview-panel::-webkit-scrollbar { width: 6px; }
+.preview-panel::-webkit-scrollbar-thumb { background: #B0ADA6; border-radius: 4px; }
+
+.preview-scale-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; transform-origin: top center; }
+
+/* ══════════════ TABS ══════════════ */
+.form-tabs {
+  display: flex; flex-wrap: wrap; gap: 2px;
+  padding: 10px 10px 0;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.tab-btn {
+  background: none; border: none;
+  padding: 6px 9px;
+  font-family: Arial, sans-serif;
+  font-size: 11px; font-weight: bold;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: 3px 3px 0 0;
+  transition: color .15s;
+}
+.tab-btn:hover { color: var(--accent); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--app-bg); }
+
+/* ══════════════ FORM SECTIONS ══════════════ */
+.form-section { display: none; padding: 16px 14px 26px; }
+.form-section.active { display: block; }
+.sec-head {
+  font-size: 13px; font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 14px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.hint-text { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+
+/* ── GRID ── */
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fg { display: flex; flex-direction: column; gap: 3px; }
+.fg.full { grid-column: 1 / -1; }
+label { font-size: 10px; font-weight: bold; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+input[type="text"], input[type="email"], textarea {
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 7px 10px; font-family: Arial, sans-serif; font-size: 13px;
+  color: var(--text); background: #fff; resize: vertical;
+  transition: border-color .15s;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-lt); }
+
+/* ── PHOTO ── */
+.photo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 12px; background: #eee; border: 1px dashed var(--border); border-radius: 4px; }
+.photo-box { width: 64px; height: 80px; background: #ddd; border: 1px solid #bbb; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.photo-box img.hidden { display: none; }
+.photo-placeholder { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #aaa; font-size: 9px; text-align: center; }
+.photo-btns { display: flex; flex-direction: column; gap: 5px; }
+.fbtn { background: var(--accent); color: #fff; border: none; padding: 5px 10px; font-size: 11px; border-radius: 3px; cursor: pointer; font-family: Arial, sans-serif; }
+.fbtn:hover { background: #14304e; }
+.fbtn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.fbtn.ghost:hover { color: #c00; border-color: #c00; }
+
+/* ── DYNAMIC LIST ── */
+.dyn-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.list-card { background: #fff; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.list-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; background: #f0ede8;
+  border-bottom: 1px solid var(--border); cursor: pointer;
+}
+.card-label { font-size: 12px; font-weight: bold; color: var(--accent); flex: 1; }
+.btn-remove-card {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 16px; line-height: 1;
+  padding: 0 2px; border-radius: 2px;
+}
+.btn-remove-card:hover { color: #c00; }
+.list-card-body { padding: 10px; }
+.list-card-body .fgrid { grid-template-columns: 1fr 1fr; }
+
+.add-btn {
+  width: 100%; background: none; border: 1px dashed var(--border);
+  color: var(--muted); font-family: Arial, sans-serif; font-size: 12px;
+  padding: 7px; border-radius: 3px; cursor: pointer; transition: all .15s;
+}
+.add-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+
+/* ══════════════════════════════════════════════════
+   CV PAGE – German Lebenslauf – A4, Arial, Black only
+══════════════════════════════════════════════════ */
+
+.cv-page {
+  width: var(--a4-w);
+  min-height: var(--a4-h);
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  font-family: Arial, Calibri, sans-serif;
+  font-size: 10.5pt;
+  color: #000;
+  position: relative;
+  overflow: visible;
+  padding: 0;
+}
+
+/* ── REPEATED PAGE HEADER ── */
+.cv-page-header {
+  padding: 22px 28px 12px;
+  border-bottom: 1.5px solid #000;
+}
+
+.cv-hdr-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cv-hdr-left { flex: 1; }
+
+.cv-hdr-name {
+  font-size: 21pt;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: .5px;
+  line-height: 1.15;
+  margin-bottom: 5px;
+}
+
+.cv-hdr-contact {
+  font-size: 9.5pt;
+  color: #000;
+  line-height: 1.7;
+}
+
+.cv-hdr-photo {
+  width: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+/* Only page 1 shows the photo; page 2 hides it */
+.cv-page.page-2 .cv-hdr-photo { visibility: hidden; }
+
+.cv-photo {
+  width: 88px;
+  height: 110px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  display: block;
+}
+
+.cv-photo-empty {
+  width: 88px;
+  height: 110px;
+  border: 1px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  color: #bbb;
+  text-align: center;
+}
+
+/* ── CV BODY ── */
+.cv-page-body {
+  padding: 16px 28px 44px;
+  overflow: visible;
+}
+
+/* ── SECTION BLOCK ── */
+.cv-section { margin-bottom: 16px; }
+
+.cv-section-title {
+  font-size: 10pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  margin-bottom: 7px;
+}
+
+/* ── TWO-COLUMN ROW: 30% date / 70% content ── */
+.cv-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  margin-bottom: 8px;
+  align-items: start;
+}
+.cv-row:last-child { margin-bottom: 0; }
+
+.cv-date {
+  font-size: 9.5pt;
+  color: #000;
+  padding-top: 1px;
+  line-height: 1.45;
+}
+
+.cv-content {}
+
+.cv-content-title {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.3;
+}
+
+.cv-content-sub {
+  font-size: 9.5pt;
+  color: #000;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+/* Bullet list for responsibilities */
+.cv-bullets {
+  margin: 5px 0 0 14px;
+  padding: 0;
+  list-style: disc;
+}
+.cv-bullets li {
+  font-size: 9.5pt;
+  color: #000;
+  line-height: 1.45;
+  margin-bottom: 1px;
+}
+
+/* ── PERSONAL DATA – plain rows ── */
+.cv-personal-rows { display: flex; flex-direction: column; gap: 2px; }
+.cv-personal-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+.cv-pd-label { font-weight: bold; color: #000; }
+.cv-pd-value { color: #000; }
+
+/* ── LANGUAGES TABLE ── */
+.cv-lang-table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+.cv-lang-table th {
+  text-align: left; font-size: 9pt; font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding: 2px 6px 2px 0;
+  color: #000;
+}
+.cv-lang-table td { padding: 3px 6px 3px 0; color: #000; border-bottom: 1px solid #eee; }
+.cv-lang-table tr:last-child td { border-bottom: none; }
+
+/* ── SKILLS / KENNTNISSE ── */
+.cv-skills-rows { display: flex; flex-direction: column; gap: 3px; }
+.cv-skill-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+.cv-skill-cat { font-weight: bold; color: #000; }
+.cv-skill-val { color: #000; }
+
+/* ── PAGE NUMBER ── */
+.cv-page-number {
+  position: absolute;
+  bottom: 12px;
+  right: 28px;
+  font-size: 8pt;
+  color: #999;
+}
+
+/* ── BRANDING ── */
+.cv-branding {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7pt;
+  color: #ccc;
+  white-space: nowrap;
+}
+
+/* ══════════════ PRINT ══════════════ */
+
+/*
+  margin: 0 → no browser-added whitespace around the page.
+  All spacing is controlled by padding inside .cv-page itself.
+*/
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+
+  /* ── 1. Reset entire document ── */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    overflow: visible !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* ── 2. Hide all UI chrome ── */
+  .app-header,
+  .form-panel,
+  .mobile-preview-bar,
+  .btn-preview-fab,
+  .template-switcher {
+    display: none !important;
+  }
+
+  /* ── 3. Flatten layout wrappers ── */
+  .app-body {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .preview-panel {
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    z-index: auto !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+  }
+
+  /* ── 4. Kill screen scaling transform ── */
+  .preview-scale-wrap {
+    transform: none !important;
+    transform-origin: unset !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* ── 5. Each .cv-page = one A4 sheet, edge-to-edge ── */
+  .cv-page {
+    /* Fill the full printable area with zero margin */
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    position: static !important;
+    /* Internal padding provides the visible margins */
+    padding: 14mm 13mm 10mm !important;
+    margin: 0 !important;
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .cv-page.page-1 {
+    page-break-before: avoid;
+    break-before: avoid;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .cv-page.page-2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /*
+    Header: remove its own padding — .cv-page padding already handles
+    the top/side margins. The header background now fills edge-to-edge
+    within the page box, which itself starts at the paper edge.
+  */
+  .cv-page-header {
+    /* Extend header to bleed across the full cv-page width.
+       Negative margin cancels the cv-page side padding,
+       then matching padding brings text back into alignment. */
+    margin-top:   -14mm !important;
+    margin-left:  -13mm !important;
+    margin-right: -13mm !important;
+    padding: 14mm 13mm 12px !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .cv-page-body {
+    padding: 12px 0 8px !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* ── 6. Prevent section splits ── */
+  .cv-section        { page-break-inside: avoid; break-inside: avoid; }
+  .cv-row,
+  .cv-personal-row,
+  .cv-skill-row      { page-break-inside: avoid; break-inside: avoid; }
+
+  /* ── 7. Branding / page numbers ── */
+  .cv-page-number,
+  .cv-branding {
+    position: static !important;
+    display: block !important;
+    text-align: right;
+    margin-top: 6px;
+    transform: none !important;
+  }
+  .cv-branding { text-align: center; }
+
+  /* ── 8. Modern template: force color print ── */
+  #cv-root[data-template="modern"] .cv-page-header {
+    background: #1E4D8C !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #cv-root[data-template="modern"] .cv-hdr-name    { color: #fff !important; }
+  #cv-root[data-template="modern"] .cv-hdr-contact { color: rgba(255,255,255,.85) !important; }
+  #cv-root[data-template="modern"] .cv-section-title {
+    color: #1E4D8C !important;
+    border-left-color: #1E4D8C !important;
+  }
+
+  /* ── 9. Classic template: double border in print ── */
+  #cv-root[data-template="classic"] .cv-page-header {
+    border-top: 2.5px double #000 !important;
+    border-bottom: 2.5px double #000 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEMPLATE SYSTEM
+   Mechanism: #cv-root[data-template="X"] scopes all overrides.
+   Base styles (above) act as the "classic" default.
+   Each template only overrides what visually differs — nothing structural.
+   All templates are A4 print-safe: no fixed px heights, no transforms.
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TEMPLATE: classic  (default — base styles apply, no overrides needed)
+   Characteristics: Times New Roman, centered name, double-rule header,
+   italic section titles, classic serif feel.
+───────────────────────────────────────────────────────────────── */
+#cv-root[data-template="classic"] .cv-page {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#cv-root[data-template="classic"] .cv-page-header {
+  text-align: center;
+  padding: 24px 36px 14px;
+  border-bottom: none;
+  border-top: 2.5px double #000;
+  border-bottom: 2.5px double #000;
+  padding-bottom: 10px;
+}
+
+/* Photo floats right — doesn't disrupt center alignment */
+#cv-root[data-template="classic"] .cv-hdr-row {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+#cv-root[data-template="classic"] .cv-hdr-left {
+  text-align: center;
+}
+
+#cv-root[data-template="classic"] .cv-hdr-name {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20pt;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#cv-root[data-template="classic"] .cv-hdr-contact {
+  font-size: 9.5pt;
+  font-style: italic;
+}
+
+#cv-root[data-template="classic"] .cv-section-title {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid #000;
+  text-align: left;
+}
+
+#cv-root[data-template="classic"] .cv-content-title {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+#cv-root[data-template="classic"] .cv-date {
+  font-style: italic;
+  font-size: 8.5pt;
+}
+
+@media print {
+  #cv-root[data-template="classic"] .cv-page-header {
+    border-top: 2.5px double #000;
+    border-bottom: 2.5px double #000;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TEMPLATE: modern
+   Characteristics: colored left sidebar stripe, name in a tinted
+   banner, section titles with a colored left bar, clean sans-serif.
+   ATS-safe: color only decorative — all text stays black.
+───────────────────────────────────────────────────────────────── */
+
+/* Accent palette — can be overridden per user in future */
+#cv-root[data-template="modern"] {
+  --t-accent:   #1E4D8C;   /* deep blue */
+  --t-accent-lt:#EBF0F8;
+  --t-stripe:   4px;
+}
+
+#cv-root[data-template="modern"] .cv-page {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Tinted header banner */
+#cv-root[data-template="modern"] .cv-page-header {
+  background: var(--t-accent);
+  padding: 22px 28px 16px;
+  border-bottom: none;
+}
+
+#cv-root[data-template="modern"] .cv-hdr-name {
+  color: #fff;
+  font-size: 20pt;
+  letter-spacing: 0;
+}
+
+#cv-root[data-template="modern"] .cv-hdr-contact {
+  color: rgba(255,255,255,.85);
+  font-size: 8.5pt;
+}
+
+/* Photo border matches header */
+#cv-root[data-template="modern"] .cv-photo {
+  border: 2px solid rgba(255,255,255,.5);
+}
+#cv-root[data-template="modern"] .cv-photo-empty {
+  border: 2px dashed rgba(255,255,255,.35);
+  color: rgba(255,255,255,.4);
+}
+
+/* Section titles: left colored bar, no bottom border */
+#cv-root[data-template="modern"] .cv-section-title {
+  border-bottom: none;
+  border-left: var(--t-stripe) solid var(--t-accent);
+  padding-left: 7px;
+  color: var(--t-accent);
+  font-size: 9pt;
+  letter-spacing: .8px;
+}
+
+/* Subtle tint on date column */
+#cv-root[data-template="modern"] .cv-date {
+  color: #444;
+  font-size: 8pt;
+}
+
+#cv-root[data-template="modern"] .cv-content-title {
+  color: #000;
+}
+
+/* Body: slightly more breathing room */
+#cv-root[data-template="modern"] .cv-page-body {
+  padding: 18px 30px 44px;
+}
+
+@media print {
+  #cv-root[data-template="modern"] .cv-page-header {
+    background: var(--t-accent) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #cv-root[data-template="modern"] .cv-hdr-name  { color: #fff !important; }
+  #cv-root[data-template="modern"] .cv-hdr-contact { color: rgba(255,255,255,.85) !important; }
+  #cv-root[data-template="modern"] .cv-section-title { color: var(--t-accent) !important; border-left-color: var(--t-accent) !important; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TEMPLATE: compact
+   Characteristics: smaller type, tighter spacing, square bullets →
+   fits more content on page 1. Useful for senior candidates.
+   Purely typographic — no color, 100% ATS safe.
+───────────────────────────────────────────────────────────────── */
+
+#cv-root[data-template="compact"] .cv-page {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8.5pt;
+}
+
+#cv-root[data-template="compact"] .cv-page-header {
+  padding: 16px 26px 9px;
+  border-bottom: 1.5px solid #000;
+}
+
+#cv-root[data-template="compact"] .cv-hdr-name {
+  font-size: 15pt;
+  letter-spacing: 0;
+}
+
+#cv-root[data-template="compact"] .cv-hdr-contact {
+  font-size: 7.5pt;
+  line-height: 1.55;
+}
+
+#cv-root[data-template="compact"] .cv-photo {
+  width: 74px;
+  height: 92px;
+}
+#cv-root[data-template="compact"] .cv-photo-empty {
+  width: 74px;
+  height: 92px;
+}
+#cv-root[data-template="compact"] .cv-hdr-photo {
+  width: 78px;
+}
+
+#cv-root[data-template="compact"] .cv-page-body {
+  padding: 10px 26px 36px;
+}
+
+#cv-root[data-template="compact"] .cv-section {
+  margin-bottom: 8px;
+}
+
+#cv-root[data-template="compact"] .cv-section-title {
+  font-size: 7.5pt;
+  padding-bottom: 1px;
+  margin-bottom: 5px;
+  letter-spacing: .8px;
+}
+
+#cv-root[data-template="compact"] .cv-row {
+  grid-template-columns: 120px 1fr;
+  margin-bottom: 5px;
+  gap: 0 8px;
+}
+
+#cv-root[data-template="compact"] .cv-personal-row,
+#cv-root[data-template="compact"] .cv-skill-row {
+  grid-template-columns: 120px 1fr;
+  font-size: 8pt;
+  gap: 0 8px;
+}
+
+#cv-root[data-template="compact"] .cv-date         { font-size: 7.5pt; }
+#cv-root[data-template="compact"] .cv-content-title { font-size: 8.5pt; }
+#cv-root[data-template="compact"] .cv-content-sub  { font-size: 7.5pt; }
+
+#cv-root[data-template="compact"] .cv-bullets {
+  margin-top: 2px;
+  margin-left: 10px;
+}
+#cv-root[data-template="compact"] .cv-bullets li {
+  font-size: 7.5pt;
+  margin-bottom: 0;
+  line-height: 1.38;
+  list-style-type: square;
+}
+
+#cv-root[data-template="compact"] .cv-lang-table th,
+#cv-root[data-template="compact"] .cv-lang-table td {
+  font-size: 7.5pt;
+  padding: 2px 4px 2px 0;
+}
+
+#cv-root[data-template="compact"] .cv-page-number,
+#cv-root[data-template="compact"] .cv-branding {
+  font-size: 7pt;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TEMPLATE: executive
+   Characteristics: wide left column (40%), name large and uppercase,
+   section titles right-aligned with a full-width rule above them,
+   contact info single-line. Boardroom gravitas.
+   Monochrome — ATS safe.
+───────────────────────────────────────────────────────────────── */
+
+#cv-root[data-template="executive"] .cv-page {
+  font-family: 'Gill Sans', Calibri, Arial, sans-serif;
+}
+
+#cv-root[data-template="executive"] .cv-page-header {
+  padding: 28px 36px 16px;
+  border-bottom: 3px solid #000;
+}
+
+#cv-root[data-template="executive"] .cv-hdr-name {
+  font-size: 22pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #000;
+}
+
+#cv-root[data-template="executive"] .cv-hdr-contact {
+  font-size: 8pt;
+  letter-spacing: .3px;
+  margin-top: 4px;
+  /* All contact on one line with pipe separators — done in HTML via &nbsp;|&nbsp; */
+}
+
+/* Photo stays top-right — inherits base layout */
+
+#cv-root[data-template="executive"] .cv-page-body {
+  padding: 18px 36px 44px;
+}
+
+/* Wide date column (40%) */
+#cv-root[data-template="executive"] .cv-row {
+  grid-template-columns: 175px 1fr;
+  gap: 0 14px;
+  margin-bottom: 10px;
+}
+
+#cv-root[data-template="executive"] .cv-personal-row,
+#cv-root[data-template="executive"] .cv-skill-row {
+  grid-template-columns: 175px 1fr;
+  gap: 0 14px;
+}
+
+/* Section title: full rule above, no bottom border, right-aligned */
+#cv-root[data-template="executive"] .cv-section {
+  margin-bottom: 15px;
+}
+
+#cv-root[data-template="executive"] .cv-section-title {
+  border-bottom: none;
+  border-top: 2px solid #000;
+  padding-top: 4px;
+  padding-bottom: 0;
+  margin-bottom: 8px;
+  text-align: right;
+  font-size: 7.5pt;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+#cv-root[data-template="executive"] .cv-date {
+  font-size: 8pt;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+
+#cv-root[data-template="executive"] .cv-content-title {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+#cv-root[data-template="executive"] .cv-content-sub {
+  font-size: 8.5pt;
+  font-style: italic;
+}
+
+#cv-root[data-template="executive"] .cv-bullets li {
+  font-size: 8.5pt;
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+#cv-root[data-template="executive"] .cv-bullets li::before {
+  content: "— ";
+  font-weight: bold;
+}
+#cv-root[data-template="executive"] .cv-bullets {
+  margin-left: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEMPLATE SWITCHER UI  (app chrome — not printed)
+═══════════════════════════════════════════════════════════════════ */
+.template-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.template-switcher label {
+  font-size: 11px;
+  color: rgba(255,255,255,.7);
+  font-weight: bold;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* override form-panel label style */
+  color: rgba(255,255,255,.7) !important;
+}
+
+.template-select {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 3px;
+  padding: 5px 28px 5px 10px;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,.6)'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  transition: background .15s, border-color .15s;
+  min-width: 115px;
+}
+.template-select:focus {
+  outline: none;
+  border-color: rgba(255,255,255,.7);
+  background-color: rgba(255,255,255,.2);
+}
+.template-select option {
+  background: #1A3A5C;
+  color: #fff;
+}
+
+@media print {
+  .template-switcher { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE LAYOUT & MOBILE UX
+   Breakpoint: 768px
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── TASK 1 addendum: fluid panel on mid-range screens ──
+   Between 769 and 1100px let the panel shrink gracefully         */
+@media (max-width: 1100px) and (min-width: 769px) {
+  :root { --panel-w: 360px; }
+  .tab-btn { font-size: 10.5px; padding: 6px 7px; }
+}
+
+/* ── TASK 3: Mobile layout ── */
+@media (max-width: 768px) {
+
+  /* Stack vertically, not side-by-side */
+  .app-body {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+  }
+
+  body { overflow-y: auto; height: auto; }
+
+  /* Header: tighter on mobile */
+  .app-header {
+    padding: 0 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--header-h);
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .app-logo { font-size: 14px; }
+
+  /* Hide template label text on mobile to save space */
+  .template-switcher label { display: none; }
+  .template-select { min-width: 90px; font-size: 11px; padding: 4px 22px 4px 8px; }
+
+  .btn-pdf { font-size: 12px; padding: 6px 12px; }
+
+  /* Form panel: full width, natural height */
+  .form-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    /* Height auto so content shows fully */
+    overflow: visible;
+  }
+
+  /* Panel scroll: show all content on mobile (no inner scroll) */
+  .panel-scroll {
+    overflow: visible;
+    flex: none;
+  }
+
+  /* Tabs: scrollable single row, no wrap */
+  .form-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 8px 0;
+    position: sticky;
+    top: 0;     /* stick below the app header */
+  }
+  .form-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn { white-space: nowrap; font-size: 11px; padding: 7px 10px; flex-shrink: 0; }
+
+  /* Form grid: single column on mobile */
+  .fgrid { grid-template-columns: 1fr; }
+  .fg.full { grid-column: 1; }
+
+  /* Preview panel: hidden by default on mobile */
+  .preview-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: #CFCDC8;
+    padding: 0;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* When preview is active (toggled by JS) */
+  /* Use !important to beat the display:none from the same media query */
+  .preview-panel.mobile-visible {
+    display: flex !important;
+  }
+
+  /* Back button inside preview on mobile */
+  .mobile-preview-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: var(--accent);
+    padding: 10px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+
+  .mobile-preview-bar .btn-back {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 3px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+  .mobile-preview-bar .btn-back:hover { background: rgba(255,255,255,.25); }
+
+  .mobile-preview-bar .mobile-bar-title {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .mobile-preview-bar .btn-print-mobile {
+    background: #fff;
+    color: var(--accent);
+    border: none;
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Scale CV page to fit mobile screen width */
+  .preview-scale-wrap {
+    padding: 16px 0 32px;
+    width: 794px;                /* natural CV width — transform handles scaling */
+    transform-origin: top center;
+    /* Scale down from 794px to viewport width (minus 16px breathing room) */
+    transform: scale(calc((100vw - 16px) / 794));
+    /* Compensate height so the panel scroll works correctly after scale */
+    margin-bottom: calc(((100vw - 16px) / 794 - 1) * 794px * 2.85);
+  }
+
+  /* Hide horizontal overflow that appears before transform is applied */
+  .preview-panel {
+    overflow-x: hidden;
+  }
+
+  /* Preview FAB — floating "Vorschau" button */
+  .btn-preview-fab {
+    display: flex !important;
+  }
+}
+
+/* Desktop: hide mobile-only elements */
+@media (min-width: 769px) {
+  .btn-preview-fab   { display: none !important; }
+  .mobile-preview-bar { display: none !important; }
+}
+
+/* ── Floating preview button (mobile only) ── */
+.btn-preview-fab {
+  display: none;  /* shown only in mobile media query above */
+  position: fixed;
+  bottom: 22px;
+  right: 20px;
+  z-index: 250;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+  align-items: center;
+  gap: 7px;
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-preview-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+.btn-preview-fab:active { transform: translateY(0); }
+
+@media print {
+  .btn-preview-fab   { display: none !important; }
+  .mobile-preview-bar { display: none !important; }
+  /* Ensure preview-panel always shows in print regardless of mobile state */
+  .preview-panel { display: block !important; }
+}
