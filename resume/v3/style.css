@@ -1,0 +1,449 @@
+/* ═══════════════════════════════════════════════
+   LEBENSLAUF BUILDER – style.css
+   App UI + ATS-friendly CV layout (Arial/Calibri)
+   ═══════════════════════════════════════════════ */
+
+/* ── TOKENS ── */
+:root {
+  --app-bg:      #EDECEA;
+  --panel-bg:    #F7F6F4;
+  --border:      #D4D0C8;
+  --text:        #111;
+  --muted:       #666;
+  --accent:      #1A3A5C;
+  --accent-lt:   #E2EAF4;
+  --header-h:    54px;
+  --panel-w:     330px;
+  --a4-w:        794px;   /* 210mm @ 96dpi */
+  --a4-h:        1123px;  /* 297mm @ 96dpi */
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Calibri, sans-serif; background: var(--app-bg); color: var(--text); overflow: hidden; height: 100vh; font-size: 14px; }
+
+/* ══════════════ APP HEADER ══════════════ */
+.app-header {
+  position: fixed; inset: 0 0 auto 0;
+  height: var(--header-h);
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.app-logo { color: #fff; font-size: 15px; font-weight: bold; letter-spacing: .3px; }
+
+.btn-pdf {
+  background: #fff;
+  color: var(--accent);
+  border: none;
+  padding: 7px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-pdf:hover { background: #e8f0f8; }
+.btn-pdf:disabled { opacity: .6; cursor: default; }
+
+/* ══════════════ LAYOUT ══════════════ */
+.app-body { display: flex; height: 100vh; padding-top: var(--header-h); }
+
+/* ─── FORM PANEL ─── */
+.form-panel {
+  width: var(--panel-w); min-width: var(--panel-w);
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.panel-scroll { flex: 1; overflow-y: auto; }
+.panel-scroll::-webkit-scrollbar { width: 4px; }
+.panel-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* ─── PREVIEW PANEL ─── */
+.preview-panel {
+  flex: 1; overflow-y: auto;
+  background: #CFCDC8;
+  display: flex; justify-content: center;
+  padding: 28px 20px 60px;
+}
+.preview-panel::-webkit-scrollbar { width: 6px; }
+.preview-panel::-webkit-scrollbar-thumb { background: #B0ADA6; border-radius: 4px; }
+
+.preview-scale-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; transform-origin: top center; }
+
+/* ══════════════ TABS ══════════════ */
+.form-tabs {
+  display: flex; flex-wrap: wrap; gap: 2px;
+  padding: 10px 10px 0;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.tab-btn {
+  background: none; border: none;
+  padding: 6px 9px;
+  font-family: Arial, sans-serif;
+  font-size: 11px; font-weight: bold;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: 3px 3px 0 0;
+  transition: color .15s;
+}
+.tab-btn:hover { color: var(--accent); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--app-bg); }
+
+/* ══════════════ FORM SECTIONS ══════════════ */
+.form-section { display: none; padding: 16px 14px 26px; }
+.form-section.active { display: block; }
+.sec-head {
+  font-size: 13px; font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 14px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.hint-text { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+
+/* ── GRID ── */
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.fg { display: flex; flex-direction: column; gap: 3px; }
+.fg.full { grid-column: 1 / -1; }
+label { font-size: 10px; font-weight: bold; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+input[type="text"], input[type="email"], textarea {
+  border: 1px solid var(--border); border-radius: 3px;
+  padding: 6px 8px; font-family: Arial, sans-serif; font-size: 12px;
+  color: var(--text); background: #fff; resize: vertical;
+  transition: border-color .15s;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-lt); }
+
+/* ── PHOTO ── */
+.photo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding: 12px; background: #eee; border: 1px dashed var(--border); border-radius: 4px; }
+.photo-box { width: 64px; height: 80px; background: #ddd; border: 1px solid #bbb; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.photo-box img.hidden { display: none; }
+.photo-placeholder { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #aaa; font-size: 9px; text-align: center; }
+.photo-btns { display: flex; flex-direction: column; gap: 5px; }
+.fbtn { background: var(--accent); color: #fff; border: none; padding: 5px 10px; font-size: 11px; border-radius: 3px; cursor: pointer; font-family: Arial, sans-serif; }
+.fbtn:hover { background: #14304e; }
+.fbtn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+.fbtn.ghost:hover { color: #c00; border-color: #c00; }
+
+/* ── DYNAMIC LIST ── */
+.dyn-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.list-card { background: #fff; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.list-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; background: #f0ede8;
+  border-bottom: 1px solid var(--border); cursor: pointer;
+}
+.card-label { font-size: 12px; font-weight: bold; color: var(--accent); flex: 1; }
+.btn-remove-card {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 16px; line-height: 1;
+  padding: 0 2px; border-radius: 2px;
+}
+.btn-remove-card:hover { color: #c00; }
+.list-card-body { padding: 10px; }
+.list-card-body .fgrid { grid-template-columns: 1fr 1fr; }
+
+.add-btn {
+  width: 100%; background: none; border: 1px dashed var(--border);
+  color: var(--muted); font-family: Arial, sans-serif; font-size: 12px;
+  padding: 7px; border-radius: 3px; cursor: pointer; transition: all .15s;
+}
+.add-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+
+/* ══════════════════════════════════════════════════
+   CV PAGE – German Lebenslauf – A4, Arial, Black only
+══════════════════════════════════════════════════ */
+
+.cv-page {
+  width: var(--a4-w);
+  min-height: var(--a4-h);
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  font-family: Arial, Calibri, sans-serif;
+  font-size: 9.5pt;
+  color: #000;
+  position: relative;
+  overflow: visible;
+  padding: 0;
+}
+
+/* ── REPEATED PAGE HEADER ── */
+.cv-page-header {
+  padding: 22px 28px 12px;
+  border-bottom: 1.5px solid #000;
+}
+
+.cv-hdr-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cv-hdr-left { flex: 1; }
+
+.cv-hdr-name {
+  font-size: 19pt;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: .5px;
+  line-height: 1.15;
+  margin-bottom: 5px;
+}
+
+.cv-hdr-contact {
+  font-size: 8.5pt;
+  color: #000;
+  line-height: 1.7;
+}
+
+.cv-hdr-photo {
+  width: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+/* Only page 1 shows the photo; page 2 hides it */
+.cv-page.page-2 .cv-hdr-photo { visibility: hidden; }
+
+.cv-photo {
+  width: 88px;
+  height: 110px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  display: block;
+}
+
+.cv-photo-empty {
+  width: 88px;
+  height: 110px;
+  border: 1px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  color: #bbb;
+  text-align: center;
+}
+
+/* ── CV BODY ── */
+.cv-page-body {
+  padding: 16px 28px 44px;
+  overflow: visible;
+}
+
+/* ── SECTION BLOCK ── */
+.cv-section { margin-bottom: 13px; }
+
+.cv-section-title {
+  font-size: 9pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  margin-bottom: 7px;
+}
+
+/* ── TWO-COLUMN ROW: 30% date / 70% content ── */
+.cv-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  margin-bottom: 8px;
+  align-items: start;
+}
+.cv-row:last-child { margin-bottom: 0; }
+
+.cv-date {
+  font-size: 8.5pt;
+  color: #000;
+  padding-top: 1px;
+  line-height: 1.45;
+}
+
+.cv-content {}
+
+.cv-content-title {
+  font-size: 9.5pt;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.3;
+}
+
+.cv-content-sub {
+  font-size: 8.5pt;
+  color: #000;
+  margin-top: 1px;
+  line-height: 1.35;
+}
+
+/* Bullet list for responsibilities */
+.cv-bullets {
+  margin: 4px 0 0 12px;
+  padding: 0;
+  list-style: disc;
+}
+.cv-bullets li {
+  font-size: 8.5pt;
+  color: #000;
+  line-height: 1.45;
+  margin-bottom: 1px;
+}
+
+/* ── PERSONAL DATA – plain rows ── */
+.cv-personal-rows { display: flex; flex-direction: column; gap: 2px; }
+.cv-personal-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  font-size: 8.5pt;
+  line-height: 1.45;
+}
+.cv-pd-label { font-weight: bold; color: #000; }
+.cv-pd-value { color: #000; }
+
+/* ── LANGUAGES TABLE ── */
+.cv-lang-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+.cv-lang-table th {
+  text-align: left; font-size: 8pt; font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding: 2px 6px 2px 0;
+  color: #000;
+}
+.cv-lang-table td { padding: 3px 6px 3px 0; color: #000; border-bottom: 1px solid #eee; }
+.cv-lang-table tr:last-child td { border-bottom: none; }
+
+/* ── SKILLS / KENNTNISSE ── */
+.cv-skills-rows { display: flex; flex-direction: column; gap: 3px; }
+.cv-skill-row {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 0 10px;
+  font-size: 8.5pt;
+  line-height: 1.45;
+}
+.cv-skill-cat { font-weight: bold; color: #000; }
+.cv-skill-val { color: #000; }
+
+/* ── PAGE NUMBER ── */
+.cv-page-number {
+  position: absolute;
+  bottom: 12px;
+  right: 28px;
+  font-size: 8pt;
+  color: #999;
+}
+
+/* ── BRANDING ── */
+.cv-branding {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7pt;
+  color: #ccc;
+  white-space: nowrap;
+}
+
+/* ══════════════ PRINT ══════════════ */
+
+@page {
+  size: A4 portrait;
+  margin: 12mm 13mm 12mm 13mm;
+}
+
+@media print {
+  /* Hide everything except the CV pages */
+  body {
+    overflow: visible;
+    height: auto;
+    background: #fff !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-header,
+  .form-panel,
+  .preview-panel > *:not(.preview-scale-wrap) {
+    display: none !important;
+  }
+
+  .app-body    { padding-top: 0 !important; display: block !important; }
+  .preview-panel {
+    display: block !important;
+    padding: 0 !important;
+    background: none !important;
+    overflow: visible !important;
+  }
+
+  /* Kill all screen scaling */
+  .preview-scale-wrap {
+    transform: none !important;
+    transform-origin: unset !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    display: block !important;
+    width: auto !important;
+  }
+
+  /* Each .cv-page = one real A4 page */
+  .cv-page {
+    /* Let the @page margins control whitespace;
+       the page itself fills the full sheet edge-to-edge */
+    width: 100% !important;
+    height: auto !important;          /* content drives height, not a fixed px */
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    page-break-before: always;        /* each page starts on a fresh sheet */
+    page-break-after: always;
+    break-before: page;
+    break-after: page;
+    position: relative;
+    padding: 0;
+  }
+
+  /* First page doesn't need a forced break before it */
+  .cv-page.page-1 {
+    page-break-before: avoid;
+    break-before: avoid;
+  }
+
+  /* Never split a section heading from its first row */
+  .cv-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .cv-row,
+  .cv-personal-row,
+  .cv-skill-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Keep header + its separator together */
+  .cv-page-header {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Remove fixed height on body – let content breathe */
+  .cv-page-body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
