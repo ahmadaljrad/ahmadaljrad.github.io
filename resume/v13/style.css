@@ -67,6 +67,7 @@ html {
   -webkit-font-smoothing: antialiased; 
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body { 
@@ -74,6 +75,7 @@ body {
   background: var(--n-100);
   color: var(--n-800);
   overflow: hidden;
+  overflow-x: hidden;
   height: 100vh;
   line-height: 1.5;
 }
@@ -95,14 +97,19 @@ body {
   padding: 0 24px;
   z-index: 200;
   gap: 16px;
+  /* Prevent header from ever causing overflow */
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
   min-width: 0;
   flex: 1;
+  overflow: hidden;
 }
 
 .app-logo {
@@ -127,16 +134,19 @@ body {
   font-weight: 700;
 }
 
-/* Header Navigation */
+/* Header Navigation — scrollable on medium, stacked on mobile */
 .header-nav {
   display: flex;
   align-items: center;
   gap: 2px;
   min-width: 0;
+  /* scroll horizontally when space is tight, never wrap into header height */
   overflow-x: auto;
+  overflow-y: visible;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 2px;
+  flex-shrink: 1;
 }
 
 .header-nav::-webkit-scrollbar { 
@@ -146,8 +156,8 @@ body {
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
+  gap: 6px;
+  padding: 7px 12px;
   border: none;
   border-radius: 10px;
   background: transparent;
@@ -158,7 +168,7 @@ body {
   cursor: pointer;
   transition: all var(--dur-fast) var(--ease-out);
   white-space: nowrap;
-  position: relative;
+  flex-shrink: 0;
 }
 
 .nav-btn:hover {
@@ -185,7 +195,7 @@ body {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
@@ -419,12 +429,17 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  /* Prevent grid children from blowing out the container */
+  min-width: 0;
 }
 
 .fg {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  /* Essential: grid children must not overflow their cell */
+  min-width: 0;
+  overflow: hidden;
 }
 
 .fg.full { 
@@ -1908,37 +1923,39 @@ input.date-invalid:focus {
 }
 
 /* ════════════════════════════════════════════════════════════════════════════════
-   RESPONSIVE DESIGN – PROFESSIONAL BREAKPOINTS
+   RESPONSIVE DESIGN – MOBILE-FIRST, NO OVERFLOW
    ════════════════════════════════════════════════════════════════════════════════ */
 
-/* Large Desktop (1440px+) */
+/* ── Large Desktop (1440px+) ── */
 @media (min-width: 1440px) {
   .form-panel {
     width: 460px;
   }
 }
 
-/* Desktop (1200px - 1439px) */
+/* ── Desktop (1200px–1439px) ── */
 @media (max-width: 1439px) and (min-width: 1200px) {
   .form-panel {
     width: 400px;
   }
 }
 
-/* Small Desktop / Large Tablet (992px - 1199px) */
+/* ── Small Desktop / Large Tablet (992px–1199px) ──
+   Panel narrows, nav icons hidden to save space          */
 @media (max-width: 1199px) and (min-width: 769px) {
   .form-panel {
-    width: 340px;
-    min-width: 280px;
+    width: 320px;
+    min-width: 260px;
   }
 
-  .header-nav {
-    gap: 1px;
+  .header-left {
+    gap: 10px;
   }
 
   .nav-btn {
     padding: 6px 10px;
     font-size: 12px;
+    gap: 0;
   }
 
   .nav-btn svg {
@@ -1950,24 +1967,22 @@ input.date-invalid:focus {
   }
 }
 
-/* Tablet (768px - 991px) */
+/* ── Tablet (769px–991px) ──
+   Panel at min-width, nav icon-only, template label hidden  */
 @media (max-width: 991px) and (min-width: 769px) {
   .form-panel {
-    width: 300px;
-    min-width: 260px;
+    width: 280px;
+    min-width: 240px;
   }
 
   .header-left {
-    gap: 16px;
-  }
-
-  .header-nav {
-    gap: 1px;
+    gap: 8px;
   }
 
   .nav-btn {
     padding: 5px 8px;
     font-size: 11px;
+    gap: 0;
   }
 
   .nav-btn svg {
@@ -1982,19 +1997,37 @@ input.date-invalid:focus {
     display: none;
   }
 
+  .template-select {
+    min-width: 100px;
+    font-size: 12px;
+  }
+
   .form-section {
-    padding: 16px;
+    padding: 14px;
   }
 
   .fgrid {
     gap: 8px;
   }
+
+  .list-card-body .fgrid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Mobile (≤768px) – Stacked Layout */
+/* ══════════════════════════════════════════════════════════════════════════════
+   MOBILE (≤768px) — Full stacked layout
+   Header: two rows (logo+actions | nav tabs)
+   Body: single column, form panel full-width, preview hidden behind FAB
+   ══════════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  /* ── Root & Body ── */
   :root {
-    --header-h: 104px;
+    --header-h: 100px; /* row1 ~48px + row2 ~44px + border */
+  }
+
+  html, body {
+    overflow-x: hidden;
   }
 
   body {
@@ -2002,91 +2035,103 @@ input.date-invalid:focus {
     height: auto;
   }
 
+  /* ── Header: two-row stacked ── */
   .app-header {
-    padding: 0 14px;
-    gap: 0;
-    flex-wrap: nowrap;
-    flex-direction: column;
     height: auto;
     min-height: var(--header-h);
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
+    flex-direction: column;
     align-items: stretch;
+    gap: 0;
+    overflow: visible;
   }
 
-  /* Top row: logo + actions */
+  /* Row 1: logo left, actions right */
   .header-left {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    flex-wrap: nowrap;
-    width: 100%;
-    padding: 10px 0 8px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--n-200);
+    width: 100%;
+    flex-wrap: nowrap;
+    min-width: 0;
   }
 
   .app-logo {
-    font-size: 16px;
+    font-size: 15px;
+    gap: 7px;
     flex-shrink: 0;
   }
 
   .app-logo svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
-  /* Nav row below logo */
+  /* Nav goes into row 2 via order */
   .header-nav {
-    order: 3;
+    order: 10; /* move after header-right visually */
     width: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
-    gap: 0;
-    margin-top: 0;
-    padding: 6px 0;
-    border-top: none;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 8px 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .header-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-btn {
-    padding: 5px 8px;
-    font-size: 10.5px;
-    border-radius: 8px;
-    gap: 4px;
     flex-direction: column;
     align-items: center;
-    line-height: 1.2;
+    gap: 3px;
+    padding: 5px 6px;
+    font-size: 10px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 0;
+    max-width: 72px;
   }
 
   .nav-btn svg {
     display: block;
-    width: 16px;
-    height: 16px;
-    opacity: 0.7;
-  }
-
-  .nav-btn.active svg {
-    opacity: 1;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
   }
 
   .nav-btn span {
     display: block;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
 
-  /* Actions on same row as logo */
+  /* Actions: stays in row 1 */
   .header-right {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-shrink: 0;
     position: static;
     transform: none;
-    flex-shrink: 0;
   }
 
   .template-switcher {
-    display: flex;
-    align-items: center;
     gap: 0;
   }
 
@@ -2095,28 +2140,33 @@ input.date-invalid:focus {
   }
 
   .template-select {
-    min-width: 90px;
+    min-width: 80px;
+    max-width: 110px;
     font-size: 12px;
-    padding: 6px 22px 6px 8px;
+    padding: 5px 22px 5px 8px;
     border-radius: 8px;
   }
 
   .btn-pdf {
-    font-size: 12px;
     padding: 7px 12px;
+    font-size: 12px;
     border-radius: 8px;
+    gap: 0;
   }
 
   .btn-pdf .btn-text {
     display: none;
   }
 
+  /* ── Body: single column ── */
   .app-body {
     flex-direction: column;
-    overflow: visible;
     height: auto;
+    overflow: visible;
+    overflow-x: hidden;
   }
 
+  /* ── Form Panel: full width ── */
   .form-panel {
     width: 100% !important;
     max-width: 100% !important;
@@ -2133,23 +2183,26 @@ input.date-invalid:focus {
 
   .panel-scroll {
     overflow: visible;
+    overflow-x: hidden;
     flex: none;
   }
 
+  /* ── Form Sections ── */
   .form-section {
-    padding: 16px;
+    padding: 14px;
     animation: none;
   }
 
   .section-header {
-    margin-bottom: 16px;
-    padding-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
   }
 
   .section-header h2 {
-    font-size: 17px;
+    font-size: 16px;
   }
 
+  /* ── Grids: two columns on mobile, collapse to one inside cards ── */
   .fgrid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
@@ -2159,18 +2212,48 @@ input.date-invalid:focus {
     grid-column: 1 / -1;
   }
 
+  /* Cards always single-column on mobile */
+  .list-card-body .fgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .list-card-body .fg.full {
+    grid-column: 1;
+  }
+
+  /* ── Photo area: horizontal on mobile ── */
   .photo-area {
-    flex-direction: column;
-    text-align: center;
-    padding: 14px;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
   }
 
   .photo-btns {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 6px;
   }
 
+  /* ── Sub-tabs: equal-width pills ── */
+  .edu-tabs,
+  .skill-tabs {
+    gap: 3px;
+    padding: 3px;
+  }
+
+  .edu-tab,
+  .skill-tab {
+    font-size: 12px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+
+  /* ── Form group cards ── */
+  .form-group {
+    padding: 12px;
+  }
+
+  /* ── Preview: hidden, FAB shown ── */
   .preview-panel {
     display: none;
   }
@@ -2180,15 +2263,36 @@ input.date-invalid:focus {
   }
 }
 
-/* Small Mobile (≤480px) */
+/* ── Small Mobile (≤480px) ── */
 @media (max-width: 480px) {
+  :root {
+    --header-h: 96px;
+  }
+
   .app-header {
-    padding: 6px 10px;
+    padding: 0;
+  }
+
+  .header-left {
+    padding: 8px 10px;
+  }
+
+  .header-nav {
+    padding: 3px 6px 5px;
   }
 
   .nav-btn {
-    padding: 4px 8px;
-    font-size: 10px;
+    padding: 4px 4px;
+    max-width: 58px;
+  }
+
+  .nav-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-btn span {
+    font-size: 9px;
   }
 
   .form-section {
@@ -2199,28 +2303,66 @@ input.date-invalid:focus {
     padding: 10px;
   }
 
-  .list-card-body .fgrid {
+  /* Collapse main fgrid to single column too */
+  .fgrid {
     grid-template-columns: 1fr;
   }
 
-  .edu-tabs, .skill-tabs {
+  .fg.full {
+    grid-column: 1;
+  }
+
+  .edu-tabs,
+  .skill-tabs {
     flex-wrap: wrap;
   }
 
-  .edu-tab, .skill-tab {
+  .edu-tab,
+  .skill-tab {
+    flex: 1 1 auto;
     font-size: 11px;
-    padding: 7px 10px;
+    padding: 7px 8px;
+  }
+
+  .photo-area {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .photo-btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
-/* Very Small Mobile (≤360px) */
+/* ── Very Small Mobile (≤360px) ── */
 @media (max-width: 360px) {
+  .app-logo span:not(.logo-pro) {
+    display: none; /* show only "Pro" wordmark to save space */
+  }
+
   .nav-btn {
-    padding: 4px 6px;
-    font-size: 9px;
+    padding: 4px 3px;
+    max-width: 50px;
+  }
+
+  .nav-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .nav-btn span {
+    font-size: 8.5px;
   }
 
   .section-header h2 {
     font-size: 15px;
   }
+
+  .template-select {
+    min-width: 70px;
+    font-size: 11px;
+  }
 }
+
