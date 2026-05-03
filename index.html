@@ -41,24 +41,6 @@
       <li role="none"><a href="#contact" data-key="contact" role="menuitem">Kontakt</a></li>
       <li><a href="https://aljrad.com/about/" data-key="about">Über uns</a></li>
 
-
-      <li class="lang-dropdown" role="none">
-        <button class="lang-toggle" onclick="toggleLangMenu(event)" aria-label="Sprache auswählen" aria-haspopup="true"
-          aria-expanded="false">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-            <path
-              d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9h-3.17a15.7 15.7 0 00-1.34-5.02A8.01 8.01 0 0119.93 11zM12 4c.88 1.2 1.57 3.35 1.9 7H10.1C10.43 7.35 11.12 5.2 12 4zM4.07 13h3.17c.31 1.8.77 3.53 1.34 5.02A8.01 8.01 0 014.07 13zM7.24 11H4.07a8.01 8.01 0 015.34-5.02A15.7 15.7 0 007.24 11zM12 20c-.88-1.2-1.57-3.35-1.9-7h3.8c-.33 3.65-1.02 5.8-1.9 7zm2.66-1.98A15.7 15.7 0 0015.93 13h3.17a8.01 8.01 0 01-5.44 5.02z" />
-          </svg>
-        </button>
-        <ul class="lang-menu" role="menu" aria-label="Language selection">
-          <li data-lang="ar" onclick="setLang('ar')" role="menuitem" tabindex="0"><img
-              src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia flag"><span>العربية</span></li>
-          <li data-lang="en" onclick="setLang('en')" role="menuitem" tabindex="0"><img
-              src="https://flagcdn.com/w40/gb.png" alt="UK flag"><span>English</span></li>
-          <li data-lang="de" onclick="setLang('de')" class="active" role="menuitem" tabindex="0"><img
-              src="https://flagcdn.com/w40/de.png" alt="Germany flag"><span>Deutsch</span></li>
-        </ul>
-      </li>
     </ul>
 
     <div class="nav-controls">
@@ -85,6 +67,23 @@
         </svg>
       </button>
 
+      <li class="lang-dropdown" role="none">
+        <button class="dark-toggle desktop-only " onclick="toggleLangMenu(event)" aria-label="Sprache auswählen" aria-haspopup="true"
+          aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2a10 10 0 100 20 10 10 0 000-20zm7.93 9h-3.17a15.7 15.7 0 00-1.34-5.02A8.01 8.01 0 0119.93 11zM12 4c.88 1.2 1.57 3.35 1.9 7H10.1C10.43 7.35 11.12 5.2 12 4zM4.07 13h3.17c.31 1.8.77 3.53 1.34 5.02A8.01 8.01 0 014.07 13zM7.24 11H4.07a8.01 8.01 0 015.34-5.02A15.7 15.7 0 007.24 11zM12 20c-.88-1.2-1.57-3.35-1.9-7h3.8c-.33 3.65-1.02 5.8-1.9 7zm2.66-1.98A15.7 15.7 0 0015.93 13h3.17a8.01 8.01 0 01-5.44 5.02z" />
+          </svg>
+        </button>
+        <ul class="lang-menu" role="menu" aria-label="Language selection">
+          <li data-lang="ar" onclick="setLang('ar')" role="menuitem" tabindex="0"><img
+              src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia flag"><span>العربية</span></li>
+          <li data-lang="en" onclick="setLang('en')" role="menuitem" tabindex="0"><img
+              src="https://flagcdn.com/w40/gb.png" alt="UK flag"><span>English</span></li>
+          <li data-lang="de" onclick="setLang('de')" class="active" role="menuitem" tabindex="0"><img
+              src="https://flagcdn.com/w40/de.png" alt="Germany flag"><span>Deutsch</span></li>
+        </ul>
+      </li>
       <a class="nav-cta" href="#contact" aria-label="Kontakt aufnehmen">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
           aria-hidden="true">
@@ -158,8 +157,8 @@
         </span>
         <span data-key="contact">Kontakt</span>
       </a>
-      <a href="https://aljrad.com/about/" class="drawer-nav-link active" onclick="closeMenu()"
-        data-drawer-key="home">
+      <a href="https://aljrad.com/about/" class="drawer-nav-link" onclick="closeMenu()"
+        data-drawer-key="about">
         <span class="drawer-nav-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -256,85 +255,179 @@
       </div>
     </div>
 
+    <!-- ══ HERO VISUAL — Realistic Mac + iPhone ══ -->
     <div class="hero-visual" aria-hidden="true">
-      <!-- Floating info badges -->
-      <div class="hero-badge-float badge-1">
-        <div class="badge-icon">⚡</div>
-        <div>
-          <div style="font-size:11px;color:var(--text-3);font-weight:500;">Performance</div>
-          <div>Blitzschnell</div>
-        </div>
-      </div>
-      <div class="hero-badge-float badge-2">
-        <div class="badge-icon">🛡️</div>
-        <div>
-          <div style="font-size:11px;color:var(--text-3);font-weight:500;">Sicherheit</div>
-          <div>100% Schutz</div>
-        </div>
-      </div>
 
-      <div class="mockup-laptop">
-        <div class="mlscreen">
-          <div class="sbar"><span></span><span></span><span></span></div>
-          <div style="display:flex;gap:5px;padding:0 5px 5px;margin-bottom:3px;">
-            <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
-            <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
-            <div style="flex:1;height:6px;background:var(--blue-bg2);border-radius:3px;"></div>
-            <div style="width:32px;height:6px;background:var(--blue);border-radius:3px;"></div>
-          </div>
-          <div class="scontent">
-            <div class="sl">
-              <div class="st">Wir gestalten Ihre Zukunft</div>
-              <div class="sd">Professionelles Webdesign & digitale Lösungen</div>
-              <div class="sb">Projekt starten</div>
-            </div>
-            <div class="sr">
-              <div class="schart">
-                <div class="b" style="height:28%"></div>
-                <div class="b" style="height:58%"></div>
-                <div class="b" style="height:44%"></div>
-                <div class="b" style="height:80%"></div>
-                <div class="b" style="height:64%"></div>
-                <div class="b" style="height:92%"></div>
-              </div>
-              <div class="sblock">
-                <div class="ln"></div>
-                <div class="ln s"></div>
-                <div class="ln bb"></div>
-              </div>
+      <!-- MacBook Screen -->
+      <div class="mockup-mac">
+        <div class="mac-frame">
+          <!-- Traffic lights -->
+          <div class="mac-titlebar">
+            <span class="tl tl-red"></span>
+            <span class="tl tl-yellow"></span>
+            <span class="tl tl-green"></span>
+            <div class="mac-tab-bar">
+              <span class="mac-tab active">Dashboard</span>
+              <span class="mac-tab">Analytics</span>
+              <span class="mac-tab">Reports</span>
             </div>
           </div>
+
+          <!-- Screen content -->
+          <div class="mac-screen">
+            <!-- Sidebar -->
+            <div class="mac-sidebar">
+              <div class="mac-logo-row">
+                <span class="mac-logo-dot"></span>
+                <span class="mac-logo-name">ALJRAD</span>
+              </div>
+              <div class="mac-nav-items">
+                <div class="mac-nav-item mac-nav-active">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  Dashboard
+                </div>
+                <div class="mac-nav-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+                  Analytics
+                </div>
+                <div class="mac-nav-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                  Kunden
+                </div>
+                <div class="mac-nav-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Sicherheit
+                </div>
+              </div>
+            </div>
+
+            <!-- Main area -->
+            <div class="mac-main">
+              <!-- KPI row -->
+              <div class="mac-kpi-row">
+                <div class="mac-kpi">
+                  <span class="mac-kpi-label">Besucher</span>
+                  <span class="mac-kpi-value counter" data-target="1248">0</span>
+                  <span class="mac-kpi-delta up">↑ 12%</span>
+                </div>
+                <div class="mac-kpi">
+                  <span class="mac-kpi-label">Umsatz</span>
+                  <span class="mac-kpi-value counter" data-target="8430">0</span>
+                  <span class="mac-kpi-delta up">↑ 8%</span>
+                </div>
+                <div class="mac-kpi">
+                  <span class="mac-kpi-label">Projekte</span>
+                  <span class="mac-kpi-value counter" data-target="64">0</span>
+                  <span class="mac-kpi-delta down">↓ 2%</span>
+                </div>
+              </div>
+
+              <!-- Chart section -->
+              <div class="mac-chart-section">
+                <div class="mac-chart-header">
+                  <span class="mac-chart-title">Wachstum 2025</span>
+                  <span class="mac-chart-badge">Live</span>
+                </div>
+                <div class="mac-chart-bars">
+                  <div class="mac-bar-wrap"><div class="mac-bar" style="--bh:55%"></div><span>Jan</span></div>
+                  <div class="mac-bar-wrap"><div class="mac-bar" style="--bh:70%"></div><span>Feb</span></div>
+                  <div class="mac-bar-wrap"><div class="mac-bar" style="--bh:45%"></div><span>Mär</span></div>
+                  <div class="mac-bar-wrap"><div class="mac-bar" style="--bh:88%"></div><span>Apr</span></div>
+                  <div class="mac-bar-wrap"><div class="mac-bar" style="--bh:65%"></div><span>Mai</span></div>
+                  <div class="mac-bar-wrap"><div class="mac-bar mac-bar-active" style="--bh:95%"></div><span>Jun</span></div>
+                </div>
+              </div>
+
+              <!-- Recent activity -->
+              <div class="mac-activity">
+                <div class="mac-act-row">
+                  <span class="mac-act-dot" style="background:#22c55e"></span>
+                  <span class="mac-act-name">Neue Website live</span>
+                  <span class="mac-act-time">vor 2 Min</span>
+                </div>
+                <div class="mac-act-row">
+                  <span class="mac-act-dot" style="background:#3b82f6"></span>
+                  <span class="mac-act-name">Hosting erneuert</span>
+                  <span class="mac-act-time">vor 1 Std</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="background:#1e293b;height:7px;border-radius:0 0 4px 4px;width:76%;margin:0 auto;"></div>
+        <!-- MacBook base/stand -->
+        <div class="mac-base">
+          <div class="mac-notch-bottom"></div>
+        </div>
       </div>
 
-      <div class="mockup-phone">
-        <div class="mpscreen">
-          <div class="pbar"></div>
-          <div class="plines">
-            <div class="pl"></div>
-            <div class="pl s"></div>
-          </div>
-          <div class="ptit">Gestalten Sie Zukunft</div>
-          <div class="pdsc">Professionelles Design</div>
-          <div class="pbtn"></div>
-          <div class="pchart">
-            <div class="cb" style="height:24%"></div>
-            <div class="cb" style="height:54%"></div>
-            <div class="cb" style="height:38%"></div>
-            <div class="cb" style="height:70%"></div>
-            <div class="cb" style="height:58%"></div>
+      <!-- iPhone -->
+      <div class="mockup-iphone">
+        <div class="iphone-body">
+          <!-- Side buttons -->
+          <div class="iph-btn-vol"></div>
+          <div class="iph-btn-power"></div>
+          <!-- Screen -->
+          <div class="iphone-screen-wrap">
+            <div class="iph-dynamic-island"></div>
+            <div class="iph-screen-content">
+              <!-- Status bar -->
+              <div class="iph-status">
+                <span>9:41</span>
+                <span class="iph-status-icons">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.5a13 13 0 0 1 21 0M5 12a10 10 0 0 1 14 0M8.5 15.5a6 6 0 0 1 7 0M12 19h.01"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="16" height="11" rx="2"/><path d="M22 11v3"/></svg>
+                </span>
+              </div>
+              <!-- App header -->
+              <div class="iph-app-header">
+                <span class="iph-greeting">Guten Tag 👋</span>
+                <div class="iph-avatar">AL</div>
+              </div>
+              <!-- Metric card -->
+              <div class="iph-card">
+                <span class="iph-card-label">Heute</span>
+                <span class="iph-card-value">+€ 1.240</span>
+                <div class="iph-sparkline">
+                  <svg viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polyline points="0,25 15,18 25,22 35,10 50,14 65,6 80,4" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="0,25 15,18 25,22 35,10 50,14 65,6 80,4 80,30 0,30" fill="url(#spark-grad)" opacity="0.25"/>
+                    <defs>
+                      <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#3b82f6"/>
+                        <stop offset="100%" stop-color="transparent"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+              <!-- Quick actions -->
+              <div class="iph-actions">
+                <div class="iph-action-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  Web
+                </div>
+                <div class="iph-action-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>
+                  SEO
+                </div>
+                <div class="iph-action-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                  Hosting
+                </div>
+              </div>
+              <!-- Notification -->
+              <!--div class="iph-notif">
+                <span class="iph-notif-icon">✅</span>
+                <div>
+                  <<div class="iph-notif-title">Projekt abgeschlossen</div>>
+                  < <div class="iph-notif-sub">Kunde zufrieden • 5★</div>>
+                </div>
+              </div-->
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="dots-deco" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
     </div>
   </section>
 
@@ -384,7 +477,6 @@
       </div>
     </div>
   </div>
-  <br>
   <!-- ══ SERVICES ══ -->
   <section class="services reveal" id="services" aria-labelledby="services-title">
     <div class="sec-label reveal">UNSERE LEISTUNGEN</div>
@@ -523,7 +615,7 @@
       </div>
 
       <!-- Professional (popular) -->
-      <div class="price-card popular reveal delay-2" data-pkg="pro">
+      <div class="price-card popular reveal delay-2" data-pkg="pro" >
         <div class="popular-badge">⭐ Am beliebtesten</div>
         <div class="price-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb"
             stroke-width="1.8">
@@ -664,7 +756,6 @@
       </a>
     </div>
   </div>
-  <br>
   <!-- ══ FOOTER FEATURES ══ -->
   <div class="footer-features reveal" role="region" aria-label="Unsere Vorteile">
     <div class="ff-grid">
