@@ -346,6 +346,9 @@ function renderHero(data) {
   setText('[data-hero="desc"]',         t(h.desc, currentLang));
   setText('[data-hero="btn_primary"]',  t(h.btn_primary, currentLang));
   setText('[data-hero="btn_secondary"]', t(h.btn_secondary, currentLang));
+setText('[data-hero="cv_banner.title"]', t(data.hero.cv_banner.title, currentLang));
+  setText('[data-hero="cv_banner.desc"]', t(data.hero.cv_banner.desc, currentLang));
+  setText('[data-hero="cv_banner.btn"]', t(data.hero.cv_banner.btn, currentLang));
 }
 
 function renderStats(data) {
