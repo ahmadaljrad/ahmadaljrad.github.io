@@ -14,7 +14,13 @@
     "h1_2":    { "ar": "مشروعك الرقمي",       "en": "Your Digital Business",         "de": "digitalen Projekts" },
     "desc":    { "ar": "نقدم لك كل ما تحتاجه لبدء وتطوير عملك عبر الإنترنت بأحدث التقنيات وبأسعار مناسبة.", "en": "We provide everything you need to start and grow your business online with the latest technologies and affordable prices.", "de": "Wir bieten alles, was Sie brauchen, um Ihr Online-Geschäft mit modernsten Technologien und fairen Preisen zu starten." },
     "btn_primary":   { "ar": "ابدأ الآن",      "en": "Start Now",      "de": "Jetzt starten"     },
-    "btn_secondary": { "ar": "عرض الخدمات",    "en": "View Services",  "de": "Leistungen ansehen"}
+    "btn_secondary": { "ar": "عرض الخدمات",    "en": "View Services",  "de": "Leistungen ansehen"},
+    "cv_banner": {
+      "key": "cv_banner",
+        "title": { "ar": "🎯 هل تبحث عن عمل؟", "en": "🎯 On the Job Hunt?", "de": "🎯 Auf Jobsuche?" },
+        "desc":  { "ar": "أنشئ سيرتك الذاتية الاحترافية مجاناً في دقيقتين", "en": "Create your professional resume for free in 2 minutes", "de": "Erstelle deinen professionellen Lebenslauf kostenlos in 2 Minuten" },
+        "btn":   { "ar": "ابدأ الآن ←",        "en": "Start Now ←",        "de": "Jetzt starten ←" }
+      }
   },
   "stats": [
     { "num": { "ar": "أداء عالي", "en": "High Performance", "de": "Hohe Leistung" }, "lbl": { "ar": "سرعة واستقرار لموقعك", "en": "Speed and stability", "de": "Geschwindigkeit & Stabilität" } },
