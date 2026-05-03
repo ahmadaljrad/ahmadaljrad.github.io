@@ -771,3 +771,178 @@ const MobilePreview = (() => {
 })();
 
 document.addEventListener('DOMContentLoaded', () => Controller.init());
+
+
+/* ═══════════════════════════════════
+   🔥 NEUMORPHISM + SAAS FINAL LAYER
+   ═══════════════════════════════════ */
+
+/* ===== Base Override ===== */
+body {
+  background: #eef2f7;
+}
+
+/* ===== Variables Upgrade ===== */
+:root {
+  --bg-soft: #e6ebf2;
+
+  --neu-light: rgba(255,255,255,0.9);
+  --neu-dark: rgba(0,0,0,0.08);
+
+  --neu:
+    10px 10px 25px var(--neu-dark),
+    -10px -10px 25px var(--neu-light);
+
+  --neu-inset:
+    inset 6px 6px 12px var(--neu-dark),
+    inset -6px -6px 12px var(--neu-light);
+}
+
+/* ===== Dark Mode ===== */
+[data-theme="dark"] {
+  --bg-soft: #111827;
+  --neu-light: rgba(255,255,255,0.05);
+  --neu-dark: rgba(0,0,0,0.6);
+}
+
+/* ===== Cards ===== */
+.svc-card,
+.price-card,
+.calculator {
+  background: var(--bg-soft) !important;
+  box-shadow: var(--neu) !important;
+  border: none !important;
+}
+
+.svc-card:hover,
+.price-card:hover {
+  box-shadow:
+    14px 14px 30px var(--neu-dark),
+    -14px -14px 30px var(--neu-light) !important;
+  transform: translateY(-6px);
+}
+
+/* ===== Buttons ===== */
+.btn-secondary {
+  background: var(--bg-soft);
+  border: none;
+  box-shadow: var(--neu);
+}
+
+.btn-secondary:hover {
+  box-shadow: var(--neu-inset);
+}
+
+/* ===== Calculator ===== */
+.calc-item {
+  background: var(--bg-soft);
+  border: none;
+  box-shadow: var(--neu);
+}
+
+.calc-item.selected {
+  box-shadow: var(--neu-inset);
+}
+
+/* ===== Navbar (Glass SaaS) ===== */
+nav {
+  background: rgba(255,255,255,0.6) !important;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] nav {
+  background: rgba(11,17,32,0.6) !important;
+}
+
+/* ===== Hero Background ===== */
+.hero {
+  background: linear-gradient(
+    135deg,
+    #eef2ff 0%,
+    #f8fafc 50%,
+    #ffffff 100%
+  );
+}
+
+/* ═══════════════════════════
+   🍏 Apple Style Hero Visual
+   ═══════════════════════════ */
+
+.apple-ui {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Window */
+.mac-window {
+  width: 420px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.15);
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Header */
+.mac-header {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.red { background: #ff5f57; }
+.yellow { background: #febc2e; }
+.green { background: #28c840; }
+
+/* Content */
+.mac-content {
+  padding: 20px;
+}
+
+.line {
+  height: 10px;
+  border-radius: 6px;
+  background: #dbeafe;
+  margin-bottom: 10px;
+}
+
+.line.big { width: 80%; height: 14px; }
+.line.small { width: 40%; }
+
+/* Chart */
+.chart {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  height: 80px;
+  margin: 20px 0;
+}
+
+.chart span {
+  flex: 1;
+  background: linear-gradient(180deg,#3b82f6,#2563eb);
+  border-radius: 4px;
+}
+
+/* Mini Cards */
+.card-row {
+  display: flex;
+  gap: 10px;
+}
+
+.mini-card {
+  flex: 1;
+  height: 60px;
+  border-radius: 12px;
+  background: #eef2ff;
+}
