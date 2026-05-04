@@ -840,23 +840,52 @@ body.ltr .btn-primary:hover svg { transform: translateX(-4px); }
   box-shadow: 0 6px 18px rgba(37,99,235,.15);
 }
 .btn-cv {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 3px 8px;
   border-radius: 50px;
   font-size: 14px;
   font-weight: 700;
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
   color: #fff;
+  background: #111; /* خلي الخلفية ثابتة */
   text-decoration: none;
-  transition: var(--trans);
-  box-shadow: 0 4px 20px rgba(245,158,11,.35);
-  white-space: nowrap;
+  overflow: hidden;
+  z-index: 1;
 }
-.btn-cv:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(245,158,11,.45);
+
+/* الخط المتحرك */
+.btn-cv::before {
+  content: "";
+  position: absolute;
+  inset: -2px; /* يتحكم بسماكة الإطار */
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #f59e0b,
+    #ef4444,
+    #f59e0b
+  );
+  animation: rotateBorder 3s linear infinite;
+  z-index: -1;
+}
+
+/* طبقة داخلية حتى يبان كـ border فقط */
+.btn-cv::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #111;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* الأنيميشن */
+@keyframes rotateBorder {
+  to {
+    transform: rotate(360deg);
+  }
 }
 /* ══ HERO VISUAL — Realistic Mac + iPhone ══ */
 .hero-visual {
