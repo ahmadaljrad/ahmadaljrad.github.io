@@ -60,7 +60,7 @@ nav.scrolled { box-shadow: var(--shadow-md); }
 
 /* Logo image (logo.png replaces the CSS-drawn icon) */
 .logo-img {
-  width: 44px; height: 44px; border-radius: 12px;
+  width: 50px; height: 50px; border-radius: 5px;
   object-fit: contain; display: block;
 }
 
