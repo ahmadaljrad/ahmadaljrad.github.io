@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="ALJRAD Digital Solutions - Web Design, Hosting & AI Services">
+    <title>ALJRAD Digital Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader"><div class="loader-ring"></div></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="ALJRAD" class="logo-img theme-adaptive">
+                <span class="logo-text">ALJRAD</span>
+            </a>
+            
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="#home" data-i18n="nav.home" class="nav-link">الرئيسية</a></li>
+                    <li><a href="#services" data-i18n="nav.services" class="nav-link">خدماتنا</a></li>
+                    <li><a href="#pricing" data-i18n="nav.pricing" class="nav-link">الأسعار</a></li>
+                    <li><a href="#calculator" data-i18n="nav.calculator" class="nav-link">حاسبة التكلفة</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact" class="nav-link">تواصل معنا</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="icon-btn" id="langBtn" aria-label="Change Language">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <div class="dropdown" id="langDropdown">
+                        <button data-lang="ar">🇸🇦 العربية</button>
+                        <button data-lang="en">🇬 English</button>
+                        <button data-lang="de">🇩 Deutsch</button>
+                        <button data-lang="tr">🇹🇷 Türkçe</button>
+                        <button data-lang="fr">🇫🇷 Français</button>
+                    </div>
+                </div>
+                <button class="icon-btn theme-toggle" id="themeBtn" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#contact" class="cta-btn" data-i18n="nav.getStarted">ابدأ الآن</a>
+                <button class="mobile-toggle" id="mobileBtn" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-list">
+                <li><a href="#home" data-i18n="nav.home" class="mobile-link">الرئيسية</a></li>
+                <li><a href="#services" data-i18n="nav.services" class="mobile-link">خدماتنا</a></li>
+                <li><a href="#pricing" data-i18n="nav.pricing" class="mobile-link">الأسعار</a></li>
+                <li><a href="#calculator" data-i18n="nav.calculator" class="mobile-link">حاسبة التكلفة</a></li>
+                <li><a href="#contact" data-i18n="nav.contact" class="mobile-link">تواصل معنا</a></li>
+            </ul>
+            <div class="mobile-actions">
+                <button class="theme-toggle mobile-theme" id="mobileThemeBtn"><i class="fas fa-moon"></i></button>
+                <button class="lang-switcher mobile-lang" id="mobileLangBtn"><i class="fas fa-globe"></i></button>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-i18n="hero.title">نجاح مشروعك الرقمي يبدأ من هنا</h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">منصة متكاملة لتصميم المواقع، الاستضافة، الإدارة، البريد الاحترافي، وتحسين حضورك الرقمي</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary" data-i18n="hero.startNow">ابدأ الآن <i class="fas fa-arrow-left"></i></a>
+                        <a href="#services" class="btn btn-outline" data-i18n="hero.learnMore">تعرف أكثر</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <span class="stat-num" data-target="200">0</span>+
+                            <span data-i18n="hero.clients">عميل سعيد</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-num" data-target="99">0</span>%
+                            <span data-i18n="hero.uptime">وقت التشغيل</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-num" data-target="24">0</span>/7
+                            <span data-i18n="hero.support">دعم فني</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-card glass">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="hero.growth">نمو الأداء +150%</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Dashboard" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="services.title">كل ما تحتاجه في مكان واحد</h2>
+                    <p data-i18n="services.subtitle">حلول رقمية متكاملة لتنمية أعمالك باحترافية</p>
+                </div>
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="pricing.title">أسعار واضحة وشفافة</h2>
+                    <p data-i18n="pricing.subtitle">اختر الخطة المناسبة لاحتياجاتك</p>
+                </div>
+                <div class="pricing-grid" id="pricingGrid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator -->
+        <section class="calculator" id="calculator">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="calc.title">احسب التكلفة</h2>
+                    <p data-i18n="calc.subtitle">اختر الخدمات التي تحتاجها واحصل على سعر فوري</p>
+                </div>
+                <div class="calc-wrapper glass">
+                    <div class="calc-options" id="calcOptions">
+                        <!-- Options injected via JS -->
+                    </div>
+                    <div class="calc-actions">
+                        <button class="btn btn-primary" id="calcBtn" data-i18n="calc.calculate">احسب السعر</button>
+                        <button class="btn btn-outline" id="resetBtn" data-i18n="calc.reset">إعادة تعيين</button>
+                        <button class="btn btn-dark" id="sendBtn" data-i18n="calc.send">أرسل الطلب</button>
+                    </div>
+                    <div class="calc-result" id="calcResult">
+                        <span data-i18n="calc.total">السعر الإجمالي:</span>
+                        <strong id="totalPrice">0€</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 data-i18n="contact.title">جاهز تبدأ؟</h2>
+                    <p data-i18n="contact.subtitle">تواصل معنا الآن وابدأ مشروعك</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-card glass">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3 data-i18n="contact.whatsapp">واتساب</h3>
+                        <a href="https://wa.me/4915259859931" target="_blank">+49 1525 9859931</a>
+                    </div>
+                    <div class="contact-card glass">
+                        <i class="fas fa-envelope"></i>
+                        <h3 data-i18n="contact.email">البريد الإلكتروني</h3>
+                        <a href="mailto:info@aljrad.com">info@aljrad.com</a>
+                    </div>
+                    <div class="contact-card glass">
+                        <i class="fas fa-globe"></i>
+                        <h3 data-i18n="contact.web">الموقع</h3>
+                        <a href="https://aljrad.com" target="_blank">aljrad.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>&copy; 2026 ALJRAD Digital Solutions. <span data-i18n="footer.rights">جميع الحقوق محفوظة</span></p>
+            <div class="socials">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.json"></script> <!-- Fallback/Structure reference -->
+    <script src="script.js" defer></script>
+</body>
+</html>
