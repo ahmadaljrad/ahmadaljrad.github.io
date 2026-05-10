@@ -1,0 +1,169 @@
+{
+  "ar": {
+    "dir": "rtl", "lang": "ar",
+    "nav": { "home": "الرئيسية", "services": "خدماتنا", "pricing": "الأسعار", "calculator": "حاسبة التكلفة", "contact": "تواصل معنا", "getStarted": "ابدأ الآن" },
+    "hero": {
+      "title": "نجاح مشروعك الرقمي يبدأ من هنا",
+      "subtitle": "منصة متكاملة لتصميم المواقع، الاستضافة، الإدارة، البريد الاحترافي، وتحسين حضورك الرقمي",
+      "startNow": "ابدأ الآن", "learnMore": "تعرف أكثر", "clients": "عميل سعيد", "uptime": "وقت التشغيل", "support": "دعم فني", "growth": "نمو الأداء +150%"
+    },
+    "services": {
+      "title": "كل ما تحتاجه في مكان واحد", "subtitle": "حلول رقمية متكاملة لتنمية أعمالك باحترافية",
+      "cards": [
+        { "icon": "fas fa-desktop", "title": "تصميم مواقع احترافي", "items": ["UI/UX حديث", "صفحات هبوط", "مواقع شركات", "متجر إلكتروني"] },
+        { "icon": "fas fa-server", "title": "استضافة سريعة", "items": ["NVMe SSD", "CDN عالمي", "SSL مجاني", "حماية DDoS"] },
+        { "icon": "fas fa-cogs", "title": "إدارة الموقع", "items": ["تحديثات مستمرة", "نسخ احتياطي يومي", "صيانة دورية", "مراقبة الأداء"] },
+        { "icon": "fas fa-envelope", "title": "بريد احترافي", "items": ["email@domain.com", "حماية Spam", "Webmail متقدم", "مزامنة الجوال"] },
+        { "icon": "fas fa-map-marker-alt", "title": "Google Maps Listing", "items": ["إضافة النشاط", "تحسين SEO محلي", "معلومات الشركة", "إدارة التقييمات"] },
+        { "icon": "fas fa-robot", "title": "AI Customer Support", "items": ["ردود تلقائية ذكية", "دعم 24 ساعة", "FAQ تفاعلي", "تكامل واتساب"] }
+      ]
+    },
+    "pricing": {
+      "title": "أسعار واضحة وشفافة", "subtitle": "اختر الخطة المناسبة لاحتياجاتك",
+      "plans": [
+        { "name": "Starter", "price": "80€", "period": "/شهر", "badge": "", "items": ["موقع أساسي", "استضافة سريعة", "شهادة SSL", "بريد احترافي"] },
+        { "name": "Professional", "price": "100€", "period": "/شهر", "badge": "الأكثر شعبية", "items": ["تصميم احترافي", "إدارة كاملة", "تحسين SEO", "دعم سريع"] },
+        { "name": "Business", "price": "200€", "period": "/شهر", "badge": "", "items": ["متجر إلكتروني", "AI Bot متقدم", "خرائط جوجل", "تقارير وتحليلات"] }
+      ]
+    },
+    "calc": {
+      "title": "احسب التكلفة", "subtitle": "اختر الخدمات التي تحتاجها واحصل على سعر فوري",
+      "options": [
+        { "id": "web", "label": "تصميم موقع", "price": 500 },
+        { "id": "host", "label": "استضافة", "price": 50 },
+        { "id": "domain", "label": "دومين", "price": 20 },
+        { "id": "manage", "label": "إدارة الموقع", "price": 100 },
+        { "id": "mail", "label": "بريد احترافي", "price": 30 },
+        { "id": "maps", "label": "خرائط جوجل", "price": 80 },
+        { "id": "bot", "label": "بوت ذكاء اصطناعي", "price": 150 },
+        { "id": "extra", "label": "خدمات إضافية", "price": 100 }
+      ],
+      "calculate": "احسب السعر", "reset": "إعادة تعيين", "send": "أرسل الطلب", "total": "السعر الإجمالي:"
+    },
+    "contact": { "title": "جاهز تبدأ؟", "subtitle": "تواصل معنا الآن وابدأ مشروعك", "whatsapp": "واتساب", "email": "البريد الإلكتروني", "web": "الموقع" },
+    "footer": { "rights": "جميع الحقوق محفوظة" }
+  },
+  "en": {
+    "dir": "ltr", "lang": "en",
+    "nav": { "home": "Home", "services": "Services", "pricing": "Pricing", "calculator": "Calculator", "contact": "Contact", "getStarted": "Get Started" },
+    "hero": {
+      "title": "Your Digital Success Starts Here",
+      "subtitle": "An integrated platform for web design, hosting, management, professional email, and enhancing your digital presence",
+      "startNow": "Start Now", "learnMore": "Learn More", "clients": "Happy Clients", "uptime": "Uptime", "support": "Support", "growth": "Performance Growth +150%"
+    },
+    "services": {
+      "title": "Everything You Need in One Place", "subtitle": "Integrated digital solutions to grow your business professionally",
+      "cards": [
+        { "icon": "fas fa-desktop", "title": "Professional Web Design", "items": ["Modern UI/UX", "Landing Pages", "Corporate Sites", "E-commerce"] },
+        { "icon": "fas fa-server", "title": "Fast Hosting", "items": ["NVMe SSD", "Global CDN", "Free SSL", "DDoS Protection"] },
+        { "icon": "fas fa-cogs", "title": "Website Management", "items": ["Continuous Updates", "Daily Backups", "Regular Maintenance", "Performance Monitoring"] },
+        { "icon": "fas fa-envelope", "title": "Professional Email", "items": ["email@domain.com", "Spam Protection", "Advanced Webmail", "Mobile Sync"] },
+        { "icon": "fas fa-map-marker-alt", "title": "Google Maps Listing", "items": ["Business Listing", "Local SEO", "Company Info", "Review Management"] },
+        { "icon": "fas fa-robot", "title": "AI Customer Support", "items": ["Smart Auto-Responses", "24/7 Support", "Interactive FAQ", "WhatsApp Integration"] }
+      ]
+    },
+    "pricing": {
+      "title": "Clear & Transparent Pricing", "subtitle": "Choose the plan that fits your needs",
+      "plans": [
+        { "name": "Starter", "price": "80€", "period": "/month", "badge": "", "items": ["Basic Website", "Fast Hosting", "SSL Certificate", "Pro Email"] },
+        { "name": "Professional", "price": "100€", "period": "/month", "badge": "Most Popular", "items": ["Pro Design", "Full Management", "SEO Optimization", "Priority Support"] },
+        { "name": "Business", "price": "200€", "period": "/month", "badge": "", "items": ["E-commerce", "Advanced AI Bot", "Google Maps", "Analytics & Reports"] }
+      ]
+    },
+    "calc": {
+      "title": "Calculate Cost", "subtitle": "Select services and get an instant price",
+      "options": [
+        { "id": "web", "label": "Web Design", "price": 500 },
+        { "id": "host", "label": "Hosting", "price": 50 },
+        { "id": "domain", "label": "Domain", "price": 20 },
+        { "id": "manage", "label": "Management", "price": 100 },
+        { "id": "mail", "label": "Pro Email", "price": 30 },
+        { "id": "maps", "label": "Google Maps", "price": 80 },
+        { "id": "bot", "label": "AI Bot", "price": 150 },
+        { "id": "extra", "label": "Extra Services", "price": 100 }
+      ],
+      "calculate": "Calculate", "reset": "Reset", "send": "Send Request", "total": "Total Price:"
+    },
+    "contact": { "title": "Ready to Start?", "subtitle": "Contact us now and begin your project", "whatsapp": "WhatsApp", "email": "Email", "web": "Website" },
+    "footer": { "rights": "All rights reserved" }
+  },
+  "de": {
+    "dir": "ltr", "lang": "de",
+    "nav": { "home": "Startseite", "services": "Dienstleistungen", "pricing": "Preise", "calculator": "Rechner", "contact": "Kontakt", "getStarted": "Loslegen" },
+    "hero": {
+      "title": "Ihr digitaler Erfolg beginnt hier",
+      "subtitle": "Eine integrierte Plattform für Webdesign, Hosting, Management, professionelle E-Mail und die Verbesserung Ihrer digitalen Präsenz",
+      "startNow": "Jetzt starten", "learnMore": "Mehr erfahren", "clients": "Zufriedene Kunden", "uptime": "Betriebszeit", "support": "Support", "growth": "Leistungswachstum +150%"
+    },
+    "services": { "title": "Alles an einem Ort", "subtitle": "Integrierte digitale Lösungen für Ihr Geschäft", "cards": [
+        { "icon": "fas fa-desktop", "title": "Professionelles Webdesign", "items": ["Modernes UI/UX", "Landing Pages", "Unternehmenssites", "E-Commerce"] },
+        { "icon": "fas fa-server", "title": "Schnelles Hosting", "items": ["NVMe SSD", "Globales CDN", "Kostenloses SSL", "DDoS-Schutz"] },
+        { "icon": "fas fa-cogs", "title": "Website-Verwaltung", "items": ["Updates", "Tägliche Backups", "Wartung", "Leistungsmonitoring"] },
+        { "icon": "fas fa-envelope", "title": "Professionelle E-Mail", "items": ["email@domain.com", "Spam-Schutz", "Webmail", "Mobile Sync"] },
+        { "icon": "fas fa-map-marker-alt", "title": "Google Maps Eintrag", "items": ["Unternehmenseintrag", "Lokales SEO", "Firmeninfo", "Bewertungen"] },
+        { "icon": "fas fa-robot", "title": "AI Kundensupport", "items": ["Automatische Antworten", "24/7 Support", "Interaktive FAQ", "WhatsApp-Integration"] }
+      ]
+    },
+    "pricing": { "title": "Klare Preise", "subtitle": "Wählen Sie den passenden Plan", "plans": [
+        { "name": "Starter", "price": "80€", "period": "/Monat", "badge": "", "items": ["Basis-Website", "Schnelles Hosting", "SSL", "Pro E-Mail"] },
+        { "name": "Professional", "price": "100€", "period": "/Monat", "badge": "Beliebt", "items": ["Pro Design", "Volle Verwaltung", "SEO", "Prioritäts-Support"] },
+        { "name": "Business", "price": "200€", "period": "/Monat", "badge": "", "items": ["E-Commerce", "AI Bot", "Google Maps", "Analysen"] }
+      ]
+    },
+    "calc": { "title": "Kosten berechnen", "subtitle": "Wählen Sie Services und erhalten Sie einen Preis", "options": [
+        { "id": "web", "label": "Webdesign", "price": 500 }, { "id": "host", "label": "Hosting", "price": 50 }, { "id": "domain", "label": "Domain", "price": 20 }, { "id": "manage", "label": "Verwaltung", "price": 100 }, { "id": "mail", "label": "Pro E-Mail", "price": 30 }, { "id": "maps", "label": "Google Maps", "price": 80 }, { "id": "bot", "label": "AI Bot", "price": 150 }, { "id": "extra", "label": "Extras", "price": 100 }
+      ], "calculate": "Berechnen", "reset": "Zurücksetzen", "send": "Anfrage senden", "total": "Gesamtpreis:" },
+    "contact": { "title": "Bereit zu starten?", "subtitle": "Kontaktieren Sie uns jetzt", "whatsapp": "WhatsApp", "email": "E-Mail", "web": "Website" },
+    "footer": { "rights": "Alle Rechte vorbehalten" }
+  },
+  "tr": {
+    "dir": "ltr", "lang": "tr",
+    "nav": { "home": "Ana Sayfa", "services": "Hizmetler", "pricing": "Fiyatlar", "calculator": "Hesap Makinesi", "contact": "İletişim", "getStarted": "Başla" },
+    "hero": { "title": "Dijital Başarınız Burada Başlar", "subtitle": "Web tasarımı, barındırma, yönetim, profesyonel e-posta ve dijital varlığınızı geliştirme için entegre platform", "startNow": "Şimdi Başla", "learnMore": "Daha Fazla", "clients": "Mutlu Müşteri", "uptime": "Çalışma Süresi", "support": "Destek", "growth": "Performans Artışı +150%" },
+    "services": { "title": "İhtiyacınız Olan Her Şey Tek Yerde", "subtitle": "İşinizi büyütmek için entegre çözümler", "cards": [
+        { "icon": "fas fa-desktop", "title": "Profesyonel Web Tasarımı", "items": ["Modern UI/UX", "Açılış Sayfaları", "Kurumsal Siteler", "E-ticaret"] },
+        { "icon": "fas fa-server", "title": "Hızlı Hosting", "items": ["NVMe SSD", "Global CDN", "Ücretsiz SSL", "DDoS Koruması"] },
+        { "icon": "fas fa-cogs", "title": "Site Yönetimi", "items": ["Güncellemeler", "Günlük Yedek", "Bakım", "Performans İzleme"] },
+        { "icon": "fas fa-envelope", "title": "Profesyonel E-posta", "items": ["email@domain.com", "Spam Koruması", "Webmail", "Mobil Senkron"] },
+        { "icon": "fas fa-map-marker-alt", "title": "Google Maps Listeleme", "items": ["İş Listeleme", "Yerel SEO", "Şirket Bilgileri", "Yorumlar"] },
+        { "icon": "fas fa-robot", "title": "AI Müşteri Destek", "items": ["Otomatik Yanıtlar", "7/24 Destek", "İnteraktif SSS", "WhatsApp Entegrasyonu"] }
+      ]
+    },
+    "pricing": { "title": "Net Fiyatlandırma", "subtitle": "Size uygun planı seçin", "plans": [
+        { "name": "Starter", "price": "80€", "period": "/ay", "badge": "", "items": ["Temel Site", "Hızlı Hosting", "SSL", "Pro E-posta"] },
+        { "name": "Professional", "price": "100€", "period": "/ay", "badge": "Popüler", "items": ["Pro Tasarım", "Tam Yönetim", "SEO", "Hızlı Destek"] },
+        { "name": "Business", "price": "200€", "period": "/ay", "badge": "", "items": ["E-ticaret", "AI Bot", "Google Maps", "Analizler"] }
+      ]
+    },
+    "calc": { "title": "Maliyet Hesapla", "subtitle": "Hizmetleri seçin ve anında fiyat alın", "options": [
+        { "id": "web", "label": "Web Tasarımı", "price": 500 }, { "id": "host", "label": "Hosting", "price": 50 }, { "id": "domain", "label": "Alan Adı", "price": 20 }, { "id": "manage", "label": "Yönetim", "price": 100 }, { "id": "mail", "label": "Pro E-posta", "price": 30 }, { "id": "maps", "label": "Google Maps", "price": 80 }, { "id": "bot", "label": "AI Bot", "price": 150 }, { "id": "extra", "label": "Ek Hizmetler", "price": 100 }
+      ], "calculate": "Hesapla", "reset": "Sıfırla", "send": "Gönder", "total": "Toplam Fiyat:" },
+    "contact": { "title": "Başlamaya Hazır mısınız?", "subtitle": "Şimdi iletişime geçin", "whatsapp": "WhatsApp", "email": "E-posta", "web": "Web Sitesi" },
+    "footer": { "rights": "Tüm hakları saklıdır" }
+  },
+  "fr": {
+    "dir": "ltr", "lang": "fr",
+    "nav": { "home": "Accueil", "services": "Services", "pricing": "Tarifs", "calculator": "Calculateur", "contact": "Contact", "getStarted": "Commencer" },
+    "hero": { "title": "Votre Réussite Numérique Commence Ici", "subtitle": "Plateforme intégrée pour le webdesign, l'hébergement, la gestion, l'email pro et l'amélioration de votre présence digitale", "startNow": "Commencer", "learnMore": "En savoir plus", "clients": "Clients Heureux", "uptime": "Disponibilité", "support": "Support", "growth": "Croissance +150%" },
+    "services": { "title": "Tout Ce Dont Vous Avez Besoin", "subtitle": "Solutions digitales intégrées pour votre entreprise", "cards": [
+        { "icon": "fas fa-desktop", "title": "Webdesign Professionnel", "items": ["UI/UX Moderne", "Landing Pages", "Sites Corporate", "E-commerce"] },
+        { "icon": "fas fa-server", "title": "Hébergement Rapide", "items": ["NVMe SSD", "CDN Global", "SSL Gratuit", "Protection DDoS"] },
+        { "icon": "fas fa-cogs", "title": "Gestion de Site", "items": ["Mises à jour", "Sauvegardes", "Maintenance", "Monitoring"] },
+        { "icon": "fas fa-envelope", "title": "Email Professionnel", "items": ["email@domaine.com", "Anti-Spam", "Webmail", "Sync Mobile"] },
+        { "icon": "fas fa-map-marker-alt", "title": "Google Maps", "items": ["Fiche Entreprise", "SEO Local", "Infos Société", "Avis"] },
+        { "icon": "fas fa-robot", "title": "Support Client IA", "items": ["Réponses Auto", "Support 24/7", "FAQ Interactive", "Intégration WhatsApp"] }
+      ]
+    },
+    "pricing": { "title": "Tarifs Clairs", "subtitle": "Choisissez le plan adapté", "plans": [
+        { "name": "Starter", "price": "80€", "period": "/mois", "badge": "", "items": ["Site Basique", "Hébergement", "SSL", "Email Pro"] },
+        { "name": "Professional", "price": "100€", "period": "/mois", "badge": "Populaire", "items": ["Design Pro", "Gestion Complète", "SEO", "Support Prioritaire"] },
+        { "name": "Business", "price": "200€", "period": "/mois", "badge": "", "items": ["E-commerce", "Bot IA", "Google Maps", "Analyses"] }
+      ]
+    },
+    "calc": { "title": "Calculer le Coût", "subtitle": "Sélectionnez et obtenez un prix instantané", "options": [
+        { "id": "web", "label": "Webdesign", "price": 500 }, { "id": "host", "label": "Hébergement", "price": 50 }, { "id": "domain", "label": "Domaine", "price": 20 }, { "id": "manage", "label": "Gestion", "price": 100 }, { "id": "mail", "label": "Email Pro", "price": 30 }, { "id": "maps", "label": "Google Maps", "price": 80 }, { "id": "bot", "label": "Bot IA", "price": 150 }, { "id": "extra", "label": "Extras", "price": 100 }
+      ], "calculate": "Calculer", "reset": "Réinitialiser", "send": "Envoyer", "total": "Prix Total:" },
+    "contact": { "title": "Prêt à commencer?", "subtitle": "Contactez-nous maintenant", "whatsapp": "WhatsApp", "email": "Email", "web": "Site Web" },
+    "footer": { "rights": "Tous droits réservés" }
+  }
+}
