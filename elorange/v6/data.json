@@ -1,0 +1,734 @@
+{
+  "de": {
+    "nav": {
+      "about": "Über uns",
+      "features": "Leistungen",
+      "courses": "Kurse",
+      "testimonials": "Bewertungen",
+      "contact": "Kontakt",
+      "booking": "Fahrstunde buchen",
+      "cta": "Anmelden",
+      "logoSub": "Fahrschule · Driving School"
+    },
+    "mobileMenu": {
+      "about": "Über uns",
+      "features": "Leistungen",
+      "courses": "Kurse",
+      "testimonials": "Bewertungen",
+      "contact": "Kontakt",
+      "booking": "Fahrstunde buchen",
+      "cta": "Jetzt Anmelden"
+    },
+    "hero": {
+      "tag": "Willkommen bei Orange Fahrschule",
+      "h1_plain": "Mit ",
+      "h1_em": "Vertrauen",
+      "h1_rest": " Fahren Lernen bei Orange Fahrschule",
+      "p": "Moderne Fahrausbildung, professionelle Fahrlehrer und mehrsprachige Betreuung auf Deutsch, Englisch und Arabisch.",
+      "btnPrimary": "Jetzt Anmelden",
+      "btnSecondary": "Kurse entdecken",
+      "scroll": "Scrollen"
+    },
+    "about": {
+      "label": "Über uns",
+      "h2": "Ihre zuverlässige Fahrschule in der Stadt",
+      "p1": "Orange Fahrschule steht für moderne, professionelle und mehrsprachige Fahrausbildung. Seit über 15 Jahren begleiten wir unsere Schülerinnen und Schüler auf dem Weg zum Führerschein – mit Herz, Kompetenz und einer überdurchschnittlich hohen Erfolgsquote.",
+      "p2": "Unsere Fahrlehrer sprechen Deutsch, Englisch und Arabisch, sodass Sie sich in Ihrer Muttersprache wohlfühlen und effektiv lernen können.",
+      "badgeSuffix": "Jahre Erfahrung",
+      "features": [
+        "Professionelle Praxis- & Theorieausbildung",
+        "Dreisprachige Betreuung (DE/EN/AR)",
+        "Flexible Terminplanung",
+        "Moderne Lernumgebung"
+      ]
+    },
+    "stats": {
+      "items": [
+        { "number": 15, "suffix": "+", "label": "Jahre Erfahrung" },
+        { "number": 500, "suffix": "+", "label": "Erfolgreiche Schüler pro Jahr" },
+        { "number": 98, "suffix": "%", "label": "Erfolgsquote" }
+      ]
+    },
+    "features": {
+      "label": "Unsere Leistungen",
+      "h2": "Alles für Ihren erfolgreichen Führerschein",
+      "p": "Von der Theorie bis zur Praxis – wir bieten Ihnen eine umfassende Fahrausbildung mit modernster Ausstattung und erfahrenen Fahrlehrern.",
+      "cards": [
+        {
+          "h3": "Flexible Stundenplanung",
+          "p": "Fahrtstunden nach Ihrem Zeitplan – morgens, abends oder am Wochenende. Wir passen uns Ihrem Alltag an."
+        },
+        {
+          "h3": "Intensivkurs",
+          "p": "Führerschein in kürzester Zeit – unser Intensivkurs ist perfekt für alle, die schnell und effizient ihr Ziel erreichen möchten."
+        },
+        {
+          "h3": "Mehrsprachiger Unterricht",
+          "p": "Theoriestunden auf Deutsch, Englisch und Arabisch. Lernen Sie in Ihrer Sprache – verständlich und effektiv."
+        },
+        {
+          "h3": "Erfahrene Fahrlehrer",
+          "p": "Unsere zertifizierten Fahrlehrer begleiten Sie mit Geduld, Fachkenntnis und persönlichem Engagement zum Führerschein."
+        },
+        {
+          "h3": "Moderne Fahrzeuge",
+          "p": "Fahren lernen in aktuellen, top-gepflegten Fahrzeugen – sicher, komfortabel und mit modernster Sicherheitsausstattung."
+        },
+        {
+          "h3": "Vollständige Prüfungsvorbereitung",
+          "p": "Theorie- und Praxisprüfung auf sicher – mit umfassender Vorbereitung, Übungstests und individuellem Feedback."
+        }
+      ]
+    },
+    "courses": {
+      "label": "Unsere Kurse",
+      "h2": "Führerschein-Klassen & Kurse",
+      "btn": "Jetzt Buchen",
+      "cards": [
+        {
+          "badge": "Beliebteste Wahl",
+          "h3": "Klasse B – PKW-Führerschein",
+          "p": "Der klassische Führerschein für Personenkraftwagen (bis 3,5 t). Unser umfassendes Programm führt Sie sicher durch Theorie und Praxis bis zur bestandenen Prüfung.",
+          "meta": ["Ab 4–6 Monate", "14 Pflichtfahrten"]
+        },
+        {
+          "badge": "Entspanntes Fahren",
+          "h3": "Automatik-Führerschein",
+          "p": "Idealer Einstieg ohne Kupplung. Der Automatik-Führerschein ist besonders geeignet für Fahrschüler, die entspannt und fokussiert lernen möchten.",
+          "meta": ["Ab 3–5 Monate", "Modernes Fahrzeug"]
+        },
+        {
+          "badge": "Schnell zum Ziel",
+          "h3": "Intensivkurs",
+          "p": "Für alle, die schnell ihren Führerschein benötigen. Komprimiertes Lernprogramm in wenigen Wochen – intensiv, effizient und erfolgreich.",
+          "meta": ["2–4 Wochen", "Tägliche Fahrstunden"]
+        },
+        {
+          "badge": "Prüfungsvorbereitung",
+          "h3": "Theorieunterricht",
+          "p": "Strukturierter Theorieunterricht in kleinen Gruppen – auf Deutsch, Englisch oder Arabisch. Mit modernsten Lernmaterialien und Online-Übungen.",
+          "meta": ["Flexibel wählbar", "3 Sprachen"]
+        }
+      ]
+    },
+    "testimonials": {
+      "label": "Kundenstimmen",
+      "h2": "Was unsere Schüler sagen",
+      "cards": [
+        {
+          "quote": "Ich habe meinen Führerschein auf Anhieb bestanden! Das Team bei Orange Fahrschule ist super professionell und geduldig. Die mehrsprachige Betreuung hat mir sehr geholfen.",
+          "name": "Layla M.",
+          "meta": "Klasse B · April 2024",
+          "initials": "LM"
+        },
+        {
+          "quote": "Fantastic driving school! My instructor was patient, professional, and made me feel confident. I completed the intensive course in just 3 weeks. Highly recommended!",
+          "name": "Tom K.",
+          "meta": "Intensivkurs · März 2024",
+          "initials": "TK"
+        },
+        {
+          "quote": "الأفضل في المدينة! الشرح باللغة العربية ساعدني كثيراً على فهم قواعد المرور. اجتزت الاختبار من المحاولة الأولى. شكراً جزيلاً!",
+          "name": "Ahmad H.",
+          "meta": "Klasse B · Februar 2024",
+          "initials": "AH"
+        },
+        {
+          "quote": "Die flexiblen Zeiten haben mir als Berufstätiger sehr geholfen. Abend- und Wochenendstunden sind kein Problem. Tolle Fahrlehrer!",
+          "name": "Maria R.",
+          "meta": "Automatik · Januar 2024",
+          "initials": "MR"
+        },
+        {
+          "quote": "Mein Fahrlehrer war unglaublich kompetent und ruhig. Nach nur wenigen Stunden hatte ich deutlich mehr Selbstvertrauen. Klare Empfehlung!",
+          "name": "Jonas W.",
+          "meta": "Klasse B · Dezember 2023",
+          "initials": "JW"
+        },
+        {
+          "quote": "Great experience overall! The theory lessons in English were clear and well-structured. Passed my theory test first try. Thank you Orange Fahrschule!",
+          "name": "Sara N.",
+          "meta": "Theoriekurs · November 2023",
+          "initials": "SN"
+        }
+      ]
+    },
+    "contact": {
+      "label": "Kontakt",
+      "h2": "Bereit anzufangen?",
+      "intro": "Füllen Sie das Formular aus oder rufen Sie uns an – wir melden uns schnellstmöglich bei Ihnen.",
+      "form": {
+        "namePlaceholder": "Ihr Name",
+        "nameLabel": "Vollständiger Name",
+        "phoneLabel": "Telefonnummer",
+        "phonePlaceholder": "+49 000 0000000",
+        "emailLabel": "E-Mail-Adresse",
+        "emailPlaceholder": "ihre@email.de",
+        "courseLabel": "Gewünschter Kurs",
+        "courseOptions": [
+          "Klasse B – PKW-Führerschein",
+          "Automatik-Führerschein",
+          "Intensivkurs",
+          "Theorieunterricht",
+          "Sonstiges"
+        ],
+        "messageLabel": "Ihre Nachricht",
+        "messagePlaceholder": "Wie können wir Ihnen helfen?",
+        "submitBtn": "Nachricht senden →"
+      },
+      "info": {
+        "addressLabel": "Unsere Adresse",
+        "addressValue": "Musterstraße 42<br>10115 Berlin, Deutschland",
+        "phoneLabel": "Telefon",
+        "phoneValue": "+49 (0)30 123 456 78<br>Mo–Sa, 9:00–19:00 Uhr",
+        "emailLabel": "E-Mail",
+        "emailValue": "info@orange-fahrschule.de<br>Antwort innerhalb von 24 Stunden"
+      },
+      "socialLabel": "Folgen Sie uns"
+    },
+    "footer": {
+      "logoSub": "Fahrschule · Driving School",
+      "tagline": "Ihre zuverlässige Fahrschule – mit Herz, Kompetenz und über 15 Jahren Erfahrung. Wir bringen Sie sicher ans Ziel.",
+      "nav": { "title": "Navigation", "links": ["Über uns", "Leistungen", "Kurse", "Bewertungen", "Kontakt"] },
+      "courses": { "title": "Kurse", "links": ["Klasse B", "Automatik", "Intensivkurs", "Theorieunterricht"] },
+      "legal": { "title": "Rechtliches", "links": ["Impressum", "Datenschutz", "AGB", "Cookies"] },
+      "copyright": "© 2024 Orange Fahrschule. Alle Rechte vorbehalten.",
+      "madeWith": "Entwickelt mit ❤️ für sichere Fahrausbildung"
+    },
+    "toast": "✓ Nachricht gesendet! Wir melden uns bald.",
+    "booking": {
+      "label": "Fahrstunde buchen",
+      "h2": "Termin für eine Fahrstunde reservieren",
+      "p": "Wählen Sie Ihren Wunschtermin, die Uhrzeit und optional einen Fahrlehrer. Verfügbar Montag bis Freitag, 08:00–22:00 Uhr.",
+      "instructorLabel": "Fahrlehrer (optional)",
+      "instructorPlaceholder": "Keinen bevorzugten Fahrlehrer",
+      "instructors": [
+        { "id": "any", "name": "Kein bevorzugter Fahrlehrer" },
+        { "id": "ahmed", "name": "Ahmed – Arabisch / Deutsch" },
+        { "id": "michael", "name": "Michael – Deutsch / Englisch" },
+        { "id": "sara", "name": "Sara – Arabisch / Englisch" }
+      ],
+      "dateLabel": "Datum wählen",
+      "timeLabel": "Uhrzeit wählen",
+      "nameLabel": "Vollständiger Name",
+      "namePlaceholder": "Ihr Name",
+      "phoneLabel": "Telefonnummer",
+      "phonePlaceholder": "+49 000 0000000",
+      "unavailableDays": [0, 6],
+      "unavailableDaysNote": "Samstag und Sonntag nicht verfügbar",
+      "timeSlots": [
+        "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00", "22:00"
+      ],
+      "submitBtn": "Per WhatsApp buchen →",
+      "whatsappNumber": "4930123456789",
+      "whatsappMessage": "Hallo, ich möchte eine Fahrstunde buchen:\n📅 Datum: {date}\n🕐 Uhrzeit: {time}\n👤 Fahrlehrer: {instructor}\n📞 Name: {name}\n📱 Telefon: {phone}",
+      "successMsg": "✓ Sie werden zu WhatsApp weitergeleitet!",
+      "selectTimePlaceholder": "Uhrzeit wählen …",
+      "validationMsg": "Bitte alle Pflichtfelder ausfüllen."
+    },
+    "reviewForm": {
+      "label": "Bewertung abgeben",
+      "h2": "Ihre Meinung zählt",
+      "p": "Teilen Sie Ihre Erfahrung mit uns und helfen Sie anderen Fahrschülern bei ihrer Entscheidung.",
+      "nameLabel": "Ihr Name",
+      "namePlaceholder": "Vor- und Nachname",
+      "courseLabel": "Absolvierter Kurs",
+      "coursePlaceholder": "z. B. Klasse B",
+      "ratingLabel": "Bewertung",
+      "commentLabel": "Ihr Kommentar",
+      "commentPlaceholder": "Erzählen Sie uns von Ihrer Erfahrung …",
+      "submitBtn": "Bewertung senden →",
+      "successMsg": "✓ Vielen Dank für Ihre Bewertung!"
+    }
+  },
+  "en": {
+    "nav": {
+      "about": "About Us",
+      "features": "Services",
+      "courses": "Courses",
+      "testimonials": "Reviews",
+      "contact": "Contact",
+      "booking": "Book a Lesson",
+      "cta": "Register",
+      "logoSub": "Fahrschule · Driving School"
+    },
+    "mobileMenu": {
+      "about": "About Us",
+      "features": "Services",
+      "courses": "Courses",
+      "testimonials": "Reviews",
+      "contact": "Contact",
+      "booking": "Book a Lesson",
+      "cta": "Register Now"
+    },
+    "hero": {
+      "tag": "Welcome to Orange Driving School",
+      "h1_plain": "Learn to Drive with ",
+      "h1_em": "Confidence",
+      "h1_rest": " at Orange Driving School",
+      "p": "Modern driving education, professional instructors, and multilingual support in German, English and Arabic.",
+      "btnPrimary": "Register Now",
+      "btnSecondary": "Explore Courses",
+      "scroll": "Scroll"
+    },
+    "about": {
+      "label": "About Us",
+      "h2": "Your Trusted Driving School in the City",
+      "p1": "Orange Driving School stands for modern, professional and multilingual driver education. For over 15 years we have guided our students on the road to their licence – with heart, expertise and an above-average pass rate.",
+      "p2": "Our instructors speak German, English and Arabic, so you can feel at home in your own language and learn effectively.",
+      "badgeSuffix": "Years of Experience",
+      "features": [
+        "Professional Practical & Theory Training",
+        "Trilingual Support (DE/EN/AR)",
+        "Flexible Scheduling",
+        "Modern Learning Environment"
+      ]
+    },
+    "stats": {
+      "items": [
+        { "number": 15, "suffix": "+", "label": "Years of Experience" },
+        { "number": 500, "suffix": "+", "label": "Successful Students per Year" },
+        { "number": 98, "suffix": "%", "label": "Pass Rate" }
+      ]
+    },
+    "features": {
+      "label": "Our Services",
+      "h2": "Everything for Your Driving Success",
+      "p": "From theory to practice – we offer comprehensive driver training with state-of-the-art equipment and experienced instructors.",
+      "cards": [
+        {
+          "h3": "Flexible Scheduling",
+          "p": "Driving lessons on your timetable – mornings, evenings or weekends. We adapt to your daily life."
+        },
+        {
+          "h3": "Intensive Course",
+          "p": "Get your licence fast – our intensive course is perfect for anyone who wants to reach their goal quickly and efficiently."
+        },
+        {
+          "h3": "Multilingual Tuition",
+          "p": "Theory classes in German, English and Arabic. Learn in your language – clearly and effectively."
+        },
+        {
+          "h3": "Experienced Instructors",
+          "p": "Our certified instructors accompany you with patience, expertise and personal commitment to your licence."
+        },
+        {
+          "h3": "Modern Vehicles",
+          "p": "Learn to drive in current, well-maintained vehicles – safe, comfortable and with the latest safety technology."
+        },
+        {
+          "h3": "Complete Exam Preparation",
+          "p": "Theory and practical exams made easy – with thorough preparation, practice tests and individual feedback."
+        }
+      ]
+    },
+    "courses": {
+      "label": "Our Courses",
+      "h2": "Licence Classes & Courses",
+      "btn": "Book Now",
+      "cards": [
+        {
+          "badge": "Most Popular",
+          "h3": "Class B – Car Licence",
+          "p": "The classic licence for passenger vehicles (up to 3.5 t). Our comprehensive programme guides you safely through theory and practice to a passed exam.",
+          "meta": ["From 4–6 Months", "14 Mandatory Drives"]
+        },
+        {
+          "badge": "Relaxed Driving",
+          "h3": "Automatic Licence",
+          "p": "The ideal start without a clutch. The automatic licence is especially suited for learners who want to learn in a relaxed and focused way.",
+          "meta": ["From 3–5 Months", "Modern Vehicle"]
+        },
+        {
+          "badge": "Fast Track",
+          "h3": "Intensive Course",
+          "p": "For everyone who needs their licence quickly. Compressed learning programme in just a few weeks – intensive, efficient and successful.",
+          "meta": ["2–4 Weeks", "Daily Lessons"]
+        },
+        {
+          "badge": "Exam Preparation",
+          "h3": "Theory Classes",
+          "p": "Structured theory lessons in small groups – in German, English or Arabic. With state-of-the-art learning materials and online exercises.",
+          "meta": ["Flexible Schedule", "3 Languages"]
+        }
+      ]
+    },
+    "testimonials": {
+      "label": "Student Reviews",
+      "h2": "What Our Students Say",
+      "cards": [
+        {
+          "quote": "Ich habe meinen Führerschein auf Anhieb bestanden! Das Team bei Orange Fahrschule ist super professionell und geduldig. Die mehrsprachige Betreuung hat mir sehr geholfen.",
+          "name": "Layla M.",
+          "meta": "Class B · April 2024",
+          "initials": "LM"
+        },
+        {
+          "quote": "Fantastic driving school! My instructor was patient, professional, and made me feel confident. I completed the intensive course in just 3 weeks. Highly recommended!",
+          "name": "Tom K.",
+          "meta": "Intensive Course · March 2024",
+          "initials": "TK"
+        },
+        {
+          "quote": "الأفضل في المدينة! الشرح باللغة العربية ساعدني كثيراً على فهم قواعد المرور. اجتزت الاختبار من المحاولة الأولى. شكراً جزيلاً!",
+          "name": "Ahmad H.",
+          "meta": "Class B · February 2024",
+          "initials": "AH"
+        },
+        {
+          "quote": "Die flexiblen Zeiten haben mir als Berufstätiger sehr geholfen. Abend- und Wochenendstunden sind kein Problem. Tolle Fahrlehrer!",
+          "name": "Maria R.",
+          "meta": "Automatic · January 2024",
+          "initials": "MR"
+        },
+        {
+          "quote": "Mein Fahrlehrer war unglaublich kompetent und ruhig. Nach nur wenigen Stunden hatte ich deutlich mehr Selbstvertrauen. Klare Empfehlung!",
+          "name": "Jonas W.",
+          "meta": "Class B · December 2023",
+          "initials": "JW"
+        },
+        {
+          "quote": "Great experience overall! The theory lessons in English were clear and well-structured. Passed my theory test first try. Thank you Orange Fahrschule!",
+          "name": "Sara N.",
+          "meta": "Theory Course · November 2023",
+          "initials": "SN"
+        }
+      ]
+    },
+    "contact": {
+      "label": "Contact",
+      "h2": "Ready to Start?",
+      "intro": "Fill in the form or give us a call – we will get back to you as soon as possible.",
+      "form": {
+        "namePlaceholder": "Your Name",
+        "nameLabel": "Full Name",
+        "phoneLabel": "Phone Number",
+        "phonePlaceholder": "+49 000 0000000",
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "your@email.com",
+        "courseLabel": "Desired Course",
+        "courseOptions": [
+          "Class B – Car Licence",
+          "Automatic Licence",
+          "Intensive Course",
+          "Theory Classes",
+          "Other"
+        ],
+        "messageLabel": "Your Message",
+        "messagePlaceholder": "How can we help you?",
+        "submitBtn": "Send Message →"
+      },
+      "info": {
+        "addressLabel": "Our Address",
+        "addressValue": "Musterstraße 42<br>10115 Berlin, Germany",
+        "phoneLabel": "Phone",
+        "phoneValue": "+49 (0)30 123 456 78<br>Mon–Sat, 9:00–19:00",
+        "emailLabel": "Email",
+        "emailValue": "info@orange-fahrschule.de<br>Reply within 24 hours"
+      },
+      "socialLabel": "Follow Us"
+    },
+    "footer": {
+      "logoSub": "Fahrschule · Driving School",
+      "tagline": "Your reliable driving school – with heart, expertise and over 15 years of experience. We get you safely to your goal.",
+      "nav": { "title": "Navigation", "links": ["About Us", "Services", "Courses", "Reviews", "Contact"] },
+      "courses": { "title": "Courses", "links": ["Class B", "Automatic", "Intensive Course", "Theory Classes"] },
+      "legal": { "title": "Legal", "links": ["Imprint", "Privacy Policy", "T&Cs", "Cookies"] },
+      "copyright": "© 2024 Orange Fahrschule. All rights reserved.",
+      "madeWith": "Made with ❤️ for safe driver education"
+    },
+    "toast": "✓ Message sent! We'll be in touch soon.",
+    "booking": {
+      "label": "Book a Lesson",
+      "h2": "Reserve a Driving Lesson",
+      "p": "Choose your preferred date, time and optionally an instructor. Available Monday to Friday, 08:00–22:00.",
+      "instructorLabel": "Instructor (optional)",
+      "instructorPlaceholder": "No preferred instructor",
+      "instructors": [
+        { "id": "any", "name": "No preferred instructor" },
+        { "id": "ahmed", "name": "Ahmed – Arabic / German" },
+        { "id": "michael", "name": "Michael – German / English" },
+        { "id": "sara", "name": "Sara – Arabic / English" }
+      ],
+      "dateLabel": "Choose Date",
+      "timeLabel": "Choose Time",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Your name",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+49 000 0000000",
+      "unavailableDays": [0, 6],
+      "unavailableDaysNote": "Saturday and Sunday not available",
+      "timeSlots": [
+        "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00", "22:00"
+      ],
+      "submitBtn": "Book via WhatsApp →",
+      "whatsappNumber": "4930123456789",
+      "whatsappMessage": "Hello, I'd like to book a driving lesson:\n📅 Date: {date}\n🕐 Time: {time}\n👤 Instructor: {instructor}\n📞 Name: {name}\n📱 Phone: {phone}",
+      "successMsg": "✓ Redirecting you to WhatsApp!",
+      "selectTimePlaceholder": "Select time …",
+      "validationMsg": "Please fill in all required fields."
+    },
+    "reviewForm": {
+      "label": "Leave a Review",
+      "h2": "Your Opinion Matters",
+      "p": "Share your experience and help other learners make their decision.",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "First and last name",
+      "courseLabel": "Course Completed",
+      "coursePlaceholder": "e.g. Class B",
+      "ratingLabel": "Rating",
+      "commentLabel": "Your Comment",
+      "commentPlaceholder": "Tell us about your experience …",
+      "submitBtn": "Submit Review →",
+      "successMsg": "✓ Thank you for your review!"
+    }
+  },
+  "ar": {
+    "nav": {
+      "about": "من نحن",
+      "features": "خدماتنا",
+      "courses": "الدورات",
+      "testimonials": "التقييمات",
+      "contact": "اتصل بنا",
+      "booking": "احجز درس قيادة",
+      "cta": "تسجيل",
+      "logoSub": "مدرسة القيادة · Driving School"
+    },
+    "mobileMenu": {
+      "about": "من نحن",
+      "features": "خدماتنا",
+      "courses": "الدورات",
+      "testimonials": "التقييمات",
+      "contact": "اتصل بنا",
+      "booking": "احجز درس قيادة",
+      "cta": "سجّل الآن"
+    },
+    "hero": {
+      "tag": "مرحباً بك في مدرسة أورانج للقيادة",
+      "h1_plain": "تعلّم القيادة بـ",
+      "h1_em": "ثقة",
+      "h1_rest": " مع مدرسة أورانج للقيادة",
+      "p": "تدريب قيادة حديث، مدرّبون محترفون، ودعم متعدد اللغات بالألمانية والإنجليزية والعربية.",
+      "btnPrimary": "سجّل الآن",
+      "btnSecondary": "استكشف الدورات",
+      "scroll": "اسحب للأسفل"
+    },
+    "about": {
+      "label": "من نحن",
+      "h2": "مدرسة القيادة الموثوقة في مدينتك",
+      "p1": "تقدّم مدرسة أورانج للقيادة تدريباً حديثاً واحترافياً متعدد اللغات. منذ أكثر من 15 عاماً، نرافق طلابنا في رحلتهم نحو رخصة القيادة – بحرارة وكفاءة ونسبة نجاح فوق المتوسط.",
+      "p2": "يتحدّث مدرّبونا الألمانية والإنجليزية والعربية، حتى تشعر بالراحة بلغتك الأم وتتعلّم بفعّالية.",
+      "badgeSuffix": "سنة خبرة",
+      "features": [
+        "تدريب نظري وعملي احترافي",
+        "دعم ثلاثي اللغات (DE/EN/AR)",
+        "جدول مواعيد مرن",
+        "بيئة تعلّم حديثة"
+      ]
+    },
+    "stats": {
+      "items": [
+        { "number": 15, "suffix": "+", "label": "سنة خبرة" },
+        { "number": 500, "suffix": "+", "label": "طالب ناجح سنوياً" },
+        { "number": 98, "suffix": "%", "label": "نسبة النجاح" }
+      ]
+    },
+    "features": {
+      "label": "خدماتنا",
+      "h2": "كل ما تحتاجه للحصول على رخصتك",
+      "p": "من النظري إلى العملي – نقدّم لك تدريباً شاملاً بأحدث المعدات ومدرّبين ذوي خبرة.",
+      "cards": [
+        {
+          "h3": "جدول مرن للدروس",
+          "p": "دروس القيادة وفق جدولك – صباحاً أو مساءً أو في عطلات نهاية الأسبوع. نتكيّف مع حياتك اليومية."
+        },
+        {
+          "h3": "دورة مكثّفة",
+          "p": "احصل على رخصتك في أقصر وقت – دورتنا المكثّفة مثالية لمن يريد الوصول إلى هدفه بسرعة وكفاءة."
+        },
+        {
+          "h3": "تدريس متعدد اللغات",
+          "p": "حصص نظرية بالألمانية والإنجليزية والعربية. تعلّم بلغتك – بوضوح وفعّالية."
+        },
+        {
+          "h3": "مدرّبون ذوو خبرة",
+          "p": "يرافقك مدرّبونا المعتمدون بصبر وكفاءة والتزام شخصي حتى تحصل على رخصتك."
+        },
+        {
+          "h3": "سيارات حديثة",
+          "p": "تعلّم القيادة في سيارات حديثة مُعتنى بها – آمنة ومريحة ومجهّزة بأحدث تقنيات السلامة."
+        },
+        {
+          "h3": "تحضير كامل للاختبار",
+          "p": "اجتز اختباري النظري والعملي بثقة – مع تحضير شامل واختبارات تجريبية وتغذية راجعة فردية."
+        }
+      ]
+    },
+    "courses": {
+      "label": "دوراتنا",
+      "h2": "فئات الرخصة والدورات",
+      "btn": "احجز الآن",
+      "cards": [
+        {
+          "badge": "الخيار الأكثر شعبية",
+          "h3": "الفئة B – رخصة السيارة",
+          "p": "الرخصة الكلاسيكية للسيارات الخاصة (حتى 3.5 طن). برنامجنا الشامل يقودك بأمان عبر النظري والعملي حتى اجتياز الاختبار.",
+          "meta": ["من 4 إلى 6 أشهر", "14 قيادة إلزامية"]
+        },
+        {
+          "badge": "قيادة مريحة",
+          "h3": "رخصة الأوتوماتيك",
+          "p": "البداية المثالية بدون دبرياج. رخصة الأوتوماتيك مناسبة بشكل خاص للطلاب الراغبين في التعلّم بطريقة مريحة ومركّزة.",
+          "meta": ["من 3 إلى 5 أشهر", "سيارة حديثة"]
+        },
+        {
+          "badge": "الوصول السريع",
+          "h3": "الدورة المكثّفة",
+          "p": "لمن يحتاج رخصته بسرعة. برنامج تعلّم مضغوط في أسابيع قليلة – مكثّف وفعّال وناجح.",
+          "meta": ["2 إلى 4 أسابيع", "دروس يومية"]
+        },
+        {
+          "badge": "التحضير للاختبار",
+          "h3": "الدروس النظرية",
+          "p": "دروس نظرية منظّمة في مجموعات صغيرة – بالألمانية أو الإنجليزية أو العربية. مع أحدث المواد التعليمية وتمارين إلكترونية.",
+          "meta": ["مواعيد مرنة", "3 لغات"]
+        }
+      ]
+    },
+    "testimonials": {
+      "label": "آراء الطلاب",
+      "h2": "ماذا يقول طلابنا",
+      "cards": [
+        {
+          "quote": "Ich habe meinen Führerschein auf Anhieb bestanden! Das Team bei Orange Fahrschule ist super professionell und geduldig. Die mehrsprachige Betreuung hat mir sehr geholfen.",
+          "name": "Layla M.",
+          "meta": "الفئة B · أبريل 2024",
+          "initials": "LM"
+        },
+        {
+          "quote": "Fantastic driving school! My instructor was patient, professional, and made me feel confident. I completed the intensive course in just 3 weeks. Highly recommended!",
+          "name": "Tom K.",
+          "meta": "دورة مكثّفة · مارس 2024",
+          "initials": "TK"
+        },
+        {
+          "quote": "الأفضل في المدينة! الشرح باللغة العربية ساعدني كثيراً على فهم قواعد المرور. اجتزت الاختبار من المحاولة الأولى. شكراً جزيلاً!",
+          "name": "Ahmad H.",
+          "meta": "الفئة B · فبراير 2024",
+          "initials": "AH"
+        },
+        {
+          "quote": "Die flexiblen Zeiten haben mir als Berufstätiger sehr geholfen. Abend- und Wochenendstunden sind kein Problem. Tolle Fahrlehrer!",
+          "name": "Maria R.",
+          "meta": "أوتوماتيك · يناير 2024",
+          "initials": "MR"
+        },
+        {
+          "quote": "Mein Fahrlehrer war unglaublich kompetent und ruhig. Nach nur wenigen Stunden hatte ich deutlich mehr Selbstvertrauen. Klare Empfehlung!",
+          "name": "Jonas W.",
+          "meta": "الفئة B · ديسمبر 2023",
+          "initials": "JW"
+        },
+        {
+          "quote": "Great experience overall! The theory lessons in English were clear and well-structured. Passed my theory test first try. Thank you Orange Fahrschule!",
+          "name": "Sara N.",
+          "meta": "دورة نظرية · نوفمبر 2023",
+          "initials": "SN"
+        }
+      ]
+    },
+    "contact": {
+      "label": "اتصل بنا",
+      "h2": "هل أنت مستعد للبدء؟",
+      "intro": "أكمل النموذج أو اتصل بنا – سنردّ عليك في أقرب وقت ممكن.",
+      "form": {
+        "namePlaceholder": "اسمك",
+        "nameLabel": "الاسم الكامل",
+        "phoneLabel": "رقم الهاتف",
+        "phonePlaceholder": "+49 000 0000000",
+        "emailLabel": "البريد الإلكتروني",
+        "emailPlaceholder": "بريدك@example.com",
+        "courseLabel": "الدورة المرغوبة",
+        "courseOptions": [
+          "الفئة B – رخصة السيارة",
+          "رخصة الأوتوماتيك",
+          "الدورة المكثّفة",
+          "الدروس النظرية",
+          "أخرى"
+        ],
+        "messageLabel": "رسالتك",
+        "messagePlaceholder": "كيف يمكننا مساعدتك؟",
+        "submitBtn": "إرسال الرسالة →"
+      },
+      "info": {
+        "addressLabel": "عنواننا",
+        "addressValue": "Musterstraße 42<br>10115 برلين، ألمانيا",
+        "phoneLabel": "الهاتف",
+        "phoneValue": "+49 (0)30 123 456 78<br>الاثنين – السبت، 9:00–19:00",
+        "emailLabel": "البريد الإلكتروني",
+        "emailValue": "info@orange-fahrschule.de<br>ردّ خلال 24 ساعة"
+      },
+      "socialLabel": "تابعنا"
+    },
+    "footer": {
+      "logoSub": "مدرسة القيادة · Driving School",
+      "tagline": "مدرسة القيادة الموثوقة – بحرارة وكفاءة وأكثر من 15 عاماً من الخبرة. نوصلك إلى هدفك بأمان.",
+      "nav": { "title": "التنقّل", "links": ["من نحن", "خدماتنا", "الدورات", "التقييمات", "اتصل بنا"] },
+      "courses": { "title": "الدورات", "links": ["الفئة B", "أوتوماتيك", "الدورة المكثّفة", "الدروس النظرية"] },
+      "legal": { "title": "قانوني", "links": ["بيانات الناشر", "سياسة الخصوصية", "الشروط العامة", "الكوكيز"] },
+      "copyright": "© 2024 Orange Fahrschule. جميع الحقوق محفوظة.",
+      "madeWith": "صُنع بـ ❤️ من أجل تعليم قيادة آمن"
+    },
+    "toast": "✓ تم إرسال رسالتك! سنتواصل معك قريباً.",
+    "booking": {
+      "label": "احجز درس قيادة",
+      "h2": "احجز موعداً لساعة قيادة",
+      "p": "اختر التاريخ والوقت المناسبَين لك، وحدّد المدرّب إن أردت. متاح من الاثنين إلى الجمعة، من 08:00 حتى 22:00.",
+      "instructorLabel": "المدرّب (اختياري)",
+      "instructorPlaceholder": "بدون تفضيل للمدرّب",
+      "instructors": [
+        { "id": "any", "name": "بدون تفضيل للمدرّب" },
+        { "id": "ahmed", "name": "أحمد – عربي / ألماني" },
+        { "id": "michael", "name": "مايكل – ألماني / إنجليزي" },
+        { "id": "sara", "name": "سارة – عربي / إنجليزي" }
+      ],
+      "dateLabel": "اختر التاريخ",
+      "timeLabel": "اختر الوقت",
+      "nameLabel": "الاسم الكامل",
+      "namePlaceholder": "اسمك",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "+49 000 0000000",
+      "unavailableDays": [0, 6],
+      "unavailableDaysNote": "السبت والأحد غير متاحَين",
+      "timeSlots": [
+        "08:00", "09:00", "10:00", "11:00", "12:00",
+        "13:00", "14:00", "15:00", "16:00", "17:00",
+        "18:00", "19:00", "20:00", "21:00", "22:00"
+      ],
+      "submitBtn": "احجز عبر واتساب →",
+      "whatsappNumber": "4930123456789",
+      "whatsappMessage": "مرحباً، أرغب في حجز ساعة قيادة:\n📅 التاريخ: {date}\n🕐 الوقت: {time}\n👤 المدرّب: {instructor}\n📞 الاسم: {name}\n📱 الهاتف: {phone}",
+      "successMsg": "✓ جاري تحويلك إلى واتساب!",
+      "selectTimePlaceholder": "اختر الوقت …",
+      "validationMsg": "يرجى ملء جميع الحقول المطلوبة."
+    },
+    "reviewForm": {
+      "label": "أضف تقييمك",
+      "h2": "رأيك يهمّنا",
+      "p": "شاركنا تجربتك وساعد الطلاب الآخرين على اتخاذ قرارهم.",
+      "nameLabel": "اسمك",
+      "namePlaceholder": "الاسم الأول والأخير",
+      "courseLabel": "الدورة التي أتممتها",
+      "coursePlaceholder": "مثلاً: الفئة B",
+      "ratingLabel": "التقييم",
+      "commentLabel": "تعليقك",
+      "commentPlaceholder": "أخبرنا عن تجربتك …",
+      "submitBtn": "إرسال التقييم →",
+      "successMsg": "✓ شكراً جزيلاً على تقييمك!"
+    }
+  }
+}
