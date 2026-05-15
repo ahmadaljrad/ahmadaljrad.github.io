@@ -663,41 +663,176 @@ body.dark-mode .comment-form-wrap { background: #1E1A16; border-color: #2A2420; 
 .trainer-wa-btn:hover { background: #1DAE56; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,211,102,0.35); }
 
 /* ===== COMMENTS ===== */
-.comments-section { background: var(--cream); }
-.comments-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
-.comment-form-wrap {
-  background: var(--white); border-radius: var(--radius); padding: 2rem;
-  box-shadow: var(--shadow-sm); border: 1.5px solid var(--beige-mid);
-  height: fit-content;
+.comments-section { 
+  background: var(--cream);
+  position: relative;
 }
-.comment-form { display: flex; flex-direction: column; gap: 1rem; }
-.comment-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.star-picker { display: flex; gap: 4px; font-size: 1.8rem; cursor: pointer; margin-top: 4px; }
-.star-picker span { color: var(--beige-mid); transition: color 0.15s; line-height: 1; }
-.star-picker span.active { color: var(--orange); }
-.star-picker span:hover,
-.star-picker span:hover ~ span { color: var(--beige-mid); }
-.star-picker:hover span { color: var(--orange); }
-.star-picker span:hover ~ span { color: var(--beige-mid) !important; }
-.comments-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+body.dark-mode .comments-section {
+  background: linear-gradient(135deg, #141210 0%, #1E1A16 100%);
+}
+
+/* LAYOUT */
+.comments-layout { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 3rem; 
+  margin-top: 3rem; 
+}
+
+/* FORM WRAPPER */
+.comment-form-wrap {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--beige-mid);
+}
+
+body.dark-mode .comment-form-wrap {
+  background: #1E1A16;
+  border-color: #2A2420;
+  box-shadow: none;
+}
+
+/* FORM */
+.comment-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1rem; 
+}
+
+.comment-form-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem; 
+}
+
+/* STAR RATING */
+.star-picker { 
+  display: flex; 
+  gap: 4px; 
+  font-size: 1.8rem; 
+  cursor: pointer; 
+  margin-top: 4px; 
+}
+
+.star-picker span { 
+  color: var(--beige-mid); 
+  transition: color 0.15s; 
+  line-height: 1; 
+}
+
+.star-picker span.active { 
+  color: var(--orange); 
+}
+
+.star-picker:hover span { 
+  color: var(--orange); 
+}
+
+.star-picker span:hover ~ span { 
+  color: var(--beige-mid) !important; 
+}
+
+/* LIST */
+.comments-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.25rem; 
+}
+
+/* CARD BASE */
 .comment-card {
-  background: var(--white); border-radius: var(--radius); padding: 1.5rem;
-  box-shadow: var(--shadow-sm); border: 1.5px solid var(--beige-mid);
+  border-radius: var(--radius);
+  padding: 1.5rem;
   transition: all 0.3s ease;
 }
-.comment-card:hover { border-color: rgba(232,100,26,0.3); box-shadow: var(--shadow-md); }
-.comment-card.new-comment { animation: fadeUp 0.5s ease both; }
-.comment-header { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
-.comment-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--orange); display: flex; align-items: center;
-  justify-content: center; font-weight: 700; color: white;
-  font-size: 0.85rem; flex-shrink: 0;
+
+/* LIGHT MODE */
+body:not(.dark-mode) .comment-card {
+  background: var(--white);
+  border: 1.5px solid var(--beige-mid);
+  box-shadow: var(--shadow-sm);
 }
-.comment-author { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
-.comment-stars { color: var(--orange); font-size: 0.85rem; }
-.comment-date { margin-left: auto; font-size: 0.75rem; color: var(--light-text); }
-.comment-text { color: var(--mid); font-size: 0.9rem; line-height: 1.7; }
+
+body:not(.dark-mode) .comment-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--orange);
+  box-shadow: var(--shadow-lg);
+}
+
+/* DARK MODE */
+body.dark-mode .comment-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+body.dark-mode .comment-card:hover {
+  background: rgba(232,100,26,0.12);
+  border-color: rgba(232,100,26,0.3);
+  transform: translateY(-5px);
+}
+
+/* COMMENT HEADER */
+.comment-header { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  margin-bottom: 0.75rem; 
+}
+
+/* AVATAR */
+.comment-avatar {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;
+  background: var(--orange); 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  font-weight: 700; 
+  color: white;
+  font-size: 0.85rem; 
+  flex-shrink: 0;
+}
+
+/* TEXT */
+.comment-author { 
+  font-weight: 600; 
+  color: var(--dark); 
+  font-size: 0.95rem; 
+}
+
+.comment-stars { 
+  color: var(--orange); 
+  font-size: 0.85rem; 
+}
+
+.comment-date { 
+  margin-left: auto; 
+  font-size: 0.75rem; 
+  color: var(--light-text); 
+}
+
+.comment-text { 
+  color: var(--mid); 
+  font-size: 0.9rem; 
+  line-height: 1.7; 
+}
+
+/* DARK MODE TEXT FIX */
+body.dark-mode .comment-text {
+  color: rgba(255,255,255,0.75);
+}
+
+body.dark-mode .comment-author {
+  color: #ffffff;
+}
+
+body.dark-mode .comment-date {
+  color: rgba(255,255,255,0.4);
+}
 
 /* ===== WHATSAPP FLOAT ===== */
 .wa-float-btn {
