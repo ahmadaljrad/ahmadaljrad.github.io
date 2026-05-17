@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  ⚠️ SECURITY WARNING ⚠️
+  This file contains a hardcoded GitHub Personal Access Token (GITHUB_TOKEN).
+  Never share this file or open it on a public network.
+  For local personal use only.
+-->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="gh-uploader" />
+<meta name="theme-color" content="#0d0f14" />
+<title>GitHub Uploader</title>
+
+<!-- PWA Manifest (inline via JS blob — works without a server) -->
+<script>
+(function() {
+  const manifest = {
+    name: "GitHub Uploader",
+    short_name: "gh-uploader",
+    description: "Upload files to your GitHub repositories",
+    start_url: ".",
+    display: "standalone",
+    background_color: "#0d0f14",
+    theme_color: "#0d0f14",
+    orientation: "portrait",
+    icons: [
+      {
+        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231e2330'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M96 28C58.3 28 28 58.3 28 96c0 30.1 19.5 55.6 46.6 64.6 3.4.6 4.6-1.5 4.6-3.3 0-1.6-.1-5.9-.1-11.6-19 4.1-23-8.1-23-8.1-3.1-7.9-7.6-10-7.6-10-6.2-4.2.5-4.1.5-4.1 6.8.5 10.4 7 10.4 7 6.1 10.4 16 7.4 19.9 5.7.6-4.4 2.4-7.4 4.3-9.1-15.1-1.7-31-7.6-31-33.7 0-7.4 2.7-13.5 7-18.3-.7-1.7-3-8.7.7-18 0 0 5.7-1.8 18.7 7A65.3 65.3 0 0196 66.1c5.8 0 11.6.8 17 2.3 13-8.8 18.7-7 18.7-7 3.7 9.3 1.4 16.3.7 18 4.4 4.8 7 10.9 7 18.3 0 26.2-16 31.9-31.2 33.6 2.5 2.1 4.6 6.3 4.6 12.6 0 9.1-.1 16.4-.1 18.7 0 1.8 1.2 3.9 4.7 3.3C148.6 151.6 168 126.1 168 96c0-37.7-30.3-68-72-68z' fill='%234ade80'/%3E%3C/svg%3E",
+        sizes: "192x192",
+        type: "image/svg+xml"
+      },
+      {
+        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231e2330'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M256 72C154.3 72 72 154.3 72 256c0 80.3 52 148.3 124.3 172.3 9.1 1.7 12.4-3.9 12.4-8.7 0-4.3-.1-15.7-.1-30.9-50.5 10.9-61.2-21.7-61.2-21.7-8.3-21-20.2-26.6-20.2-26.6-16.5-11.3 1.2-11 1.2-11 18.2 1.3 27.8 18.7 27.8 18.7 16.2 27.8 42.5 19.7 52.9 15.1 1.6-11.7 6.3-19.7 11.5-24.2-40.4-4.6-82.8-20.2-82.8-89.8 0-19.8 7.1-36 18.7-48.7-1.9-4.6-8.1-23 1.8-48 0 0 15.2-4.9 49.8 18.6A174.2 174.2 0 01256 176c15.4 0 31 2 45.5 6.1 34.6-23.5 49.8-18.6 49.8-18.6 9.9 25 3.7 43.4 1.8 48 11.7 12.7 18.7 28.9 18.7 48.7 0 69.8-42.6 85.1-83.2 89.6 6.5 5.6 12.4 16.7 12.4 33.7 0 24.3-.1 43.8-.1 49.8 0 4.8 3.2 10.5 12.5 8.7C388.1 404.3 440 336.3 440 256c0-101.7-82.3-184-184-184z' fill='%234ade80'/%3E%3C/svg%3E",
+        sizes: "512x512",
+        type: "image/svg+xml"
+      }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = url;
+  document.head.appendChild(link);
+})();
+</script>
+
+<!-- Apple Touch Icon (inline SVG → PNG via canvas) -->
+<script>
+(function() {
+  // Generate Apple touch icon from SVG
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+    <rect width="180" height="180" rx="40" fill="#1e2330"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M90 25C55.8 25 28 52.8 28 87c0 27.4 17.7 50.7 42.4 58.9 3.1.6 4.2-1.3 4.2-3 0-1.5 0-5.4-.1-10.5-17.3 3.8-21-7.4-21-7.4-2.8-7.2-6.9-9.1-6.9-9.1-5.6-3.9.4-3.8.4-3.8 6.2.4 9.5 6.4 9.5 6.4 5.5 9.5 14.5 6.7 18 5.1.6-4 2.2-6.7 3.9-8.3-13.8-1.6-28.3-6.9-28.3-30.7 0-6.8 2.4-12.3 6.4-16.6-.6-1.6-2.8-7.9.6-16.4 0 0 5.2-1.7 17 6.3A58.8 58.8 0 0190 60.2c5.3 0 10.6.7 15.5 2.1 11.8-8 17-6.3 17-6.3 3.4 8.5 1.3 14.8.6 16.4 4 4.3 6.4 9.8 6.4 16.6 0 23.8-14.5 29.1-28.4 30.6 2.2 1.9 4.2 5.7 4.2 11.5 0 8.3 0 15-.1 17 0 1.7 1.1 3.6 4.3 3C134.3 137.7 152 114.4 152 87 152 52.8 124.2 25 90 25z" fill="#4ade80"/>
+  </svg>`;
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('link');
+  link.rel = 'apple-touch-icon';
+  link.href = url;
+  document.head.appendChild(link);
+})();
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Variables ─── */
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a23;
+    --surface2: #1e2330;
+    --border: #2a3040;
+    --accent: #4ade80;
+    --accent2: #22d3ee;
+    --danger: #f87171;
+    --warn: #fbbf24;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --radius: 12px;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  /* ─── Reset & Base ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+             env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+    /* Prevent pull-to-refresh and overscroll */
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  /* ─── Background texture ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(74,222,128,.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 90%, rgba(34,211,238,.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Install Banner ─── */
+  #install-banner {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 999;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 14px 16px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideUp .3s ease;
+  }
+  #install-banner.hidden { display: none !important; }
+  #install-banner .banner-icon {
+    width: 44px; height: 44px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  #install-banner .banner-text { flex: 1; }
+  #install-banner .banner-text strong { display: block; font-size: 0.88rem; }
+  #install-banner .banner-text span { font-size: 0.75rem; color: var(--muted); }
+  #install-banner .banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
+  #install-btn {
+    padding: 9px 16px;
+    background: var(--accent);
+    color: #0a1a0f;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  #dismiss-btn {
+    padding: 9px 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  /* ─── iOS Install Guide ─── */
+  #ios-guide {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(4px);
+    align-items: flex-end;
+    justify-content: center;
+  }
+  #ios-guide.show { display: flex; }
+  .ios-guide-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    padding: 28px 20px;
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    width: 100%;
+    max-width: 480px;
+    animation: slideUp .35s ease;
+  }
+  .ios-guide-box h3 {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .ios-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ios-step:last-of-type { border-bottom: none; }
+  .ios-step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--accent2);
+    color: #0a1a0f;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ios-step-text { font-size: 0.88rem; line-height: 1.4; }
+  .ios-step-text strong { color: var(--accent2); }
+  .ios-close-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  /* Arrow pointing to Safari share button */
+  .ios-arrow {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 8px;
+    animation: bounce .8s ease infinite alternate;
+  }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(6px); } }
+
+  /* ─── Layout ─── */
+  .shell {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ─── Header ─── */
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo { width: 32px; height: 32px; flex-shrink: 0; }
+  .logo svg { display: block; }
+  h1 {
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    flex: 1;
+  }
+  /* Install shortcut in header */
+  #install-shortcut {
+    display: none;
+    padding: 6px 12px;
+    background: rgba(74,222,128,.1);
+    border: 1px solid rgba(74,222,128,.3);
+    border-radius: 20px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    font-family: var(--mono);
+  }
+
+  /* ─── Card ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeUp .35s ease both;
+  }
+  .card-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+  }
+
+  /* ─── Form controls ─── */
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    user-select: none;
+  }
+  label span { color: var(--muted); font-size: 0.75rem; font-weight: 400; }
+
+  select, input[type="text"] {
+    appearance: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    padding: 11px 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    user-select: text;
+  }
+  select:focus, input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(74,222,128,.12);
+  }
+  select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+  /* ─── File drop zone ─── */
+  .dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .dropzone:hover, .dropzone.drag-over {
+    border-color: var(--accent);
+    background: rgba(74,222,128,.04);
+  }
+  .dropzone input[type="file"] { display: none; }
+  .dropzone-icon { font-size: 2rem; line-height: 1; }
+  .dropzone-label { font-size: 0.88rem; color: var(--muted); line-height: 1.4; }
+  .dropzone-label strong { color: var(--text); font-weight: 600; }
+  .file-chosen {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    word-break: break-all;
+    display: none;
+  }
+
+  /* ─── Mode toggle ─── */
+  .mode-toggle { display: flex; gap: 8px; }
+  .mode-btn {
+    flex: 1;
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .mode-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(74,222,128,.08);
+  }
+
+  /* ─── Browse button ─── */
+  .btn-browse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 11px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-browse:hover {
+    border-color: var(--accent);
+    background: rgba(74,222,128,.05);
+  }
+
+  /* ─── Image preview ─── */
+  #preview-wrap {
+    display: none;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  #preview-wrap img {
+    width: 100%;
+    display: block;
+    max-height: 220px;
+    object-fit: contain;
+    padding: 8px;
+  }
+
+  /* ─── Button ─── */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: opacity .2s, transform .1s, box-shadow .2s;
+    background: linear-gradient(135deg, var(--accent), #22c55e);
+    color: #0a1a0f;
+  }
+  .btn:hover:not(:disabled) { box-shadow: 0 0 24px rgba(74,222,128,.3); }
+  .btn:active:not(:disabled) { transform: scale(0.98); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(0,0,0,.3);
+    border-top-color: #0a1a0f;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: none;
+  }
+  .btn.loading .spinner { display: block; }
+  .btn.loading .btn-text { opacity: .7; }
+
+  /* ─── Status ─── */
+  #status {
+    display: none;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    animation: fadeUp .3s ease;
+  }
+  #status.info  { background: rgba(34,211,238,.1);  border: 1px solid rgba(34,211,238,.25); color: var(--accent2); }
+  #status.ok    { background: rgba(74,222,128,.1);  border: 1px solid rgba(74,222,128,.25); color: var(--accent); }
+  #status.error { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.25); color: var(--danger); }
+  #status.warn  { background: rgba(251,191,36,.1);  border: 1px solid rgba(251,191,36,.25);  color: var(--warn); }
+
+  /* ─── Token Setup Screen ─── */
+  #token-screen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: var(--bg);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #token-screen.show { display: flex; }
+  .token-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .token-box h2 {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .token-box p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .token-box p a {
+    color: var(--accent2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .token-input-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  #token-input {
+    flex: 1;
+    appearance: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    user-select: text;
+  }
+  #token-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(74,222,128,.12);
+  }
+  #token-toggle {
+    padding: 11px 13px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  #token-save-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--accent), #22c55e);
+    color: #0a1a0f;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  #token-save-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .token-note {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: rgba(74,222,128,.06);
+    border: 1px solid rgba(74,222,128,.15);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    color: #86efac;
+    line-height: 1.5;
+  }
+
+  /* ─── Token change button in header ─── */
+  #change-token-btn {
+    padding: 5px 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color .2s, color .2s;
+  }
+  #change-token-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+  /* ─── Security note ─── */
+  .sec-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(248,113,113,.07);
+    border: 1px solid rgba(248,113,113,.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.78rem;
+    color: #fca5a5;
+    line-height: 1.5;
+  }
+  .sec-note .icon { flex-shrink: 0; font-size: 1rem; margin-top: 1px; }
+
+  /* ─── Section disabled state ─── */
+  .card.disabled { opacity: .4; pointer-events: none; }
+
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ─── Repo meta badge ─── */
+  .repo-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+    display: none;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .badge.pub { border-color: rgba(34,211,238,.3); color: var(--accent2); }
+  .badge.priv { border-color: rgba(251,191,36,.3); color: var(--warn); }
+</style>
+</head>
+<body>
+
+<!-- Token Setup Screen -->
+<div id="token-screen" class="show">
+  <div class="token-box">
+    <h2>🔑 GitHub Token</h2>
+    <p>أدخل الـ Personal Access Token الخاص بك. سيُحفظ على جهازك فقط ولن يظهر في الكود.</p>
+    <div class="token-input-wrap">
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" />
+      <button id="token-toggle" title="إظهار/إخفاء">👁</button>
+    </div>
+    <button id="token-save-btn" disabled>حفظ والمتابعة →</button>
+    <div class="token-note">
+      🔒 يُخزَّن في localStorage على جهازك فقط — لا يُرفع لأي مكان
+    </div>
+  </div>
+</div>
+
+<!-- iOS Install Guide Modal -->
+<div id="ios-guide" role="dialog" aria-modal="true">
+  <div class="ios-guide-box">
+    <h3>📱 Add to Home Screen</h3>
+    <div class="ios-step">
+      <div class="ios-step-num">1</div>
+      <div class="ios-step-text">Tap the <strong>Share button</strong> (□↑) in Safari's toolbar</div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-step-num">2</div>
+      <div class="ios-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong></div>
+    </div>
+    <div class="ios-step">
+      <div class="ios-step-num">3</div>
+      <div class="ios-step-text">Tap <strong>"Add"</strong> — done! Open like any app 🎉</div>
+    </div>
+    <div class="ios-arrow">👇</div>
+    <button class="ios-close-btn" onclick="document.getElementById('ios-guide').classList.remove('show')">Got it</button>
+  </div>
+</div>
+
+<!-- Android/Desktop Install Banner -->
+<div id="install-banner" class="hidden">
+  <div class="banner-icon">⬆️</div>
+  <div class="banner-text">
+    <strong>Add to Home Screen</strong>
+    <span>Install as an app — works offline</span>
+  </div>
+  <div class="banner-actions">
+    <button id="install-btn">Install</button>
+    <button id="dismiss-btn">✕</button>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#1e2330"/>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16 5C10.477 5 6 9.477 6 15c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.461-1.11-1.461-.907-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.087.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0116 9.842c.85.004 1.705.114 2.504.336 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C23.138 23.163 26 19.418 26 15c0-5.523-4.477-10-10-10z"
+            fill="#4ade80"/>
+        </svg>
+      </div>
+      <h1>gh-uploader</h1>
+      <button id="change-token-btn" onclick="showTokenScreen()">🔑 Token</button>
+      <button id="install-shortcut" onclick="showInstallPrompt()">＋ Install</button>
+    </div>
+    <div class="sub">// upload files to any github repo</div>
+  </div>
+
+  <!-- Security warning -->
+  <div class="sec-note">
+    <span class="icon">⚠️</span>
+    <span><strong>Security notice:</strong> This app uses a hardcoded GitHub token. Never share or publish this file. Anyone with access to this file can read or modify your repositories.</span>
+  </div>
+
+  <!-- Step 1: Repo -->
+  <div class="card" id="card-repo">
+    <div class="card-title">01 — Repository</div>
+    <label>
+      Select a repository
+      <span>Fetching your repos on load…</span>
+      <select id="repo-select" disabled>
+        <option value="">Loading repositories…</option>
+      </select>
+    </label>
+    <div class="repo-meta" id="repo-meta">
+      <span class="badge" id="badge-vis">—</span>
+      <span class="badge" id="badge-lang">—</span>
+      <span class="badge" id="badge-stars">—</span>
+    </div>
+  </div>
+
+  <!-- Step 2: Destination -->
+  <div class="card disabled" id="card-dest">
+    <div class="card-title">02 — Destination folder</div>
+    <label>
+      Folder path
+      <span>e.g. images/uploads — leave empty for repo root</span>
+      <input type="text" id="folder-input" placeholder="uploads" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    </label>
+  </div>
+
+  <!-- Step 3: File -->
+  <div class="card disabled" id="card-file">
+    <div class="card-title">03 — Files</div>
+
+    <!-- Mode toggle -->
+    <div class="mode-toggle">
+      <button type="button" class="mode-btn active" id="mode-files">📄 Files</button>
+      <button type="button" class="mode-btn" id="mode-folder">📁 Folder</button>
+    </div>
+
+    <!-- Hidden inputs -->
+    <input type="file" id="file-input" multiple style="display:none" />
+    <input type="file" id="folder-input-files" webkitdirectory multiple style="display:none" />
+
+    <div class="dropzone" id="dropzone">
+      <div class="dropzone-icon" id="dropzone-icon">📎</div>
+      <div class="dropzone-label" id="dropzone-label"><strong>Tap to select files</strong><br/>any file type, multiple files allowed</div>
+      <div class="file-chosen" id="file-chosen"></div>
+    </div>
+    <button type="button" class="btn-browse" id="browse-btn">📂 Browse & Select Files</button>
+    <div id="preview-wrap"><img id="preview-img" src="" alt="preview" /></div>
+  </div>
+
+  <!-- Upload button -->
+  <button class="btn" id="upload-btn" disabled>
+    <div class="spinner"></div>
+    <span class="btn-text">Upload to GitHub</span>
+  </button>
+
+  <!-- Status -->
+  <div id="status"></div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Token stored in localStorage — never hardcoded in source
+// ─────────────────────────────────────────────────────────────────────────────
+const REPO_OWNER = 'ahmadaljrad';
+let GITHUB_TOKEN = '';
+
+// ─── Token Screen Logic ──────────────────────────────────────────────────────
+function showTokenScreen() {
+  document.getElementById('token-screen').classList.add('show');
+  document.getElementById('token-input').value = '';
+  document.getElementById('token-save-btn').disabled = true;
+}
+
+function hideTokenScreen() {
+  document.getElementById('token-screen').classList.remove('show');
+}
+
+document.getElementById('token-input').addEventListener('input', function() {
+  document.getElementById('token-save-btn').disabled = this.value.trim().length < 10;
+});
+
+document.getElementById('token-toggle').addEventListener('click', function() {
+  const inp = document.getElementById('token-input');
+  if (inp.type === 'password') { inp.type = 'text'; this.textContent = '🙈'; }
+  else { inp.type = 'password'; this.textContent = '👁'; }
+});
+
+document.getElementById('token-save-btn').addEventListener('click', function() {
+  const val = document.getElementById('token-input').value.trim();
+  if (!val) return;
+  localStorage.setItem('gh_uploader_token', val);
+  GITHUB_TOKEN = val;
+  hideTokenScreen();
+  loadRepos();
+});
+
+// ─── Init: load token from localStorage ─────────────────────────────────────
+const _stored = localStorage.getItem('gh_uploader_token');
+if (_stored) {
+  GITHUB_TOKEN = _stored;
+  hideTokenScreen();
+} // else token-screen stays visible
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+// ─── DOM refs ───────────────────────────────────────────────────────────────
+const repoSelect   = document.getElementById('repo-select');
+const repoMeta     = document.getElementById('repo-meta');
+const badgeVis     = document.getElementById('badge-vis');
+const badgeLang    = document.getElementById('badge-lang');
+const badgeStars   = document.getElementById('badge-stars');
+const folderInput  = document.getElementById('folder-input');
+const fileInput    = document.getElementById('file-input');
+const dropzone     = document.getElementById('dropzone');
+const fileChosen   = document.getElementById('file-chosen');
+const previewWrap  = document.getElementById('preview-wrap');
+const previewImg   = document.getElementById('preview-img');
+const uploadBtn    = document.getElementById('upload-btn');
+const statusEl     = document.getElementById('status');
+const cardDest     = document.getElementById('card-dest');
+const cardFile     = document.getElementById('card-file');
+
+let repos = [];
+let selectedFiles = [];
+
+// ─── PWA Install Logic ───────────────────────────────────────────────────────
+let deferredPrompt = null;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches
+  || window.navigator.standalone === true;
+
+function showInstallPrompt() {
+  if (isIOS) {
+    document.getElementById('ios-guide').classList.add('show');
+  } else if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      deferredPrompt = null;
+      document.getElementById('install-banner').classList.add('hidden');
+      document.getElementById('install-shortcut').style.display = 'none';
+    });
+  }
+}
+
+// Android / Chrome install
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!isInStandaloneMode) {
+    const banner = document.getElementById('install-banner');
+    banner.classList.remove('hidden');
+    document.getElementById('install-shortcut').style.display = 'block';
+  }
+});
+
+document.getElementById('install-btn').addEventListener('click', showInstallPrompt);
+document.getElementById('dismiss-btn').addEventListener('click', () => {
+  document.getElementById('install-banner').classList.add('hidden');
+  document.getElementById('install-shortcut').style.display = 'block';
+});
+
+// iOS: show install shortcut button if not already installed
+if (isIOS && !isInStandaloneMode) {
+  document.getElementById('install-shortcut').style.display = 'block';
+}
+
+// If already installed as PWA, hide everything install-related
+if (isInStandaloneMode) {
+  document.getElementById('install-banner').classList.add('hidden');
+  document.getElementById('install-shortcut').style.display = 'none';
+}
+
+// Register inline Service Worker for offline support
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'gh-uploader-v1';
+    const ASSETS = [location.href];
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+    });
+    self.addEventListener('fetch', e => {
+      // Only cache same-origin requests (not GitHub API)
+      if (new URL(e.request.url).origin !== location.origin) return;
+      e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request))
+      );
+    });
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
+function showStatus(msg, type = 'info') {
+  statusEl.textContent = msg;
+  statusEl.className = type;
+  statusEl.style.display = 'block';
+}
+function hideStatus() { statusEl.style.display = 'none'; }
+
+function setLoading(on) {
+  uploadBtn.disabled = on;
+  uploadBtn.classList.toggle('loading', on);
+}
+
+function enableCard(el) { el.classList.remove('disabled'); }
+function disableCard(el) { el.classList.add('disabled'); }
+
+function checkUploadReady() {
+  const repoOk = repoSelect.value !== '';
+  const fileOk = selectedFiles.length > 0;
+  uploadBtn.disabled = !(repoOk && fileOk);
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// ─── Folder input: enforce lowercase ────────────────────────────────────────
+folderInput.addEventListener('input', () => {
+  const pos = folderInput.selectionStart;
+  folderInput.value = folderInput.value.toLowerCase();
+  folderInput.setSelectionRange(pos, pos);
+});
+
+// ─── Load repos ──────────────────────────────────────────────────────────────
+async function loadRepos() {
+  if (!GITHUB_TOKEN) { showTokenScreen(); return; }
+  showStatus('Fetching repositories…', 'info');
+  try {
+    const res = await fetch(
+      `https://api.github.com/users/${REPO_OWNER}/repos?per_page=100&sort=updated`,
+      { headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (res.status === 401) {
+      localStorage.removeItem('gh_uploader_token');
+      GITHUB_TOKEN = '';
+      repoSelect.innerHTML = '<option value="">—</option>';
+      showStatus('❌ التوكن غير صحيح أو منتهي الصلاحية', 'error');
+      showTokenScreen();
+      return;
+    }
+    if (!res.ok) throw new Error(`GitHub API error ${res.status}: ${res.statusText}`);
+    repos = await res.json();
+
+    repoSelect.innerHTML = '<option value="">— choose a repository —</option>';
+    repos.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.name;
+      opt.textContent = r.name;
+      repoSelect.appendChild(opt);
+    });
+    repoSelect.disabled = false;
+    hideStatus();
+  } catch (err) {
+    repoSelect.innerHTML = '<option value="">Failed to load repos</option>';
+    showStatus(`Error loading repos: ${err.message}`, 'error');
+  }
+}
+
+// ─── Repo select change ─────────────────────────────────────────────────────
+repoSelect.addEventListener('change', () => {
+  const name = repoSelect.value;
+  if (!name) {
+    disableCard(cardDest);
+    disableCard(cardFile);
+    repoMeta.style.display = 'none';
+    checkUploadReady();
+    return;
+  }
+  const repo = repos.find(r => r.name === name);
+  if (repo) {
+    badgeVis.textContent  = repo.private ? '🔒 private' : '🌐 public';
+    badgeVis.className    = 'badge ' + (repo.private ? 'priv' : 'pub');
+    badgeLang.textContent = repo.language || 'unknown lang';
+    badgeStars.textContent = `⭐ ${repo.stargazers_count}`;
+    repoMeta.style.display = 'flex';
+  }
+  enableCard(cardDest);
+  enableCard(cardFile);
+  checkUploadReady();
+});
+
+// ─── Mode toggle ─────────────────────────────────────────────────────────────
+const modeFilesBtn    = document.getElementById('mode-files');
+const modeFolderBtn   = document.getElementById('mode-folder');
+const folderInputFiles = document.getElementById('folder-input-files');
+const browseBtn       = document.getElementById('browse-btn');
+const dropzoneIcon    = document.getElementById('dropzone-icon');
+const dropzoneLabel   = document.getElementById('dropzone-label');
+
+let currentMode = 'files';
+
+modeFilesBtn.addEventListener('click', () => {
+  currentMode = 'files';
+  modeFilesBtn.classList.add('active');
+  modeFolderBtn.classList.remove('active');
+  dropzoneIcon.textContent = '📎';
+  dropzoneLabel.innerHTML = '<strong>Tap to select files</strong><br/>any file type, multiple files allowed';
+  browseBtn.textContent = '📂 Browse & Select Files';
+  resetSelection();
+});
+
+modeFolderBtn.addEventListener('click', () => {
+  currentMode = 'folder';
+  modeFolderBtn.classList.add('active');
+  modeFilesBtn.classList.remove('active');
+  dropzoneIcon.textContent = '📁';
+  dropzoneLabel.innerHTML = '<strong>Select an entire folder</strong><br/>uploads all files inside it recursively';
+  browseBtn.textContent = '📁 Browse & Select Folder';
+  resetSelection();
+});
+
+function resetSelection() {
+  selectedFiles = [];
+  fileInput.value = '';
+  folderInputFiles.value = '';
+  fileChosen.style.display = 'none';
+  previewWrap.style.display = 'none';
+  checkUploadReady();
+}
+
+// ─── Browse button & dropzone click ──────────────────────────────────────────
+browseBtn.addEventListener('click', () => {
+  if (currentMode === 'folder') folderInputFiles.click();
+  else fileInput.click();
+});
+dropzone.addEventListener('click', () => {
+  if (currentMode === 'folder') folderInputFiles.click();
+  else fileInput.click();
+});
+
+// ─── File picker ─────────────────────────────────────────────────────────────
+fileInput.addEventListener('change', e => handleFilesSelected(Array.from(e.target.files)));
+folderInputFiles.addEventListener('change', e => handleFilesSelected(Array.from(e.target.files)));
+
+function handleFilesSelected(files) {
+  if (!files.length) return;
+
+  const oversized = files.filter(f => f.size > MAX_FILE_SIZE);
+  if (oversized.length) {
+    showStatus(`❌ Files too large (max 5 MB each): ${oversized.map(f => f.name).join(', ')}`, 'warn');
+    resetSelection();
+    return;
+  }
+
+  selectedFiles = files;
+
+  if (files.length === 1) {
+    fileChosen.textContent = `${files[0].name} (${(files[0].size / 1024).toFixed(1)} KB)`;
+  } else {
+    const folderName = files[0].webkitRelativePath
+      ? files[0].webkitRelativePath.split('/')[0]
+      : null;
+    fileChosen.textContent = folderName
+      ? `📁 ${folderName}/ — ${files.length} files`
+      : `${files.length} files selected`;
+  }
+  fileChosen.style.display = 'block';
+  hideStatus();
+
+  const firstImage = files.find(f => f.type.startsWith('image/'));
+  if (firstImage) {
+    previewImg.src = URL.createObjectURL(firstImage);
+    previewWrap.style.display = 'block';
+  } else {
+    previewWrap.style.display = 'none';
+  }
+
+  checkUploadReady();
+}
+
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('drag-over');
+  if (e.dataTransfer.files.length) {
+    handleFilesSelected(Array.from(e.dataTransfer.files));
+  }
+});
+
+// ─── Upload ──────────────────────────────────────────────────────────────────
+uploadBtn.addEventListener('click', async () => {
+  if (!selectedFiles.length || !repoSelect.value) return;
+
+  const repo      = repoSelect.value;
+  const rawFolder = folderInput.value.trim().replace(/^\/+|\/+$/g, '').toLowerCase();
+
+  setLoading(true);
+
+  let successCount = 0;
+  const errors = [];
+
+  for (const file of selectedFiles) {
+    const relativePath = file.webkitRelativePath || file.name;
+    const path = rawFolder ? `${rawFolder}/${relativePath}` : relativePath;
+    const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${repo}/contents/${path}`;
+
+    showStatus(`⏳ Uploading ${file.name} (${successCount + 1}/${selectedFiles.length})…`, 'info');
+
+    try {
+      const base64 = await toBase64(file);
+
+      let sha = null;
+      const checkRes = await fetch(apiUrl, {
+        headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' }
+      });
+      if (checkRes.ok) {
+        const existing = await checkRes.json();
+        sha = existing.sha;
+      }
+
+      const body = {
+        message: `Upload ${file.name} via gh-uploader`,
+        content: base64,
+        ...(sha ? { sha } : {})
+      };
+
+      const putRes = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!putRes.ok) {
+        const errData = await putRes.json().catch(() => ({}));
+        throw new Error(errData.message || `HTTP ${putRes.status}`);
+      }
+
+      successCount++;
+    } catch (err) {
+      errors.push(`${file.name}: ${err.message}`);
+    }
+  }
+
+  setLoading(false);
+
+  if (errors.length === 0) {
+    const firstFile = selectedFiles[0];
+    const topFolder = firstFile.webkitRelativePath
+      ? firstFile.webkitRelativePath.split('/')[0]
+      : null;
+    const linkFolder = rawFolder || topFolder || '';
+    const siteUrl = linkFolder
+      ? `https://aljrad.com/${linkFolder}`
+      : `https://aljrad.com`;
+
+    statusEl.innerHTML = '';
+    statusEl.className = 'ok';
+    statusEl.style.display = 'block';
+
+    const msg = document.createElement('div');
+    msg.textContent = `✅ ${successCount} file(s) uploaded successfully!`;
+    msg.style.marginBottom = '10px';
+
+    const linkWrap = document.createElement('div');
+    linkWrap.style.cssText = 'display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
+
+    const link = document.createElement('a');
+    link.href = siteUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = `🔗 ${siteUrl}`;
+    link.style.cssText = `
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      word-break: break-all;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    `;
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '📋 Copy';
+    copyBtn.style.cssText = `
+      padding: 4px 10px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    `;
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(siteUrl).then(() => {
+        copyBtn.textContent = '✅ Copied!';
+        setTimeout(() => copyBtn.textContent = '📋 Copy', 2000);
+      });
+    });
+
+    linkWrap.appendChild(link);
+    linkWrap.appendChild(copyBtn);
+    statusEl.appendChild(msg);
+    statusEl.appendChild(linkWrap);
+
+  } else if (successCount > 0) {
+    showStatus(`⚠️ ${successCount} uploaded, ${errors.length} failed:\n${errors.join('\n')}`, 'warn');
+  } else {
+    showStatus(`❌ All uploads failed:\n${errors.join('\n')}`, 'error');
+  }
+
+  fileInput.value = '';
+  selectedFiles = [];
+  fileChosen.style.display = 'none';
+  previewWrap.style.display = 'none';
+  checkUploadReady();
+});
+
+// ─── Init ────────────────────────────────────────────────────────────────────
+if (GITHUB_TOKEN) loadRepos();
+</script>
+</body>
+</html>
