@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge — Visual Website Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+<script src="https://unpkg.com/grapesjs/dist/grapes.min.js"></script>
+<script src="https://unpkg.com/grapesjs-preset-webpage/dist/grapesjs-preset-webpage.min.js"></script>
+<script src="https://unpkg.com/grapesjs-blocks-basic/dist/grapesjs-blocks-basic.min.js"></script>
+<script src="https://unpkg.com/grapesjs-plugin-forms/dist/grapesjs-plugin-forms.min.js"></script>
+<script src="https://unpkg.com/grapesjs-component-countdown/dist/grapesjs-component-countdown.min.js"></script>
+<script src="https://unpkg.com/grapesjs-tabs/dist/grapesjs-tabs.min.js"></script>
+<script src="https://unpkg.com/grapesjs-custom-code/dist/grapesjs-custom-code.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #0f0f17;
+    --bg-panel: #13131e;
+    --bg-panel-hover: #1a1a28;
+    --bg-card: #16161f;
+    --border: #1e1e2e;
+    --border-light: #252535;
+    --accent: #7c6af7;
+    --accent-glow: rgba(124,106,247,0.25);
+    --accent-2: #e879a0;
+    --accent-3: #38d9c0;
+    --accent-4: #f5a623;
+    --text-primary: #e8e8f0;
+    --text-secondary: #8888aa;
+    --text-muted: #555570;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --error: #f87171;
+    --panel-width: 260px;
+    --topbar-height: 52px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --radius: 8px;
+    --radius-sm: 5px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 48px rgba(0,0,0,0.6);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-body); font-size: 13px; }
+
+  /* ── SPLASH SCREEN ── */
+  #splash {
+    position: fixed; inset: 0; background: var(--bg-primary);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 9999; transition: opacity 0.5s, transform 0.5s;
+  }
+  #splash.hide { opacity: 0; pointer-events: none; }
+  .splash-logo { font-family: var(--font-display); font-size: 56px; font-weight: 800;
+    background: linear-gradient(135deg, #7c6af7, #e879a0, #38d9c0);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: -2px; margin-bottom: 12px; }
+  .splash-tagline { color: var(--text-secondary); font-size: 15px; margin-bottom: 48px; letter-spacing: 0.5px; }
+  .splash-bar { width: 240px; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .splash-fill { height: 100%; width: 0; background: linear-gradient(90deg, #7c6af7, #e879a0);
+    border-radius: 2px; animation: load 1.8s ease forwards; }
+  @keyframes load { 0%{width:0} 30%{width:40%} 70%{width:75%} 100%{width:100%} }
+
+  /* ── LAYOUT ── */
+  #app { display: none; flex-direction: column; height: 100vh; }
+  #app.visible { display: flex; }
+
+  /* ── TOPBAR ── */
+  #topbar {
+    height: var(--topbar-height); min-height: var(--topbar-height);
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0;
+    z-index: 100; position: relative;
+    box-shadow: 0 1px 0 rgba(124,106,247,0.1);
+  }
+  .topbar-logo {
+    font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.5px;
+    padding: 0 20px; background: linear-gradient(135deg, #7c6af7, #e879a0);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    white-space: nowrap; border-right: 1px solid var(--border);
+    height: 100%; display: flex; align-items: center;
+  }
+  .topbar-section {
+    display: flex; align-items: center; gap: 2px;
+    padding: 0 12px; height: 100%;
+    border-right: 1px solid var(--border);
+  }
+  .topbar-section:last-child { border-right: none; }
+  .topbar-section.right { margin-left: auto; }
+  .topbar-btn {
+    display: flex; align-items: center; gap: 6px; padding: 6px 10px;
+    background: transparent; border: none; color: var(--text-secondary); cursor: pointer;
+    border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 12px;
+    font-weight: 500; transition: all 0.15s; white-space: nowrap; letter-spacing: 0.2px;
+  }
+  .topbar-btn:hover { background: var(--bg-panel-hover); color: var(--text-primary); }
+  .topbar-btn.active { background: rgba(124,106,247,0.15); color: var(--accent); }
+  .topbar-btn.danger:hover { background: rgba(248,113,113,0.15); color: var(--error); }
+  .topbar-btn.primary {
+    background: var(--accent); color: #fff; padding: 6px 16px;
+    font-weight: 600; letter-spacing: 0.3px;
+  }
+  .topbar-btn.primary:hover { background: #6b5ae0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,106,247,0.4); }
+  .topbar-btn.success { background: rgba(52,211,153,0.15); color: var(--success); }
+  .topbar-btn.success:hover { background: rgba(52,211,153,0.25); }
+  .topbar-btn i { font-size: 13px; }
+  .topbar-divider { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+  .topbar-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); padding: 0 8px; }
+
+  /* Device selector */
+  .device-group {
+    display: flex; background: var(--bg-secondary); border-radius: var(--radius-sm);
+    padding: 2px; gap: 2px;
+  }
+  .device-btn {
+    padding: 5px 10px; background: transparent; border: none; color: var(--text-muted);
+    cursor: pointer; border-radius: 4px; transition: all 0.15s; font-size: 13px;
+  }
+  .device-btn:hover { color: var(--text-primary); }
+  .device-btn.active { background: var(--bg-panel); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+
+  /* ── MAIN AREA ── */
+  #main { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── LEFT SIDEBAR ── */
+  #left-sidebar {
+    width: var(--panel-width); min-width: var(--panel-width);
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden; position: relative;
+  }
+  .sidebar-tabs {
+    display: flex; background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 6px 6px 0;
+    gap: 2px;
+  }
+  .sidebar-tab {
+    flex: 1; padding: 7px 4px; background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer; border-radius: 5px 5px 0 0;
+    font-family: var(--font-body); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; transition: all 0.15s;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .sidebar-tab i { font-size: 14px; }
+  .sidebar-tab:hover { color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+  .sidebar-tab.active { color: var(--accent); background: var(--bg-panel); }
+  .sidebar-content { flex: 1; overflow-y: auto; overflow-x: hidden; }
+  .sidebar-content::-webkit-scrollbar { width: 4px; }
+  .sidebar-content::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .sidebar-panel { display: none; }
+  .sidebar-panel.active { display: block; }
+
+  /* Blocks */
+  .blocks-search {
+    padding: 10px;
+    position: sticky; top: 0; background: var(--bg-panel); z-index: 5;
+  }
+  .search-input {
+    width: 100%; padding: 7px 10px 7px 30px; background: var(--bg-secondary);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text-primary); font-family: var(--font-body); font-size: 12px;
+    outline: none; transition: border-color 0.15s;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text-muted); }
+  .search-wrap { position: relative; }
+  .search-wrap i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px; }
+  .blocks-category { padding: 0 8px 8px; }
+  .blocks-category-title {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); padding: 8px 4px 6px; font-weight: 600;
+    display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+  }
+  .blocks-category-title:hover { color: var(--text-secondary); }
+  .blocks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .block-item {
+    background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 8px; cursor: grab;
+    transition: all 0.15s; display: flex; flex-direction: column;
+    align-items: center; gap: 6px; text-align: center;
+    color: var(--text-secondary); font-size: 11px; font-weight: 500;
+    user-select: none;
+  }
+  .block-item:hover { border-color: var(--accent); color: var(--accent); background: rgba(124,106,247,0.08); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,106,247,0.2); }
+  .block-item:active { cursor: grabbing; transform: scale(0.96); }
+  .block-item i { font-size: 20px; opacity: 0.8; }
+  .block-item.full-width { grid-column: 1 / -1; flex-direction: row; justify-content: flex-start; padding: 8px 12px; gap: 10px; }
+  .block-item.full-width i { font-size: 16px; }
+
+  /* Layers */
+  .layers-toolbar {
+    padding: 8px; display: flex; gap: 4px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--bg-panel); z-index: 5;
+  }
+  .layers-toolbar-btn {
+    flex: 1; padding: 5px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); color: var(--text-muted); cursor: pointer;
+    font-size: 11px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 4px;
+  }
+  .layers-toolbar-btn:hover { color: var(--text-primary); border-color: var(--border-light); }
+  #layers-container { padding: 4px; }
+
+  /* Pages */
+  .pages-header { padding: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .pages-header-title { font-weight: 600; font-size: 12px; }
+  .pages-list { padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .page-item {
+    padding: 9px 12px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; font-weight: 500;
+  }
+  .page-item:hover { border-color: var(--accent); color: var(--accent); }
+  .page-item.active { border-color: var(--accent); background: rgba(124,106,247,0.1); color: var(--accent); }
+  .page-item-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
+  .page-item:hover .page-item-actions { opacity: 1; }
+  .page-action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 2px 4px; border-radius: 3px; font-size: 11px; }
+  .page-action-btn:hover { color: var(--text-primary); background: var(--border); }
+
+  /* ── CANVAS AREA ── */
+  #canvas-area {
+    flex: 1; display: flex; flex-direction: column;
+    background: #1a1a25; overflow: hidden; position: relative;
+  }
+  .canvas-ruler {
+    height: 24px; background: var(--bg-secondary); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 16px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+    justify-content: center; gap: 16px;
+  }
+  #gjs { flex: 1; overflow: hidden; }
+
+  /* GrapesJS Overrides */
+  .gjs-cv-canvas {
+    top: 0; width: 100%; height: 100%;
+    background: #1a1a25 !important;
+  }
+  .gjs-frame-wrapper { background: transparent !important; }
+  .gjs-one-bg { background-color: #1a1a25 !important; }
+  .gjs-two-bg { background-color: var(--bg-panel) !important; }
+  .gjs-three-bg { background-color: var(--bg-secondary) !important; }
+  .gjs-four-bg { background-color: var(--bg-card) !important; }
+  .gjs-pn-panels { display: none !important; }
+  .gjs-toolbar { background: var(--bg-panel) !important; border: 1px solid var(--accent) !important; border-radius: var(--radius-sm) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important; }
+  .gjs-toolbar-item { color: var(--text-secondary) !important; padding: 6px 8px !important; }
+  .gjs-toolbar-item:hover { color: var(--accent) !important; background: rgba(124,106,247,0.1) !important; }
+  .gjs-selected { outline: 2px solid var(--accent) !important; outline-offset: 1px !important; }
+  .gjs-hovered { outline: 1px dashed rgba(124,106,247,0.5) !important; outline-offset: 1px !important; }
+  .gjs-badge { background: var(--accent) !important; font-family: var(--font-body) !important; font-size: 10px !important; border-radius: 4px !important; padding: 2px 6px !important; }
+  .gjs-placeholder { background: linear-gradient(90deg, transparent, rgba(124,106,247,0.3), transparent) !important; border-color: var(--accent) !important; }
+  .gjs-cv-canvas__frames { width: 100% !important; height: 100% !important; }
+
+  /* ── RIGHT SIDEBAR ── */
+  #right-sidebar {
+    width: var(--panel-width); min-width: var(--panel-width);
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .rsidebar-tabs {
+    display: flex; background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 6px 6px 0;
+    gap: 2px;
+  }
+  .rsidebar-tab {
+    flex: 1; padding: 7px 4px; background: transparent; border: none;
+    color: var(--text-muted); cursor: pointer; border-radius: 5px 5px 0 0;
+    font-family: var(--font-body); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px; transition: all 0.15s;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .rsidebar-tab i { font-size: 13px; }
+  .rsidebar-tab:hover { color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+  .rsidebar-tab.active { color: var(--accent); background: var(--bg-panel); }
+  .rsidebar-content { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0; }
+  .rsidebar-content::-webkit-scrollbar { width: 4px; }
+  .rsidebar-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .rsidebar-panel { display: none; }
+  .rsidebar-panel.active { display: block; }
+
+  /* Style Manager custom overrides */
+  #styles-container .gjs-sm-sectors { background: transparent !important; }
+  #styles-container .gjs-sm-sector { background: transparent !important; border: none !important; border-bottom: 1px solid var(--border) !important; }
+  #styles-container .gjs-sm-sector-title {
+    background: var(--bg-secondary) !important; color: var(--text-primary) !important;
+    font-family: var(--font-body) !important; font-size: 11px !important;
+    font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.8px !important;
+    padding: 8px 12px !important; border: none !important;
+  }
+  #styles-container .gjs-sm-sector-title:hover { background: var(--bg-panel-hover) !important; }
+  #styles-container .gjs-field {
+    background: var(--bg-secondary) !important; border: 1px solid var(--border) !important;
+    border-radius: var(--radius-sm) !important; color: var(--text-primary) !important;
+    font-family: var(--font-mono) !important; font-size: 11px !important;
+  }
+  #styles-container .gjs-field:focus-within { border-color: var(--accent) !important; }
+  #styles-container .gjs-field input, #styles-container .gjs-field select {
+    color: var(--text-primary) !important; font-family: var(--font-mono) !important; font-size: 11px !important; background: transparent !important;
+  }
+  #styles-container .gjs-sm-label { color: var(--text-secondary) !important; font-size: 11px !important; font-family: var(--font-body) !important; }
+  #styles-container .gjs-clm-tags { background: transparent !important; }
+  #styles-container .gjs-clm-tag { background: rgba(124,106,247,0.15) !important; color: var(--accent) !important; border-radius: 4px !important; font-size: 11px !important; }
+  #styles-container .gjs-sm-properties { padding: 8px !important; }
+  #styles-container .gjs-color-picker-input { background: var(--bg-secondary) !important; border-color: var(--border) !important; color: var(--text-primary) !important; }
+  #styles-container .gjs-sm-btn { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; color: var(--text-secondary) !important; border-radius: 4px !important; }
+  #styles-container .gjs-sm-btn:hover, #styles-container .gjs-sm-btn.gjs-sm-btn-active { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }
+  #styles-container .gjs-radio-item-label { color: var(--text-secondary) !important; border: 1px solid var(--border) !important; background: var(--bg-secondary) !important; border-radius: 4px !important; }
+  #styles-container .gjs-radio-item input:checked + .gjs-radio-item-label { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; }
+  #styles-container .gjs-sm-composite { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; border-radius: var(--radius-sm) !important; }
+  #styles-container .gjs-clm-select { background: var(--bg-secondary) !important; color: var(--text-primary) !important; border-color: var(--border) !important; }
+  #styles-container .gjs-clm-sel-pp { color: var(--text-muted) !important; }
+  #styles-container .gjs-sm-stack .gjs-sm-stack-sep { background: var(--border) !important; }
+
+  /* Trait manager */
+  #traits-container .gjs-trt-traits { background: transparent !important; padding: 8px !important; display: flex; flex-direction: column; gap: 8px; }
+  #traits-container .gjs-trt-trait { background: var(--bg-secondary) !important; border: 1px solid var(--border) !important; border-radius: var(--radius-sm) !important; overflow: hidden !important; }
+  #traits-container .gjs-label { color: var(--text-secondary) !important; font-size: 11px !important; font-weight: 500 !important; padding: 6px 10px 4px !important; background: transparent !important; font-family: var(--font-body) !important; }
+  #traits-container .gjs-field { background: transparent !important; border: none !important; border-top: 1px solid var(--border) !important; border-radius: 0 !important; }
+  #traits-container input, #traits-container select, #traits-container textarea {
+    color: var(--text-primary) !important; font-family: var(--font-mono) !important; font-size: 11px !important; background: transparent !important; border: none !important; padding: 6px 10px !important;
+  }
+  #traits-container select option { background: var(--bg-panel) !important; }
+
+  /* ── PROPERTIES PANEL ── */
+  .prop-section { padding: 12px; border-bottom: 1px solid var(--border); }
+  .prop-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .prop-section-title i { font-size: 11px; color: var(--accent); }
+  .prop-row { display: flex; gap: 6px; margin-bottom: 6px; }
+  .prop-field { flex: 1; }
+  .prop-label { font-size: 10px; color: var(--text-muted); margin-bottom: 3px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .prop-input {
+    width: 100%; padding: 6px 8px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); color: var(--text-primary); font-family: var(--font-mono);
+    font-size: 11px; outline: none; transition: border-color 0.15s;
+  }
+  .prop-input:focus { border-color: var(--accent); }
+  .prop-input:hover { border-color: var(--border-light); }
+  .prop-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555570'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; padding-right: 24px; }
+  select option { background: var(--bg-panel); }
+
+  /* Events Panel */
+  .events-list { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .event-item {
+    background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    overflow: hidden; transition: border-color 0.15s;
+  }
+  .event-item:hover { border-color: var(--border-light); }
+  .event-header {
+    padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; user-select: none;
+  }
+  .event-name { font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .event-badge {
+    font-size: 9px; padding: 2px 5px; border-radius: 3px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .event-badge.active { background: rgba(52,211,153,0.2); color: var(--success); }
+  .event-badge.inactive { background: rgba(85,85,112,0.2); color: var(--text-muted); }
+  .event-toggle { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 10px; }
+  .event-body { padding: 0 10px 10px; display: none; }
+  .event-body.open { display: block; }
+  .event-action-editor {
+    background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 8px; font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-primary); resize: vertical; min-height: 70px; width: 100%; outline: none;
+    transition: border-color 0.15s; line-height: 1.6;
+  }
+  .event-action-editor:focus { border-color: var(--accent); }
+  .event-apply-btn {
+    margin-top: 6px; padding: 5px 12px; background: rgba(124,106,247,0.15);
+    border: 1px solid rgba(124,106,247,0.3); border-radius: var(--radius-sm);
+    color: var(--accent); font-size: 11px; font-weight: 600; cursor: pointer;
+    transition: all 0.15s; font-family: var(--font-body);
+  }
+  .event-apply-btn:hover { background: rgba(124,106,247,0.25); }
+
+  /* Assets Panel */
+  .assets-toolbar { padding: 8px 10px; display: flex; gap: 6px; border-bottom: 1px solid var(--border); }
+  .assets-upload-btn {
+    flex: 1; padding: 7px; background: rgba(124,106,247,0.15); border: 1px dashed rgba(124,106,247,0.4);
+    border-radius: var(--radius-sm); color: var(--accent); cursor: pointer; font-size: 12px;
+    font-family: var(--font-body); font-weight: 500; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .assets-upload-btn:hover { background: rgba(124,106,247,0.25); border-color: var(--accent); }
+  .assets-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 8px; }
+  .asset-item {
+    aspect-ratio: 1; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer; overflow: hidden; position: relative;
+    transition: all 0.15s;
+  }
+  .asset-item:hover { border-color: var(--accent); transform: scale(1.03); }
+  .asset-item img { width: 100%; height: 100%; object-fit: cover; }
+  .asset-item-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 4px; background: rgba(0,0,0,0.7); font-size: 9px; color: #fff; text-align: center; opacity: 0; transition: opacity 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .asset-item:hover .asset-item-label { opacity: 1; }
+
+  /* ── ELEMENT FINDER / ID-CLASS CONTROLLER ── */
+  .finder-wrap { padding: 10px; border-bottom: 1px solid var(--border); background: var(--bg-secondary); }
+  .finder-title {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); font-weight: 600; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .finder-row { display: flex; gap: 5px; margin-bottom: 5px; align-items: center; }
+  .finder-prefix {
+    width: 26px; height: 28px; display: flex; align-items: center; justify-content: center;
+    background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    font-family: var(--font-mono); font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .finder-prefix.hash { color: var(--accent-3); }
+  .finder-prefix.dot { color: var(--accent-2); }
+  .finder-input {
+    flex: 1; padding: 5px 8px; background: var(--bg-panel);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text-primary); font-family: var(--font-mono); font-size: 12px;
+    outline: none; transition: border-color 0.15s;
+  }
+  .finder-input:focus { border-color: var(--accent); }
+  .finder-input::placeholder { color: var(--text-muted); }
+  .finder-btn {
+    padding: 5px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg-panel); color: var(--text-secondary); cursor: pointer;
+    font-size: 11px; transition: all 0.15s; font-family: var(--font-body); white-space: nowrap;
+  }
+  .finder-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(124,106,247,0.1); }
+  .finder-btn.go { background: rgba(124,106,247,0.15); border-color: rgba(124,106,247,0.4); color: var(--accent); }
+  .finder-btn.go:hover { background: rgba(124,106,247,0.3); }
+  .finder-btn.apply-id { background: rgba(56,217,192,0.1); border-color: rgba(56,217,192,0.4); color: var(--accent-3); }
+  .finder-btn.apply-id:hover { background: rgba(56,217,192,0.2); }
+  .finder-btn.apply-cls { background: rgba(232,121,160,0.1); border-color: rgba(232,121,160,0.4); color: var(--accent-2); }
+  .finder-btn.apply-cls:hover { background: rgba(232,121,160,0.2); }
+  .finder-results { margin-top: 5px; display: flex; flex-direction: column; gap: 3px; max-height: 100px; overflow-y: auto; }
+  .finder-result-item {
+    padding: 4px 8px; background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 11px;
+    color: var(--text-secondary); font-family: var(--font-mono); transition: all 0.12s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .finder-result-item:hover { border-color: var(--accent); color: var(--accent); background: rgba(124,106,247,0.08); }
+  .finder-result-tag { font-size: 9px; background: var(--border); border-radius: 3px; padding: 1px 4px; color: var(--text-muted); font-family: var(--font-body); text-transform: uppercase; }
+  .finder-empty { font-size: 11px; color: var(--text-muted); text-align: center; padding: 4px; }
+  .current-elem-info {
+    margin: 8px 10px 4px; padding: 7px 10px; background: rgba(124,106,247,0.06);
+    border: 1px solid rgba(124,106,247,0.2); border-radius: var(--radius-sm);
+    font-size: 11px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.8;
+  }
+  .cei-tag { color: var(--accent); font-weight: 700; }
+  .cei-id { color: var(--accent-3); }
+  .cei-cls { color: var(--accent-2); }
+  .cei-none { color: var(--text-muted); font-style: italic; }
+
+  /* ── FOLDER IMPORT ── */
+  .folder-drop-zone {
+    border: 2px dashed var(--border); border-radius: var(--radius);
+    padding: 24px 16px; text-align: center; cursor: pointer; transition: all 0.2s;
+    background: var(--bg-secondary); margin: 12px 16px 8px;
+  }
+  .folder-drop-zone:hover, .folder-drop-zone.dragover {
+    border-color: var(--accent); background: rgba(124,106,247,0.06);
+  }
+  .folder-drop-zone i { font-size: 32px; color: var(--accent); margin-bottom: 10px; display: block; }
+  .folder-drop-zone p { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
+  .folder-drop-zone small { font-size: 11px; color: var(--text-muted); }
+  .folder-file-list { margin: 0 16px 8px; max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+  .folder-file-item {
+    padding: 5px 8px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 11px; font-family: var(--font-mono);
+    color: var(--text-secondary); display: flex; align-items: center; gap: 7px;
+  }
+  .folder-file-item i { font-size: 12px; width: 14px; text-align: center; }
+  .folder-file-item .ffi-name { flex: 1; }
+  .folder-file-item .ffi-size { color: var(--text-muted); font-size: 10px; }
+  .folder-file-html i { color: var(--accent-4); }
+  .folder-file-css i { color: #38bdf8; }
+  .folder-file-js i { color: #facc15; }
+  .folder-file-json i { color: var(--accent-3); }
+  .folder-file-img i { color: var(--accent-2); }
+  .folder-file-other i { color: var(--text-muted); }
+  .import-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+  .import-tab {
+    flex: 1; padding: 9px 8px; background: transparent; border: none; border-bottom: 2px solid transparent;
+    color: var(--text-muted); cursor: pointer; font-family: var(--font-body); font-size: 12px;
+    font-weight: 500; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 5px;
+    margin-bottom: -1px;
+  }
+  .import-tab:hover { color: var(--text-secondary); }
+  .import-tab.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(124,106,247,0.05); }
+  .import-pane { display: none; }
+  .import-pane.active { display: block; }
+  .folder-summary {
+    margin: 0 16px 10px; padding: 8px 12px; background: rgba(56,217,192,0.07);
+    border: 1px solid rgba(56,217,192,0.2); border-radius: var(--radius-sm);
+    font-size: 11px; color: var(--text-secondary); line-height: 1.8;
+    display: none;
+  }
+
+  /* ── CODE EDITOR MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; backdrop-filter: blur(4px); opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 12px; box-shadow: var(--shadow-lg);
+    display: flex; flex-direction: column;
+    transform: scale(0.95) translateY(20px); transition: transform 0.2s;
+  }
+  .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+  .modal-lg { width: 900px; max-width: 95vw; height: 620px; max-height: 90vh; }
+  .modal-md { width: 560px; max-width: 95vw; }
+  .modal-sm { width: 400px; max-width: 95vw; }
+  .modal-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+  .modal-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 4px; border-radius: 4px; transition: all 0.15s; }
+  .modal-close:hover { color: var(--text-primary); background: var(--border); }
+  .modal-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+  .modal-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+  .btn {
+    padding: 7px 16px; border: none; border-radius: var(--radius-sm); cursor: pointer;
+    font-family: var(--font-body); font-size: 12px; font-weight: 600; transition: all 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: #6b5ae0; }
+  .btn-secondary { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border); }
+  .btn-secondary:hover { color: var(--text-primary); border-color: var(--border-light); }
+  .btn-danger { background: rgba(248,113,113,0.15); color: var(--error); border: 1px solid rgba(248,113,113,0.3); }
+  .btn-danger:hover { background: rgba(248,113,113,0.25); }
+  .btn-success { background: rgba(52,211,153,0.15); color: var(--success); border: 1px solid rgba(52,211,153,0.3); }
+  .btn-success:hover { background: rgba(52,211,153,0.25); }
+
+  /* Code editor tabs */
+  .code-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+  .code-tab { padding: 10px 20px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px; font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; font-family: var(--font-body); }
+  .code-tab:hover { color: var(--text-primary); }
+  .code-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .code-editors { flex: 1; overflow: hidden; position: relative; }
+  .code-editor-panel { display: none; height: 100%; }
+  .code-editor-panel.active { display: block; }
+  .CodeMirror { height: 100% !important; font-family: var(--font-mono) !important; font-size: 13px !important; line-height: 1.6 !important; }
+  .CodeMirror-scroll { height: 100% !important; }
+
+  /* Import HTML */
+  .import-area {
+    margin: 16px; background: var(--bg-secondary); border: 2px dashed var(--border);
+    border-radius: var(--radius); padding: 24px; text-align: center;
+    transition: all 0.2s; cursor: pointer;
+  }
+  .import-area:hover, .import-area.dragover { border-color: var(--accent); background: rgba(124,106,247,0.05); }
+  .import-area i { font-size: 32px; color: var(--text-muted); margin-bottom: 12px; display: block; }
+  .import-area p { color: var(--text-secondary); font-size: 13px; margin-bottom: 6px; }
+  .import-area small { color: var(--text-muted); font-size: 11px; }
+  .import-textarea {
+    width: calc(100% - 32px); margin: 0 16px 16px; height: 180px; padding: 12px;
+    background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text-primary); font-family: var(--font-mono); font-size: 12px;
+    resize: vertical; outline: none; transition: border-color 0.15s;
+  }
+  .import-textarea:focus { border-color: var(--accent); }
+  #import-file-input { display: none; }
+
+  /* Preview */
+  #preview-modal .modal-body { padding: 0; }
+  #preview-frame { width: 100%; height: 100%; border: none; background: white; }
+
+  /* Notifications */
+  #notifications {
+    position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+  }
+  .notification {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px 16px;
+    box-shadow: var(--shadow); pointer-events: all;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; min-width: 240px; max-width: 320px;
+    animation: slideIn 0.3s ease; font-weight: 500;
+  }
+  .notification.success { border-left: 3px solid var(--success); }
+  .notification.error { border-left: 3px solid var(--error); }
+  .notification.info { border-left: 3px solid var(--accent); }
+  .notification i { font-size: 15px; }
+  .notification.success i { color: var(--success); }
+  .notification.error i { color: var(--error); }
+  .notification.info i { color: var(--accent); }
+  @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+  /* Status bar */
+  #statusbar {
+    height: 24px; background: var(--bg-secondary); border-top: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 12px; gap: 16px;
+    font-size: 10px; color: var(--text-muted); font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+  .status-item { display: flex; align-items: center; gap: 5px; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+  #status-selection { margin-left: auto; }
+
+  /* Context menu */
+  #context-menu {
+    position: fixed; background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    z-index: 9000; min-width: 180px; padding: 4px;
+    display: none;
+  }
+  .ctx-item {
+    padding: 7px 12px; cursor: pointer; border-radius: 4px; font-size: 12px;
+    display: flex; align-items: center; gap: 8px; color: var(--text-secondary);
+    transition: all 0.1s;
+  }
+  .ctx-item:hover { background: var(--bg-panel-hover); color: var(--text-primary); }
+  .ctx-item.danger:hover { background: rgba(248,113,113,0.1); color: var(--error); }
+  .ctx-sep { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* Tooltip */
+  [data-tooltip] { position: relative; }
+  [data-tooltip]:hover::after {
+    content: attr(data-tooltip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: var(--bg-panel); border: 1px solid var(--border); color: var(--text-primary);
+    padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap;
+    pointer-events: none; z-index: 1000; box-shadow: var(--shadow);
+  }
+
+  /* Canvas overlay info */
+  .canvas-info {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(10,10,15,0.8); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 4px 12px; font-size: 11px;
+    color: var(--text-muted); z-index: 50; pointer-events: none;
+    font-family: var(--font-mono); backdrop-filter: blur(8px);
+  }
+
+  /* Custom scrollbar global */
+  * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+  /* Components panel */
+  .components-list { padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .component-item {
+    padding: 8px 10px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .component-item:hover { border-color: var(--accent); }
+  .component-item-left { display: flex; align-items: center; gap: 8px; }
+  .component-icon { width: 28px; height: 28px; background: rgba(124,106,247,0.15); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--accent); }
+  .component-name { font-size: 12px; font-weight: 500; }
+  .component-type { font-size: 10px; color: var(--text-muted); }
+
+  /* Loading overlay */
+  .loading-overlay {
+    position: absolute; inset: 0; background: rgba(10,10,15,0.9);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; flex-direction: column; gap: 16px;
+    backdrop-filter: blur(4px);
+  }
+  .loading-spinner {
+    width: 40px; height: 40px; border: 3px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { color: var(--text-secondary); font-size: 13px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash">
+  <div class="splash-logo">Forge</div>
+  <div class="splash-tagline">Professional Visual Website Builder</div>
+  <div class="splash-bar"><div class="splash-fill"></div></div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <div class="topbar-logo">Forge</div>
+
+    <!-- File ops -->
+    <div class="topbar-section">
+      <button class="topbar-btn" onclick="showImportModal()" data-tooltip="Import HTML"><i class="fas fa-file-import"></i> Import</button>
+      <button class="topbar-btn" onclick="exportProject()" data-tooltip="Export HTML"><i class="fas fa-file-export"></i> Export</button>
+      <button class="topbar-btn" onclick="saveProject()" data-tooltip="Save (Ctrl+S)"><i class="fas fa-save"></i> Save</button>
+    </div>
+
+    <!-- Edit ops -->
+    <div class="topbar-section">
+      <button class="topbar-btn" id="btn-undo" onclick="editorUndo()" data-tooltip="Undo (Ctrl+Z)"><i class="fas fa-undo"></i></button>
+      <button class="topbar-btn" id="btn-redo" onclick="editorRedo()" data-tooltip="Redo (Ctrl+Y)"><i class="fas fa-redo"></i></button>
+      <div class="topbar-divider"></div>
+      <button class="topbar-btn" onclick="editorCopy()" data-tooltip="Copy"><i class="fas fa-copy"></i></button>
+      <button class="topbar-btn" onclick="editorPaste()" data-tooltip="Paste"><i class="fas fa-paste"></i></button>
+      <button class="topbar-btn danger" onclick="editorDelete()" data-tooltip="Delete selected"><i class="fas fa-trash"></i></button>
+    </div>
+
+    <!-- Device -->
+    <div class="topbar-section">
+      <div class="device-group">
+        <button class="device-btn active" id="dev-desktop" onclick="setDevice('desktop')" data-tooltip="Desktop"><i class="fas fa-desktop"></i></button>
+        <button class="device-btn" id="dev-tablet" onclick="setDevice('tablet')" data-tooltip="Tablet"><i class="fas fa-tablet-alt"></i></button>
+        <button class="device-btn" id="dev-mobile" onclick="setDevice('mobile')" data-tooltip="Mobile"><i class="fas fa-mobile-alt"></i></button>
+      </div>
+    </div>
+
+    <!-- View -->
+    <div class="topbar-section">
+      <button class="topbar-btn" id="btn-outline" onclick="toggleOutline()" data-tooltip="Toggle borders"><i class="fas fa-border-all"></i> Outline</button>
+      <button class="topbar-btn" onclick="showCodeModal()" data-tooltip="Edit code"><i class="fas fa-code"></i> Code</button>
+      <button class="topbar-btn" onclick="clearCanvas()" data-tooltip="Clear canvas"><i class="fas fa-broom"></i> Clear</button>
+    </div>
+
+    <!-- Components -->
+    <div class="topbar-section">
+      <button class="topbar-btn" onclick="showSaveComponentModal()" data-tooltip="Save selection as component"><i class="fas fa-puzzle-piece"></i> Save Component</button>
+    </div>
+
+    <div class="topbar-section right">
+      <button class="topbar-btn success" onclick="showPreview()"><i class="fas fa-eye"></i> Preview</button>
+      <button class="topbar-btn primary" onclick="exportProject()"><i class="fas fa-rocket"></i> Publish</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <!-- LEFT SIDEBAR -->
+    <div id="left-sidebar">
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab active" id="stab-blocks" onclick="switchLeftTab('blocks')"><i class="fas fa-th-large"></i>Blocks</button>
+        <button class="sidebar-tab" id="stab-layers" onclick="switchLeftTab('layers')"><i class="fas fa-layer-group"></i>Layers</button>
+        <button class="sidebar-tab" id="stab-pages" onclick="switchLeftTab('pages')"><i class="fas fa-file"></i>Pages</button>
+        <button class="sidebar-tab" id="stab-comps" onclick="switchLeftTab('comps')"><i class="fas fa-puzzle-piece"></i>Library</button>
+      </div>
+      <div class="sidebar-content">
+        <!-- Blocks Panel -->
+        <div class="sidebar-panel active" id="panel-blocks">
+          <div class="blocks-search">
+            <div class="search-wrap">
+              <i class="fas fa-search"></i>
+              <input type="text" class="search-input" placeholder="Search blocks..." oninput="filterBlocks(this.value)">
+            </div>
+          </div>
+          <div id="blocks-list"></div>
+        </div>
+        <!-- Layers Panel -->
+        <div class="sidebar-panel" id="panel-layers">
+          <div class="layers-toolbar">
+            <button class="layers-toolbar-btn" onclick="expandAllLayers()" data-tooltip="Expand all"><i class="fas fa-expand-alt"></i> Expand</button>
+            <button class="layers-toolbar-btn" onclick="collapseAllLayers()" data-tooltip="Collapse all"><i class="fas fa-compress-alt"></i> Collapse</button>
+          </div>
+          <div id="layers-container"></div>
+        </div>
+        <!-- Pages Panel -->
+        <div class="sidebar-panel" id="panel-pages">
+          <div class="pages-header">
+            <div class="pages-header-title">Pages</div>
+            <button class="topbar-btn" onclick="addPage()" style="padding:4px 10px;font-size:11px"><i class="fas fa-plus"></i> Add</button>
+          </div>
+          <div class="pages-list" id="pages-list"></div>
+        </div>
+        <!-- Component Library -->
+        <div class="sidebar-panel" id="panel-comps">
+          <div class="pages-header">
+            <div class="pages-header-title">Saved Components</div>
+            <button class="topbar-btn" onclick="clearComponents()" style="padding:4px 10px;font-size:11px;color:var(--error)"><i class="fas fa-trash"></i></button>
+          </div>
+          <div class="components-list" id="components-list">
+            <div style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px">
+              <i class="fas fa-puzzle-piece" style="font-size:24px;margin-bottom:8px;display:block;opacity:0.3"></i>
+              No saved components yet.<br>Select an element and click "Save Component"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div id="canvas-area">
+      <div class="canvas-info" id="canvas-info">Desktop — 1920px</div>
+      <div id="gjs"></div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div id="right-sidebar">
+      <div class="rsidebar-tabs">
+        <button class="rsidebar-tab active" id="rtab-style" onclick="switchRightTab('style')"><i class="fas fa-paint-brush"></i>Style</button>
+        <button class="rsidebar-tab" id="rtab-traits" onclick="switchRightTab('traits')"><i class="fas fa-sliders-h"></i>Props</button>
+        <button class="rsidebar-tab" id="rtab-events" onclick="switchRightTab('events')"><i class="fas fa-bolt"></i>Events</button>
+        <button class="rsidebar-tab" id="rtab-assets" onclick="switchRightTab('assets')"><i class="fas fa-images"></i>Assets</button>
+      </div>
+      <div class="rsidebar-content">
+        <!-- Style -->
+        <div class="rsidebar-panel active" id="rpanel-style">
+          <div id="styles-container"></div>
+        </div>
+        <!-- Traits -->
+        <div class="rsidebar-panel" id="rpanel-traits">
+          <!-- ── ELEMENT FINDER ── -->
+          <div class="finder-wrap">
+            <div class="finder-title"><i class="fas fa-crosshairs" style="color:var(--accent)"></i> Element Finder</div>
+            <!-- Find by ID -->
+            <div class="finder-row">
+              <div class="finder-prefix hash">#</div>
+              <input class="finder-input" id="finder-id-input" type="text" placeholder="element-id" oninput="liveFinderSearch('id')">
+              <button class="finder-btn go" onclick="findElementBy('id')"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- Find by Class -->
+            <div class="finder-row">
+              <div class="finder-prefix dot">.</div>
+              <input class="finder-input" id="finder-cls-input" type="text" placeholder="class-name" oninput="liveFinderSearch('cls')">
+              <button class="finder-btn go" onclick="findElementBy('cls')"><i class="fas fa-search"></i></button>
+            </div>
+            <div id="finder-results" class="finder-results"></div>
+          </div>
+
+          <!-- Current Element — Set ID / Classes -->
+          <div id="finder-current-info" style="display:none">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;padding:8px 10px 4px;display:flex;align-items:center;gap:5px"><i class="fas fa-mouse-pointer" style="color:var(--accent)"></i> Selected Element</div>
+            <div id="finder-current-badge" class="current-elem-info"></div>
+            <div style="padding:0 10px 10px">
+              <!-- Set ID -->
+              <div style="margin-bottom:7px">
+                <div style="font-size:10px;color:var(--text-muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px"><i class="fas fa-hashtag" style="color:var(--accent-3);margin-right:3px"></i>Set ID</div>
+                <div class="finder-row" style="margin-bottom:0">
+                  <input class="finder-input" id="set-id-input" type="text" placeholder="new-id">
+                  <button class="finder-btn apply-id" onclick="applyElementId()"><i class="fas fa-check"></i> Apply</button>
+                </div>
+              </div>
+              <!-- Add / Remove Class -->
+              <div>
+                <div style="font-size:10px;color:var(--text-muted);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px"><i class="fas fa-tag" style="color:var(--accent-2);margin-right:3px"></i>Add Class</div>
+                <div class="finder-row" style="margin-bottom:0">
+                  <input class="finder-input" id="add-cls-input" type="text" placeholder="class-name">
+                  <button class="finder-btn apply-cls" onclick="applyElementClass('add')"><i class="fas fa-plus"></i></button>
+                  <button class="finder-btn" onclick="applyElementClass('remove')" style="color:var(--error);border-color:rgba(248,113,113,0.4);background:rgba(248,113,113,0.08)"><i class="fas fa-minus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GrapesJS Traits (appended below by GrapesJS) -->
+          <div id="traits-container"></div>
+        </div>
+        <!-- Events -->
+        <div class="rsidebar-panel" id="rpanel-events">
+          <div style="padding:10px 10px 4px;font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600">
+            <i class="fas fa-bolt" style="color:var(--accent-4)"></i> Visual Event System
+          </div>
+          <div class="events-list" id="events-list"></div>
+          <div style="padding:8px 10px;border-top:1px solid var(--border);margin-top:4px">
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:6px">Add Custom Event</div>
+            <div style="display:flex;gap:6px">
+              <input type="text" class="prop-input" id="custom-event-name" placeholder="eventName" style="flex:1">
+              <button class="btn btn-primary" style="padding:6px 10px;font-size:11px" onclick="addCustomEvent()"><i class="fas fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <!-- Assets -->
+        <div class="rsidebar-panel" id="rpanel-assets">
+          <div class="assets-toolbar">
+            <label class="assets-upload-btn" for="asset-upload-input">
+              <i class="fas fa-cloud-upload-alt"></i> Upload Image
+              <input type="file" id="asset-upload-input" accept="image/*" multiple style="display:none" onchange="handleAssetUpload(event)">
+            </label>
+          </div>
+          <div class="assets-grid" id="assets-grid"></div>
+          <div id="assets-placeholder" style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px">
+            <i class="fas fa-images" style="font-size:32px;margin-bottom:10px;display:block;opacity:0.3"></i>
+            No assets yet. Upload images above.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <div class="status-item"><div class="status-dot"></div>Ready</div>
+    <div class="status-item" id="status-device"><i class="fas fa-desktop" style="font-size:10px"></i> Desktop</div>
+    <div class="status-item" id="status-pages"><i class="fas fa-file" style="font-size:10px"></i> 1 page</div>
+    <div class="status-item" id="status-selection">No selection</div>
+  </div>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- Code Editor Modal -->
+<div class="modal-overlay" id="code-modal">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-code" style="color:var(--accent);margin-right:8px"></i>Code Editor</div>
+      <button class="modal-close" onclick="closeModal('code-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="switchCodeTab('html')">HTML</button>
+        <button class="code-tab" onclick="switchCodeTab('css')">CSS</button>
+        <button class="code-tab" onclick="switchCodeTab('js')">JavaScript</button>
+      </div>
+      <div class="code-editors" style="flex:1;overflow:hidden">
+        <div class="code-editor-panel active" id="code-html-panel" style="height:480px">
+          <textarea id="code-html-editor"></textarea>
+        </div>
+        <div class="code-editor-panel" id="code-css-panel" style="height:480px">
+          <textarea id="code-css-editor"></textarea>
+        </div>
+        <div class="code-editor-panel" id="code-js-panel" style="height:480px">
+          <textarea id="code-js-editor"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('code-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="applyCode()"><i class="fas fa-check"></i> Apply Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal modal-md">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-file-import" style="color:var(--accent-3);margin-right:8px"></i>Import Project</div>
+      <button class="modal-close" onclick="closeModal('import-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:0;overflow-y:auto">
+
+      <!-- Import Tabs -->
+      <div class="import-tabs">
+        <button class="import-tab active" id="itab-paste" onclick="switchImportTab('paste')"><i class="fas fa-code"></i> Paste HTML</button>
+        <button class="import-tab" id="itab-folder" onclick="switchImportTab('folder')"><i class="fas fa-folder-open"></i> Import Folder</button>
+      </div>
+
+      <!-- Pane: Paste HTML -->
+      <div class="import-pane active" id="ipane-paste">
+        <div class="import-area" id="import-drop-area" onclick="document.getElementById('import-file-input').click()">
+          <i class="fas fa-file-code"></i>
+          <p>Drop an HTML file or click to browse</p>
+          <small>Supports full HTML pages — extracts body, CSS, JS &amp; external resources</small>
+        </div>
+        <input type="file" id="import-file-input" accept=".html,.htm" onchange="handleImportFile(event)">
+        <div style="padding:0 16px 8px;text-align:center;color:var(--text-muted);font-size:11px">— or paste HTML below —</div>
+        <textarea class="import-textarea" id="import-textarea" placeholder="Paste your full HTML page here (including &lt;html&gt;, &lt;head&gt;, &lt;body&gt; tags)..."></textarea>
+        <!-- Import Options -->
+        <div style="padding:0 16px 12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;margin-bottom:8px"><i class="fas fa-sliders-h" style="color:var(--accent);margin-right:5px"></i>Import Options</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-css" checked style="accent-color:var(--accent)"> Extract &lt;style&gt; CSS
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-js" checked style="accent-color:var(--accent)"> Extract &lt;script&gt; JS
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-links" checked style="accent-color:var(--accent)"> Inject &lt;link&gt; stylesheets
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-extjs" checked style="accent-color:var(--accent)"> Inject external scripts
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-replace" checked style="accent-color:var(--accent)"> Replace current canvas
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="import-opt-meta" checked style="accent-color:var(--accent)"> Import &lt;head&gt; meta/fonts
+            </label>
+          </div>
+          <div id="import-summary" style="display:none;margin-top:10px;padding:9px 12px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:var(--radius-sm);font-size:11px;color:var(--text-secondary);line-height:1.8"></div>
+        </div>
+      </div>
+
+      <!-- Pane: Folder Import -->
+      <div class="import-pane" id="ipane-folder">
+        <!-- Hidden inputs -->
+        <input type="file" id="folder-input" webkitdirectory multiple style="display:none" onchange="handleFolderInput(event)">
+
+        <div class="folder-drop-zone" id="folder-drop-zone"
+          onclick="document.getElementById('folder-input').click()"
+          ondragover="event.preventDefault();this.classList.add('dragover')"
+          ondragleave="this.classList.remove('dragover')"
+          ondrop="handleFolderDrop(event)">
+          <i class="fas fa-folder-open"></i>
+          <p>Click to select your project folder</p>
+          <small>Imports HTML · CSS · JS · data.json · images and other assets</small>
+        </div>
+
+        <div id="folder-file-list" class="folder-file-list" style="display:none"></div>
+        <div id="folder-summary" class="folder-summary"></div>
+
+        <!-- Folder Import Options -->
+        <div style="padding:0 16px 12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;margin-bottom:8px">
+            <i class="fas fa-sliders-h" style="color:var(--accent);margin-right:5px"></i>Folder Import Options
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-html" checked style="accent-color:var(--accent)"> Load HTML file
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-css" checked style="accent-color:var(--accent)"> Load CSS files
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-js" checked style="accent-color:var(--accent)"> Load JS files
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-json" checked style="accent-color:var(--accent)"> Load data.json
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-assets" checked style="accent-color:var(--accent)"> Import image assets
+            </label>
+            <label style="display:flex;align-items:center;gap:7px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 10px;cursor:pointer;font-size:11px;color:var(--text-secondary)">
+              <input type="checkbox" id="fopt-replace" checked style="accent-color:var(--accent)"> Replace canvas
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer" id="import-modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('import-modal')">Cancel</button>
+      <button class="btn btn-primary" id="import-action-btn" onclick="importHTMLContent()"><i class="fas fa-file-import"></i> Import</button>
+    </div>
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal-overlay" id="preview-modal" style="align-items:stretch;padding:20px">
+  <div class="modal" style="width:100%;max-width:1400px;height:100%;border-radius:12px;overflow:hidden">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-eye" style="color:var(--success);margin-right:8px"></i>Live Preview</div>
+      <div style="display:flex;gap:6px">
+        <div class="device-group">
+          <button class="device-btn active" id="prev-desktop" onclick="setPreviewDevice('desktop')"><i class="fas fa-desktop"></i></button>
+          <button class="device-btn" id="prev-tablet" onclick="setPreviewDevice('tablet')"><i class="fas fa-tablet-alt"></i></button>
+          <button class="device-btn" id="prev-mobile" onclick="setPreviewDevice('mobile')"><i class="fas fa-mobile-alt"></i></button>
+        </div>
+        <button class="modal-close" onclick="closeModal('preview-modal')"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <div class="modal-body" style="background:#888;padding:0;display:flex;align-items:flex-start;justify-content:center;overflow:auto">
+      <iframe id="preview-frame" style="background:white;border:none;transition:all 0.3s;width:100%;height:100%;flex-shrink:0"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Save Component Modal -->
+<div class="modal-overlay" id="save-component-modal">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <div class="modal-title"><i class="fas fa-puzzle-piece" style="color:var(--accent);margin-right:8px"></i>Save Component</div>
+      <button class="modal-close" onclick="closeModal('save-component-modal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:16px">
+      <div class="prop-field" style="margin-bottom:12px">
+        <div class="prop-label">Component Name</div>
+        <input type="text" class="prop-input" id="component-name-input" placeholder="My Component" style="width:100%">
+      </div>
+      <div class="prop-field">
+        <div class="prop-label">Category</div>
+        <input type="text" class="prop-input" id="component-cat-input" placeholder="General" style="width:100%">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('save-component-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="doSaveComponent()"><i class="fas fa-save"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div id="context-menu">
+  <div class="ctx-item" onclick="ctxAction('select-parent')"><i class="fas fa-level-up-alt"></i> Select Parent</div>
+  <div class="ctx-item" onclick="ctxAction('duplicate')"><i class="fas fa-clone"></i> Duplicate</div>
+  <div class="ctx-item" onclick="ctxAction('copy')"><i class="fas fa-copy"></i> Copy</div>
+  <div class="ctx-item" onclick="ctxAction('paste')"><i class="fas fa-paste"></i> Paste</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="ctxAction('move-up')"><i class="fas fa-arrow-up"></i> Move Up</div>
+  <div class="ctx-item" onclick="ctxAction('move-down')"><i class="fas fa-arrow-down"></i> Move Down</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="ctxAction('save-component')"><i class="fas fa-puzzle-piece"></i> Save as Component</div>
+  <div class="ctx-item" onclick="ctxAction('edit-code')"><i class="fas fa-code"></i> Edit Code</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item danger" onclick="ctxAction('delete')"><i class="fas fa-trash"></i> Delete</div>
+</div>
+
+<!-- Notifications -->
+<div id="notifications"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   FORGE — Visual Website Builder
+   Full GrapesJS Integration with Custom Panels & Event System
+═══════════════════════════════════════════════════════════ */
+
+let editor, cmHtml, cmCss, cmJs;
+let savedComponents = [];
+let assets = [];
+let pages = [{ id: 'index', name: 'Home', active: true }];
+let currentPage = 'index';
+let outlineMode = false;
+let pageContents = {};
+
+const EVENTS_DEF = [
+  { name: 'onClick', label: 'On Click', icon: 'fa-mouse-pointer', js: 'this.addEventListener("click", function(e) {\n  // Your code here\n  console.log("clicked", this);\n});' },
+  { name: 'onMouseEnter', label: 'On Hover Enter', icon: 'fa-hand-pointer', js: 'this.addEventListener("mouseenter", function(e) {\n  // Your code here\n});' },
+  { name: 'onMouseLeave', label: 'On Hover Leave', icon: 'fa-sign-out-alt', js: 'this.addEventListener("mouseleave", function(e) {\n  // Your code here\n});' },
+  { name: 'onChange', label: 'On Change', icon: 'fa-edit', js: 'this.addEventListener("change", function(e) {\n  // Your code here\n  console.log("value:", this.value);\n});' },
+  { name: 'onSubmit', label: 'On Submit', icon: 'fa-paper-plane', js: 'this.addEventListener("submit", function(e) {\n  e.preventDefault();\n  // Your code here\n});' },
+  { name: 'onLoad', label: 'On Load', icon: 'fa-spinner', js: 'window.addEventListener("load", function() {\n  // Your code here\n});' },
+  { name: 'onScroll', label: 'On Scroll', icon: 'fa-arrows-alt-v', js: 'window.addEventListener("scroll", function() {\n  // Your code here\n});' },
+  { name: 'onKeyPress', label: 'On Key Press', icon: 'fa-keyboard', js: 'this.addEventListener("keydown", function(e) {\n  // Your code here\n  console.log("key:", e.key);\n});' },
+];
+
+/* ── INIT ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      initEditor();
+    }, 500);
+  }, 2000);
+});
+
+function initEditor() {
+  editor = grapesjs.init({
+    container: '#gjs',
+    height: '100%',
+    width: '100%',
+    fromElement: false,
+    storageManager: false,
+    noticeOnUnload: false,
+    showOffsets: true,
+    showOffsetsSelected: true,
+    assetManager: { storageType: '', storeOnChange: true, storeAfterUpload: true, assets: [] },
+    styleManager: {
+      appendTo: '#styles-container',
+      sectors: [
+        { name: 'Layout', open: true, properties: [
+          { name: 'Display', property: 'display', type: 'select', defaults: 'block', list: [
+            {value:'block',name:'Block'},{value:'flex',name:'Flex'},{value:'grid',name:'Grid'},{value:'inline',name:'Inline'},{value:'inline-block',name:'Inline-Block'},{value:'none',name:'Hidden'}
+          ]},
+          { name: 'Position', property: 'position', type: 'select', defaults: 'static', list: [
+            {value:'static',name:'Static'},{value:'relative',name:'Relative'},{value:'absolute',name:'Absolute'},{value:'fixed',name:'Fixed'},{value:'sticky',name:'Sticky'}
+          ]},
+          { name: 'Flex Direction', property: 'flex-direction', type: 'select', defaults: 'row', list: [
+            {value:'row',name:'Row'},{value:'column',name:'Column'},{value:'row-reverse',name:'Row Reverse'},{value:'column-reverse',name:'Column Reverse'}
+          ]},
+          { name: 'Align Items', property: 'align-items', type: 'select', defaults: 'stretch', list: [
+            {value:'stretch',name:'Stretch'},{value:'flex-start',name:'Start'},{value:'center',name:'Center'},{value:'flex-end',name:'End'},{value:'baseline',name:'Baseline'}
+          ]},
+          { name: 'Justify Content', property: 'justify-content', type: 'select', defaults: 'flex-start', list: [
+            {value:'flex-start',name:'Start'},{value:'center',name:'Center'},{value:'flex-end',name:'End'},{value:'space-between',name:'Space Between'},{value:'space-around',name:'Space Around'},{value:'space-evenly',name:'Space Evenly'}
+          ]},
+          { name: 'Flex Wrap', property: 'flex-wrap', type: 'select', defaults: 'nowrap', list: [
+            {value:'nowrap',name:'No Wrap'},{value:'wrap',name:'Wrap'},{value:'wrap-reverse',name:'Wrap Reverse'}
+          ]},
+          { name: 'Gap', property: 'gap', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+          { name: 'Z-Index', property: 'z-index', type: 'integer', defaults: 'auto' },
+        ]},
+        { name: 'Spacing', open: false, properties: [
+          { name: 'Margin', property: 'margin', type: 'composite', properties: [
+            { name: 'Top', property: 'margin-top', type: 'integer', defaults: '0', units: ['px','%','rem','em','auto'] },
+            { name: 'Right', property: 'margin-right', type: 'integer', defaults: '0', units: ['px','%','rem','em','auto'] },
+            { name: 'Bottom', property: 'margin-bottom', type: 'integer', defaults: '0', units: ['px','%','rem','em','auto'] },
+            { name: 'Left', property: 'margin-left', type: 'integer', defaults: '0', units: ['px','%','rem','em','auto'] },
+          ]},
+          { name: 'Padding', property: 'padding', type: 'composite', properties: [
+            { name: 'Top', property: 'padding-top', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+            { name: 'Right', property: 'padding-right', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+            { name: 'Bottom', property: 'padding-bottom', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+            { name: 'Left', property: 'padding-left', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+          ]},
+        ]},
+        { name: 'Dimensions', open: false, properties: [
+          { name: 'Width', property: 'width', type: 'integer', defaults: 'auto', units: ['px','%','vw','rem','em','auto'] },
+          { name: 'Height', property: 'height', type: 'integer', defaults: 'auto', units: ['px','%','vh','rem','em','auto'] },
+          { name: 'Min Width', property: 'min-width', type: 'integer', defaults: '0', units: ['px','%','rem','em'] },
+          { name: 'Max Width', property: 'max-width', type: 'integer', defaults: 'none', units: ['px','%','rem','em'] },
+          { name: 'Min Height', property: 'min-height', type: 'integer', defaults: '0', units: ['px','%','vh','rem','em'] },
+          { name: 'Max Height', property: 'max-height', type: 'integer', defaults: 'none', units: ['px','%','vh','rem','em'] },
+          { name: 'Overflow', property: 'overflow', type: 'select', defaults: 'visible', list: [
+            {value:'visible',name:'Visible'},{value:'hidden',name:'Hidden'},{value:'scroll',name:'Scroll'},{value:'auto',name:'Auto'}
+          ]},
+        ]},
+        { name: 'Typography', open: false, properties: [
+          { name: 'Font Family', property: 'font-family', type: 'select', defaults: '', list: [
+            {value:'',name:'Default'},{value:'Arial, sans-serif',name:'Arial'},{value:'Georgia, serif',name:'Georgia'},{value:'"Helvetica Neue", sans-serif',name:'Helvetica'},{value:'"Times New Roman", serif',name:'Times New Roman'},{value:'"Courier New", monospace',name:'Courier New'},{value:'system-ui, sans-serif',name:'System'},{value:'"Syne", sans-serif',name:'Syne'},{value:'"DM Sans", sans-serif',name:'DM Sans'}
+          ]},
+          { name: 'Font Size', property: 'font-size', type: 'integer', defaults: '16', units: ['px','em','rem','vw','%'] },
+          { name: 'Font Weight', property: 'font-weight', type: 'select', defaults: '400', list: [
+            {value:'100',name:'Thin'},{value:'200',name:'Extra Light'},{value:'300',name:'Light'},{value:'400',name:'Normal'},{value:'500',name:'Medium'},{value:'600',name:'Semi Bold'},{value:'700',name:'Bold'},{value:'800',name:'Extra Bold'},{value:'900',name:'Black'}
+          ]},
+          { name: 'Line Height', property: 'line-height', type: 'integer', defaults: '1.5', units: ['','px','em'] },
+          { name: 'Letter Spacing', property: 'letter-spacing', type: 'integer', defaults: '0', units: ['px','em'] },
+          { name: 'Text Align', property: 'text-align', type: 'radio', defaults: 'left', list: [
+            {value:'left',name:'Left',className:'fa fa-align-left'},{value:'center',name:'Center',className:'fa fa-align-center'},{value:'right',name:'Right',className:'fa fa-align-right'},{value:'justify',name:'Justify',className:'fa fa-align-justify'}
+          ]},
+          { name: 'Text Transform', property: 'text-transform', type: 'select', defaults: 'none', list: [
+            {value:'none',name:'None'},{value:'uppercase',name:'UPPERCASE'},{value:'lowercase',name:'lowercase'},{value:'capitalize',name:'Capitalize'}
+          ]},
+          { name: 'Text Decoration', property: 'text-decoration', type: 'select', defaults: 'none', list: [
+            {value:'none',name:'None'},{value:'underline',name:'Underline'},{value:'line-through',name:'Strikethrough'},{value:'overline',name:'Overline'}
+          ]},
+          { name: 'Color', property: 'color', type: 'color', defaults: '#000000' },
+        ]},
+        { name: 'Background', open: false, properties: [
+          { name: 'Bg Color', property: 'background-color', type: 'color', defaults: 'transparent' },
+          { name: 'Bg Image', property: 'background-image', type: 'text', defaults: '' },
+          { name: 'Bg Size', property: 'background-size', type: 'select', defaults: 'auto', list: [
+            {value:'auto',name:'Auto'},{value:'cover',name:'Cover'},{value:'contain',name:'Contain'}
+          ]},
+          { name: 'Bg Position', property: 'background-position', type: 'select', defaults: 'center', list: [
+            {value:'center',name:'Center'},{value:'top',name:'Top'},{value:'bottom',name:'Bottom'},{value:'left',name:'Left'},{value:'right',name:'Right'}
+          ]},
+          { name: 'Bg Repeat', property: 'background-repeat', type: 'select', defaults: 'repeat', list: [
+            {value:'repeat',name:'Repeat'},{value:'no-repeat',name:'No Repeat'},{value:'repeat-x',name:'Repeat X'},{value:'repeat-y',name:'Repeat Y'}
+          ]},
+        ]},
+        { name: 'Border', open: false, properties: [
+          { name: 'Border Width', property: 'border-width', type: 'integer', defaults: '0', units: ['px'] },
+          { name: 'Border Style', property: 'border-style', type: 'select', defaults: 'solid', list: [
+            {value:'none',name:'None'},{value:'solid',name:'Solid'},{value:'dashed',name:'Dashed'},{value:'dotted',name:'Dotted'},{value:'double',name:'Double'}
+          ]},
+          { name: 'Border Color', property: 'border-color', type: 'color', defaults: '#000000' },
+          { name: 'Border Radius', property: 'border-radius', type: 'integer', defaults: '0', units: ['px','%','rem'] },
+        ]},
+        { name: 'Effects', open: false, properties: [
+          { name: 'Opacity', property: 'opacity', type: 'slider', defaults: 1, min: 0, max: 1, step: 0.01 },
+          { name: 'Box Shadow', property: 'box-shadow', type: 'stack', properties: [
+            {name:'X',property:'box-shadow-h',type:'integer',defaults:'0',units:['px']},
+            {name:'Y',property:'box-shadow-v',type:'integer',defaults:'0',units:['px']},
+            {name:'Blur',property:'box-shadow-blur',type:'integer',defaults:'0',units:['px']},
+            {name:'Spread',property:'box-shadow-spread',type:'integer',defaults:'0',units:['px']},
+            {name:'Color',property:'box-shadow-color',type:'color',defaults:'rgba(0,0,0,0.2)'},
+            {name:'Inset',property:'box-shadow-type',type:'select',list:[{value:'',name:'Outset'},{value:'inset',name:'Inset'}]},
+          ]},
+          { name: 'Transform', property: 'transform', type: 'text', defaults: 'none' },
+          { name: 'Transition', property: 'transition', type: 'text', defaults: 'none' },
+          { name: 'Filter', property: 'filter', type: 'text', defaults: 'none' },
+          { name: 'Mix Blend Mode', property: 'mix-blend-mode', type: 'select', defaults: 'normal', list: [
+            {value:'normal',name:'Normal'},{value:'multiply',name:'Multiply'},{value:'screen',name:'Screen'},{value:'overlay',name:'Overlay'},{value:'darken',name:'Darken'},{value:'lighten',name:'Lighten'},{value:'color-dodge',name:'Color Dodge'},{value:'color-burn',name:'Color Burn'},{value:'hard-light',name:'Hard Light'},{value:'soft-light',name:'Soft Light'},{value:'difference',name:'Difference'},{value:'exclusion',name:'Exclusion'}
+          ]},
+          { name: 'Cursor', property: 'cursor', type: 'select', defaults: 'default', list: [
+            {value:'default',name:'Default'},{value:'pointer',name:'Pointer'},{value:'text',name:'Text'},{value:'move',name:'Move'},{value:'not-allowed',name:'Not Allowed'},{value:'grab',name:'Grab'},{value:'crosshair',name:'Crosshair'}
+          ]},
+        ]},
+      ]
+    },
+    traitManager: { appendTo: '#traits-container' },
+    layerManager: { appendTo: '#layers-container', scrollCanvas: true },
+    blockManager: { appendTo: '#blocks-list', blocks: [] },
+    deviceManager: {
+      devices: [
+        { name: 'Desktop', width: '' },
+        { name: 'Tablet', width: '768px', widthMedia: '992px' },
+        { name: 'Mobile', width: '375px', widthMedia: '480px' },
+      ]
+    },
+    canvas: {
+      styles: [
+        'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
+      ],
+      scripts: [],
+    },
+    plugins: [
+      'gjs-preset-webpage',
+      'gjs-blocks-basic',
+      'gjs-plugin-forms',
+      'gjs-component-countdown',
+      'gjs-tabs',
+      'gjs-custom-code',
+    ],
+    pluginsOpts: {
+      'gjs-preset-webpage': {
+        modalImportTitle: 'Import Template',
+        modalImportLabel: 'Paste HTML/CSS here',
+        modalImportContent: '',
+        filestackOpts: null,
+        aviaryOpts: false,
+        blocksBasicOpts: { flexGrid: true },
+        showStylesOnChange: true,
+      },
+      'gjs-blocks-basic': { flexGrid: true },
+      'gjs-plugin-forms': {},
+      'gjs-component-countdown': {},
+      'gjs-tabs': {},
+      'gjs-custom-code': {},
+    },
+  });
+
+  registerCustomBlocks();
+  setupEditorEvents();
+  setupFinderEvents();
+  renderEventsPanel(null);
+  renderPagesPanel();
+  renderAssetsPanel();
+
+  // Start with a nice default page
+  setTimeout(() => {
+    editor.setComponents(`
+      <section style="min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px 20px">
+        <h1 style="font-family:'Syne',sans-serif;font-size:clamp(40px,7vw,96px);font-weight:800;color:#fff;margin:0 0 20px;letter-spacing:-2px;line-height:1.05">
+          Build <span style="background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Beautiful</span> Websites
+        </h1>
+        <p style="font-size:clamp(16px,2.5vw,22px);color:rgba(255,255,255,0.65);max-width:580px;line-height:1.7;margin:0 0 40px;font-family:'DM Sans',sans-serif">
+          Drag, drop, design. Your vision, your way — no code required.
+        </p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+          <a href="#" style="padding:16px 36px;background:linear-gradient(135deg,#7c6af7,#e879a0);color:#fff;text-decoration:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;transition:transform 0.2s,box-shadow 0.2s;display:inline-block">Get Started Free</a>
+          <a href="#" style="padding:16px 36px;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:16px;border:1px solid rgba(255,255,255,0.2);display:inline-block">View Demo</a>
+        </div>
+      </section>
+    `);
+  }, 300);
+}
+
+/* ── CUSTOM BLOCKS ── */
+function registerCustomBlocks() {
+  const bm = editor.BlockManager;
+
+  const blocks = [
+    // Hero
+    { id:'hero-full', label:'Hero Full', category:'Sections', media:'<i class="fas fa-image"></i>',
+      content:`<section style="min-height:100vh;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px"><div style="max-width:800px"><h1 style="font-size:clamp(36px,6vw,80px);font-weight:800;color:#fff;margin:0 0 24px;line-height:1.1">Your Headline Here</h1><p style="font-size:20px;color:rgba(255,255,255,0.8);margin:0 0 40px">Supporting text that explains your value proposition clearly and compellingly.</p><a href="#" style="padding:16px 40px;background:#fff;color:#667eea;text-decoration:none;border-radius:50px;font-weight:700;font-size:16px;display:inline-block">Get Started</a></div></section>` },
+
+    { id:'hero-split', label:'Hero Split', category:'Sections', media:'<i class="fas fa-columns"></i>',
+      content:`<section style="min-height:100vh;display:flex;align-items:stretch"><div style="flex:1;display:flex;align-items:center;padding:80px 60px;background:#fff"><div><span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#7c6af7">Welcome</span><h1 style="font-size:52px;font-weight:800;margin:16px 0;line-height:1.1">Big Bold Headline</h1><p style="font-size:18px;color:#666;line-height:1.7;margin:0 0 32px">Your compelling description goes here. Make it count.</p><a href="#" style="padding:14px 36px;background:#7c6af7;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">Start Now</a></div></div><div style="flex:1;background:linear-gradient(135deg,#7c6af7,#e879a0);display:flex;align-items:center;justify-content:center;font-size:80px">✦</div></section>` },
+
+    // Navbar
+    { id:'navbar-modern', label:'Navbar', category:'Navigation', media:'<i class="fas fa-bars"></i>',
+      content:`<nav style="position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.08);box-shadow:0 2px 20px rgba(0,0,0,0.05)"><div style="font-size:24px;font-weight:800;background:linear-gradient(135deg,#7c6af7,#e879a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Brand</div><div style="display:flex;gap:32px"><a href="#" style="text-decoration:none;color:#333;font-weight:500;font-size:15px">Home</a><a href="#" style="text-decoration:none;color:#333;font-weight:500;font-size:15px">About</a><a href="#" style="text-decoration:none;color:#333;font-weight:500;font-size:15px">Work</a><a href="#" style="text-decoration:none;color:#333;font-weight:500;font-size:15px">Contact</a></div><a href="#" style="padding:10px 24px;background:#7c6af7;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:14px">Get Started</a></nav>` },
+
+    // Features
+    { id:'features-3col', label:'Features 3-Col', category:'Content', media:'<i class="fas fa-th"></i>',
+      content:`<section style="padding:100px 40px;background:#fff"><div style="text-align:center;margin-bottom:60px"><h2 style="font-size:42px;font-weight:800;margin:0 0 16px">Why Choose Us</h2><p style="font-size:18px;color:#666;max-width:560px;margin:0 auto;line-height:1.7">Everything you need to build amazing products, all in one place.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1100px;margin:0 auto"><div style="text-align:center;padding:40px 32px;background:#f8f8ff;border-radius:16px"><div style="font-size:48px;margin-bottom:20px">⚡</div><h3 style="font-size:22px;font-weight:700;margin:0 0 12px">Fast & Efficient</h3><p style="color:#666;line-height:1.7;margin:0">Built for speed from the ground up. Your users will thank you.</p></div><div style="text-align:center;padding:40px 32px;background:#f8f8ff;border-radius:16px"><div style="font-size:48px;margin-bottom:20px">🔒</div><h3 style="font-size:22px;font-weight:700;margin:0 0 12px">Secure by Default</h3><p style="color:#666;line-height:1.7;margin:0">Enterprise-grade security that protects your data and your customers.</p></div><div style="text-align:center;padding:40px 32px;background:#f8f8ff;border-radius:16px"><div style="font-size:48px;margin-bottom:20px">🎯</div><h3 style="font-size:22px;font-weight:700;margin:0 0 12px">Precise & Reliable</h3><p style="color:#666;line-height:1.7;margin:0">Accuracy you can count on. Uptime you can trust. Always.</p></div></div></section>` },
+
+    // Pricing
+    { id:'pricing', label:'Pricing', category:'Content', media:'<i class="fas fa-tags"></i>',
+      content:`<section style="padding:100px 40px;background:#f8f8ff"><div style="text-align:center;margin-bottom:60px"><h2 style="font-size:42px;font-weight:800;margin:0 0 16px">Simple Pricing</h2><p style="font-size:18px;color:#666">No hidden fees. Cancel anytime.</p></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto"><div style="background:#fff;border-radius:20px;padding:40px 32px;border:2px solid #eee;text-align:center"><div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:16px">Starter</div><div style="font-size:48px;font-weight:800;margin-bottom:8px">$9<span style="font-size:18px;font-weight:400;color:#999">/mo</span></div><ul style="list-style:none;padding:0;margin:24px 0 32px;text-align:left;display:flex;flex-direction:column;gap:10px"><li style="color:#555;font-size:14px">✓ 5 Projects</li><li style="color:#555;font-size:14px">✓ 10GB Storage</li><li style="color:#555;font-size:14px">✓ Basic Support</li></ul><a href="#" style="display:block;padding:14px;background:#f0edff;color:#7c6af7;text-decoration:none;border-radius:12px;font-weight:600">Get Started</a></div><div style="background:linear-gradient(135deg,#7c6af7,#e879a0);border-radius:20px;padding:40px 32px;text-align:center;transform:scale(1.05)"><div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.7);margin-bottom:16px">Pro</div><div style="font-size:48px;font-weight:800;color:#fff;margin-bottom:8px">$29<span style="font-size:18px;font-weight:400;color:rgba(255,255,255,0.7)">/mo</span></div><ul style="list-style:none;padding:0;margin:24px 0 32px;text-align:left;display:flex;flex-direction:column;gap:10px"><li style="color:rgba(255,255,255,0.9);font-size:14px">✓ Unlimited Projects</li><li style="color:rgba(255,255,255,0.9);font-size:14px">✓ 100GB Storage</li><li style="color:rgba(255,255,255,0.9);font-size:14px">✓ Priority Support</li><li style="color:rgba(255,255,255,0.9);font-size:14px">✓ Custom Domain</li></ul><a href="#" style="display:block;padding:14px;background:#fff;color:#7c6af7;text-decoration:none;border-radius:12px;font-weight:600">Get Started</a></div><div style="background:#fff;border-radius:20px;padding:40px 32px;border:2px solid #eee;text-align:center"><div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:16px">Enterprise</div><div style="font-size:48px;font-weight:800;margin-bottom:8px">$99<span style="font-size:18px;font-weight:400;color:#999">/mo</span></div><ul style="list-style:none;padding:0;margin:24px 0 32px;text-align:left;display:flex;flex-direction:column;gap:10px"><li style="color:#555;font-size:14px">✓ Everything in Pro</li><li style="color:#555;font-size:14px">✓ 1TB Storage</li><li style="color:#555;font-size:14px">✓ Dedicated Support</li><li style="color:#555;font-size:14px">✓ SLA Guarantee</li></ul><a href="#" style="display:block;padding:14px;background:#f0edff;color:#7c6af7;text-decoration:none;border-radius:12px;font-weight:600">Contact Us</a></div></div></section>` },
+
+    // Testimonials
+    { id:'testimonials', label:'Testimonials', category:'Content', media:'<i class="fas fa-quote-left"></i>',
+      content:`<section style="padding:100px 40px;background:#fff"><div style="text-align:center;margin-bottom:60px"><h2 style="font-size:42px;font-weight:800;margin:0 0 16px">What People Say</h2></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto"><div style="background:#f8f8ff;border-radius:20px;padding:32px"><div style="font-size:28px;margin-bottom:16px">⭐⭐⭐⭐⭐</div><p style="font-size:15px;color:#444;line-height:1.7;margin:0 0 24px">"This product completely transformed how our team works. I can't imagine going back."</p><div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;background:linear-gradient(135deg,#7c6af7,#e879a0);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">S</div><div><div style="font-weight:700;font-size:14px">Sarah Chen</div><div style="font-size:12px;color:#999">Product Manager, Acme</div></div></div></div><div style="background:#f8f8ff;border-radius:20px;padding:32px"><div style="font-size:28px;margin-bottom:16px">⭐⭐⭐⭐⭐</div><p style="font-size:15px;color:#444;line-height:1.7;margin:0 0 24px">"Incredible attention to detail. The best tool I've used in years of working in tech."</p><div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;background:linear-gradient(135deg,#38d9c0,#7c6af7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">M</div><div><div style="font-weight:700;font-size:14px">Marcus Wu</div><div style="font-size:12px;color:#999">CTO, StartupXYZ</div></div></div></div><div style="background:#f8f8ff;border-radius:20px;padding:32px"><div style="font-size:28px;margin-bottom:16px">⭐⭐⭐⭐⭐</div><p style="font-size:15px;color:#444;line-height:1.7;margin:0 0 24px">"Shipped 3x faster. Our entire workflow is now built around this tool."</p><div style="display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;background:linear-gradient(135deg,#f5a623,#e879a0);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">A</div><div><div style="font-weight:700;font-size:14px">Aisha Patel</div><div style="font-size:12px;color:#999">Lead Designer, DesignCo</div></div></div></div></section>` },
+
+    // Footer
+    { id:'footer', label:'Footer', category:'Sections', media:'<i class="fas fa-shoe-prints"></i>',
+      content:`<footer style="background:#0f0f17;padding:80px 40px 40px;color:#fff"><div style="max-width:1200px;margin:0 auto"><div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px"><div><div style="font-size:28px;font-weight:800;background:linear-gradient(135deg,#7c6af7,#e879a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px">Brand</div><p style="color:#888;line-height:1.8;font-size:14px;max-width:280px">Building the future, one product at a time. Join thousands of happy customers.</p></div><div><div style="font-weight:700;margin-bottom:20px;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#aaa">Product</div><div style="display:flex;flex-direction:column;gap:10px"><a href="#" style="color:#888;text-decoration:none;font-size:14px">Features</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Pricing</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Changelog</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Roadmap</a></div></div><div><div style="font-weight:700;margin-bottom:20px;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#aaa">Company</div><div style="display:flex;flex-direction:column;gap:10px"><a href="#" style="color:#888;text-decoration:none;font-size:14px">About</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Blog</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Careers</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Press</a></div></div><div><div style="font-weight:700;margin-bottom:20px;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#aaa">Legal</div><div style="display:flex;flex-direction:column;gap:10px"><a href="#" style="color:#888;text-decoration:none;font-size:14px">Privacy</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Terms</a><a href="#" style="color:#888;text-decoration:none;font-size:14px">Cookies</a></div></div></div><div style="border-top:1px solid #222;padding-top:32px;display:flex;align-items:center;justify-content:space-between"><div style="color:#555;font-size:13px">© 2026 Brand. All rights reserved.</div><div style="display:flex;gap:16px"><a href="#" style="color:#555;font-size:20px">𝕏</a><a href="#" style="color:#555;font-size:20px">in</a><a href="#" style="color:#555;font-size:20px">gh</a></div></div></div></footer>` },
+
+    // Text
+    { id:'text-h1', label:'Heading 1', category:'Typography', media:'<i class="fas fa-heading"></i>',
+      content:'<h1 style="font-size:clamp(36px,5vw,64px);font-weight:800;margin:0 0 16px;line-height:1.1">Your Big Headline Here</h1>' },
+    { id:'text-h2', label:'Heading 2', category:'Typography', media:'<i class="fas fa-heading"></i>',
+      content:'<h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;margin:0 0 16px;line-height:1.2">Section Heading</h2>' },
+    { id:'text-p', label:'Paragraph', category:'Typography', media:'<i class="fas fa-paragraph"></i>',
+      content:'<p style="font-size:16px;line-height:1.7;color:#555;margin:0 0 16px">Your paragraph text goes here. Write something meaningful and compelling that your users will love to read.</p>' },
+    { id:'text-lead', label:'Lead Text', category:'Typography', media:'<i class="fas fa-font"></i>',
+      content:'<p style="font-size:20px;line-height:1.7;color:#444;font-weight:400;margin:0 0 24px">A larger piece of introductory text that leads into your main content area.</p>' },
+    { id:'text-quote', label:'Blockquote', category:'Typography', media:'<i class="fas fa-quote-left"></i>',
+      content:'<blockquote style="border-left:4px solid #7c6af7;padding:16px 24px;margin:0;background:#f8f8ff;border-radius:0 8px 8px 0"><p style="font-size:18px;font-style:italic;color:#444;margin:0 0 8px">"An inspiring quote that resonates with your audience and adds credibility."</p><footer style="font-size:13px;color:#888;font-weight:600">— Author Name</footer></blockquote>' },
+
+    // Media
+    { id:'image', label:'Image', category:'Media', media:'<i class="fas fa-image"></i>',
+      content:'<img src="https://placehold.co/800x500/7c6af7/ffffff?text=Your+Image" alt="Image" style="max-width:100%;height:auto;display:block;border-radius:12px">' },
+    { id:'video', label:'Video', category:'Media', media:'<i class="fas fa-video"></i>',
+      content:'<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#000"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe></div>' },
+    { id:'gallery', label:'Gallery', category:'Media', media:'<i class="fas fa-th-large"></i>',
+      content:'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"><img src="https://placehold.co/400x300/7c6af7/fff?text=1" style="width:100%;height:200px;object-fit:cover;border-radius:8px"><img src="https://placehold.co/400x300/e879a0/fff?text=2" style="width:100%;height:200px;object-fit:cover;border-radius:8px"><img src="https://placehold.co/400x300/38d9c0/fff?text=3" style="width:100%;height:200px;object-fit:cover;border-radius:8px"><img src="https://placehold.co/400x300/f5a623/fff?text=4" style="width:100%;height:200px;object-fit:cover;border-radius:8px"><img src="https://placehold.co/400x300/7c6af7/fff?text=5" style="width:100%;height:200px;object-fit:cover;border-radius:8px"><img src="https://placehold.co/400x300/e879a0/fff?text=6" style="width:100%;height:200px;object-fit:cover;border-radius:8px"></div>' },
+
+    // Buttons
+    { id:'btn-primary', label:'Button Primary', category:'Elements', media:'<i class="fas fa-square"></i>',
+      content:'<a href="#" style="display:inline-block;padding:14px 32px;background:#7c6af7;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;transition:all 0.2s">Click Me</a>' },
+    { id:'btn-outline', label:'Button Outline', category:'Elements', media:'<i class="far fa-square"></i>',
+      content:'<a href="#" style="display:inline-block;padding:14px 32px;background:transparent;color:#7c6af7;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px;border:2px solid #7c6af7;transition:all 0.2s">Learn More</a>' },
+    { id:'btn-gradient', label:'Button Gradient', category:'Elements', media:'<i class="fas fa-magic"></i>',
+      content:'<a href="#" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#7c6af7,#e879a0);color:#fff;text-decoration:none;border-radius:50px;font-weight:600;font-size:15px;box-shadow:0 4px 20px rgba(124,106,247,0.4);transition:all 0.2s">Get Started</a>' },
+
+    // Cards
+    { id:'card-simple', label:'Card', category:'Elements', media:'<i class="fas fa-id-card"></i>',
+      content:'<div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.08);border:1px solid #f0f0f0"><h3 style="font-size:20px;font-weight:700;margin:0 0 12px">Card Title</h3><p style="color:#666;line-height:1.7;margin:0 0 24px;font-size:14px">Card description text goes here. Add relevant details about this item.</p><a href="#" style="color:#7c6af7;font-weight:600;text-decoration:none;font-size:14px">Learn more →</a></div>' },
+    { id:'card-stats', label:'Stats Card', category:'Elements', media:'<i class="fas fa-chart-bar"></i>',
+      content:'<div style="background:linear-gradient(135deg,#7c6af7,#e879a0);border-radius:16px;padding:32px;color:#fff;text-align:center"><div style="font-size:48px;font-weight:800;margin-bottom:8px">12,400</div><div style="font-size:14px;opacity:0.8;text-transform:uppercase;letter-spacing:1px">Active Users</div></div>' },
+
+    // Layout
+    { id:'container', label:'Container', category:'Layout', media:'<i class="fas fa-box"></i>',
+      content:'<div style="max-width:1200px;margin:0 auto;padding:0 24px"><!-- Content here --></div>' },
+    { id:'section', label:'Section', category:'Layout', media:'<i class="fas fa-window-maximize"></i>',
+      content:'<section style="padding:80px 40px;background:#fff"><!-- Section content --></section>' },
+    { id:'two-col', label:'Two Columns', category:'Layout', media:'<i class="fas fa-columns"></i>',
+      content:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:40px"><div style="background:#f8f8ff;border-radius:12px;padding:32px;min-height:120px">Column 1</div><div style="background:#f8f8ff;border-radius:12px;padding:32px;min-height:120px">Column 2</div></div>' },
+    { id:'three-col', label:'Three Columns', category:'Layout', media:'<i class="fas fa-th-large"></i>',
+      content:'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding:40px"><div style="background:#f8f8ff;border-radius:12px;padding:24px;min-height:100px">Column 1</div><div style="background:#f8f8ff;border-radius:12px;padding:24px;min-height:100px">Column 2</div><div style="background:#f8f8ff;border-radius:12px;padding:24px;min-height:100px">Column 3</div></div>' },
+    { id:'divider', label:'Divider', category:'Layout', media:'<i class="fas fa-minus"></i>',
+      content:'<hr style="border:none;border-top:1px solid #e5e5e5;margin:40px 0">' },
+    { id:'spacer', label:'Spacer', category:'Layout', media:'<i class="fas fa-arrows-alt-v"></i>',
+      content:'<div style="height:60px"></div>' },
+
+    // Form
+    { id:'contact-form', label:'Contact Form', category:'Forms', media:'<i class="fas fa-envelope"></i>',
+      content:`<div style="max-width:600px;margin:0 auto;padding:40px"><h2 style="font-size:32px;font-weight:800;margin:0 0 8px">Get in Touch</h2><p style="color:#666;margin:0 0 32px">We'd love to hear from you. Send us a message.</p><form style="display:flex;flex-direction:column;gap:16px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#333">First Name</label><input type="text" placeholder="John" style="width:100%;padding:12px 16px;border:2px solid #eee;border-radius:8px;font-size:14px;outline:none;transition:border-color 0.2s;box-sizing:border-box"></div><div><label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#333">Last Name</label><input type="text" placeholder="Doe" style="width:100%;padding:12px 16px;border:2px solid #eee;border-radius:8px;font-size:14px;outline:none;transition:border-color 0.2s;box-sizing:border-box"></div></div><div><label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#333">Email</label><input type="email" placeholder="john@example.com" style="width:100%;padding:12px 16px;border:2px solid #eee;border-radius:8px;font-size:14px;outline:none;transition:border-color 0.2s;box-sizing:border-box"></div><div><label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#333">Message</label><textarea rows="5" placeholder="Your message..." style="width:100%;padding:12px 16px;border:2px solid #eee;border-radius:8px;font-size:14px;outline:none;resize:vertical;transition:border-color 0.2s;box-sizing:border-box"></textarea></div><button type="submit" style="padding:14px 32px;background:#7c6af7;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s">Send Message</button></form></div>` },
+
+    // Animations
+    { id:'animated-counter', label:'Counter', category:'Interactive', media:'<i class="fas fa-sort-numeric-up"></i>',
+      content:`<div style="text-align:center;padding:60px 40px"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:800px;margin:0 auto"><div><div class="counter" data-target="10000" style="font-size:48px;font-weight:800;color:#7c6af7">0</div><div style="font-size:14px;color:#888;margin-top:8px">Happy Customers</div></div><div><div class="counter" data-target="500" style="font-size:48px;font-weight:800;color:#e879a0">0</div><div style="font-size:14px;color:#888;margin-top:8px">Projects Done</div></div><div><div class="counter" data-target="98" style="font-size:48px;font-weight:800;color:#38d9c0">0</div><div style="font-size:14px;color:#888;margin-top:8px">% Satisfaction</div></div><div><div class="counter" data-target="24" style="font-size:48px;font-weight:800;color:#f5a623">0</div><div style="font-size:14px;color:#888;margin-top:8px">hr Support</div></div></div><script>document.querySelectorAll('.counter').forEach(c=>{const t=parseInt(c.dataset.target);let cur=0;const step=t/60;const upd=()=>{cur=Math.min(cur+step,t);c.textContent=Math.round(cur)+(t===98?'%':'');if(cur<t)requestAnimationFrame(upd)};upd()});<\/script></div>` },
+
+    { id:'scroll-reveal', label:'Scroll Reveal', category:'Interactive', media:'<i class="fas fa-magic"></i>',
+      content:`<div class="reveal-section" style="padding:80px 40px;text-align:center"><style>.reveal-item{opacity:0;transform:translateY(40px);transition:all 0.7s ease}  .reveal-item.visible{opacity:1;transform:none}</style><div class="reveal-item" style="max-width:600px;margin:0 auto"><h2 style="font-size:42px;font-weight:800;margin:0 0 20px">Revealed on Scroll</h2><p style="font-size:18px;color:#666;line-height:1.7">This section animates into view as you scroll down the page. Elegant and subtle.</p></div><script>const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.15});document.querySelectorAll('.reveal-item').forEach(el=>obs.observe(el));<\/script></div>` },
+
+    // Social
+    { id:'social-proof', label:'Social Proof', category:'Elements', media:'<i class="fas fa-star"></i>',
+      content:`<div style="display:flex;align-items:center;gap:16px;padding:20px 0"><div style="display:flex"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c6af7,#e879a0);border:2px solid #fff;margin-right:-8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px">A</div><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#38d9c0,#7c6af7);border:2px solid #fff;margin-right:-8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px">B</div><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f5a623,#e879a0);border:2px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px">C</div></div><div><div style="font-size:13px;font-weight:600;color:#333">Loved by 10,000+ teams</div><div style="display:flex;color:#f5a623;font-size:12px">★★★★★ <span style="color:#888;margin-left:4px">4.9/5</span></div></div></div>` },
+
+    { id:'badge', label:'Badge', category:'Elements', media:'<i class="fas fa-certificate"></i>',
+      content:'<span style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(124,106,247,0.1);color:#7c6af7;border-radius:50px;font-size:13px;font-weight:600;border:1px solid rgba(124,106,247,0.3)">✦ New Feature</span>' },
+
+    { id:'alert-info', label:'Alert', category:'Elements', media:'<i class="fas fa-info-circle"></i>',
+      content:'<div style="padding:16px 20px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;border-left:4px solid #3b82f6;display:flex;align-items:flex-start;gap:12px"><div style="color:#3b82f6;font-size:18px">ℹ</div><div><div style="font-weight:600;color:#1e40af;margin-bottom:4px;font-size:14px">Info Alert</div><div style="color:#3b82f6;font-size:13px;line-height:1.5">This is an informational alert message with important details for the user.</div></div></div>' },
+
+    { id:'progress', label:'Progress Bar', category:'Elements', media:'<i class="fas fa-tasks"></i>',
+      content:`<div style="padding:24px"><div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:600">Design</span><span style="font-size:13px;color:#888">85%</span></div><div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden"><div style="width:85%;height:100%;background:linear-gradient(90deg,#7c6af7,#e879a0);border-radius:4px;transition:width 1s ease"></div></div></div><div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:600">Development</span><span style="font-size:13px;color:#888">72%</span></div><div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden"><div style="width:72%;height:100%;background:linear-gradient(90deg,#38d9c0,#7c6af7);border-radius:4px;transition:width 1s ease"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;font-weight:600">Marketing</span><span style="font-size:13px;color:#888">60%</span></div><div style="height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:linear-gradient(90deg,#f5a623,#e879a0);border-radius:4px;transition:width 1s ease"></div></div></div></div>` },
+
+    { id:'accordion', label:'Accordion', category:'Interactive', media:'<i class="fas fa-chevron-down"></i>',
+      content:`<div style="max-width:700px;margin:0 auto;padding:40px"><h2 style="font-size:32px;font-weight:800;margin:0 0 32px;text-align:center">FAQ</h2><div style="display:flex;flex-direction:column;gap:8px"><details style="background:#f8f8ff;border-radius:10px;overflow:hidden;border:1px solid #eee"><summary style="padding:18px 20px;font-weight:600;cursor:pointer;font-size:15px;list-style:none;display:flex;justify-content:space-between">What makes your product unique?<span>+</span></summary><div style="padding:0 20px 18px;color:#666;line-height:1.7;font-size:14px">Our product combines cutting-edge technology with an intuitive interface, making complex tasks simple and enjoyable.</div></details><details style="background:#f8f8ff;border-radius:10px;overflow:hidden;border:1px solid #eee"><summary style="padding:18px 20px;font-weight:600;cursor:pointer;font-size:15px;list-style:none;display:flex;justify-content:space-between">How much does it cost?<span>+</span></summary><div style="padding:0 20px 18px;color:#666;line-height:1.7;font-size:14px">We offer flexible pricing starting at just $9/month. All plans include a 14-day free trial with no credit card required.</div></details><details style="background:#f8f8ff;border-radius:10px;overflow:hidden;border:1px solid #eee"><summary style="padding:18px 20px;font-weight:600;cursor:pointer;font-size:15px;list-style:none;display:flex;justify-content:space-between">Can I cancel anytime?<span>+</span></summary><div style="padding:0 20px 18px;color:#666;line-height:1.7;font-size:14px">Yes, absolutely. Cancel your subscription at any time with no questions asked. We'll even give you a prorated refund.</div></details></div></div>` },
+  ];
+
+  blocks.forEach(b => {
+    try {
+      bm.add(b.id, {
+        label: `<div style="text-align:center">${b.media}<div style="margin-top:6px;font-size:10px;font-weight:500">${b.label}</div></div>`,
+        category: b.category,
+        content: b.content,
+        attributes: { class: 'block-item' },
+      });
+    } catch(e) {}
+  });
+
+  // Style the block manager
+  setTimeout(styleBlockManager, 500);
+}
+
+function styleBlockManager() {
+  const bm = document.getElementById('blocks-list');
+  if (!bm) return;
+
+  // GrapesJS renders its own blocks, override styling
+  const style = document.createElement('style');
+  style.textContent = `
+    .gjs-block-categories { background: transparent !important; }
+    .gjs-block-category { border: none !important; background: transparent !important; }
+    .gjs-block-category .gjs-title {
+      font-size: 10px !important; text-transform: uppercase !important;
+      letter-spacing: 1px !important; color: var(--text-muted) !important;
+      padding: 8px 12px 4px !important; font-weight: 600 !important;
+      cursor: pointer !important; display: flex !important; align-items: center !important;
+      justify-content: space-between !important; background: transparent !important;
+      border: none !important;
+    }
+    .gjs-block-category .gjs-title:hover { color: var(--text-secondary) !important; }
+    .gjs-blocks-c {
+      display: grid !important; grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important; padding: 4px 8px 8px !important;
+    }
+    .gjs-block {
+      background: var(--bg-secondary) !important; border: 1px solid var(--border) !important;
+      border-radius: 6px !important; padding: 10px 8px !important;
+      cursor: grab !important; transition: all 0.15s !important;
+      color: var(--text-secondary) !important; font-size: 11px !important;
+      font-weight: 500 !important; user-select: none !important;
+      min-height: auto !important; height: auto !important; width: auto !important;
+      display: flex !important; flex-direction: column !important;
+      align-items: center !important; gap: 6px !important; text-align: center !important;
+    }
+    .gjs-block:hover {
+      border-color: var(--accent) !important; color: var(--accent) !important;
+      background: rgba(124,106,247,0.08) !important; transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(124,106,247,0.2) !important;
+    }
+    .gjs-block svg { display: none !important; }
+    .gjs-block i { font-size: 20px !important; opacity: 0.8 !important; }
+    .gjs-block .gjs-block-label { font-size: 10px !important; }
+    .gjs-caret-icon { color: var(--text-muted) !important; }
+    #blocks-list { overflow-y: auto; overflow-x: hidden; }
+    #blocks-list::-webkit-scrollbar { width: 4px; }
+    #blocks-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    #layers-container .gjs-layer { border-bottom: 1px solid var(--border) !important; }
+    #layers-container .gjs-layer-title { color: var(--text-secondary) !important; font-size: 12px !important; padding: 6px 8px !important; }
+    #layers-container .gjs-layer-title:hover { background: var(--bg-panel-hover) !important; }
+    #layers-container .gjs-layer-title--selected { background: rgba(124,106,247,0.15) !important; color: var(--accent) !important; }
+    #layers-container .gjs-layer__move { color: var(--text-muted) !important; }
+    #layers-container .gjs-layer__eye { color: var(--text-muted) !important; }
+    #layers-container .gjs-layer-count { background: var(--accent) !important; }
+    #layers-container { background: transparent !important; }
+  `;
+  document.head.appendChild(style);
+}
+
+/* ── EDITOR EVENTS ── */
+function setupEditorEvents() {
+  editor.on('component:selected', comp => {
+    if (!comp) { renderEventsPanel(null); updateStatusSelection('No selection'); return; }
+    renderEventsPanel(comp);
+    updateStatusSelection(comp.get('tagName') || 'Component');
+    switchRightTab('style');
+  });
+
+  editor.on('component:deselected', () => {
+    renderEventsPanel(null);
+    updateStatusSelection('No selection');
+  });
+
+  editor.on('change:device', () => {
+    const d = editor.getDevice();
+    updateDeviceUI(d);
+  });
+
+  editor.on('update', () => {
+    document.getElementById('btn-undo').style.opacity = editor.UndoManager.hasUndo() ? '1' : '0.4';
+    document.getElementById('btn-redo').style.opacity = editor.UndoManager.hasRedo() ? '1' : '0.4';
+  });
+
+  editor.on('load', () => notify('Editor ready', 'success'));
+
+  // Canvas right-click
+  editor.Canvas.getElement().addEventListener('contextmenu', e => {
+    e.preventDefault();
+    showContextMenu(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#context-menu')) hideContextMenu();
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === 's') { e.preventDefault(); saveProject(); }
+      if (e.key === 'z') { e.preventDefault(); if (e.shiftKey) editorRedo(); else editorUndo(); }
+      if (e.key === 'y') { e.preventDefault(); editorRedo(); }
+      if (e.key === 'p') { e.preventDefault(); showPreview(); }
+      if (e.key === 'e') { e.preventDefault(); showCodeModal(); }
+    }
+    if (e.key === 'Delete' || e.key === 'Backspace') {
+      const sel = editor.getSelected();
+      if (sel && !e.target.matches('input, textarea, [contenteditable]')) {
+        e.preventDefault();
+        editorDelete();
+      }
+    }
+    if (e.key === 'Escape') {
+      closeAllModals();
+      hideContextMenu();
+    }
+  });
+
+  // Update initial state
+  document.getElementById('btn-undo').style.opacity = '0.4';
+  document.getElementById('btn-redo').style.opacity = '0.4';
+}
+
+/* ── PANEL SWITCHING ── */
+function switchLeftTab(tab) {
+  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('stab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
+
+function switchRightTab(tab) {
+  document.querySelectorAll('.rsidebar-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rsidebar-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('rtab-' + tab).classList.add('active');
+  document.getElementById('rpanel-' + tab).classList.add('active');
+}
+
+/* ── DEVICE ── */
+function setDevice(d) {
+  ['desktop','tablet','mobile'].forEach(x => {
+    document.getElementById('dev-'+x).classList.toggle('active', x === d);
+  });
+  const map = { desktop: 'Desktop', tablet: 'Tablet', mobile: 'Mobile' };
+  const widths = { desktop: '1920px', tablet: '768px', mobile: '375px' };
+  editor.setDevice(map[d]);
+  document.getElementById('canvas-info').textContent = map[d] + ' — ' + widths[d];
+  document.getElementById('status-device').innerHTML = `<i class="fas fa-${d === 'mobile' ? 'mobile-alt' : d === 'tablet' ? 'tablet-alt' : 'desktop'}" style="font-size:10px"></i> ${map[d]}`;
+}
+
+function updateDeviceUI(deviceName) {
+  const map = { 'Desktop': 'desktop', 'Tablet': 'tablet', 'Mobile': 'mobile' };
+  const d = map[deviceName] || 'desktop';
+  setDevice(d);
+}
+
+/* ── UNDO/REDO ── */
+function editorUndo() { editor.Commands.run('core:undo'); }
+function editorRedo() { editor.Commands.run('core:redo'); }
+function editorCopy() {
+  const sel = editor.getSelected();
+  if (sel) { editor.Commands.run('core:copy'); notify('Copied!', 'info'); }
+}
+function editorPaste() { editor.Commands.run('core:paste'); }
+function editorDelete() {
+  const sel = editor.getSelected();
+  if (sel) { sel.remove(); notify('Deleted', 'info'); }
+}
+
+/* ── OUTLINE ── */
+function toggleOutline() {
+  outlineMode = !outlineMode;
+  document.getElementById('btn-outline').classList.toggle('active', outlineMode);
+  if (outlineMode) {
+    editor.Commands.run('sw-visibility');
+  } else {
+    editor.Commands.stop('sw-visibility');
+  }
+}
+
+/* ── CLEAR ── */
+function clearCanvas() {
+  if (!confirm('Clear all content? This cannot be undone.')) return;
+  editor.setComponents('');
+  editor.setStyle('');
+  notify('Canvas cleared', 'info');
+}
+
+/* ── CODE EDITOR ── */
+let cmHtmlEditor, cmCssEditor, cmJsEditor;
+
+function showCodeModal() {
+  const modal = document.getElementById('code-modal');
+  modal.classList.add('open');
+
+  const html = editor.getHtml();
+  const css = editor.getCss();
+  const js = editor.getJs ? editor.getJs() : '// Add custom JavaScript here\n';
+
+  if (!cmHtmlEditor) {
+    cmHtmlEditor = CodeMirror.fromTextArea(document.getElementById('code-html-editor'), {
+      mode: 'htmlmixed', theme: 'dracula', lineNumbers: true, lineWrapping: true,
+      matchBrackets: true, autoCloseBrackets: true, autoCloseTags: true, tabSize: 2,
+    });
+    cmCssEditor = CodeMirror.fromTextArea(document.getElementById('code-css-editor'), {
+      mode: 'css', theme: 'dracula', lineNumbers: true, lineWrapping: true,
+      matchBrackets: true, autoCloseBrackets: true, tabSize: 2,
+    });
+    cmJsEditor = CodeMirror.fromTextArea(document.getElementById('code-js-editor'), {
+      mode: 'javascript', theme: 'dracula', lineNumbers: true, lineWrapping: true,
+      matchBrackets: true, autoCloseBrackets: true, tabSize: 2,
+    });
+  }
+
+  cmHtmlEditor.setValue(html);
+  cmCssEditor.setValue(css);
+  cmJsEditor.setValue(js);
+  switchCodeTab('html');
+  setTimeout(() => { cmHtmlEditor.refresh(); cmCssEditor.refresh(); cmJsEditor.refresh(); }, 100);
+}
+
+function switchCodeTab(tab) {
+  document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.code-editor-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.code-tab')[['html','css','js'].indexOf(tab)].classList.add('active');
+  document.getElementById('code-' + tab + '-panel').classList.add('active');
+  const editors = { html: cmHtmlEditor, css: cmCssEditor, js: cmJsEditor };
+  setTimeout(() => editors[tab] && editors[tab].refresh(), 50);
+}
+
+function applyCode() {
+  const html = cmHtmlEditor.getValue();
+  const css = cmCssEditor.getValue();
+  const js = cmJsEditor.getValue();
+
+  editor.setComponents(html);
+  editor.setStyle(css);
+
+  // Store custom JS in the wrapper component
+  if (js.trim()) {
+    const wrapper = editor.getWrapper();
+    wrapper.set('script', js);
+  }
+
+  closeModal('code-modal');
+  notify('Code applied successfully', 'success');
+}
+
+/* ── IMPORT ── */
+function showImportModal() {
+  document.getElementById('import-textarea').value = '';
+  const summary = document.getElementById('import-summary');
+  if (summary) summary.style.display = 'none';
+  // Reset folder pane
+  _folderFiles = { html: null, css: [], js: [], json: null, assets: [] };
+  const fl = document.getElementById('folder-file-list');
+  if (fl) { fl.innerHTML = ''; fl.style.display = 'none'; }
+  const fs = document.getElementById('folder-summary');
+  if (fs) fs.style.display = 'none';
+  // Reset to paste tab
+  switchImportTab('paste');
+  document.getElementById('import-modal').classList.add('open');
+}
+
+function handleImportFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = evt => {
+    const raw = evt.target.result;
+    document.getElementById('import-textarea').value = raw;
+    // Show live parse summary
+    try {
+      const parsed = parseImportedHTML(raw);
+      updateImportSummary(parsed);
+    } catch(err) {}
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+/**
+ * parseImportedHTML — fully extracts all assets from a complete HTML document.
+ * Returns: { bodyHTML, cssText, jsText, externalStyles, externalScripts, headMeta }
+ */
+function parseImportedHTML(rawHTML) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(rawHTML, 'text/html');
+
+  // ── 1. Inline <style> blocks ──────────────────────────────────────────────
+  const styleBlocks = Array.from(doc.querySelectorAll('style'));
+  const cssText = styleBlocks.map(s => s.textContent || '').join('\n').trim();
+  // Remove from doc so they don't re-appear in body HTML
+  styleBlocks.forEach(s => s.remove());
+
+  // ── 2. External <link rel="stylesheet"> ──────────────────────────────────
+  const linkEls = Array.from(doc.querySelectorAll('link[rel~="stylesheet"], link[as="style"]'));
+  const externalStyles = linkEls
+    .map(l => l.getAttribute('href'))
+    .filter(h => h && !h.startsWith('data:'));
+  linkEls.forEach(l => l.remove());
+
+  // ── 3. Inline <script> blocks (non-src, non-json-ld) ─────────────────────
+  const inlineScripts = Array.from(doc.querySelectorAll('script:not([src]):not([type="application/ld+json"]):not([type="application/json"])'));
+  const jsText = inlineScripts.map(s => s.textContent || '').join('\n').trim();
+  inlineScripts.forEach(s => s.remove());
+
+  // ── 4. External <script src="…"> ─────────────────────────────────────────
+  const extScriptEls = Array.from(doc.querySelectorAll('script[src]'));
+  const externalScripts = extScriptEls
+    .map(s => s.getAttribute('src'))
+    .filter(src => src && !src.startsWith('data:'));
+  extScriptEls.forEach(s => s.remove());
+
+  // ── 5. Head metadata: title, meta, link(icon/manifest), font preconnects ─
+  const headMeta = [];
+  // Font preconnects / preloads
+  Array.from(doc.querySelectorAll('link[rel="preconnect"], link[rel="preload"], link[rel="dns-prefetch"]')).forEach(l => {
+    headMeta.push(l.outerHTML);
+    l.remove();
+  });
+  // Favicon / manifest
+  Array.from(doc.querySelectorAll('link[rel~="icon"], link[rel="manifest"]')).forEach(l => {
+    headMeta.push(l.outerHTML);
+    l.remove();
+  });
+
+  // ── 6. Body HTML — cleaned ────────────────────────────────────────────────
+  // Remove any remaining noscript/template tags that confuse GrapesJS
+  Array.from(doc.body.querySelectorAll('noscript')).forEach(n => n.remove());
+
+  const bodyHTML = (doc.body ? doc.body.innerHTML : rawHTML).trim();
+
+  return { bodyHTML, cssText, jsText, externalStyles, externalScripts, headMeta };
+}
+
+/**
+ * Update import summary badge shown in the modal
+ */
+function updateImportSummary(parsed) {
+  const el = document.getElementById('import-summary');
+  if (!el) return;
+  const { cssText, jsText, externalStyles, externalScripts } = parsed;
+  const lines = [];
+  if (cssText) lines.push(`<i class="fas fa-paint-brush" style="color:var(--accent);width:14px"></i> ${cssText.split('\n').length} lines of inline CSS`);
+  if (externalStyles.length) lines.push(`<i class="fas fa-link" style="color:var(--accent-3);width:14px"></i> ${externalStyles.length} external stylesheet${externalStyles.length > 1 ? 's' : ''}`);
+  if (jsText) lines.push(`<i class="fas fa-bolt" style="color:var(--accent-4);width:14px"></i> ${jsText.split('\n').length} lines of inline JS`);
+  if (externalScripts.length) lines.push(`<i class="fas fa-puzzle-piece" style="color:var(--accent-2);width:14px"></i> ${externalScripts.length} external script${externalScripts.length > 1 ? 's' : ''}`);
+  if (lines.length === 0) {
+    el.style.display = 'none';
+    return;
+  }
+  el.style.display = 'block';
+  el.innerHTML = '<strong style="color:var(--accent-3)"><i class="fas fa-check-circle"></i> Detected:</strong><br>' + lines.join('<br>');
+}
+
+function importHTMLContent() {
+  const rawHTML = document.getElementById('import-textarea').value.trim();
+  if (!rawHTML) { notify('No HTML to import', 'error'); return; }
+
+  const optCSS      = document.getElementById('import-opt-css')?.checked ?? true;
+  const optJS       = document.getElementById('import-opt-js')?.checked ?? true;
+  const optLinks    = document.getElementById('import-opt-links')?.checked ?? true;
+  const optExtJS    = document.getElementById('import-opt-extjs')?.checked ?? true;
+  const optReplace  = document.getElementById('import-opt-replace')?.checked ?? true;
+  const optMeta     = document.getElementById('import-opt-meta')?.checked ?? true;
+
+  const parsed = parseImportedHTML(rawHTML);
+  const { bodyHTML, cssText, jsText, externalStyles, externalScripts } = parsed;
+
+  // ── A. Set body components ──────────────────────────────────────────────
+  if (optReplace) {
+    editor.setComponents(bodyHTML);
+  } else {
+    editor.addComponents(bodyHTML);
+  }
+
+  // Give GrapesJS a moment to render components before injecting styles
+  setTimeout(() => {
+    const canvasDoc = editor.Canvas.getDocument();
+    const canvasHead = canvasDoc ? canvasDoc.head : null;
+    const canvasBody = canvasDoc ? canvasDoc.body : null;
+
+    // ── B. Inject CSS as a raw <style> block into the canvas iframe ─────────
+    // We do NOT use editor.setStyle() because it parses CSS through GrapesJS's
+    // style model which mangles complex selectors, pseudo-classes, keyframes, etc.
+    // Direct injection into the canvas iframe head preserves 100% fidelity.
+    if (optCSS && cssText && canvasHead) {
+      // Remove any previously imported style block so re-imports don't stack
+      const prev = canvasHead.getElementById('__forge_imported_styles__');
+      if (prev) prev.remove();
+      const styleEl = canvasDoc.createElement('style');
+      styleEl.id = '__forge_imported_styles__';
+      styleEl.textContent = cssText;
+      canvasHead.appendChild(styleEl);
+      // Also store in GrapesJS for export (use addComponents trick for CSS)
+      editor._importedRawCSS = (editor._importedRawCSS || '') + '\n' + cssText;
+    }
+
+    // ── C. Inject external stylesheets into canvas ──────────────────────────
+    if (optLinks && externalStyles.length && canvasHead) {
+      const existingHrefs = new Set(
+        Array.from(canvasHead.querySelectorAll('link[rel="stylesheet"]')).map(l => l.getAttribute('href'))
+      );
+      externalStyles.forEach(href => {
+        if (!existingHrefs.has(href)) {
+          const link = canvasDoc.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = href;
+          canvasHead.appendChild(link);
+          existingHrefs.add(href);
+        }
+      });
+      editor._importedExternalStyles = [
+        ...(editor._importedExternalStyles || []),
+        ...externalStyles.filter(s => !(editor._importedExternalStyles || []).includes(s)),
+      ];
+    }
+
+    // ── D. Inject head meta / font preconnects ──────────────────────────────
+    if (optMeta && parsed.headMeta && parsed.headMeta.length && canvasHead) {
+      parsed.headMeta.forEach(tagHTML => {
+        const tmp = canvasDoc.createElement('div');
+        tmp.innerHTML = tagHTML;
+        const el = tmp.firstElementChild;
+        if (el) canvasHead.appendChild(el);
+      });
+    }
+
+    // ── E. Inject external JS scripts into canvas body ──────────────────────
+    if (optExtJS && externalScripts.length && canvasBody) {
+      const existingSrcs = new Set(
+        Array.from(canvasBody.querySelectorAll('script[src]')).map(s => s.getAttribute('src'))
+      );
+      externalScripts.forEach(src => {
+        if (!existingSrcs.has(src)) {
+          const script = canvasDoc.createElement('script');
+          script.src = src;
+          canvasBody.appendChild(script);
+          existingSrcs.add(src);
+        }
+      });
+      editor._importedExternalScripts = [
+        ...(editor._importedExternalScripts || []),
+        ...externalScripts.filter(s => !(editor._importedExternalScripts || []).includes(s)),
+      ];
+    }
+
+    // ── F. Inject inline JS into canvas body ───────────────────────────────
+    if (optJS && jsText && canvasBody) {
+      const prev = canvasBody.getElementById('__forge_imported_js__');
+      if (prev) prev.remove();
+      const scriptEl = canvasDoc.createElement('script');
+      scriptEl.id = '__forge_imported_js__';
+      scriptEl.textContent = jsText;
+      canvasBody.appendChild(scriptEl);
+      editor._importedRawJS = jsText;
+    }
+
+  }, 150);
+
+  closeModal('import-modal');
+
+  const parts = [];
+  if (bodyHTML) parts.push('HTML');
+  if (optCSS && cssText) parts.push('CSS');
+  if (optJS && jsText) parts.push('JS');
+  if (optLinks && externalStyles.length) parts.push(`${externalStyles.length} stylesheet${externalStyles.length > 1 ? 's' : ''}`);
+  if (optExtJS && externalScripts.length) parts.push(`${externalScripts.length} script${externalScripts.length > 1 ? 's' : ''}`);
+  notify(`Imported: ${parts.join(', ')}`, 'success');
+}
+
+/**
+ * Merge two CSS strings, preventing exact duplicate @-rules and selectors.
+ * Keeps original styles intact; appends new rules that aren't already present.
+ */
+function deduplicateCSS(existing, incoming) {
+  if (!existing.trim()) return incoming;
+  if (!incoming.trim()) return existing;
+
+  // Simple rule-level dedup: split on } and compare trimmed rule text
+  // This handles both selector blocks and @media blocks at a basic level
+  function extractRules(css) {
+    const rules = [];
+    let depth = 0, start = 0;
+    for (let i = 0; i < css.length; i++) {
+      if (css[i] === '{') depth++;
+      else if (css[i] === '}') {
+        depth--;
+        if (depth === 0) {
+          rules.push(css.slice(start, i + 1).trim());
+          start = i + 1;
+        }
+      }
+    }
+    return rules.filter(r => r.length > 0);
+  }
+
+  const existingRules = new Set(extractRules(existing).map(r => r.replace(/\s+/g, ' ')));
+  const newRules = extractRules(incoming).filter(r => !existingRules.has(r.replace(/\s+/g, ' ')));
+
+  if (newRules.length === 0) return existing;
+  return existing.trimEnd() + '\n\n/* ── Imported Styles ── */\n' + newRules.join('\n');
+}
+
+// Live preview of parsed content while typing/pasting
+(function() {
+  let parseTimer = null;
+  document.addEventListener('DOMContentLoaded', () => {
+    const ta = document.getElementById('import-textarea');
+    if (!ta) return;
+    ta.addEventListener('input', () => {
+      clearTimeout(parseTimer);
+      parseTimer = setTimeout(() => {
+        const val = ta.value.trim();
+        if (!val) { const s = document.getElementById('import-summary'); if (s) s.style.display = 'none'; return; }
+        try {
+          const parsed = parseImportedHTML(val);
+          updateImportSummary(parsed);
+        } catch(e) {}
+      }, 400);
+    });
+  });
+})();
+
+// Drag and drop for import
+document.addEventListener('DOMContentLoaded', () => {
+  const dropArea = document.getElementById('import-drop-area');
+  if (dropArea) {
+    dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+    dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+    dropArea.addEventListener('drop', e => {
+      e.preventDefault(); dropArea.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = evt => {
+          const raw = evt.target.result;
+          document.getElementById('import-textarea').value = raw;
+          try {
+            const parsed = parseImportedHTML(raw);
+            updateImportSummary(parsed);
+          } catch(err) {}
+        };
+        reader.readAsText(file);
+      }
+    });
+  }
+});
+
+/* ── EXPORT ── */
+function exportProject() {
+  const html = editor.getHtml();
+  const css = editor.getCss();
+
+  // Collect all event scripts from components
+  const eventScripts = collectEventScripts();
+
+  // Collect any external resources imported via the import system
+  const importedStyles = (editor._importedExternalStyles || [])
+    .map(href => `<link rel="stylesheet" href="${href}">`)
+    .join('\n');
+  const importedScripts = (editor._importedExternalScripts || [])
+    .map(src => `<script src="${src}"><\/script>`)
+    .join('\n');
+
+  // Raw CSS/JS injected directly into canvas (bypassed editor.setStyle)
+  const rawImportedCSS  = editor._importedRawCSS  ? '\n/* ── Imported Styles ── */\n' + editor._importedRawCSS  : '';
+  const rawImportedJS   = editor._importedRawJS   ? '\n/* ── Imported Scripts ── */\n' + editor._importedRawJS  : '';
+
+  const output = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Forge Website Builder">
+<title>My Website</title>
+${importedStyles}
+<style>
+/* Reset */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Responsive */
+@media(max-width:768px){
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  [style*="font-size:52px"]{font-size:32px!important}
+  [style*="font-size:42px"]{font-size:28px!important}
+  [style*="padding:100px"]{padding:60px 20px!important}
+  [style*="padding:80px"]{padding:48px 20px!important}
+  nav{padding:0 20px!important}
+}
+
+/* Page Styles */
+${css}
+${rawImportedCSS}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+.animate-in{animation:fadeIn 0.6s ease forwards}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+${html}
+${importedScripts}
+${rawImportedJS ? `<script>${rawImportedJS}<\/script>` : ''}
+<script>
+// Forge - Event System
+(function() {
+'use strict';
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver(
+  entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Animate on scroll
+const animObserver = new IntersectionObserver(
+  entries => entries.forEach(e => { if(e.isIntersecting) e.target.style.animationPlayState = 'running'; }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('[data-animate]').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  animObserver.observe(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Form validation helper
+document.querySelectorAll('form').forEach(form => {
+  form.addEventListener('submit', e => {
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = '#f87171';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+    if (!valid) e.preventDefault();
+  });
+});
+
+// Input focus effects
+document.querySelectorAll('input, textarea, select').forEach(el => {
+  el.addEventListener('focus', function() { this.style.borderColor = '#7c6af7'; this.style.outline = 'none'; });
+  el.addEventListener('blur', function() { this.style.borderColor = ''; });
+});
+
+${eventScripts}
+})();
+<\/script>
+</body>
+</html>`;
+
+  const blob = new Blob([output], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'website.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  notify('Exported as website.html', 'success');
+}
+
+function collectEventScripts() {
+  const scripts = [];
+  const comps = editor.getComponents();
+
+  function walk(components) {
+    components.each(comp => {
+      const events = comp.get('custom_events') || {};
+      const id = comp.get('attributes')?.id || comp.getId();
+      Object.entries(events).forEach(([evtName, code]) => {
+        if (code.trim()) {
+          scripts.push(`// ${evtName} on #${id}\n(function() { const el = document.getElementById('${id}'); if(el) { ${code} } })();`);
+        }
+      });
+      if (comp.components) walk(comp.components());
+    });
+  }
+
+  try { walk(comps); } catch(e) {}
+  return scripts.join('\n\n');
+}
+
+/* ── SAVE PROJECT ── */
+function saveProject() {
+  const data = {
+    html: editor.getHtml(),
+    css: editor.getCss(),
+    pages, savedComponents, assets,
+    saved: new Date().toISOString(),
+  };
+  localStorage.setItem('forge_project', JSON.stringify(data));
+  notify('Project saved', 'success');
+}
+
+/* ── PREVIEW ── */
+function showPreview() {
+  const html = editor.getHtml();
+  const css = editor.getCss();
+  const eventScripts = collectEventScripts();
+
+  const importedStyles = (editor._importedExternalStyles || [])
+    .map(href => `<link rel="stylesheet" href="${href}">`)
+    .join('\n');
+  const importedScripts = (editor._importedExternalScripts || [])
+    .map(src => `<script src="${src}"><\/script>`)
+    .join('\n');
+
+  const previewHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">${importedStyles}<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;line-height:1.6}img{max-width:100%;height:auto}${css}</style></head><body>${html}${importedScripts}<script>(function(){document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});${eventScripts}})()</s`+`cript></body></html>`;
+
+  const frame = document.getElementById('preview-frame');
+  frame.srcdoc = previewHtml;
+  setPreviewDevice('desktop');
+  document.getElementById('preview-modal').classList.add('open');
+}
+
+function setPreviewDevice(d) {
+  ['desktop','tablet','mobile'].forEach(x => {
+    document.getElementById('prev-'+x)?.classList.toggle('active', x===d);
+  });
+  const frame = document.getElementById('preview-frame');
+  const widths = { desktop:'100%', tablet:'768px', mobile:'375px' };
+  frame.style.width = widths[d];
+  frame.style.margin = d === 'desktop' ? '0' : '20px auto';
+  frame.style.boxShadow = d === 'desktop' ? 'none' : '0 8px 32px rgba(0,0,0,0.3)';
+  frame.style.borderRadius = d === 'mobile' ? '20px' : d === 'tablet' ? '12px' : '0';
+}
+
+/* ── EVENTS PANEL ── */
+let customEvents = [...EVENTS_DEF];
+
+function renderEventsPanel(comp) {
+  const el = document.getElementById('events-list');
+  if (!comp) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px"><i class="fas fa-bolt" style="font-size:24px;margin-bottom:8px;display:block;opacity:0.3"></i>Select an element to add events</div>`;
+    return;
+  }
+
+  const storedEvents = comp.get('custom_events') || {};
+
+  el.innerHTML = customEvents.map(evt => {
+    const hasCode = storedEvents[evt.name] && storedEvents[evt.name].trim();
+    return `<div class="event-item" id="event-${evt.name}">
+      <div class="event-header" onclick="toggleEvent('${evt.name}')">
+        <div class="event-name">
+          <i class="fas ${evt.icon}" style="color:var(--accent-4);font-size:12px"></i>
+          ${evt.label}
+        </div>
+        <span class="event-badge ${hasCode ? 'active' : 'inactive'}">${hasCode ? 'Active' : 'Off'}</span>
+      </div>
+      <div class="event-body" id="ebody-${evt.name}">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:6px;font-family:var(--font-mono)">// JavaScript</div>
+        <textarea class="event-action-editor" id="ecode-${evt.name}" placeholder="${evt.js}">${storedEvents[evt.name] || ''}</textarea>
+        <button class="event-apply-btn" onclick="applyEvent('${evt.name}')"><i class="fas fa-check"></i> Apply</button>
+        ${hasCode ? `<button class="event-apply-btn" style="margin-left:6px;color:var(--error);border-color:rgba(248,113,113,0.3)" onclick="clearEvent('${evt.name}')"><i class="fas fa-times"></i> Clear</button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleEvent(name) {
+  const body = document.getElementById('ebody-' + name);
+  body.classList.toggle('open');
+}
+
+function applyEvent(name) {
+  const comp = editor.getSelected();
+  if (!comp) { notify('Select an element first', 'error'); return; }
+  const code = document.getElementById('ecode-' + name).value;
+  const events = comp.get('custom_events') || {};
+  events[name] = code;
+  comp.set('custom_events', events);
+
+  // Ensure element has an ID for export
+  const attrs = comp.getAttributes();
+  if (!attrs.id) {
+    comp.addAttributes({ id: 'el-' + Math.random().toString(36).substr(2, 6) });
+  }
+
+  renderEventsPanel(comp);
+  notify('Event applied', 'success');
+}
+
+function clearEvent(name) {
+  const comp = editor.getSelected();
+  if (!comp) return;
+  const events = comp.get('custom_events') || {};
+  delete events[name];
+  comp.set('custom_events', events);
+  renderEventsPanel(comp);
+  notify('Event cleared', 'info');
+}
+
+function addCustomEvent() {
+  const input = document.getElementById('custom-event-name');
+  const name = input.value.trim();
+  if (!name) { notify('Enter an event name', 'error'); return; }
+  if (customEvents.find(e => e.name === name)) { notify('Event already exists', 'error'); return; }
+
+  customEvents.push({
+    name, label: name, icon: 'fa-bolt',
+    js: `// Custom event: ${name}\nthis.addEventListener("${name}", function(e) {\n  // Your code here\n});`
+  });
+  input.value = '';
+
+  const comp = editor.getSelected();
+  renderEventsPanel(comp);
+  notify('Custom event added', 'success');
+}
+
+/* ── PAGES ── */
+function renderPagesPanel() {
+  const el = document.getElementById('pages-list');
+  el.innerHTML = pages.map(p => `
+    <div class="page-item ${p.active ? 'active' : ''}" onclick="switchPage('${p.id}')">
+      <span><i class="fas fa-file-alt" style="font-size:11px;margin-right:6px;opacity:0.6"></i>${p.name}</span>
+      <div class="page-item-actions">
+        <button class="page-action-btn" onclick="event.stopPropagation();renamePage('${p.id}')" title="Rename"><i class="fas fa-pen"></i></button>
+        ${pages.length > 1 ? `<button class="page-action-btn" onclick="event.stopPropagation();deletePage('${p.id}')" title="Delete" style="color:var(--error)"><i class="fas fa-trash"></i></button>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('status-pages').innerHTML = `<i class="fas fa-file" style="font-size:10px"></i> ${pages.length} page${pages.length !== 1 ? 's' : ''}`;
+}
+
+function switchPage(id) {
+  // Save current page content
+  pageContents[currentPage] = { html: editor.getHtml(), css: editor.getCss() };
+
+  // Switch page
+  pages.forEach(p => p.active = p.id === id);
+  currentPage = id;
+
+  // Load new page content
+  const content = pageContents[id];
+  if (content) {
+    editor.setComponents(content.html);
+    editor.setStyle(content.css);
+  } else {
+    editor.setComponents('<div style="padding:60px;text-align:center;color:#999;min-height:200px"><h2 style="font-size:32px;margin-bottom:16px">' + pages.find(p=>p.id===id)?.name + '</h2><p>Start building this page</p></div>');
+  }
+
+  renderPagesPanel();
+}
+
+function addPage() {
+  const name = prompt('Page name:');
+  if (!name) return;
+  const id = name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now();
+  pages.push({ id, name, active: false });
+  renderPagesPanel();
+  notify('Page "' + name + '" created', 'success');
+}
+
+function deletePage(id) {
+  if (!confirm('Delete this page?')) return;
+  pages = pages.filter(p => p.id !== id);
+  if (currentPage === id) {
+    switchPage(pages[0].id);
+  }
+  renderPagesPanel();
+}
+
+function renamePage(id) {
+  const page = pages.find(p => p.id === id);
+  const name = prompt('New name:', page.name);
+  if (name) { page.name = name; renderPagesPanel(); }
+}
+
+/* ── ASSETS ── */
+function renderAssetsPanel() {
+  const grid = document.getElementById('assets-grid');
+  const placeholder = document.getElementById('assets-placeholder');
+
+  if (assets.length === 0) {
+    grid.innerHTML = '';
+    placeholder.style.display = 'block';
+    return;
+  }
+
+  placeholder.style.display = 'none';
+  grid.innerHTML = assets.map((a, i) => `
+    <div class="asset-item" onclick="useAsset('${a.url}')" title="${a.name}">
+      <img src="${a.url}" alt="${a.name}" loading="lazy">
+      <div class="asset-item-label">${a.name}</div>
+    </div>
+  `).join('');
+}
+
+function handleAssetUpload(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = evt => {
+      assets.push({ url: evt.target.result, name: file.name, type: file.type });
+      renderAssetsPanel();
+      editor.AssetManager.add([{ src: evt.target.result, name: file.name }]);
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+  notify(`${files.length} image(s) uploaded`, 'success');
+}
+
+function useAsset(url) {
+  const sel = editor.getSelected();
+  if (sel && sel.get('tagName') === 'img') {
+    sel.set('attributes', { ...sel.getAttributes(), src: url });
+    notify('Image applied', 'success');
+  } else {
+    navigator.clipboard.writeText(url).catch(() => {});
+    notify('URL copied — select an image element to apply', 'info');
+  }
+}
+
+/* ── COMPONENT LIBRARY ── */
+function showSaveComponentModal() {
+  const sel = editor.getSelected();
+  if (!sel) { notify('Select an element first', 'error'); return; }
+  document.getElementById('component-name-input').value = '';
+  document.getElementById('component-cat-input').value = 'General';
+  document.getElementById('save-component-modal').classList.add('open');
+}
+
+function doSaveComponent() {
+  const sel = editor.getSelected();
+  if (!sel) return;
+  const name = document.getElementById('component-name-input').value.trim() || 'Component';
+  const cat = document.getElementById('component-cat-input').value.trim() || 'General';
+
+  const comp = {
+    id: 'comp-' + Date.now(),
+    name, cat,
+    html: sel.toHTML ? sel.toHTML() : sel.get('content') || '',
+    icon: getComponentIcon(sel.get('tagName')),
+  };
+
+  savedComponents.push(comp);
+  renderComponentLibrary();
+  closeModal('save-component-modal');
+  notify('"' + name + '" saved to library', 'success');
+}
+
+function getComponentIcon(tag) {
+  const map = { div:'square', section:'window-maximize', h1:'heading', h2:'heading', h3:'heading', p:'paragraph', a:'link', img:'image', button:'square', form:'envelope', nav:'bars', footer:'shoe-prints' };
+  return map[tag] || 'puzzle-piece';
+}
+
+function renderComponentLibrary() {
+  const el = document.getElementById('components-list');
+  if (savedComponents.length === 0) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:12px"><i class="fas fa-puzzle-piece" style="font-size:24px;margin-bottom:8px;display:block;opacity:0.3"></i>No saved components yet</div>`;
+    return;
+  }
+
+  el.innerHTML = savedComponents.map(c => `
+    <div class="component-item" onclick="insertComponent('${c.id}')">
+      <div class="component-item-left">
+        <div class="component-icon"><i class="fas fa-${c.icon}"></i></div>
+        <div>
+          <div class="component-name">${c.name}</div>
+          <div class="component-type">${c.cat}</div>
+        </div>
+      </div>
+      <button onclick="event.stopPropagation();deleteComponent('${c.id}')" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px;border-radius:3px;font-size:11px" title="Delete"><i class="fas fa-trash"></i></button>
+    </div>
+  `).join('');
+}
+
+function insertComponent(id) {
+  const comp = savedComponents.find(c => c.id === id);
+  if (!comp) return;
+  editor.addComponents(comp.html);
+  notify('"' + comp.name + '" added', 'success');
+}
+
+function deleteComponent(id) {
+  savedComponents = savedComponents.filter(c => c.id !== id);
+  renderComponentLibrary();
+}
+
+function clearComponents() {
+  if (!confirm('Clear all saved components?')) return;
+  savedComponents = [];
+  renderComponentLibrary();
+}
+
+/* ══════════════════════════════════════════════════════
+   ELEMENT FINDER / ID-CLASS CONTROLLER
+   ══════════════════════════════════════════════════════ */
+
+/**
+ * Get all components in the editor as a flat array
+ */
+function getAllComponents(component, result = []) {
+  result.push(component);
+  component.components().each(child => getAllComponents(child, result));
+  return result;
+}
+
+/**
+ * Live search as user types
+ */
+function liveFinderSearch(type) {
+  const input = type === 'id'
+    ? document.getElementById('finder-id-input')
+    : document.getElementById('finder-cls-input');
+  const val = input.value.trim();
+  if (!val) { clearFinderResults(); return; }
+  showFinderResults(type, val);
+}
+
+function clearFinderResults() {
+  const el = document.getElementById('finder-results');
+  if (el) el.innerHTML = '';
+}
+
+/**
+ * Find elements on canvas by id or class, display results
+ */
+function findElementBy(type) {
+  const input = type === 'id'
+    ? document.getElementById('finder-id-input')
+    : document.getElementById('finder-cls-input');
+  const val = input.value.trim();
+  if (!val) { notify('Enter an ID or class name', 'error'); return; }
+  showFinderResults(type, val);
+}
+
+function showFinderResults(type, val) {
+  if (!editor) return;
+  const wrapper = editor.getWrapper();
+  const all = getAllComponents(wrapper);
+
+  const matches = all.filter(comp => {
+    if (type === 'id') {
+      return (comp.getId() || '').toLowerCase() === val.toLowerCase();
+    } else {
+      const classes = comp.getClasses ? comp.getClasses() : [];
+      return classes.some(c => c.toLowerCase().includes(val.toLowerCase()));
+    }
+  });
+
+  const el = document.getElementById('finder-results');
+  if (!el) return;
+
+  if (matches.length === 0) {
+    el.innerHTML = `<div class="finder-empty"><i class="fas fa-search" style="opacity:0.4;margin-right:5px"></i>No elements found</div>`;
+    return;
+  }
+
+  el.innerHTML = matches.map((comp, i) => {
+    const tag = comp.get('tagName') || 'div';
+    const id = comp.getId() || '';
+    const classes = (comp.getClasses ? comp.getClasses() : []).join(' ');
+    const label = type === 'id' ? `#${id}` : `.${classes.split(' ').join(' .')}`;
+    return `<div class="finder-result-item" onclick="selectFoundComponent(${i}, '__forge_find__')">
+      <span class="finder-result-tag">${tag}</span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${label}</span>
+      <i class="fas fa-mouse-pointer" style="opacity:0.4;font-size:10px"></i>
+    </div>`;
+  }).join('');
+
+  // Store matches for click handler
+  window.__forgeFinderMatches = matches;
+
+  el.querySelectorAll('.finder-result-item').forEach((item, i) => {
+    item.onclick = () => {
+      const comp = window.__forgeFinderMatches[i];
+      if (comp) {
+        editor.select(comp);
+        switchRightTab('traits');
+        notify(`Selected: <${comp.get('tagName') || 'div'}>`, 'success');
+      }
+    };
+  });
+}
+
+/**
+ * Update the "Selected Element" info in the Finder panel when a component is selected
+ */
+function updateFinderCurrentInfo(comp) {
+  const infoBox = document.getElementById('finder-current-info');
+  const badge = document.getElementById('finder-current-badge');
+  if (!infoBox || !badge) return;
+
+  if (!comp) {
+    infoBox.style.display = 'none';
+    return;
+  }
+
+  infoBox.style.display = 'block';
+  const tag = comp.get('tagName') || 'div';
+  const id = comp.getId() || '';
+  const classes = (comp.getClasses ? comp.getClasses() : []);
+
+  let html = `<span class="cei-tag">&lt;${tag}&gt;</span>`;
+  if (id) html += `  <span class="cei-id">#${id}</span>`;
+  if (classes.length) html += `  <span class="cei-cls">.${classes.join(' .')}</span>`;
+  if (!id && !classes.length) html += `  <span class="cei-none">no id or class</span>`;
+
+  badge.innerHTML = html;
+
+  // Pre-fill set-id input with current id
+  const setIdInput = document.getElementById('set-id-input');
+  if (setIdInput) setIdInput.value = id;
+}
+
+/**
+ * Apply an ID to the currently selected element
+ */
+function applyElementId() {
+  const comp = editor && editor.getSelected();
+  if (!comp) { notify('No element selected', 'error'); return; }
+  const val = document.getElementById('set-id-input').value.trim();
+  if (!val) { notify('Enter an ID value', 'error'); return; }
+  comp.setId(val);
+  updateFinderCurrentInfo(comp);
+  notify(`ID set to #${val}`, 'success');
+}
+
+/**
+ * Add or remove a class from the selected element
+ */
+function applyElementClass(action) {
+  const comp = editor && editor.getSelected();
+  if (!comp) { notify('No element selected', 'error'); return; }
+  const val = document.getElementById('add-cls-input').value.trim();
+  if (!val) { notify('Enter a class name', 'error'); return; }
+  if (action === 'add') {
+    if (comp.addClass) comp.addClass(val);
+    notify(`Class .${val} added`, 'success');
+  } else {
+    if (comp.removeClass) comp.removeClass(val);
+    notify(`Class .${val} removed`, 'info');
+  }
+  updateFinderCurrentInfo(comp);
+  document.getElementById('add-cls-input').value = '';
+}
+
+
+/* ══════════════════════════════════════════════════════
+   IMPORT TABS — switch between Paste HTML & Folder
+   ══════════════════════════════════════════════════════ */
+
+let _activeImportTab = 'paste';
+
+function switchImportTab(tab) {
+  _activeImportTab = tab;
+  document.querySelectorAll('.import-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.import-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('itab-' + tab).classList.add('active');
+  document.getElementById('ipane-' + tab).classList.add('active');
+  // Swap the footer button action
+  const btn = document.getElementById('import-action-btn');
+  if (tab === 'folder') {
+    btn.innerHTML = '<i class="fas fa-folder-open"></i> Import Folder';
+    btn.onclick = importFolderContent;
+  } else {
+    btn.innerHTML = '<i class="fas fa-file-import"></i> Import';
+    btn.onclick = importHTMLContent;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════
+   FOLDER IMPORT SYSTEM
+   ══════════════════════════════════════════════════════ */
+
+let _folderFiles = {}; // keyed by filename role: html, css, js, json, assets[]
+
+function fmtBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + ' KB';
+  return (b / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function fileTypeClass(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (ext === 'html' || ext === 'htm') return 'folder-file-html';
+  if (ext === 'css') return 'folder-file-css';
+  if (ext === 'js') return 'folder-file-js';
+  if (ext === 'json') return 'folder-file-json';
+  if (['png','jpg','jpeg','gif','svg','webp','ico','avif'].includes(ext)) return 'folder-file-img';
+  return 'folder-file-other';
+}
+
+function fileTypeIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (ext === 'html' || ext === 'htm') return 'fa-file-code';
+  if (ext === 'css') return 'fa-file-alt';
+  if (ext === 'js') return 'fa-file-code';
+  if (ext === 'json') return 'fa-database';
+  if (['png','jpg','jpeg','gif','svg','webp','ico','avif'].includes(ext)) return 'fa-file-image';
+  return 'fa-file';
+}
+
+function handleFolderInput(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  processFolderFiles(files);
+  e.target.value = '';
+}
+
+function handleFolderDrop(e) {
+  e.preventDefault();
+  document.getElementById('folder-drop-zone').classList.remove('dragover');
+  const items = e.dataTransfer.items;
+  const files = [];
+  if (items) {
+    for (let i = 0; i < items.length; i++) {
+      const entry = items[i].webkitGetAsEntry ? items[i].webkitGetAsEntry() : null;
+      if (entry && entry.isDirectory) {
+        // Read directory recursively
+        readDirEntry(entry, files, () => processFolderFiles(files));
+        return;
+      } else if (items[i].kind === 'file') {
+        files.push(items[i].getAsFile());
+      }
+    }
+  } else {
+    for (let i = 0; i < e.dataTransfer.files.length; i++) files.push(e.dataTransfer.files[i]);
+  }
+  processFolderFiles(files);
+}
+
+function readDirEntry(entry, files, done) {
+  const reader = entry.createReader();
+  reader.readEntries(entries => {
+    let pending = entries.length;
+    if (!pending) { done(); return; }
+    entries.forEach(ent => {
+      if (ent.isFile) {
+        ent.file(f => { files.push(f); pending--; if (!pending) done(); });
+      } else if (ent.isDirectory) {
+        readDirEntry(ent, files, () => { pending--; if (!pending) done(); });
+      } else {
+        pending--;
+        if (!pending) done();
+      }
+    });
+  });
+}
+
+function processFolderFiles(files) {
+  _folderFiles = { html: null, css: [], js: [], json: null, assets: [] };
+
+  files.forEach(f => {
+    const ext = f.name.split('.').pop().toLowerCase();
+    if ((ext === 'html' || ext === 'htm') && !_folderFiles.html) {
+      _folderFiles.html = f;
+    } else if (ext === 'css') {
+      _folderFiles.css.push(f);
+    } else if (ext === 'js') {
+      _folderFiles.js.push(f);
+    } else if (ext === 'json') {
+      _folderFiles.json = f;
+    } else if (['png','jpg','jpeg','gif','svg','webp','ico','avif'].includes(ext)) {
+      _folderFiles.assets.push(f);
+    }
+  });
+
+  // Render file list
+  const listEl = document.getElementById('folder-file-list');
+  listEl.style.display = 'flex';
+  listEl.innerHTML = files.map(f => `
+    <div class="folder-file-item ${fileTypeClass(f.name)}">
+      <i class="fas ${fileTypeIcon(f.name)}"></i>
+      <span class="ffi-name">${f.webkitRelativePath || f.name}</span>
+      <span class="ffi-size">${fmtBytes(f.size)}</span>
+    </div>`).join('');
+
+  // Summary
+  const summaryEl = document.getElementById('folder-summary');
+  const parts = [];
+  if (_folderFiles.html) parts.push(`<i class="fas fa-file-code" style="color:var(--accent-4)"></i> ${_folderFiles.html.name}`);
+  if (_folderFiles.css.length) parts.push(`<i class="fas fa-file-alt" style="color:#38bdf8"></i> ${_folderFiles.css.length} CSS file${_folderFiles.css.length > 1 ? 's' : ''}`);
+  if (_folderFiles.js.length) parts.push(`<i class="fas fa-file-code" style="color:#facc15"></i> ${_folderFiles.js.length} JS file${_folderFiles.js.length > 1 ? 's' : ''}`);
+  if (_folderFiles.json) parts.push(`<i class="fas fa-database" style="color:var(--accent-3)"></i> data.json`);
+  if (_folderFiles.assets.length) parts.push(`<i class="fas fa-file-image" style="color:var(--accent-2)"></i> ${_folderFiles.assets.length} asset${_folderFiles.assets.length > 1 ? 's' : ''}`);
+
+  if (parts.length) {
+    summaryEl.style.display = 'block';
+    summaryEl.innerHTML = '<strong style="color:var(--accent-3)"><i class="fas fa-check-circle"></i> Detected:</strong><br>' + parts.join('<br>');
+  } else {
+    summaryEl.style.display = 'none';
+  }
+}
+
+/**
+ * Read a File as text
+ */
+function readFileText(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = e => resolve(e.target.result);
+    r.onerror = reject;
+    r.readAsText(file);
+  });
+}
+
+/**
+ * Read a File as Data URL (for images)
+ */
+function readFileDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = e => resolve(e.target.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+/**
+ * Main folder import handler — injects all styles directly into the canvas
+ * iframe rather than through editor.setStyle(), preserving 100% CSS fidelity.
+ */
+async function importFolderContent() {
+  if (!_folderFiles.html && !_folderFiles.css.length && !_folderFiles.js.length) {
+    notify('No project files selected. Click the folder zone above.', 'error');
+    return;
+  }
+
+  const optHTML    = document.getElementById('fopt-html')?.checked ?? true;
+  const optCSS     = document.getElementById('fopt-css')?.checked ?? true;
+  const optJS      = document.getElementById('fopt-js')?.checked ?? true;
+  const optJSON    = document.getElementById('fopt-json')?.checked ?? true;
+  const optAssets  = document.getElementById('fopt-assets')?.checked ?? true;
+  const optReplace = document.getElementById('fopt-replace')?.checked ?? true;
+
+  const parts = [];
+
+  try {
+    // ── 1. Parse & load the HTML file body ────────────────────────────────────
+    let parsedFromHTML = null;
+    if (optHTML && _folderFiles.html) {
+      const rawHTML = await readFileText(_folderFiles.html);
+      parsedFromHTML = parseImportedHTML(rawHTML);
+      if (optReplace) {
+        editor.setComponents(parsedFromHTML.bodyHTML);
+      } else {
+        editor.addComponents(parsedFromHTML.bodyHTML);
+      }
+      parts.push('HTML');
+    }
+
+    // Wait for GrapesJS to render the DOM before touching the canvas iframe
+    await new Promise(r => setTimeout(r, 250));
+
+    const canvasDoc  = editor.Canvas.getDocument();
+    const canvasHead = canvasDoc ? canvasDoc.head : null;
+    const canvasBody = canvasDoc ? canvasDoc.body : null;
+
+    // ── 2. CSS — inject as raw <style> directly into canvas iframe ────────────
+    // We NEVER call editor.setStyle() for imported CSS — it runs through
+    // GrapesJS's CSS parser which drops pseudo-selectors, keyframes, vars, etc.
+    // Direct DOM injection into the iframe head is the only faithful approach.
+    let allCSS = '';
+    if (parsedFromHTML && parsedFromHTML.cssText) allCSS += parsedFromHTML.cssText + '\n\n';
+    if (optCSS && _folderFiles.css.length) {
+      const chunks = await Promise.all(_folderFiles.css.map(f => readFileText(f)));
+      allCSS += chunks.join('\n\n');
+      parts.push(_folderFiles.css.length + ' CSS file' + (_folderFiles.css.length > 1 ? 's' : ''));
+    }
+    if (allCSS.trim() && canvasHead) {
+      let styleEl = canvasHead.getElementById('__forge_folder_styles__');
+      if (!styleEl) {
+        styleEl = canvasDoc.createElement('style');
+        styleEl.id = '__forge_folder_styles__';
+        canvasHead.appendChild(styleEl);
+      }
+      styleEl.textContent = allCSS;
+      editor._importedRawCSS = allCSS;
+    }
+
+    // ── 3. External stylesheets referenced inside the HTML ─────────────────────
+    if (parsedFromHTML && parsedFromHTML.externalStyles.length && canvasHead) {
+      const existingHrefs = new Set(
+        Array.from(canvasHead.querySelectorAll('link[rel="stylesheet"]')).map(l => l.getAttribute('href'))
+      );
+      parsedFromHTML.externalStyles.forEach(href => {
+        if (!existingHrefs.has(href)) {
+          const link = canvasDoc.createElement('link');
+          link.rel = 'stylesheet'; link.href = href;
+          canvasHead.appendChild(link);
+          existingHrefs.add(href);
+        }
+      });
+      editor._importedExternalStyles = [
+        ...(editor._importedExternalStyles || []),
+        ...parsedFromHTML.externalStyles,
+      ];
+    }
+
+    // ── 4. Head meta / font preconnects from HTML ─────────────────────────────
+    if (parsedFromHTML && parsedFromHTML.headMeta.length && canvasHead) {
+      parsedFromHTML.headMeta.forEach(tagHTML => {
+        const tmp = canvasDoc.createElement('div');
+        tmp.innerHTML = tagHTML;
+        const el = tmp.firstElementChild;
+        if (el) canvasHead.appendChild(el);
+      });
+    }
+
+    // ── 5. JS — inject as raw <script> directly into canvas body ─────────────
+    let allJS = '';
+    if (parsedFromHTML && parsedFromHTML.jsText) allJS += parsedFromHTML.jsText + '\n\n';
+    if (optJS && _folderFiles.js.length) {
+      const chunks = await Promise.all(_folderFiles.js.map(f => readFileText(f)));
+      allJS += chunks.join('\n\n');
+      parts.push(_folderFiles.js.length + ' JS file' + (_folderFiles.js.length > 1 ? 's' : ''));
+    }
+    if (allJS.trim() && canvasBody) {
+      let scriptEl = canvasBody.getElementById('__forge_folder_js__');
+      if (!scriptEl) {
+        scriptEl = canvasDoc.createElement('script');
+        scriptEl.id = '__forge_folder_js__';
+        canvasBody.appendChild(scriptEl);
+      }
+      scriptEl.textContent = allJS;
+      editor._importedRawJS = allJS;
+    }
+
+    // External scripts referenced in HTML
+    if (parsedFromHTML && parsedFromHTML.externalScripts.length && canvasBody) {
+      const existingSrcs = new Set(
+        Array.from(canvasBody.querySelectorAll('script[src]')).map(s => s.getAttribute('src'))
+      );
+      parsedFromHTML.externalScripts.forEach(src => {
+        if (!existingSrcs.has(src)) {
+          const script = canvasDoc.createElement('script');
+          script.src = src; canvasBody.appendChild(script);
+          existingSrcs.add(src);
+        }
+      });
+      editor._importedExternalScripts = [
+        ...(editor._importedExternalScripts || []),
+        ...parsedFromHTML.externalScripts,
+      ];
+    }
+
+    // ── 6. data.json ──────────────────────────────────────────────────────────
+    if (optJSON && _folderFiles.json) {
+      const jsonText = await readFileText(_folderFiles.json);
+      try {
+        editor._projectData = JSON.parse(jsonText);
+        if (canvasHead) {
+          let scriptEl = canvasHead.getElementById('__forge_data__');
+          if (!scriptEl) {
+            scriptEl = canvasDoc.createElement('script');
+            scriptEl.id = '__forge_data__';
+            canvasHead.appendChild(scriptEl);
+          }
+          scriptEl.textContent = `window.__projectData = ${jsonText};`;
+        }
+        parts.push('data.json');
+      } catch(e) { notify('data.json is not valid JSON', 'error'); }
+    }
+
+    // ── 7. Image assets — load as data URLs, swap src references ──────────────
+    if (optAssets && _folderFiles.assets.length) {
+      const loaded = await Promise.all(_folderFiles.assets.map(f =>
+        readFileDataURL(f).then(url => ({ name: f.name, url }))
+      ));
+      loaded.forEach(({ name, url }) => {
+        editor.AssetManager.add({ src: url, name, type: 'image' });
+        assets.push({ id: 'asset-' + Date.now() + '-' + Math.random().toString(36).slice(2), name, src: url });
+        // Swap any broken img src references in the canvas
+        if (canvasDoc) {
+          canvasDoc.querySelectorAll('img').forEach(img => {
+            const s = img.getAttribute('src') || '';
+            if (s.endsWith(name) || s.split('/').pop() === name) img.src = url;
+          });
+        }
+      });
+      renderAssetsPanel();
+      parts.push(loaded.length + ' asset' + (loaded.length > 1 ? 's' : ''));
+    }
+
+    closeModal('import-modal');
+    notify('Imported: ' + parts.join(', '), 'success');
+
+  } catch (err) {
+    console.error('Folder import error:', err);
+    notify('Import error: ' + err.message, 'error');
+  }
+}
+
+// Wire up finder to component:selected event (done after editor init)
+function setupFinderEvents() {
+  editor.on('component:selected', comp => {
+    updateFinderCurrentInfo(comp);
+  });
+  editor.on('component:deselected', () => {
+    updateFinderCurrentInfo(null);
+  });
+}
+
+
+
+function showContextMenu(x, y) {
+  ctxComp = editor.getSelected();
+  const menu = document.getElementById('context-menu');
+  menu.style.display = 'block';
+  menu.style.left = Math.min(x, window.innerWidth - 200) + 'px';
+  menu.style.top = Math.min(y, window.innerHeight - 280) + 'px';
+}
+
+function hideContextMenu() {
+  document.getElementById('context-menu').style.display = 'none';
+}
+
+function ctxAction(action) {
+  hideContextMenu();
+  const comp = ctxComp || editor.getSelected();
+
+  switch(action) {
+    case 'select-parent':
+      if (comp && comp.parent()) editor.select(comp.parent()); break;
+    case 'duplicate':
+      if (comp) {
+        const clone = comp.clone();
+        comp.parent().append(clone);
+        notify('Duplicated', 'info');
+      } break;
+    case 'copy': editorCopy(); break;
+    case 'paste': editorPaste(); break;
+    case 'move-up':
+      if (comp) {
+        const idx = comp.index();
+        if (idx > 0) { const parent = comp.parent(); parent.remove(comp); parent.add(comp, { at: idx - 1 }); }
+      } break;
+    case 'move-down':
+      if (comp) {
+        const idx = comp.index();
+        const parent = comp.parent();
+        if (idx < parent.components().length - 1) { parent.remove(comp); parent.add(comp, { at: idx + 1 }); }
+      } break;
+    case 'save-component': showSaveComponentModal(); break;
+    case 'edit-code': showCodeModal(); break;
+    case 'delete': editorDelete(); break;
+  }
+}
+
+/* ── LAYERS ── */
+function expandAllLayers() {
+  document.querySelectorAll('#layers-container .gjs-caret-icon').forEach(el => {
+    if (el.classList.contains('fa-caret-right')) el.click();
+  });
+}
+
+function collapseAllLayers() {
+  document.querySelectorAll('#layers-container .gjs-caret-icon').forEach(el => {
+    if (el.classList.contains('fa-caret-down')) el.click();
+  });
+}
+
+/* ── BLOCKS SEARCH ── */
+function filterBlocks(query) {
+  const q = query.toLowerCase();
+  document.querySelectorAll('.gjs-block').forEach(block => {
+    const label = block.querySelector('.gjs-block-label')?.textContent?.toLowerCase() || '';
+    block.style.display = (!q || label.includes(q)) ? '' : 'none';
+  });
+  document.querySelectorAll('.gjs-block-category').forEach(cat => {
+    const visible = Array.from(cat.querySelectorAll('.gjs-block')).some(b => b.style.display !== 'none');
+    cat.style.display = visible ? '' : 'none';
+  });
+}
+
+/* ── MODALS ── */
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function closeAllModals() {
+  document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+}
+
+/* ── NOTIFICATIONS ── */
+function notify(msg, type = 'info') {
+  const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+  const el = document.createElement('div');
+  el.className = `notification ${type}`;
+  el.innerHTML = `<i class="fas ${icons[type]}"></i><span>${msg}</span>`;
+  document.getElementById('notifications').appendChild(el);
+  setTimeout(() => {
+    el.style.animation = 'slideOut 0.3s ease forwards';
+    setTimeout(() => el.remove(), 300);
+  }, 3000);
+}
+
+/* ── STATUS BAR ── */
+function updateStatusSelection(label) {
+  document.getElementById('status-selection').textContent = label ? `Selected: ${label}` : 'No selection';
+}
+
+/* ── LOAD SAVED ── */
+try {
+  const saved = localStorage.getItem('forge_project');
+  if (saved) {
+    const data = JSON.parse(saved);
+    if (data.savedComponents) { savedComponents = data.savedComponents; }
+    if (data.assets) { assets = data.assets; }
+    if (data.pages) { pages = data.pages; }
+  }
+} catch(e) {}
+
+/* ── FINAL INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderComponentLibrary();
+  renderPagesPanel();
+  renderAssetsPanel();
+});
+</script>
+</body>
+</html>
